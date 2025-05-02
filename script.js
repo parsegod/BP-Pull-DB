@@ -8,10 +8,22 @@ const poolFilterContainer = document.getElementById('poolCheckboxes');
 const togglePoolDropdown = document.getElementById('togglePoolDropdown');
 const poolArrow = document.getElementById('poolArrow');
 
-const categoryList = [
-  "AR", "Sub", "Shotgun", "LMG", "Marksman",
-  "Snipe", "Pistol", "Special", "Launcher", "Melee"
-];
+const categoryMap = {
+  "0": "AR",
+  "1": "Sub",
+  "2": "Shotgun",
+  "3": "LMG",
+  "4": "Marksman",
+  "5": "Snipe",
+  "6": "Pistol",
+  "7": "Special",
+  "8": "Launcher",
+  "9": "Melee"
+};
+
+const categoryMapReverse = Object.fromEntries(
+  Object.entries(categoryMap).map(([key, val]) => [val, key])
+);
 
 const poolList = ["1", "2", "3", "4","5","6","7","8","9","10"];
 
@@ -39,7 +51,7 @@ function renderTable(data) {
       row.className = i % 2 === 0 ? 'even' : 'odd';
       row.innerHTML = `
         <td>${weapon.name}</td>
-        <td>${weapon.Category}</td>
+        <td>${categoryMap[weapon.Category]}</td>
         <td>${blueprint.Name}</td>
         <td>${blueprint.Pool}</td>
       `;
@@ -51,7 +63,7 @@ function renderTable(data) {
 function populateCategoryFilter() {
   categoryFilterContainer.innerHTML = '';
 
-  categoryList.forEach(cat => {
+  Object.values(categoryMap).forEach(cat => {
     const label = document.createElement('label');
     label.style.display = 'block';
 
@@ -94,7 +106,7 @@ function applyFilters() {
     .map(cb => cb.value);
 
   const filtered = Weapons
-    .filter(w => activeCategories.includes(w.Category))
+    .filter(w => activeCategories.includes(categoryMap[w.Category]))
     .map(weapon => {
       const filteredBlueprints = weapon.Blueprints.filter(bp => {
         const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.name.toLowerCase().includes(textFilter);
