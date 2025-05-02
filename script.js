@@ -40,7 +40,7 @@ fetch('assets/weapon.json')
     applyFilters();
     searchView.classList.remove('hidden');
   })
-  .catch(err => console.error("Fehler beim Laden:", err));
+  .catch(err => console.error("Error on load:", err));
 
 function renderTable(data) {
   tableBody.innerHTML = '';
@@ -50,7 +50,7 @@ function renderTable(data) {
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
       row.innerHTML = `
-        <td>${weapon.name}</td>
+        <td>${weapon.Name}</td>
         <td>${categoryMap[weapon.Category]}</td>
         <td>${blueprint.Name}</td>
         <td>${blueprint.Pool}</td>
