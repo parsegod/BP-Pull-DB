@@ -9,7 +9,8 @@
         { "Name": "BLACKCELL WILD MANNER", "Pool": "3" },
         { "Name": "WILD MANNER", "Pool": "4" },
         { "Name": "BUG SMASHER", "Pool": "5" },
-        { "Name": "ATOMIC COMMANDO", "Pool": "6" }
+        { "Name": "ATOMIC COMMANDO", "Pool": "6" },
+        { "Name": "VILE TRIBUTE", "Pool": "8" }
       ]
     },
     {
@@ -20,7 +21,8 @@
         { "Name": "OIL SLICK", "Pool": "2" },
         { "Name": "TATTERED", "Pool": "3" },
         { "Name": "YEEHAW", "Pool": "6" },
-        { "Name": "PURIFIER", "Pool": "7" }
+        { "Name": "PURIFIER", "Pool": "7" },
+        { "Name": "PAYBACK", "Pool": "9" }
       ]
     },
     {
@@ -32,7 +34,8 @@
         { "Name": "ASSAULT ACCESSORY", "Pool": "3" },
         { "Name": "PLAGUE DOCTOR", "Pool": "5" },
         { "Name": "THE LIES", "Pool": "6" },
-        { "Name": "SEAWORTHY STRENGTH", "Pool": "7" }
+        { "Name": "SEAWORTHY STRENGTH", "Pool": "7" },
+        { "Name": "CLASSIFIED ARSENAL", "Pool": "8" }
       ]
     },
     {
@@ -43,7 +46,8 @@
         { "Name": "DUMMY", "Pool": "2" },
         { "Name": "CORONER", "Pool": "2" },
         { "Name": "VAULT SECURITY", "Pool": "5" },
-        { "Name": "HIDEOUT", "Pool": "7" }
+        { "Name": "HIDEOUT", "Pool": "7" },
+        { "Name": "JUNGLE GROWL", "Pool": "9" }
       ]
     },
     {
@@ -56,6 +60,7 @@
         { "Name": "BROAD HAMMER", "Pool": "4" },
         { "Name": "JAILTIME", "Pool": "6" },
         { "Name": "COBWEB", "Pool": "7" },
+        { "Name": "DON'T SPEAK", "Pool": "9" }
       ]
     },
     {
@@ -67,7 +72,8 @@
         { "Name": "BLACKCELL BOILING POINT", "Pool": "3" },
         { "Name": "BROAD HAMMER", "Pool": "4" },
         { "Name": "FIRST RESPONDER", "Pool": "5" },
-        { "Name": "USHERED PEACE", "Pool": "4" }
+        { "Name": "USHERED PEACE", "Pool": "6" },
+        { "Name": "POLAR RIP", "Pool": "9" }
       ]
     },
     {
@@ -77,7 +83,8 @@
         { "Name": "RAPIER", "Pool": "1" },
         { "Name": "RIPPLE", "Pool": "2" },
         { "Name": "QUICK WIT", "Pool": "3" },
-        { "Name": "ICEBITE", "Pool": "5" }
+        { "Name": "ICEBITE", "Pool": "5" },
+        { "Name": "DREADHORN", "Pool": "9" }
       ]
     },
     {
@@ -85,10 +92,11 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "SEASONAL AGGRESSION", "Pool": "1" },
-        { "Name": "HAWKWING", "Pool": "2" },
+        { "Name": "BLACKCELL BAD BEAT", "Pool": "2" },
         { "Name": "test", "Pool": "3" },
         { "Name": "IDIOPATHIC", "Pool": "4" }
-        { "Name": "BLACKCELL", "Pool": "2" },
+        { "Name": "HAWKWING", "Pool": "7" },
+        { "Name": "BAD BEAT", "Pool": "9" }
       ]
     },
     {
