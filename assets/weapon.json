@@ -289,6 +289,351 @@
         { "Name": "", "Pool": "8" },
         { "Name": "", "Pool": "9" }
       ]
+    },
+    {
+      "name": "PU-21",
+      "Category": "3",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "XMG",
+      "Category": "3",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "GPMG-7",
+      "Category": "3",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "FENG 82",
+      "Category": "3",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "SWAT 5.56",
+      "Category": "4",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "TSARKOV 7.62",
+      "Category": "4",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "AEK-973",
+      "Category": "4",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "DM-10",
+      "Category": "4",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "TR2",
+      "Category": "4",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "LW31A1 FROSTLINE",
+      "Category": "5",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "SVD",
+      "Category": "5",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "LR 7.62",
+      "Category": "5",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "AMR MOD 4",
+      "Category": "5",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "HDR",
+      "Category": "5",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "9MM PM",
+      "Category": "6",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "GREKHOVA",
+      "Category": "6",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "GS45",
+      "Category": "6",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "STRYDER .22",
+      "Category": "6",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "CIGMA 2B",
+      "Category": "7",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "HE-1",
+      "Category": "7",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "SIRIN 9MM",
+      "Category": "8",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "D1.3 SECTOR",
+      "Category": "8",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "NAIL GUN",
+      "Category": "8",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
     }
   ]
 }
