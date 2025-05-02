@@ -80,7 +80,7 @@ input[type="search"] {
   font-size: 0.9em;
 }
 
-#categoryCheckboxes, #poolcheckboxes {
+.dropdown-panel {
   position: absolute;
   top: 100%;
   left: 0;
@@ -94,7 +94,7 @@ input[type="search"] {
   flex-direction: column;
 }
 
-#categoryCheckboxes, #poolCheckboxes label {
+.dropdown-panel label {
   display: flex;
   align-items: center;
   gap: 5px;
