@@ -61,22 +61,46 @@ function renderTable(data) {
 }
 
 function populateCategoryFilter() {
-  categoryFilterContainer.innerHTML = '';
+  categoryFilterContainer.innerHTML = '';
 
-  Object.values(categoryMap).forEach(cat => {
-    const label = document.createElement('label');
-    label.style.display = 'block';
+  const buttonContainer = document.createElement('div');
+  buttonContainer.style.marginBottom = '8px';
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.value = cat;
-    checkbox.checked = true;
-    checkbox.addEventListener('change', applyFilters);
+  const selectAllBtn = document.createElement('button');
+  selectAllBtn.textContent = 'Alle auswählen';
+  selectAllBtn.style.marginRight = '6px';
+  selectAllBtn.addEventListener('click', () => {
+    categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+    applyFilters();
+  });
 
-    label.appendChild(checkbox);
-    label.appendChild(document.createTextNode(cat));
-    categoryFilterContainer.appendChild(label);
-  });
+  const deselectAllBtn = document.createElement('button');
+  deselectAllBtn.textContent = 'Alle abwählen';
+  deselectAllBtn.addEventListener('click', () => {
+    categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    applyFilters();
+  });
+
+  buttonContainer.appendChild(selectAllBtn);
+  buttonContainer.appendChild(deselectAllBtn);
+  categoryFilterContainer.appendChild(buttonContainer);
+
+  const uniqueCategories = [...new Set(Weapons.map(w => categoryMap[w.Category]))];
+
+  uniqueCategories.forEach(cat => {
+    const label = document.createElement('label');
+    label.style.display = 'block';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = cat;
+    checkbox.checked = true;
+    checkbox.addEventListener('change', applyFilters);
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(cat));
+    categoryFilterContainer.appendChild(label);
+  });
 }
 
 function populatePoolFilter() {
@@ -143,15 +167,6 @@ document.addEventListener('click', (e) => {
     }
   }
 });
-document.getElementById('selectAllCategories').addEventListener('click', () => {
-  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
-  applyFilters();
-});
-
-document.getElementById('deselectAllCategories').addEventListener('click', () => {
-  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-  applyFilters();
-});
 
 togglePoolDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -166,13 +181,4 @@ document.addEventListener('click', (e) => {
       poolArrow.textContent = '▼';
     }
   }
-});
-document.getElementById('selectAllPools').addEventListener('click', () => {
-  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
-  applyFilters();
-});
-
-document.getElementById('deselectAllPools').addEventListener('click', () => {
-  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-  applyFilters();
 });
