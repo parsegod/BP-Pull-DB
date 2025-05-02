@@ -47,6 +47,7 @@ function renderTable(data) {
 
   data.forEach((weapon, i) => {
     weapon.Blueprints.forEach(blueprint => {
+      if(blueprint.Name === "") continue;
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
       row.innerHTML = `
