@@ -2,7 +2,7 @@
   "Weapons": [
     {
       "name": "XM4",
-      "Category": "AR",
+      "Category": "0",
       "Blueprints": [
         {
           "Name": "Gumball",
@@ -15,8 +15,8 @@
       ]
     },
     {
-      "name": "AK47",
-      "Category": "AR",
+      "name": "AK-74",
+      "Category": "0",
       "Blueprints": [
         {
           "Name": "Purifier",
@@ -24,6 +24,136 @@
         },
         {
           "Name": "Tentered",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "AMES 85",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "GPR 91",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "MODEL L",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "GOBLIN MK 2",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "AS VAL",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "KRIG C",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "CYPHER 091",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "KILO 141",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "test",
+          "Pool": "2"
+        },
+        {
+          "Name": "test",
+          "Pool": "3"
+        }
+      ]
+    },
+    {
+      "name": "CR-56 AMAX",
+      "Category": "0",
+      "Blueprints": [
+        {
+          "Name": "GAME OVER",
+          "Pool": "1"
+        },
+        {
+          "Name": "BLACKCELL",
+          "Pool": "2"
+        },
+        {
+          "Name": "BattlePass",
           "Pool": "3"
         }
       ]
