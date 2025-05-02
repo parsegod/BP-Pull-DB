@@ -1,32 +1,32 @@
 {
-  "Weapons" : [
+  "Weapons": [
     {
-      "name" : "XM4",
-      "Category" : "AR",
-      "Blueprints" : [
+      "name": "XM4",
+      "Category": "AR",
+      "Blueprints": [
         {
-        "Name" : "Gumball",
-        "Pool" : "1"
+          "Name": "Gumball",
+          "Pool": "1"
         },
         {
-        "Name" : "Razor Burn",
-        "Pool" : "4"
+          "Name": "Razor Burn",
+          "Pool": "4"
         }
-      ] 
+      ]
     },
     {
-      "name" : "AK47"
-      "Category" : "AR",
-      "Blueprints"[
+      "name": "AK47",
+      "Category": "AR",
+      "Blueprints": [
         {
-        "Name" : "Purifier",
-        "Pool" : "2"
+          "Name": "Purifier",
+          "Pool": "2"
         },
         {
-        "Name" : "Tentered",
-        "Pool" : "3"
+          "Name": "Tentered",
+          "Pool": "3"
         }
-      ] 
+      ]
     }
   ]
 }
