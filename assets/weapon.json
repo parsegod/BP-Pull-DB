@@ -139,7 +139,7 @@
       "Name": "KILO 141",
       "Category": "0",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "PHANTOM FENRIR", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -282,7 +282,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "GLOOMNIGHT", "Pool": "9" }
       ]
     },
     {
