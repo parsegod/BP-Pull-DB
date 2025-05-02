@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blueprint Pull Table</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <div id="searchView" class="hidden">
+      <div class="search-bar-row">
+        <input type="search" id="search" placeholder="Search Blueprint..." />
+        
+        <div class="category-filter-dropdown">
+          <button id="togglecategoryDropdown" type="button">
+            Filter Types <span id="typeArrow">▼</span>
+          </button>
+          <div id="categoryCheckboxes" class="hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <table id="dropsTable">
+      <thead>
+        <tr>
+          <th data-key="Weapon">Weapon</th>
+          <th data-key="Category">Category</th>
+          <th data-key="Blueprint">Blueprint</th>
+          <th data-key="Pull">Pull</th>
+          <th data-key="Pool">Pool</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
