@@ -119,9 +119,48 @@
       "name": "CR-56 AMAX",
       "Category": "0",
       "Blueprints": [
-        { "Name": "GAME OVER", "Pool": "1" },
+        { "Name": "GAME OVER", "Pool": "9" },
         { "Name": "BLACKCELL", "Pool": "2" },
         { "Name": "BattlePass", "Pool": "3" }
+      ]
+    },
+    {
+      "name": "C9",
+      "Category": "1",
+      "Blueprints": [
+        { "Name": "HARDWIRE", "Pool": "1" },
+        { "Name": "TEDDY IS A LIAR", "Pool": "2" },
+        { "Name": "LIAR'S GAMBIT", "Pool": "3" },
+        { "Name": "HOWLER", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "KSV",
+      "Category": "1",
+      "Blueprints": [
+        { "Name": "PURIFIER", "Pool": "1" },
+        { "Name": "GOLD BLACK", "Pool": "2" },
+        { "Name": "BLACKCELL", "Pool": "2" },
+        { "Name": "BONGSHOT", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "TANTO .22",
+      "Category": "1",
+      "Blueprints": [
+        { "Name": "RIPTEAR", "Pool": "1" },
+        { "Name": "SDW", "Pool": "2" },
+        { "Name": "BROKEN SILENCE", "Pool": "3" },
+        { "Name": "CAT'S CLAW", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "KOMPAKT 92",
+      "Category": "1",
+      "Blueprints": [
+        { "Name": "RADICAL", "Pool": "1" },
+        { "Name": "SKULL SNAKE", "Pool": "2" },
+        { "Name": "EXQUISITOR", "Pool": "9" }
       ]
     }
   ]
