@@ -5,11 +5,19 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "Gumball",
+          "Name": "GUMBALL BALLISTICS",
           "Pool": "1"
         },
         {
-          "Name": "Razor Burn",
+          "Name": "RAZOR BURN",
+          "Pool": "2"
+        },
+        {
+          "Name": "BLACKCELL WILD MANNER",
+          "Pool": "3"
+        },
+        {
+          "Name": "WILD MANNER",
           "Pool": "4"
         }
       ]
@@ -19,7 +27,7 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "Purifier",
+          "Name": "PURIFIER",
           "Pool": "2"
         },
         {
@@ -33,7 +41,7 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "test",
+          "Name": "SEAWORTHY STRENGTH",
           "Pool": "2"
         },
         {
@@ -47,7 +55,7 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "test",
+          "Name": "HIDEOUT",
           "Pool": "2"
         },
         {
@@ -61,7 +69,7 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "test",
+          "Name": "COBWEB",
           "Pool": "2"
         },
         {
@@ -81,6 +89,10 @@
         {
           "Name": "test",
           "Pool": "3"
+        },
+        {
+          "Name": "BROAD HAMMER",
+          "Pool": "4"
         }
       ]
     },
@@ -89,7 +101,7 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "test",
+          "Name": "RIPPLE",
           "Pool": "2"
         },
         {
@@ -103,7 +115,7 @@
       "Category": "0",
       "Blueprints": [
         {
-          "Name": "test",
+          "Name": "HAWKWING",
           "Pool": "2"
         },
         {
