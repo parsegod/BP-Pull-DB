@@ -57,7 +57,7 @@ function renderTable(data) {
       row.appendChild(nameCell);
 
       const categoryCell = document.createElement('td');
-      categoryCell.textContent = categoryMap[weapon.Category] || weapon.Category;
+      categoryCell.textContent = categoryMap[weapon.Category];
       row.appendChild(categoryCell);
 
       const blueprintCell = document.createElement('td');
