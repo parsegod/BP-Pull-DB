@@ -104,29 +104,6 @@ input[type="search"] {
   margin-bottom: 5px;
 }
 
-/* Category dropdown control buttons */
-#Checkboxes .controls {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-#Checkboxes .controls button {
-  flex: 1;
-  padding: 6px 10px;
-  background: #2a2a2a;
-  color: #fff;
-  border: 1px solid #444;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background 0.2s ease;
-}
-
-#Checkboxes .controls button:hover {
-  background: #3a3a3a;
-}
-
 /* Table styles */
 table {
   width: 100%;
