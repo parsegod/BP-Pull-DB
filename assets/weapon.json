@@ -302,7 +302,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "ILL WIND", "Pool": "9" }
       ]
     },
     {
@@ -317,7 +317,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "BLOODY WATER", "Pool": "9" }
       ]
     },
     {
@@ -332,7 +332,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "BLUNT TRAUMA", "Pool": "9" }
       ]
     },
     {
@@ -377,7 +377,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "DOG BITE", "Pool": "9" }
       ]
     },
     {
@@ -392,7 +392,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "BLOOD FANG", "Pool": "9" }
       ]
     },
     {
@@ -407,7 +407,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "HALBERD", "Pool": "9" }
       ]
     },
     {
@@ -437,7 +437,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "HELM", "Pool": "9" }
       ]
     },
     {
@@ -452,7 +452,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "SCORCHER", "Pool": "9" }
       ]
     },
     {
@@ -466,8 +466,8 @@
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "STRATEGEM", "Pool": "8" },
+        { "Name": "SHOWPIECE", "Pool": "9" }
       ]
     },
     {
@@ -527,7 +527,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "OMERTA", "Pool": "9" }
       ]
     },
     {
@@ -542,7 +542,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "CURATOR", "Pool": "9" }
       ]
     },
     {
@@ -557,7 +557,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "REMAIN SILENT", "Pool": "9" }
       ]
     },
     {
@@ -572,7 +572,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "SCREAMING THUNDER", "Pool": "9" }
       ]
     },
     {
@@ -587,7 +587,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "VOLTAGE", "Pool": "9" }
       ]
     },
     {
@@ -602,7 +602,7 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "DEBT COLLECTOR", "Pool": "9" }
       ]
     },
     {
