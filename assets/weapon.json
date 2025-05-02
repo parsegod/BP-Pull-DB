@@ -244,6 +244,51 @@
         { "Name": "", "Pool": "8" },
         { "Name": "", "Pool": "9" }
       ]
+    },
+    {
+      "name": "MARINE SP",
+      "Category": "2",
+      "Blueprints": [
+        { "Name": "UNREPENTANT", "Pool": "1" },
+        { "Name": "CAMPAIGN", "Pool": "2" },
+        { "Name": "BOOMSLANG", "Pool": "3" },
+        { "Name": "WRAPPED", "Pool": "4" },
+        { "Name": "QUIETUDE", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "BIG BOOMER", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "ASG-89",
+      "Category": "2",
+      "Blueprints": [
+        { "Name": "EMBERSCALD", "Pool": "1" },
+        { "Name": "TURMOIL", "Pool": "2" },
+        { "Name": "SEVERER", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "AUTUMN AUTO", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "MOTHER CLUCKER", "Pool": "9" }
+      ]
+    },
+    {
+      "name": "MAELSTROM",
+      "Category": "2",
+      "Blueprints": [
+        { "Name": "", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
+      ]
     }
   ]
 }
