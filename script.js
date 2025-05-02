@@ -67,7 +67,7 @@ function populateCategoryFilter() {
   buttonContainer.style.marginBottom = '8px';
 
   const selectAllBtn = document.createElement('button');
-  selectAllBtn.textContent = 'Alle auswählen';
+  selectAllBtn.textContent = 'Select All';
   selectAllBtn.style.marginRight = '6px';
   selectAllBtn.addEventListener('click', () => {
     categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
@@ -75,7 +75,7 @@ function populateCategoryFilter() {
   });
 
   const deselectAllBtn = document.createElement('button');
-  deselectAllBtn.textContent = 'Alle abwählen';
+  deselectAllBtn.textContent = 'Deselect All';
   deselectAllBtn.addEventListener('click', () => {
     categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
     applyFilters();
@@ -106,20 +106,47 @@ function populateCategoryFilter() {
 function populatePoolFilter() {
   poolFilterContainer.innerHTML = '';
 
-  poolList.forEach(pool => {
-    const label = document.createElement('label');
-    label.style.display = 'block';
+function populatePoolFilter() {
+  poolFilterContainer.innerHTML = '';
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.value = pool;
-    checkbox.checked = true;
-    checkbox.addEventListener('change', applyFilters);
+  const buttonContainer = document.createElement('div');
+  buttonContainer.style.marginBottom = '8px';
 
-    label.appendChild(checkbox);
-    label.appendChild(document.createTextNode(pool));
-    poolFilterContainer.appendChild(label);
-  });
+  const selectAllBtn = document.createElement('button');
+  selectAllBtn.textContent = 'Select All';
+  selectAllBtn.style.marginRight = '6px';
+  selectAllBtn.addEventListener('click', () => {
+    poolFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+    applyFilters();
+  });
+
+  const deselectAllBtn = document.createElement('button');
+  deselectAllBtn.textContent = 'Deselect All';
+  deselectAllBtn.addEventListener('click', () => {
+    poolFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    applyFilters();
+  });
+
+  buttonContainer.appendChild(selectAllBtn);
+  buttonContainer.appendChild(deselectAllBtn);
+  poolFilterContainer.appendChild(buttonContainer);
+
+  const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
+
+  uniquePools.sort().forEach(pool => {
+    const label = document.createElement('label');
+    label.style.display = 'block';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = pool;
+    checkbox.checked = true;
+    checkbox.addEventListener('change', applyFilters);
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(pool));
+    poolFilterContainer.appendChild(label);
+  });
 }
 
 function applyFilters() {
