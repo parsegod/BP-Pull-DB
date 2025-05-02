@@ -159,7 +159,7 @@ function applyFilters() {
     .filter(w => activeCategories.includes(categoryMap[w.Category]))
     .map(weapon => {
       const filteredBlueprints = weapon.Blueprints.filter(bp => {
-        const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.name.toLowerCase().includes(textFilter);
+        const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
         const inPool = activePools.includes(bp.Pool);
         return inText && inPool;
       });
