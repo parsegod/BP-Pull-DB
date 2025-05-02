@@ -9,16 +9,16 @@ const togglePoolDropdown = document.getElementById('togglePoolDropdown');
 const poolArrow = document.getElementById('poolArrow');
 
 const categoryMap = {
-  "0": "AR",
-  "1": "Sub",
-  "2": "Shotgun",
-  "3": "LMG",
-  "4": "Marksman",
-  "5": "Snipe",
-  "6": "Pistol",
-  "7": "Special",
-  "8": "Launcher",
-  "9": "Melee"
+  "0": "ASSAULT RIFLES",
+  "1": "SUBMACHINE GUNS",
+  "2": "SHOTGUNS",
+  "3": "LIGHT MACHINE GUNS",
+  "4": "MARKSMAN RIFLES",
+  "5": "SNIPER RIFLES",
+  "6": "PISTOLS",
+  "7": "LAUNCHERS",
+  "8": "SPECIAL",
+  "9": "MELEE"
 };
 
 const categoryMapReverse = Object.fromEntries(
