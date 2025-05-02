@@ -280,7 +280,7 @@
       "Name": "MAELSTROM",
       "Category": "2",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "HALFPIPE", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -295,8 +295,8 @@
       "Name": "PU-21",
       "Category": "3",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "HOG WILD", "Pool": "1" },
+        { "Name": "RAMIFICATIONS", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -310,8 +310,8 @@
       "Name": "XMG",
       "Category": "3",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "CHAIN DRIVE", "Pool": "1" },
+        { "Name": "GET WIPED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -325,8 +325,8 @@
       "Name": "GPMG-7",
       "Category": "3",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "EXO ORGANISM", "Pool": "1" },
+        { "Name": "BLACKCELL", "Pool": "2" },
         { "Name": "HITHER SLITHER", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -355,7 +355,7 @@
       "Name": "SWAT 5.56",
       "Category": "4",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "WATCH AND LEARN", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "LITHIUM FIRE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -370,8 +370,8 @@
       "Name": "TSARKOV 7.62",
       "Category": "4",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "RITUALS PATH", "Pool": "1" },
+        { "Name": "FEEDBACK LOOP", "Pool": "2" },
         { "Name": "FURIOUS", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -385,8 +385,8 @@
       "Name": "AEK-973",
       "Category": "4",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "APHELION", "Pool": "1" },
+        { "Name": "RECONCILIATION", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -401,7 +401,7 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "SANTA", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -430,7 +430,7 @@
       "Name": "LW31A1 FROSTLINE",
       "Category": "5",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "DEVIL'S PLAYGROUND", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -445,7 +445,7 @@
       "Name": "SVD",
       "Category": "5",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "DARK FLARE", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "AXEL", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -460,8 +460,8 @@
       "Name": "LR 7.62",
       "Category": "5",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "BRAINSTORM", "Pool": "1" },
+        { "Name": "WOOD//WHITE", "Pool": "2" },
         { "Name": "GHOSTLY GUILE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -505,7 +505,7 @@
       "Name": "9MM PM",
       "Category": "6",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "PURPLE SNAKE", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -520,7 +520,7 @@
       "Name": "GREKHOVA",
       "Category": "6",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "BRUTAL STING", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -535,7 +535,7 @@
       "Name": "GS45",
       "Category": "6",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "VIPEROUS", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
