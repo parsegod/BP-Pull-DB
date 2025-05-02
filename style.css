@@ -105,14 +105,14 @@ input[type="search"] {
 }
 
 /* Category dropdown control buttons */
-#categoryCheckboxes .type-controls {
+#categoryCheckboxes .category-controls {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-#categoryCheckboxes .type-controls button {
+#categoryCheckboxes .category-controls button {
   flex: 1;
   padding: 6px 10px;
   background: #2a2a2a;
@@ -123,7 +123,7 @@ input[type="search"] {
   transition: background 0.2s ease;
 }
 
-#categoryCheckboxes .type-controls button:hover {
+#categoryCheckboxes .category-controls button:hover {
   background: #3a3a3a;
 }
 
