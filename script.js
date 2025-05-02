@@ -104,9 +104,6 @@ function populateCategoryFilter() {
 }
 
 function populatePoolFilter() {
-  poolFilterContainer.innerHTML = '';
-
-function populatePoolFilter() {
   poolFilterContainer.innerHTML = '';
 
   const buttonContainer = document.createElement('div');
