@@ -133,6 +133,7 @@
         { "Name": "HARDWIRE", "Pool": "1" },
         { "Name": "TEDDY IS A LIAR", "Pool": "2" },
         { "Name": "LIAR'S GAMBIT", "Pool": "3" },
+        { "Name": "KILLSWITCH", "Pool": "6" },
         { "Name": "GOLD STANDARD", "Pool": "7" },
         { "Name": "HOWLER", "Pool": "9" }
       ]
@@ -169,7 +170,7 @@
         { "Name": "STRAINED", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "RAT-O-MATIC", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "ENIGMA TECH", "Pool": "6" },
         { "Name": "CARRION", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "OCCULT", "Pool": "9" }
@@ -184,7 +185,7 @@
         { "Name": "VMP ELITE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "THE ROAR", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "DIMENSIONS", "Pool": "6" },
         { "Name": "GAME GUARD", "Pool": "7" },
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" }
@@ -254,7 +255,7 @@
         { "Name": "BOOMSLANG", "Pool": "3" },
         { "Name": "WRAPPED", "Pool": "4" },
         { "Name": "QUIETUDE", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "BLACKCELL", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "BIG BOOMER", "Pool": "9" }
@@ -314,7 +315,7 @@
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "IDLE HANDS", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "BLOODY WATER", "Pool": "9" }
@@ -326,10 +327,10 @@
       "Blueprints": [
         { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "HITHER SLITHER", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "DEAD END", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "BLUNT TRAUMA", "Pool": "9" }
@@ -356,10 +357,10 @@
       "Blueprints": [
         { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "LITHIUM FIRE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "REINFORCER", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "", "Pool": "9" }
@@ -371,10 +372,10 @@
       "Blueprints": [
         { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "FURIOUS", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "BLACKCELL", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "DOG BITE", "Pool": "9" }
@@ -446,7 +447,7 @@
       "Blueprints": [
         { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "AXEL", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
@@ -461,7 +462,7 @@
       "Blueprints": [
         { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "GHOSTLY GUILE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
