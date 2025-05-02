@@ -164,14 +164,6 @@ th.sorted-desc::after {
   background-color: #2a2a2a;
 }
 
-.category-icon {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 2px;
-  border-radius: 4px;
-}
-
 /* Utility */
 .hidden {
   display: none;
