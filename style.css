@@ -60,6 +60,20 @@ input[type="search"] {
   position: relative;
   display: inline-block;
 }
+filter-dropdown button {
+   padding: 10px;
+   background: #2a2a2a;
+   color: #fff;
+   border: none;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   gap: 6px;
+}
+
+.filter-dropdown button:hover {
+  background-color: #e0e0e0;
+}
 
 .filter-buttons {
   display: flex;
