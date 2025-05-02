@@ -17,9 +17,10 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "GRATITUDE", "Pool": "1" },
-        { "Name": "PURIFIER", "Pool": "2" },
+        { "Name": "OIL SLICK", "Pool": "2" },
         { "Name": "Tentered", "Pool": "3" },
-        { "Name": "YEEHAW", "Pool": "6" }
+        { "Name": "YEEHAW", "Pool": "6" },
+        { "Name": "PURIFIER", "Pool": "7" }
       ]
     },
     {
@@ -27,10 +28,11 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "THE REDACTOR", "Pool": "1" },
-        { "Name": "SEAWORTHY STRENGTH", "Pool": "2" },
+        { "Name": "NEW YEARS", "Pool": "2" },
         { "Name": "test", "Pool": "3" },
         { "Name": "PLAGUE DOCTOR", "Pool": "5" },
-        { "Name": "THE LIES", "Pool": "6" }
+        { "Name": "THE LIES", "Pool": "6" },
+        { "Name": "SEAWORTHY STRENGTH", "Pool": "7" }
       ]
     },
     {
@@ -38,8 +40,9 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "GINGER DREAD", "Pool": "1" },
-        { "Name": "HIDEOUT", "Pool": "2" },
-        { "Name": "VAULT SECURITY", "Pool": "5" }
+        { "Name": "DUMMY", "Pool": "2" },
+        { "Name": "VAULT SECURITY", "Pool": "5" },
+        { "Name": "HIDEOUT", "Pool": "7" }
       ]
     },
     {
@@ -47,10 +50,11 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "ASPHALT", "Pool": "1" },
-        { "Name": "COBWEB", "Pool": "2" },
+        { "Name": "WARRIORS BLOOD", "Pool": "2" },
         { "Name": "test", "Pool": "3" },
         { "Name": "BROAD HAMMER", "Pool": "4" },
-        { "Name": "JAILTIME", "Pool": "6" }
+        { "Name": "JAILTIME", "Pool": "6" },
+        { "Name": "COBWEB", "Pool": "7" },
       ]
     },
     {
@@ -58,7 +62,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "RED", "Pool": "1" },
-        { "Name": "test", "Pool": "2" },
+        { "Name": "TIP THE SCALES", "Pool": "2" },
         { "Name": "test", "Pool": "3" },
         { "Name": "BROAD HAMMER", "Pool": "4" },
         { "Name": "FIRST RESPONDER", "Pool": "5" },
@@ -83,6 +87,7 @@
         { "Name": "HAWKWING", "Pool": "2" },
         { "Name": "test", "Pool": "3" },
         { "Name": "IDIOPATHIC", "Pool": "4" }
+        { "Name": "BLACKCELL", "Pool": "2" },
       ]
     },
     {
