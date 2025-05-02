@@ -64,6 +64,7 @@ function populateCategoryFilter() {
   categoryFilterContainer.innerHTML = '';
 
   const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'filter-buttons';
   buttonContainer.style.marginBottom = '8px';
 
   const selectAllBtn = document.createElement('button');
@@ -107,6 +108,7 @@ function populatePoolFilter() {
   poolFilterContainer.innerHTML = '';
 
   const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'filter-buttons';
   buttonContainer.style.marginBottom = '8px';
 
   const selectAllBtn = document.createElement('button');
