@@ -35,6 +35,10 @@
       "Category": "0",
       "Blueprints": [
         {
+          "Name": "GRATITUDE",
+          "Pool": "1"
+        },
+        {
           "Name": "PURIFIER",
           "Pool": "2"
         },
@@ -52,6 +56,10 @@
       "name": "AMES 85",
       "Category": "0",
       "Blueprints": [
+        {
+          "Name": "THE REDACTOR",
+          "Pool": "1"
+        },
         {
           "Name": "SEAWORTHY STRENGTH",
           "Pool": "2"
@@ -75,6 +83,10 @@
       "Category": "0",
       "Blueprints": [
         {
+          "Name": "GINGER DREAD",
+          "Pool": "1"
+        },
+        {
           "Name": "HIDEOUT",
           "Pool": "2"
         },
@@ -89,6 +101,10 @@
       "Category": "0",
       "Blueprints": [
         {
+          "Name": "ASPHALT",
+          "Pool": "1"
+        },
+        {
           "Name": "COBWEB",
           "Pool": "2"
         },
@@ -97,15 +113,22 @@
           "Pool": "3"
         },
         {
+          "Name": "BROAD HAMMER",
+          "Pool": "4"
+        },
           "Name": "JAILTIME",
           "Pool": "6"
-        },
+        }
       ]
     },
     {
       "name": "GOBLIN MK 2",
       "Category": "0",
       "Blueprints": [
+        {
+          "Name": "RED",
+          "Pool": "1"
+        },
         {
           "Name": "test",
           "Pool": "2"
@@ -133,6 +156,10 @@
       "Category": "0",
       "Blueprints": [
         {
+          "Name": "RAPIER",
+          "Pool": "1"
+        },
+        {
           "Name": "RIPPLE",
           "Pool": "2"
         },
@@ -150,6 +177,10 @@
       "name": "KRIG C",
       "Category": "0",
       "Blueprints": [
+        {
+          "Name": "SEASONAL AGGRESSION",
+          "Pool": "1"
+        },
         {
           "Name": "HAWKWING",
           "Pool": "2"
