@@ -23,7 +23,11 @@
         {
           "Name": "BUG SMASHER",
           "Pool": "5"
-        }
+        },
+        {
+          "Name": "ATOMIC COMMANDO",
+          "Pool": "6"
+        },
       ]
     },
     {
@@ -37,7 +41,11 @@
         {
           "Name": "Tentered",
           "Pool": "3"
-        }
+        },
+        {
+          "Name": "YEEHAW",
+          "Pool": "6"
+        },
       ]
     },
     {
@@ -55,7 +63,11 @@
         {
           "Name": "PLAGUE DOCTOR",
           "Pool": "5"
-        }
+        },
+        {
+          "Name": "THE LIES",
+          "Pool": "6"
+        },
       ]
     },
     {
@@ -83,7 +95,11 @@
         {
           "Name": "test",
           "Pool": "3"
-        }
+        },
+        {
+          "Name": "JAILTIME",
+          "Pool": "6"
+        },
       ]
     },
     {
@@ -101,10 +117,15 @@
         {
           "Name": "BROAD HAMMER",
           "Pool": "4"
-        },{
+        },
+        {
           "Name": "FIRST RESPONDER",
           "Pool": "5"
-        }        
+        },
+        {
+          "Name": "USHERED PEACE",
+          "Pool": "4"
+        },
       ]
     },
     {
