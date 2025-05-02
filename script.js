@@ -143,6 +143,15 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+document.getElementById('selectAllCategories').addEventListener('click', () => {
+  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+  applyFilters();
+});
+
+document.getElementById('deselectAllCategories').addEventListener('click', () => {
+  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+  applyFilters();
+});
 
 togglePoolDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -157,4 +166,13 @@ document.addEventListener('click', (e) => {
       poolArrow.textContent = '▼';
     }
   }
+});
+document.getElementById('selectAllPools').addEventListener('click', () => {
+  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+  applyFilters();
+});
+
+document.getElementById('deselectAllPools').addEventListener('click', () => {
+  categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+  applyFilters();
 });
