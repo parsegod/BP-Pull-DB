@@ -133,6 +133,7 @@
         { "Name": "HARDWIRE", "Pool": "1" },
         { "Name": "TEDDY IS A LIAR", "Pool": "2" },
         { "Name": "LIAR'S GAMBIT", "Pool": "3" },
+        { "Name": "GOLD STANDARD", "Pool": "7" },
         { "Name": "HOWLER", "Pool": "9" }
       ]
     },
@@ -155,6 +156,7 @@
         { "Name": "SDW", "Pool": "2" },
         { "Name": "BROKEN SILENCE", "Pool": "3" },
         { "Name": "THORN", "Pool": "5" },
+        { "Name": "QUANTUM REAVER", "Pool": "7" },
         { "Name": "CAT'S CLAW", "Pool": "9" }
       ]
     },
@@ -166,10 +168,10 @@
         { "Name": "NEW YEARS", "Pool": "2" },
         { "Name": "STRAINED", "Pool": "3" },
         { "Name": "", "Pool": "4" },
-        { "Name": "PLAGUE DOCTOR", "Pool": "5" },
-        { "Name": "THE LIES", "Pool": "6" },
-        { "Name": "SEAWORTHY STRENGTH", "Pool": "7" },
-        { "Name": "CLASSIFIED ARSENAL", "Pool": "8" },
+        { "Name": "RAT-O-MATIC", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "CARRION", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "OCCULT", "Pool": "9" }
       ]
     },
@@ -181,9 +183,9 @@
         { "Name": "", "Pool": "2" },
         { "Name": "VMP ELITE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "THE ROAR", "Pool": "5" },
         { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "GAME GUARD", "Pool": "7" },
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" }
       ]
@@ -194,6 +196,7 @@
       "Blueprints": [
         { "Name": "RADICAL", "Pool": "1" },
         { "Name": "SKULL SNAKE", "Pool": "2" },
+        { "Name": "HALFPIPE HANDLER", "Pool": "5" },
         { "Name": "EXQUISITOR", "Pool": "9" }
       ]
     },
@@ -205,9 +208,9 @@
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "BLACKCELL SALUTATIONS", "Pool": "5" },
         { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "EXHUMATION", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "MECHA-DRAKE", "Pool": "9" }
       ]
