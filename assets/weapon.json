@@ -45,7 +45,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "GINGER DREAD", "Pool": "1" },
-        { "Name": "DUMMY", "Pool": "2" },
+        { "Name": "", "Pool": "2" },
         { "Name": "CORONER", "Pool": "2" },
         { "Name": "VAULT SECURITY", "Pool": "5" },
         { "Name": "HIDEOUT", "Pool": "7" },
@@ -95,7 +95,7 @@
       "Blueprints": [
         { "Name": "SEASONAL AGGRESSION", "Pool": "1" },
         { "Name": "BLACKCELL BAD BEAT", "Pool": "2" },
-        { "Name": "test", "Pool": "3" },
+        { "Name": "", "Pool": "3" },
         { "Name": "IDIOPATHIC", "Pool": "4" },
         { "Name": "HAWKWING", "Pool": "7" },
         { "Name": "BAD BEAT", "Pool": "9" }
@@ -105,25 +105,25 @@
       "name": "CYPHER 091",
       "Category": "0",
       "Blueprints": [
-        { "Name": "test", "Pool": "2" },
-        { "Name": "test", "Pool": "3" }
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" }
       ]
     },
     {
       "name": "KILO 141",
       "Category": "0",
       "Blueprints": [
-        { "Name": "test", "Pool": "2" },
-        { "Name": "test", "Pool": "3" }
+        { "Name": "", "Pool": "2" },
+        { "Name": "", "Pool": "3" }
       ]
     },
     {
       "name": "CR-56 AMAX",
       "Category": "0",
       "Blueprints": [
-        { "Name": "GAME OVER", "Pool": "9" },
         { "Name": "BLACKCELL", "Pool": "2" },
-        { "Name": "BattlePass", "Pool": "3" }
+        { "Name": "BattlePass", "Pool": "3" },
+        { "Name": "GAME OVER", "Pool": "9" }
       ]
     },
     {
