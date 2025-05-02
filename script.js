@@ -47,15 +47,27 @@ function renderTable(data) {
 
   data.forEach((weapon, i) => {
     weapon.Blueprints.forEach(blueprint => {
-      if(blueprint.Name === "") continue;
+      if (blueprint.Name === "") return;
+
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
-      row.innerHTML = `
-        <td>${weapon.Name}</td>
-        <td>${categoryMap[weapon.Category]}</td>
-        <td>${blueprint.Name}</td>
-        <td>${blueprint.Pool}</td>
-      `;
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = weapon.Name;
+      row.appendChild(nameCell);
+
+      const categoryCell = document.createElement('td');
+      categoryCell.textContent = categoryMap[weapon.Category] || weapon.Category;
+      row.appendChild(categoryCell);
+
+      const blueprintCell = document.createElement('td');
+      blueprintCell.textContent = blueprint.Name;
+      row.appendChild(blueprintCell);
+
+      const poolCell = document.createElement('td');
+      poolCell.textContent = blueprint.Pool;
+      row.appendChild(poolCell);
+
       tableBody.appendChild(row);
     });
   });
