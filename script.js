@@ -27,7 +27,7 @@ const category = [
 fetch('assets/weapon.json')
   .then(response => response.json())
   .then(data => {
-        Weapons = data.weapon;
+        Weapons = data.Weapons;
         currentData = [...Weapons];
         renderTable(currentData);
       })
@@ -76,15 +76,16 @@ function populateCategoryFilter() {
 
 function renderTable(data) {
   tableBody.innerHTML = '';
-  data.forEach((weapon,i) => {
-    const categoryName = category[weapon.category] || 'Unknown';
-    const row = document.createElement('tr');
-    row.className = i % 2 === 0 ? 'even' : 'odd';
-    row.innerHTML = `
-      <td>${weapon.name}</td>
-      <td>${categoryName}</td>
-      <td>${weapon.blueprint}</td>
-      <td>${weapon.pool}</td>`;  
+  data.forEach((weapon, i) => {
+      weapon.Blueprints.forEach(blueprint => {
+        const row = document.createElement('tr');
+        row.className = i % 2 === 0 ? 'even' : 'odd';
+        row.innerHTML = `
+          <td>${weapon.name}</td>
+          <td>${weapon.Category}</td>
+          <td>${blueprint.Name}</td>
+          <td>${blueprint.Pool}</td>
+        `;
     tableBody.appendChild(row);
   });
 }
