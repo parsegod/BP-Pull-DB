@@ -10,7 +10,9 @@
         { "Name": "WILD MANNER", "Pool": "4" },
         { "Name": "BUG SMASHER", "Pool": "5" },
         { "Name": "ATOMIC COMMANDO", "Pool": "6" },
-        { "Name": "VILE TRIBUTE", "Pool": "8" }
+        { "Name": "", "Pool": "7" },
+        { "Name": "VILE TRIBUTE", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
       ]
     },
     {
@@ -20,8 +22,11 @@
         { "Name": "GRATITUDE", "Pool": "1" },
         { "Name": "OIL SLICK", "Pool": "2" },
         { "Name": "TATTERED", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
         { "Name": "YEEHAW", "Pool": "6" },
         { "Name": "PURIFIER", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "PAYBACK", "Pool": "9" }
       ]
     },
@@ -45,10 +50,13 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "GINGER DREAD", "Pool": "1" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "CORONER", "Pool": "2" },
+        { "Name": "", "Pool": "2" },
+        { "Name": "CORONER", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
         { "Name": "VAULT SECURITY", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
         { "Name": "HIDEOUT", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "JUNGLE GROWL", "Pool": "9" }
       ]
     },
@@ -60,8 +68,10 @@
         { "Name": "WARRIORS BLOOD", "Pool": "2" },
         { "Name": "PSYCHO SNAKE", "Pool": "3" },
         { "Name": "BROAD HAMMER", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
         { "Name": "JAILTIME", "Pool": "6" },
         { "Name": "COBWEB", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "DON'T SPEAK", "Pool": "9" }
       ]
     },
@@ -75,6 +85,8 @@
         { "Name": "BROAD HAMMER", "Pool": "4" },
         { "Name": "FIRST RESPONDER", "Pool": "5" },
         { "Name": "USHERED PEACE", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "POLAR RIP", "Pool": "9" }
       ]
     },
@@ -85,7 +97,11 @@
         { "Name": "RAPIER", "Pool": "1" },
         { "Name": "RIPPLE", "Pool": "2" },
         { "Name": "QUICK WIT", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
         { "Name": "ICEBITE", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "DREADHORN", "Pool": "9" }
       ]
     },
@@ -97,7 +113,10 @@
         { "Name": "BLACKCELL BAD BEAT", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "IDIOPATHIC", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
         { "Name": "HAWKWING", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "BAD BEAT", "Pool": "9" }
       ]
     },
@@ -105,24 +124,44 @@
       "Name": "CYPHER 091",
       "Category": "0",
       "Blueprints": [
+        { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" }
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
       ]
     },
     {
       "Name": "KILO 141",
       "Category": "0",
       "Blueprints": [
+        { "Name": "", "Pool": "1" },
         { "Name": "", "Pool": "2" },
-        { "Name": "", "Pool": "3" }
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "9" }
       ]
     },
     {
       "Name": "CR-56 AMAX",
       "Category": "0",
       "Blueprints": [
+        {"Name": "", "Pool": "1" },
         { "Name": "BLACKCELL", "Pool": "2" },
         { "Name": "BattlePass", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "GAME OVER", "Pool": "9" }
       ]
     },
@@ -133,8 +172,11 @@
         { "Name": "HARDWIRE", "Pool": "1" },
         { "Name": "TEDDY IS A LIAR", "Pool": "2" },
         { "Name": "LIAR'S GAMBIT", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
+        { "Name": "", "Pool": "5" },
         { "Name": "KILLSWITCH", "Pool": "6" },
         { "Name": "GOLD STANDARD", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "HOWLER", "Pool": "9" }
       ]
     },
@@ -144,8 +186,12 @@
       "Blueprints": [
         { "Name": "PURIFIER", "Pool": "1" },
         { "Name": "GOLD BLACK", "Pool": "2" },
-        { "Name": "BLACKCELL", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
         { "Name": "FAIR DINKUM", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "BONGSHOT", "Pool": "9" }
       ]
     },
@@ -156,8 +202,11 @@
         { "Name": "RIPTEAR", "Pool": "1" },
         { "Name": "SDW", "Pool": "2" },
         { "Name": "BROKEN SILENCE", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
         { "Name": "THORN", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
         { "Name": "QUANTUM REAVER", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "CAT'S CLAW", "Pool": "9" }
       ]
     },
@@ -197,7 +246,12 @@
       "Blueprints": [
         { "Name": "RADICAL", "Pool": "1" },
         { "Name": "SKULL SNAKE", "Pool": "2" },
+        { "Name": "", "Pool": "3" },
+        { "Name": "", "Pool": "4" },
         { "Name": "HALFPIPE HANDLER", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "", "Pool": "8" },
         { "Name": "EXQUISITOR", "Pool": "9" }
       ]
     },
