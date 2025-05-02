@@ -8,7 +8,7 @@ const categoryArrow = document.getElementById('categoryArrow');
 let currentSortKey = null;
 let currentSortDirection = 'asc';
 let currentData = [];
-let categoryMapping = {};
+let Weapons = [];
 
 const category = [
   "AR",
@@ -24,28 +24,19 @@ const category = [
   
 ];
 
-async function loadCategoryMapping() {
-  const res = await fetch('assets/category.json');
-  categoryMapping = await res.json();
-}
-
-function parseDropData(text) {
-  const lines = text.split('\n');
-  const pulls = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-   }
-  }
-
-  return pulls;
+fetch('assets/weapon.json')
+  .then(response => response.json())
+  .then(data => {
+        Weapons = data.weapon;
+        renderTable(Weapons);
+      })
 }
 
 function populateCategoryFilter() {
   categoryFilterContainer.innerHTML = '';
 
   const controls = document.createElement('div');
-  controls.className = 'type-controls';
+  controls.className = 'category-controls';
 
   const selectAll = document.createElement('button');
   selectAll.textContent = 'Select All';
@@ -85,15 +76,15 @@ function populateCategoryFilter() {
 
 function renderTable(data) {
   tableBody.innerHTML = '';
-  data.forEach((pull, i) => {
-    const categoryName = category[pull.categoryIndex] || 'Unknown';
+  data.forEach(weapon => {
+    const categoryName = category[weapon.category] || 'Unknown';
     const row = document.createElement('tr');
     row.className = i % 2 === 0 ? 'even' : 'odd';
     row.innerHTML = `
-      <td>${pull.weapon}</td>
-      <td>
-        ${categoryName}
-      </td>`;
+      <td>${weapon.name}</td>
+      <td>${categoryName}</td>
+      <td>${weapon.blueprint}</td>
+      <td>${weapon.pool}</td>`;  
     tableBody.appendChild(row);
   });
 }
@@ -102,17 +93,13 @@ function applySortAndFilter() {
   const textFilter = searchInput.value.toLowerCase();
   const checkedTypes = [...categoryFilterContainer.querySelectorAll('input:checked')].map(cb => +cb.value);
 
-  let filtered = currentData.filter(pull => {
-    return pull.weapon.toLowerCase().includes(textFilter)
+  let filtered = currentData.filter(weapon => {
+    return weapon.name.toLowerCase().includes(textFilter)
   });
 
   if (currentSortKey) {
     filtered.sort((a, b) => {
       let aVal = a[currentSortKey], bVal = b[currentSortKey];
-      if (currentSortKey === 'rate') {
-        aVal = parseInt(aVal.split('/')[0], 10);
-        bVal = parseInt(bVal.split('/')[0], 10);
-      }
       return currentSortDirection === 'asc' ? aVal - bVal : bVal - aVal;
     });
   }
@@ -123,7 +110,7 @@ function applySortAndFilter() {
 fileInput.addEventListener('change', async e => {
   const file = e.target.files[0];
   if (!file) return;
-  await loadCategoryMapping();
+  await loadWeapons();
   const text = await file.text();
   currentData = parseDropData(text);
   populateFilters(currentData);
