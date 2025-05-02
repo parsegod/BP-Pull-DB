@@ -14,7 +14,7 @@ const category = [
   "AR",
   "Sub",
   "Shotgun",
-  "LMG"
+  "LMG",
   "Marksman",
   "Snipe",
   "Pistol",
@@ -28,9 +28,9 @@ fetch('assets/weapon.json')
   .then(response => response.json())
   .then(data => {
         Weapons = data.weapon;
-        renderTable(Weapons);
+        currentData = [...Weapons];
+        renderTable(currentData);
       })
-}
 
 function populateCategoryFilter() {
   categoryFilterContainer.innerHTML = '';
@@ -58,14 +58,14 @@ function populateCategoryFilter() {
   controls.appendChild(deselectAll);
   categoryFilterContainer.appendChild(controls);
 
-  Weaponcategory.forEach((category, idx) => {
+  category.forEach((categoryName, idx) => {
     const label = document.createElement('label');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.value = idx;
     checkbox.checked = true;
     checkbox.addEventListener('change', applySortAndFilter);
-    label.append(checkbox, document.createTextNode(type));
+    label.append(checkbox, document.createTextNode(categoryName));
     categoryFilterContainer.appendChild(label);
   });
 
@@ -76,7 +76,7 @@ function populateCategoryFilter() {
 
 function renderTable(data) {
   tableBody.innerHTML = '';
-  data.forEach(weapon => {
+  data.forEach((weapon,i) => {
     const categoryName = category[weapon.category] || 'Unknown';
     const row = document.createElement('tr');
     row.className = i % 2 === 0 ? 'even' : 'odd';
@@ -92,8 +92,7 @@ function renderTable(data) {
 function applySortAndFilter() {
   const textFilter = searchInput.value.toLowerCase();
   const checkedTypes = [...categoryFilterContainer.querySelectorAll('input:checked')].map(cb => +cb.value);
-
-  let filtered = currentData.filter(weapon => {
+    let filtered = currentData.filter(weapon => {
     return weapon.name.toLowerCase().includes(textFilter)
   });
 
@@ -106,17 +105,6 @@ function applySortAndFilter() {
 
   renderTable(filtered);
 }
-
-fileInput.addEventListener('change', async e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  await loadWeapons();
-  const text = await file.text();
-  currentData = parseDropData(text);
-  populateFilters(currentData);
-  applySortAndFilter();
-  searchView.classList.remove('hidden');
-});
 
 [searchInput].forEach(el =>
   el.addEventListener('input', applySortAndFilter)
@@ -153,5 +141,3 @@ document.addEventListener('click', e => {
     }
   }
 });
-
-window.addEventListener('DOMContentLoaded', populateCategoryFilter);
