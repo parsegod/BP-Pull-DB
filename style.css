@@ -75,11 +75,11 @@ input[type="search"] {
   background: #444;
 }
 
-#typeArrow {
+#categoryArrow {
   font-size: 0.9em;
 }
 
-#typeCheckboxes {
+#categoryCheckboxes {
   position: absolute;
   top: 100%;
   left: 0;
@@ -93,26 +93,26 @@ input[type="search"] {
   flex-direction: column;
 }
 
-#typeCheckboxes.hidden {
+#categoryCheckboxes.hidden {
   display: none;
 }
 
-#typeCheckboxes label {
+#categoryCheckboxes label {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 5px;
 }
 
-/* Type dropdown control buttons */
-#typeCheckboxes .type-controls {
+/* Category dropdown control buttons */
+#categoryCheckboxes .type-controls {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-#typeCheckboxes .type-controls button {
+#categoryCheckboxes .type-controls button {
   flex: 1;
   padding: 6px 10px;
   background: #2a2a2a;
@@ -123,7 +123,7 @@ input[type="search"] {
   transition: background 0.2s ease;
 }
 
-#typeCheckboxes .type-controls button:hover {
+#categoryCheckboxes .type-controls button:hover {
   background: #3a3a3a;
 }
 
@@ -156,24 +156,15 @@ th.sorted-desc::after {
 }
 
 /* Table row striping */
-#dropsTable tbody tr.even {
+#pullsTable tbody tr.even {
   background-color: #1e1e1e;
 }
 
-#dropsTable tbody tr.odd {
+#pullsTable tbody tr.odd {
   background-color: #2a2a2a;
 }
 
-/* Opponent image in table */
-.opponent-cell img {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-  margin-right: 2px;
-  border-radius: 4px;
-}
-
-.type-icon {
+.category-icon {
   width: 16px;
   height: 16px;
   vertical-align: middle;
