@@ -111,7 +111,7 @@
       "Blueprints": [
         { "Name": "SEASONAL AGGRESSION", "Pool": "1" },
         { "Name": "BLACKCELL BAD BEAT", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "RULE MASTER", "Pool": "3" },
         { "Name": "IDIOPATHIC", "Pool": "4" },
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
@@ -126,7 +126,7 @@
       "Blueprints": [
         { "Name": "DEATH BLOW", "Pool": "1" },
         { "Name": "PLAYBOOK", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "SCARRED VETERAN", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
@@ -156,7 +156,7 @@
       "Blueprints": [
         {"Name": "BLACKCELL VERDUROUS MENACE", "Pool": "1" },
         { "Name": "UNRELEASED", "Pool": "2" },
-        { "Name": "BattlePass", "Pool": "3" },
+        { "Name": "GLAZED OUT", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
@@ -650,7 +650,7 @@
       "Category": "8",
       "Blueprints": [
         { "Name": "ABRE ALAS", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -665,7 +665,7 @@
       "Category": "8",
       "Blueprints": [
         { "Name": "SLICED", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "UNREALEASED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -680,7 +680,7 @@
       "Category": "8",
       "Blueprints": [
         { "Name": "RETCON", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
