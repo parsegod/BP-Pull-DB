@@ -50,7 +50,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "GINGER DREAD", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "DON'T MOVE", "Pool": "2" },
         { "Name": "CORONER", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "VAULT SECURITY", "Pool": "5" },
@@ -125,7 +125,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "DEATH BLOW", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "PLAYBOOK", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -140,7 +140,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "PHANTOM FENRIR", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "UNREALIZED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -155,7 +155,7 @@
       "Category": "0",
       "Blueprints": [
         {"Name": "BLACKCELL VERDUROUS MENACE", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "UNREALIZED", "Pool": "2" },
         { "Name": "BattlePass", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -230,7 +230,7 @@
       "Category": "1",
       "Blueprints": [
         { "Name": "SCOURGE", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "POCKET ACE", "Pool": "2" },
         { "Name": "VMP ELITE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "THE ROAR", "Pool": "5" },
@@ -260,7 +260,7 @@
       "Category": "1",
       "Blueprints": [
         { "Name": "SALUTATIONS", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "BOSS ORDERS", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "BLACKCELL SALUTATIONS", "Pool": "5" },
@@ -275,7 +275,7 @@
       "Category": "1",
       "Blueprints": [
         { "Name": "REEF HUNTER", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "EGG BREAKER", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -664,7 +664,7 @@
       "Name": "D1.3 SECTOR",
       "Category": "8",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "SLICED", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -679,7 +679,7 @@
       "Name": "NAIL GUN",
       "Category": "8",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "RETCON", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
