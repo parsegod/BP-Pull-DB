@@ -454,7 +454,7 @@
       "Name": "DM-10",
       "Category": "4",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "THE CURATOR", "Pool": "1" },
         { "Name": "SANTA", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -469,7 +469,7 @@
       "Name": "TR2",
       "Category": "4",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "CUT OUT", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -529,7 +529,7 @@
       "Name": "AMR MOD 4",
       "Category": "5",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "HIGH SIGHT", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -544,7 +544,7 @@
       "Name": "HDR",
       "Category": "5",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "BLACKCELL GLINT", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
