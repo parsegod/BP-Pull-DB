@@ -74,7 +74,7 @@
         { "Name": "COBWEB", "Pool": "4" },
         { "Name": "PACIFICATION METHOD", "Pool": "5" },
         { "Name": "JAILTIME", "Pool": "6" },
-        { "Name": "BROAD HAMMER", "Pool": "7" },
+        { "Name": "", "Pool": "7" },
         { "Name": "AETHERBURST", "Pool": "8" },
         { "Name": "DON'T SPEAK", "Pool": "9" },
         { "Name": "EDWARD RETURNS", "Pool": "10" }
@@ -87,12 +87,13 @@
         { "Name": "RED", "Pool": "1" },
         { "Name": "TIP THE SCALES", "Pool": "2" },
         { "Name": "BLACKCELL BOILING POINT", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "BROAD HAMMER", "Pool": "4" },
         { "Name": "FIRST RESPONDER", "Pool": "5" },
         { "Name": "USHERED PEACE", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "POLAR RIP", "Pool": "9" }
+        { "Name": "MENACE", "Pool": "8" },
+        { "Name": "POLAR RIP", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" }
       ]
     },
     {
@@ -100,14 +101,15 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "RAPIER", "Pool": "1" },
-        { "Name": "RIPPLE", "Pool": "2" },
+        { "Name": "CANNIBAL", "Pool": "2" },
         { "Name": "QUICK WIT", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "RIPPLE", "Pool": "4" },
         { "Name": "ICEBITE", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "DREADFIN", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "DREADHORN", "Pool": "9" }
+        { "Name": "GREENHOUSE GRASSES", "Pool": "8" },
+        { "Name": "DREADHORN", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" }
       ]
     },
     {
@@ -117,12 +119,13 @@
         { "Name": "SEASONAL AGGRESSION", "Pool": "1" },
         { "Name": "BLACKCELL BAD BEAT", "Pool": "2" },
         { "Name": "RULE MASTER", "Pool": "3" },
-        { "Name": "IDIOPATHIC", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "HAWKWING", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "BAD BEAT", "Pool": "9" }
+        { "Name": "HAWKWING", "Pool": "4" },
+        { "Name": "IDIOPATHIC", "Pool": "5" },
+        { "Name": "BOMBAST", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "SILVERBITE", "Pool": "8" },
+        { "Name": "BAD BEAT", "Pool": "9" },
+        { "Name": "BLUNTMAN STUNTMAN", "Pool": "10" }
       ]
     },
     {
@@ -136,8 +139,9 @@
         { "Name": "", "Pool": "5" },
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "BANDAGED", "Pool": "8" },
+        { "Name": "STREAM TEAM", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" }
       ]
     },
     {
