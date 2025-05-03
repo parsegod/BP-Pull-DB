@@ -353,7 +353,7 @@
         { "Name": "PYTHONICUS", "Pool": "6" },
         { "Name": "VIOLATION", "Pool": "7" },
         { "Name": "LIFELINE", "Pool": "8" },
-        { "Name": "MOTHER CLUCKER", "Pool": "9" }
+        { "Name": "MOTHER CLUCKER", "Pool": "9" },
         { "Name": "BLACKCELL SHATTER", "Pool": "10" },
         { "Name": "", "Pool": "11" }
       ]
@@ -370,8 +370,8 @@
         { "Name": "FURYSTORM", "Pool": "6" },
         { "Name": "BRUSH DRUM", "Pool": "7" },
         { "Name": "CHATTER TEETH", "Pool": "8" },
-        { "Name": "", "Pool": "9" },
-        { "Name": "", "Pool": "10" },
+        { "Name": "PARTY ETIQUETTE", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
         { "Name": "", "Pool": "11" }
       ]
     },
