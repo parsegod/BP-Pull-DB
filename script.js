@@ -25,7 +25,7 @@ const categoryMapReverse = Object.fromEntries(
   Object.entries(categoryMap).map(([key, val]) => [val, key])
 );
 
-const poolList = ["1","2","3","4","5","6","7","8","9","10"];
+const poolList = ["1","2","3","4","5","6","7","8","9","10","11"];
 
 let Weapons = [];
 let currentData = [];
@@ -145,7 +145,7 @@ function populatePoolFilter() {
 
   const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
 
-  uniquePools.sort().forEach(pool => {
+  uniquePools.forEach(pool => {
     const label = document.createElement('label');
     label.style.display = 'block';
 
