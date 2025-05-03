@@ -468,11 +468,11 @@
         { "Name": "RITUALS PATH", "Pool": "1" },
         { "Name": "FEEDBACK LOOP", "Pool": "2" },
         { "Name": "FURIOUS", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "BLACKCELL", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "SUBSCRIBE", "Pool": "4" },
+        { "Name": "C-THRU", "Pool": "5" },
+        { "Name": "BLACKCELL BOILING POINT", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "AEROBRAKE", "Pool": "8" },
         { "Name": "DOG BITE", "Pool": "9" },
         { "Name": "", "Pool": "10" },
         { "Name": "", "Pool": "11" }
@@ -484,13 +484,15 @@
       "Blueprints": [
         { "Name": "APHELION", "Pool": "1" },
         { "Name": "RECONCILIATION", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
+        { "Name": "PEEL OUT", "Pool": "3" },
         { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "BLOOD FANG", "Pool": "9" }
+        { "Name": "GOOD VIBES", "Pool": "5" },
+        { "Name": "DEFILADE", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "8" },
+        { "Name": "BLOOD FANG", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -498,14 +500,16 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "THE CURATOR", "Pool": "1" },
-        { "Name": "SANTA", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "HALBERD", "Pool": "9" }
+        { "Name": "STOCKING SUFFER", "Pool": "2" },
+        { "Name": "FINAL SAY", "Pool": "3" },
+        { "Name": "CHROMEWING", "Pool": "4" },
+        { "Name": "ROBOT ABOMINATION", "Pool": "5" },
+        { "Name": "ON CALL", "Pool": "6" },
+        { "Name": "BLACKCELL CHROMEWING", "Pool": "7" },
+        { "Name": "SLUICEGATE", "Pool": "8" },
+        { "Name": "HALBERD", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
