@@ -451,12 +451,14 @@
         { "Name": "WATCH AND LEARN", "Pool": "1" },
         { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "LITHIUM FIRE", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "VIOLET ENGRAVING", "Pool": "4" },
+        { "Name": "VOID", "Pool": "5" },
         { "Name": "REINFORCER", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "NIGHTCLEAVER", "Pool": "7" },
+        { "Name": "QUIP", "Pool": "8" },
+        { "Name": "UNRELEASED", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -471,7 +473,9 @@
         { "Name": "BLACKCELL", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "DOG BITE", "Pool": "9" }
+        { "Name": "DOG BITE", "Pool": "9" },
+        { "Name": "", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
