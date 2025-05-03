@@ -12,7 +12,8 @@
         { "Name": "ATOMIC COMMANDO", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "VILE TRIBUTE", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "UNRELEASED", "Pool": "9" },
+        { "Name": "BEWARE OF DOG", "Pool": "10" }
       ]
     },
     {
@@ -22,12 +23,13 @@
         { "Name": "GRATITUDE", "Pool": "1" },
         { "Name": "OIL SLICK", "Pool": "2" },
         { "Name": "TATTERED", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "PURIFIER", "Pool": "4" },
+        { "Name": "UNRELEASED", "Pool": "5" },
         { "Name": "YEEHAW", "Pool": "6" },
-        { "Name": "PURIFIER", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "PAYBACK", "Pool": "9" }
+        { "Name": "", "Pool": "7" },
+        { "Name": "VITRIOL", "Pool": "8" },
+        { "Name": "PAYBACK", "Pool": "9" },
+        { "Name": "SINGLE ISSUE", "Pool": "10" },
       ]
     },
     {
@@ -37,12 +39,13 @@
         { "Name": "THE REDACTOR", "Pool": "1" },
         { "Name": "NEW YEARS", "Pool": "2" },
         { "Name": "ASSAULT ACCESSORY", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "SEAWORTHY STRENGTH", "Pool": "4" },
         { "Name": "PLAGUE DOCTOR", "Pool": "5" },
         { "Name": "THE LIES", "Pool": "6" },
-        { "Name": "SEAWORTHY STRENGTH", "Pool": "7" },
+        { "Name": "", "Pool": "7" },
         { "Name": "CLASSIFIED ARSENAL", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "UNRELEASED", "Pool": "9" },
+        { "Name": "ROBODILE", "Pool": "10" }
       ]
     },
     {
@@ -52,12 +55,13 @@
         { "Name": "GINGER DREAD", "Pool": "1" },
         { "Name": "DON'T MOVE", "Pool": "2" },
         { "Name": "CORONER", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "HIDEOUT", "Pool": "4" },
         { "Name": "VAULT SECURITY", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "HIDEOUT", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "JUNGLE GROWL", "Pool": "9" }
+        { "Name": "BLACKSPINE", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "RAMPAGER", "Pool": "8" },
+        { "Name": "JUNGLE GROWL", "Pool": "9" },
+        { "Name": "UNRELEASED", "Pool": "10" },
       ]
     },
     {
