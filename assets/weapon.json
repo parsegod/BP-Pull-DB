@@ -604,7 +604,7 @@
       "Name": "STRYDER .22",
       "Category": "6",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "QUICK MERCY", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -619,7 +619,7 @@
       "Name": "CIGMA 2B",
       "Category": "7",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "FINE COLUMN", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -634,7 +634,7 @@
       "Name": "HE-1",
       "Category": "7",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "CHOICEST", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -649,7 +649,7 @@
       "Name": "SIRIN 9MM",
       "Category": "8",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "ABRE ALAS", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
