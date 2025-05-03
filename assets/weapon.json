@@ -124,7 +124,7 @@
       "Name": "CYPHER 091",
       "Category": "0",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "DEATH BLOW", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -154,8 +154,8 @@
       "Name": "CR-56 AMAX",
       "Category": "0",
       "Blueprints": [
-        {"Name": "", "Pool": "1" },
-        { "Name": "BLACKCELL", "Pool": "2" },
+        {"Name": "BLACKCELL VERDUROUS MENACE", "Pool": "1" },
+        { "Name": "", "Pool": "2" },
         { "Name": "BattlePass", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -274,7 +274,7 @@
       "Name": "PPSH-41",
       "Category": "1",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "REEF HUNTER", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
@@ -294,7 +294,7 @@
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "LAVA TUBE", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
         { "Name": "", "Pool": "9" }
@@ -394,7 +394,7 @@
       "Name": "FENG 82",
       "Category": "3",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
+        { "Name": "TOURNIQUET", "Pool": "1" },
         { "Name": "", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
