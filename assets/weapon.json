@@ -6,8 +6,8 @@
       "Blueprints": [
         { "Name": "GUMBALL BALLISTICS", "Pool": "1" },
         { "Name": "RAZOR BURN", "Pool": "2" },
-        { "Name": "BLACKCELL WILD MANNER", "Pool": "3" },
-        { "Name": "WILD MANNER", "Pool": "4" },
+        { "Name": "BLACKCELL WILD MANNERED", "Pool": "3" },
+        { "Name": "WILD MANNERED", "Pool": "4" },
         { "Name": "BUG SMASHER", "Pool": "5" },
         { "Name": "ATOMIC COMMANDO", "Pool": "6" },
         { "Name": "", "Pool": "7" },
@@ -168,13 +168,13 @@
         {"Name": "BLACKCELL VERDUROUS MENACE", "Pool": "1" },
         { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "GLAZED OUT", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "UNRELEASED", "Pool": "4" },
+        { "Name": "VERDUROUS MENACE", "Pool": "5" },
+        { "Name": "UNRELEASED", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "NOTHING", "Pool": "8" },
         { "Name": "GAME OVER", "Pool": "9" },
-        { "Name": "", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" }
       ]
     },
     {
