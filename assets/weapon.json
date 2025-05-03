@@ -140,7 +140,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "PHANTOM FENRIR", "Pool": "1" },
-        { "Name": "UNREALIZED", "Pool": "2" },
+        { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -155,7 +155,7 @@
       "Category": "0",
       "Blueprints": [
         {"Name": "BLACKCELL VERDUROUS MENACE", "Pool": "1" },
-        { "Name": "UNREALIZED", "Pool": "2" },
+        { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "BattlePass", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -410,7 +410,7 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "WATCH AND LEARN", "Pool": "1" },
-        { "Name": "UNREALIZED", "Pool": "2" },
+        { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "LITHIUM FIRE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -470,7 +470,7 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "CUT OUT", "Pool": "1" },
-        { "Name": "UNREALIZED", "Pool": "2" },
+        { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -485,7 +485,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "DEVIL'S PLAYGROUND", "Pool": "1" },
-        { "Name": "UNREALIZED", "Pool": "2" },
+        { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -530,7 +530,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "HIGH SIGHT", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "DETHRONED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -545,7 +545,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "BLACKCELL GLINT", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "NAUTILOID", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -560,7 +560,7 @@
       "Category": "6",
       "Blueprints": [
         { "Name": "PURPLE SNAKE", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "FIRE CRACKER", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -575,7 +575,7 @@
       "Category": "6",
       "Blueprints": [
         { "Name": "BRUTAL STING", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "PLAN B", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -590,7 +590,7 @@
       "Category": "6",
       "Blueprints": [
         { "Name": "VIPEROUS", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "CUSTODIAN", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -605,7 +605,7 @@
       "Category": "6",
       "Blueprints": [
         { "Name": "QUICK MERCY", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "CONTRA-BANNED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -620,7 +620,7 @@
       "Category": "7",
       "Blueprints": [
         { "Name": "FINE COLUMN", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -635,7 +635,7 @@
       "Category": "7",
       "Blueprints": [
         { "Name": "CHOICEST", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
