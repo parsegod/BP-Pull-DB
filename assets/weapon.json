@@ -416,12 +416,15 @@
         { "Name": "EXO ORGANISM", "Pool": "1" },
         { "Name": "BLACKCELL", "Pool": "2" },
         { "Name": "HITHER SLITHER", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "ENCRYPTED", "Pool": "4" },
+        { "Name": "UNRELEASED", "Pool": "5" },
         { "Name": "DEAD END", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "BLUNT TRAUMA", "Pool": "9" }
+        { "Name": "UNRELEASED", "Pool": "7" },
+        { "Name": "BIG BRAINED", "Pool": "8" },
+        { "Name": "BLUNT TRAUMA", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
+        
       ]
     },
     {
@@ -430,13 +433,15 @@
       "Blueprints": [
         { "Name": "TOURNIQUET", "Pool": "1" },
         { "Name": "GET LUCKY", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "K9-UNIT", "Pool": "3" },
+        { "Name": "BLACKCELL CONFLICT VICTOR", "Pool": "4" },
+        { "Name": "BLACKCELL TOURNIQUET", "Pool": "5" },
+        { "Name": "CONFLICT VICTOR", "Pool": "6" },
+        { "Name": "UNRELEASED", "Pool": "7" },
+        { "Name": "GUMMY DISASTER", "Pool": "8" },
+        { "Name": "SHRED", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
