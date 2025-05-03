@@ -184,13 +184,13 @@
         { "Name": "HARDWIRE", "Pool": "1" },
         { "Name": "TEDDY IS A LIAR", "Pool": "2" },
         { "Name": "LIAR'S GAMBIT", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "GOLD STANDARD", "Pool": "4" },
+        { "Name": "DEMOTED", "Pool": "5" },
         { "Name": "KILLSWITCH", "Pool": "6" },
-        { "Name": "GOLD STANDARD", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "SUBVERTER", "Pool": "8" },
         { "Name": "HOWLER", "Pool": "9" },
-        { "Name": "", "Pool": "10" }
+        { "Name": "CHICANE", "Pool": "10" }
       ]
     },
     {
@@ -198,14 +198,15 @@
       "Category": "1",
       "Blueprints": [
         { "Name": "PURIFIER", "Pool": "1" },
-        { "Name": "GOLD BLACK", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "GUARD DUTY", "Pool": "2" },
+        { "Name": "INFESTATION", "Pool": "3" },
+        { "Name": "MAGICAL WHIFF", "Pool": "4" },
         { "Name": "FAIR DINKUM", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "LONG BOMB", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "BONGSHOT", "Pool": "9" }
+        { "Name": "BACON GRILLER", "Pool": "8" },
+        { "Name": "BONGSHOT", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" }
       ]
     },
     {
