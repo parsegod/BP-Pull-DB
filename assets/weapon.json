@@ -364,12 +364,12 @@
       "Blueprints": [
         { "Name": "HALFPIPE", "Pool": "1" },
         { "Name": "ICEBOX", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "RIFF RIPPER", "Pool": "3" },
+        { "Name": "FUDGEY", "Pool": "4" },
+        { "Name": "SHUFFLE", "Pool": "5" },
+        { "Name": "FURYSTORM", "Pool": "6" },
+        { "Name": "BRUSH DRUM", "Pool": "7" },
+        { "Name": "CHATTER TEETH", "Pool": "8" },
         { "Name": "", "Pool": "9" },
         { "Name": "", "Pool": "10" },
         { "Name": "", "Pool": "11" }
