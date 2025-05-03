@@ -150,13 +150,15 @@
       "Blueprints": [
         { "Name": "PHANTOM FENRIR", "Pool": "1" },
         { "Name": "UNRELEASED", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "3" },
+        { "Name": "NOTHING", "Pool": "4" },
+        { "Name": "BARRELED BARRAGE", "Pool": "5" },
+        { "Name": "NOTHING", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "NOTHING", "Pool": "8" },
+        { "Name": "DRAGON EMBLEM", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" }
+        
       ]
     },
     {
@@ -171,7 +173,8 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "GAME OVER", "Pool": "9" }
+        { "Name": "GAME OVER", "Pool": "9" },
+        { "Name": "", "Pool": "10" }
       ]
     },
     {
@@ -186,7 +189,8 @@
         { "Name": "KILLSWITCH", "Pool": "6" },
         { "Name": "GOLD STANDARD", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "HOWLER", "Pool": "9" }
+        { "Name": "HOWLER", "Pool": "9" },
+        { "Name": "", "Pool": "10" }
       ]
     },
     {
