@@ -335,7 +335,7 @@
       "Category": "2",
       "Blueprints": [
         { "Name": "HALFPIPE", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "ICEBOX", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -395,7 +395,7 @@
       "Category": "3",
       "Blueprints": [
         { "Name": "TOURNIQUET", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "GET LUCKY", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -410,7 +410,7 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "WATCH AND LEARN", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "UNREALIZED", "Pool": "2" },
         { "Name": "LITHIUM FIRE", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -470,7 +470,7 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "CUT OUT", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "UNREALIZED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -485,7 +485,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "DEVIL'S PLAYGROUND", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "UNREALIZED", "Pool": "2" },
         { "Name": "", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
@@ -500,7 +500,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "DARK FLARE", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "LOVELESS", "Pool": "2" },
         { "Name": "AXEL", "Pool": "3" },
         { "Name": "", "Pool": "4" },
         { "Name": "", "Pool": "5" },
