@@ -59,7 +59,7 @@
         { "Name": "HIDEOUT", "Pool": "4" },
         { "Name": "VAULT SECURITY", "Pool": "5" },
         { "Name": "BLACKSPINE", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "RETALIATOR", "Pool": "7" },
         { "Name": "RAMPAGER", "Pool": "8" },
         { "Name": "JUNGLE GROWL", "Pool": "9" },
         { "Name": "UNRELEASED", "Pool": "10" }
@@ -319,7 +319,9 @@
         { "Name": "LAVA TUBE", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "", "Pool": "9" },
+        { "Name": "", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -331,10 +333,12 @@
         { "Name": "BOOMSLANG", "Pool": "3" },
         { "Name": "WRAPPED", "Pool": "4" },
         { "Name": "QUIETUDE", "Pool": "5" },
-        { "Name": "BLACKCELL", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "BIG BOOMER", "Pool": "9" }
+        { "Name": "BLACKCELL BOOMSLANG", "Pool": "6" },
+        { "Name": "JURISDICTION", "Pool": "7" },
+        { "Name": "HELLISH ARTIFACT", "Pool": "8" },
+        { "Name": "BIG BOOMER", "Pool": "9" },
+        { "Name": "UNRELEASED", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -344,12 +348,14 @@
         { "Name": "EMBERSCALD", "Pool": "1" },
         { "Name": "TURMOIL", "Pool": "2" },
         { "Name": "SEVERER", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "UNREALEASED", "Pool": "4" },
         { "Name": "AUTUMN AUTO", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "PYTHONICUS", "Pool": "6" },
+        { "Name": "VIOLATION", "Pool": "7" },
+        { "Name": "LIFELINE", "Pool": "8" },
         { "Name": "MOTHER CLUCKER", "Pool": "9" }
+        { "Name": "BLACKCELL SHATTER", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -364,7 +370,9 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "", "Pool": "9" }
+        { "Name": "", "Pool": "9" },
+        { "Name": "", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -379,7 +387,9 @@
         { "Name": "", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "ILL WIND", "Pool": "9" }
+        { "Name": "ILL WIND", "Pool": "9" },
+        { "Name": "", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -394,7 +404,9 @@
         { "Name": "IDLE HANDS", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "", "Pool": "8" },
-        { "Name": "BLOODY WATER", "Pool": "9" }
+        { "Name": "BLOODY WATER", "Pool": "9" },
+        { "Name": "", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
