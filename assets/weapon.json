@@ -381,14 +381,14 @@
       "Blueprints": [
         { "Name": "HOG WILD", "Pool": "1" },
         { "Name": "RAMIFICATIONS", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "IRON FIST", "Pool": "3" },
+        { "Name": "CRAFTED", "Pool": "4" },
+        { "Name": "MYTH HORSE", "Pool": "5" },
+        { "Name": "OXBLOOD", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "UNEARTHER", "Pool": "8" },
         { "Name": "ILL WIND", "Pool": "9" },
-        { "Name": "", "Pool": "10" },
+        { "Name": "NOTHING", "Pool": "10" },
         { "Name": "", "Pool": "11" }
       ]
     },
@@ -398,14 +398,14 @@
       "Blueprints": [
         { "Name": "CHAIN DRIVE", "Pool": "1" },
         { "Name": "GET WIPED", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "IDLE HANDS", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
+        { "Name": "ESPIONAGE", "Pool": "3" },
+        { "Name": "UNREALEASED", "Pool": "4" },
+        { "Name": "DISMEMBERER", "Pool": "5" },
+        { "Name": "", "Pool": "6" },
+        { "Name": "HOCUS", "Pool": "7" },
+        { "Name": "IDLE HANDS", "Pool": "8" },
         { "Name": "BLOODY WATER", "Pool": "9" },
-        { "Name": "", "Pool": "10" },
+        { "Name": "NOTHING", "Pool": "10" },
         { "Name": "", "Pool": "11" }
       ]
     },
