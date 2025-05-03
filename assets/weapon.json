@@ -10,10 +10,11 @@
         { "Name": "WILD MANNERED", "Pool": "4" },
         { "Name": "BUG SMASHER", "Pool": "5" },
         { "Name": "ATOMIC COMMANDO", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "PLUNDERGUT", "Pool": "7" },
         { "Name": "VILE TRIBUTE", "Pool": "8" },
         { "Name": "UNRELEASED", "Pool": "9" },
-        { "Name": "BEWARE OF DOG", "Pool": "10" }
+        { "Name": "BEWARE OF DOG", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
@@ -26,7 +27,7 @@
         { "Name": "PURIFIER", "Pool": "4" },
         { "Name": "UNRELEASED", "Pool": "5" },
         { "Name": "YEEHAW", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "BLACKCELL VITRIOL", "Pool": "7" },
         { "Name": "VITRIOL", "Pool": "8" },
         { "Name": "PAYBACK", "Pool": "9" },
         { "Name": "SINGLE ISSUE", "Pool": "10" }
@@ -42,7 +43,7 @@
         { "Name": "SEAWORTHY STRENGTH", "Pool": "4" },
         { "Name": "PLAGUE DOCTOR", "Pool": "5" },
         { "Name": "THE LIES", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "SPRINKLED", "Pool": "7" },
         { "Name": "CLASSIFIED ARSENAL", "Pool": "8" },
         { "Name": "UNRELEASED", "Pool": "9" },
         { "Name": "ROBODILE", "Pool": "10" }
@@ -248,13 +249,13 @@
         { "Name": "SCOURGE", "Pool": "1" },
         { "Name": "POCKET ACE", "Pool": "2" },
         { "Name": "VMP ELITE", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "GAME GUARD", "Pool": "4" },
         { "Name": "THE ROAR", "Pool": "5" },
         { "Name": "DIMENSIONS", "Pool": "6" },
         { "Name": "", "Pool": "7" },
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" },
-        { "Name": "", "Pool": "10" }
+        { "Name": "CHRONIC UNAPOLOGETIC", "Pool": "10" }
       ]
     },
     {
@@ -263,13 +264,14 @@
       "Blueprints": [
         { "Name": "RADICAL", "Pool": "1" },
         { "Name": "SKULL SNAKE", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "SATIN SLAYER", "Pool": "3" },
+        { "Name": "STARS ALIGN", "Pool": "4" },
         { "Name": "HALFPIPE HANDLER", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "SCRAPPER", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "EXQUISITOR", "Pool": "9" }
+        { "Name": "SHUSH", "Pool": "8" },
+        { "Name": "EXQUISITOR", "Pool": "9" },
+        { "Name": "UNRELEASED", "Pool": "10" }
       ]
     },
     {
@@ -278,13 +280,14 @@
       "Blueprints": [
         { "Name": "SALUTATIONS", "Pool": "1" },
         { "Name": "BOSS ORDERS", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "STRIKING DISTANCE", "Pool": "3" },
+        { "Name": "EXHUMATION", "Pool": "4" },
         { "Name": "BLACKCELL SALUTATIONS", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
-        { "Name": "EXHUMATION", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "MECHA-DRAKE", "Pool": "9" }
+        { "Name": "SCRATCH ONE", "Pool": "6" },
+        { "Name": "", "Pool": "7" },
+        { "Name": "DESECRATION", "Pool": "8" },
+        { "Name": "MECHA-DRAKE", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" }
       ]
     },
     {
@@ -293,13 +296,15 @@
       "Blueprints": [
         { "Name": "REEF HUNTER", "Pool": "1" },
         { "Name": "EGG BREAKER", "Pool": "2" },
-        { "Name": "", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
-        { "Name": "", "Pool": "6" },
+        { "Name": "JESTER", "Pool": "3" },
+        { "Name": "CAUTION HANDLER", "Pool": "4" },
+        { "Name": "BLACKCELL GLOOMNOUGHT", "Pool": "5" },
+        { "Name": "FIERCE STARE", "Pool": "6" },
         { "Name": "", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "GLOOMNIGHT", "Pool": "9" }
+        { "Name": "UNRELEASED", "Pool": "8" },
+        { "Name": "GLOOMNOUGHT", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" }
       ]
     },
     {
