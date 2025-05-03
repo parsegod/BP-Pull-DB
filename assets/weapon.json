@@ -71,12 +71,13 @@
         { "Name": "ASPHALT", "Pool": "1" },
         { "Name": "WARRIORS BLOOD", "Pool": "2" },
         { "Name": "PSYCHO SNAKE", "Pool": "3" },
-        { "Name": "BROAD HAMMER", "Pool": "4" },
-        { "Name": "", "Pool": "5" },
+        { "Name": "COBWEB", "Pool": "4" },
+        { "Name": "PACIFICATION METHOD", "Pool": "5" },
         { "Name": "JAILTIME", "Pool": "6" },
-        { "Name": "COBWEB", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "DON'T SPEAK", "Pool": "9" }
+        { "Name": "BROAD HAMMER", "Pool": "7" },
+        { "Name": "AETHERBURST", "Pool": "8" },
+        { "Name": "DON'T SPEAK", "Pool": "9" },
+        { "Name": "EDWARD RETURNS", "Pool": "10" }
       ]
     },
     {
@@ -86,7 +87,7 @@
         { "Name": "RED", "Pool": "1" },
         { "Name": "TIP THE SCALES", "Pool": "2" },
         { "Name": "BLACKCELL BOILING POINT", "Pool": "3" },
-        { "Name": "BROAD HAMMER", "Pool": "4" },
+        { "Name": "", "Pool": "4" },
         { "Name": "FIRST RESPONDER", "Pool": "5" },
         { "Name": "USHERED PEACE", "Pool": "6" },
         { "Name": "", "Pool": "7" },
