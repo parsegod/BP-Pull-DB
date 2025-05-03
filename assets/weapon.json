@@ -29,7 +29,7 @@
         { "Name": "", "Pool": "7" },
         { "Name": "VITRIOL", "Pool": "8" },
         { "Name": "PAYBACK", "Pool": "9" },
-        { "Name": "SINGLE ISSUE", "Pool": "10" },
+        { "Name": "SINGLE ISSUE", "Pool": "10" }
       ]
     },
     {
@@ -61,7 +61,7 @@
         { "Name": "", "Pool": "7" },
         { "Name": "RAMPAGER", "Pool": "8" },
         { "Name": "JUNGLE GROWL", "Pool": "9" },
-        { "Name": "UNRELEASED", "Pool": "10" },
+        { "Name": "UNRELEASED", "Pool": "10" }
       ]
     },
     {
@@ -214,14 +214,15 @@
       "Category": "1",
       "Blueprints": [
         { "Name": "RIPTEAR", "Pool": "1" },
-        { "Name": "SDW", "Pool": "2" },
+        { "Name": "PROXIMA", "Pool": "2" },
         { "Name": "BROKEN SILENCE", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "QUANTUM REAVER", "Pool": "4" },
         { "Name": "THORN", "Pool": "5" },
         { "Name": "DECK CUTTER", "Pool": "6" },
-        { "Name": "QUANTUM REAVER", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "CAT'S CLAW", "Pool": "9" }
+        { "Name": "", "Pool": "7" },
+        { "Name": "PUNKER", "Pool": "8" },
+        { "Name": "CAT'S CLAW", "Pool": "9" },
+        { "Name": "BLACKCELL NOVABURST", "Pool": "10" }
       ]
     },
     {
@@ -231,12 +232,13 @@
         { "Name": "BAD ATTITUDE", "Pool": "1" },
         { "Name": "NEW YEARS", "Pool": "2" },
         { "Name": "STRAINED", "Pool": "3" },
-        { "Name": "", "Pool": "4" },
+        { "Name": "CARRION", "Pool": "4" },
         { "Name": "RAT-O-MATIC", "Pool": "5" },
         { "Name": "ENIGMA TECH", "Pool": "6" },
-        { "Name": "CARRION", "Pool": "7" },
-        { "Name": "", "Pool": "8" },
-        { "Name": "OCCULT", "Pool": "9" }
+        { "Name": "", "Pool": "7" },
+        { "Name": "PSYCHEDELIC", "Pool": "8" },
+        { "Name": "OCCULT", "Pool": "9" },
+        { "Name": "BECQUEREL MONITOR", "Pool": "10" }
       ]
     },
     {
@@ -249,9 +251,10 @@
         { "Name": "", "Pool": "4" },
         { "Name": "THE ROAR", "Pool": "5" },
         { "Name": "DIMENSIONS", "Pool": "6" },
-        { "Name": "GAME GUARD", "Pool": "7" },
+        { "Name": "", "Pool": "7" },
         { "Name": "BLOOD DRAW", "Pool": "8" },
-        { "Name": "PAINBOW", "Pool": "9" }
+        { "Name": "PAINBOW", "Pool": "9" },
+        { "Name": "", "Pool": "10" }
       ]
     },
     {
