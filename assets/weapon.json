@@ -61,7 +61,8 @@
         { "Name": "EXTENDED ENERGY", "Pool": "12" },
         { "Name": "DREAM TRANCE", "Pool": "13" },
         { "Name": "RELENTLESS FORCE", "Pool": "14" },
-        { "Name": "CLOVERLEAF", "Pool": "15" }
+        { "Name": "CLOVERLEAF", "Pool": "15" },
+        { "Name": "RETRO", "Pool": "16" }
       ]
     },
     {
@@ -331,7 +332,9 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "", "Pool": "15" },
+        { "Name": "AKUMU KITSUNE", "Pool": "16" }
       ]
     },
     {
