@@ -146,6 +146,8 @@ function populatePoolFilter() {
   const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
 
   uniquePools.forEach(pool => {
+    const checkboxesContainer = document.createElement('div');
+    checkboxesContainer.className = 'checkboxes-container';
     const label = document.createElement('label');
     label.style.display = 'block';
 
@@ -157,8 +159,9 @@ function populatePoolFilter() {
 
     label.appendChild(checkbox);
     label.appendChild(document.createTextNode(pool));
-    poolFilterContainer.appendChild(label);
+    checkboxesContainer.appendChild(label);
   });
+  poolFilterContainer.appendChild(checkboxesContainer);
 }
 
 function applyFilters() {
