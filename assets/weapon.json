@@ -58,9 +58,10 @@
         { "Name": "UNRELEASED", "Pool": "9" },
         { "Name": "ROBODILE", "Pool": "10" },
         { "Name": "MOST WANTED MVP", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "EXTENDED ENERGY", "Pool": "12" },
+        { "Name": "DREAM TRANCE", "Pool": "13" },
+        { "Name": "RELENTLESS FORCE", "Pool": "14" },
+        { "Name": "CLOVERLEAF", "Pool": "15" }
       ]
     },
     {
@@ -80,7 +81,8 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "", "Pool": "15" }
       ]
     },
     {
@@ -280,7 +282,7 @@
         { "Name": "BLACKCELL NOVABURST", "Pool": "10" },
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
+        { "Name": "NOVABURST", "Pool": "13" },
         { "Name": "", "Pool": "14" },
         { "Name": "FISSION", "Pool": "15" }
       ]
