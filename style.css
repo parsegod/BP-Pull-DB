@@ -58,6 +58,8 @@ input[type="search"] {
   color: #fff;
   border: none;
   cursor: pointer;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .filter-dropdown button:hover {
