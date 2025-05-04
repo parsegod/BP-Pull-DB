@@ -14,7 +14,11 @@
         { "Name": "VILE TRIBUTE", "Pool": "8" },
         { "Name": "UNRELEASED", "Pool": "9" },
         { "Name": "BEWARE OF DOG", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "BLACKCELL", "Pool": "12" },
+        { "Name": "VENOMER", "Pool": "13" },
+        { "Name": "HIGH AUTHORITY", "Pool": "14" }
+      
       ]
     },
     {
@@ -236,7 +240,7 @@
         { "Name": "CARRION", "Pool": "4" },
         { "Name": "RAT-O-MATIC", "Pool": "5" },
         { "Name": "ENIGMA TECH", "Pool": "6" },
-        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "MIRE", "Pool": "7" },
         { "Name": "PSYCHEDELIC", "Pool": "8" },
         { "Name": "OCCULT", "Pool": "9" },
         { "Name": "BECQUEREL MONITOR", "Pool": "10" }
@@ -300,7 +304,7 @@
         { "Name": "CAUTION HANDLER", "Pool": "4" },
         { "Name": "BLACKCELL GLOOMNOUGHT", "Pool": "5" },
         { "Name": "FIERCE STARE", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "ON THE DL", "Pool": "7" },
         { "Name": "UNRELEASED", "Pool": "8" },
         { "Name": "GLOOMNOUGHT", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
