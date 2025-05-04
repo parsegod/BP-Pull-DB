@@ -17,7 +17,8 @@
         { "Name": "NOTHING", "Pool": "11" },
         { "Name": "BLACKCELL ENERGY SIPHON", "Pool": "12" },
         { "Name": "VENOMER", "Pool": "13" },
-        { "Name": "HIGH AUTHORITY", "Pool": "14" }
+        { "Name": "HIGH AUTHORITY", "Pool": "14" },
+        { "Name": "", "Pool": "15" }
       
       ]
     },
@@ -35,10 +36,11 @@
         { "Name": "VITRIOL", "Pool": "8" },
         { "Name": "PAYBACK", "Pool": "9" },
         { "Name": "SINGLE ISSUE", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "UNRELEASED", "Pool": "12" },
+        { "Name": "MARINE MENAGERIE", "Pool": "13" },
+        { "Name": "EXILE'S RESOLVE", "Pool": "14" },
+        { "Name": "CHAOS SOW", "Pool": "15" }
       ]
     },
     {
@@ -279,7 +281,8 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "FISSION", "Pool": "15" }
       ]
     },
     {
@@ -419,7 +422,8 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "TRENCH WRECKER", "Pool": "15" }
       ]
     },
     {
@@ -694,7 +698,12 @@
         { "Name": "STRATEGEM", "Pool": "8" },
         { "Name": "SHOWPIECE", "Pool": "9" },
         { "Name": "REACTIVE OVERLOAD", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "UNRELEASED", "Pool": "12" },
+        { "Name": "RETRO", "Pool": "13" },
+        { "Name": "LACQUERED", "Pool": "14" },
+        { "Name": "LIKE", "Pool": "15" }
+        
       ]
     },
     {
