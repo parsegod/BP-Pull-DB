@@ -75,6 +75,26 @@ input[type="search"] {
 .filter-dropdown button:hover {
   background: #444;
 }
+ .filter-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.filter-buttons button {
+  padding: 6px 6px;
+  font-size: 0.85em;
+  border-radius: 6px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+  cursor: pointer;
+}
+
+.filter-buttons button:hover {
+  background: #3a3a3a;
+}
 
 #Arrow {
   font-size: 0.9em;
