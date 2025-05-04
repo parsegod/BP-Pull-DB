@@ -111,9 +111,6 @@ input[type="search"] {
 .dropdown-panel label {
   margin-bottom: 2px;
   font-size: 0.9em;
-}
-
-.dropdown-panel li {
   width: 50%
 }
 
