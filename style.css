@@ -112,6 +112,18 @@ input[type="search"] {
   font-size: 0.9em;
 }
 
+#poolCheckboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+#poolCheckboxes label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* Table styles */
 table {
   width: 100%;
