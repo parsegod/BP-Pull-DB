@@ -78,11 +78,11 @@
         { "Name": "RAMPAGER", "Pool": "8" },
         { "Name": "JUNGLE GROWL", "Pool": "9" },
         { "Name": "UNRELEASED", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" },
-        { "Name": "", "Pool": "15" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "WOLFCALL", "Pool": "13" },
+        { "Name": "ETERNAL STRIFE", "Pool": "14" },
+        { "Name": "UNRELEASED", "Pool": "15" }
       ]
     },
     {
@@ -344,7 +344,7 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "WILDLIFE", "Pool": "14" }
       ]
     },
     {
@@ -364,7 +364,7 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "MARBLED", "Pool": "14" }
       ]
     },
     {
