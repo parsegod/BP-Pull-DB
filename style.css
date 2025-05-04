@@ -43,18 +43,6 @@ input[type="search"] {
   margin: 0;
 }
 
-/* Filter section */
-.filters {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.filters > * {
-  flex: none;
-}
-
 /* Dropdown styles */
 .filter-dropdown {
   position: relative;
