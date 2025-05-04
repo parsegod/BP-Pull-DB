@@ -115,14 +115,13 @@ input[type="search"] {
 .checkboxes-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 8px;
 }
 
 .checkboxes-container label {
   display: flex;
   align-items: center;
-  gap: 6px;
+  margin-bottom: 2px;
+  font-size: 0.9em;
 }
 
 /* Table styles */
