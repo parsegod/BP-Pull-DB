@@ -115,7 +115,6 @@ input[type="search"] {
 .checkboxes-container {
   display: grid;
   grid-template-columns: repeat(2, auto);
-  grid-auto-flow: column;
 }
 
 .checkboxes-container label {
