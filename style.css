@@ -105,11 +105,16 @@ input[type="search"] {
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .dropdown-panel label {
   margin-bottom: 2px;
   font-size: 0.9em;
+}
+
+.dropdown-panel li {
+  width: 50%
 }
 
 /* Table styles */
