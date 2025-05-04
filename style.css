@@ -46,24 +46,25 @@ input[type="search"] {
 /* Dropdown styles */
 .filter-dropdown {
   position: relative;
-  display: inline-block;
 }
 
 .filter-dropdown button {
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  border-radius: 6px;
   background: #2a2a2a;
+  padding: 10px;
   color: #fff;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .filter-dropdown button:hover {
   background: #444;
 }
- .filter-buttons {
+
+.filter-buttons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
