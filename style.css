@@ -46,7 +46,7 @@ input[type="search"] {
 /* Filter section */
 .filters {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   margin-bottom: 10px;
 }
