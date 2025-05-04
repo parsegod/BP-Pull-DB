@@ -48,7 +48,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "THE REDACTOR", "Pool": "1" },
-        { "Name": "NEW YEARS", "Pool": "2" },
+        { "Name": "COUNTDOWN", "Pool": "2" },
         { "Name": "ASSAULT ACCESSORY", "Pool": "3" },
         { "Name": "SEAWORTHY STRENGTH", "Pool": "4" },
         { "Name": "PLAGUE DOCTOR", "Pool": "5" },
@@ -99,10 +99,11 @@
         { "Name": "AETHERBURST", "Pool": "8" },
         { "Name": "DON'T SPEAK", "Pool": "9" },
         { "Name": "EDWARD RETURNS", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "UNRELEASED", "Pool": "12" },
+        { "Name": "CORRUPTED SÉANCE", "Pool": "13" },
+        { "Name": "BULLION", "Pool": "14" },
+        { "Name": "RAZOR FOX", "Pool": "15" }
       ]
     },
     {
@@ -119,10 +120,11 @@
         { "Name": "MENACE", "Pool": "8" },
         { "Name": "POLAR RIP", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "FIELD WORK", "Pool": "14" },
+        { "Name": "UNRELEASED", "Pool": "15" }
       ]
     },
     {
@@ -139,10 +141,11 @@
         { "Name": "GREENHOUSE GRASSES", "Pool": "8" },
         { "Name": "DREADHORN", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "INDUSTRIAL", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "INDUSTRIAL", "Pool": "14" },
+        { "Name": "UNRELEASED", "Pool": "15" }
       ]
     },
     {
@@ -162,7 +165,8 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "", "Pool": "15" }
       ]
     },
     {
@@ -525,7 +529,8 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "DAMASCUS RELOADED", "Pool": "15" }
         
       ]
     },
