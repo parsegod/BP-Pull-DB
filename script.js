@@ -25,7 +25,7 @@ const categoryMapReverse = Object.fromEntries(
   Object.entries(categoryMap).map(([key, val]) => [val, key])
 );
 
-const poolList = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14"];
+const poolList = ["1","8","2","9","3","10","4","11","5","12","6","13","7","14"];
 
 let Weapons = [];
 let currentData = [];
