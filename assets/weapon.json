@@ -75,7 +75,7 @@
         { "Name": "COBWEB", "Pool": "4" },
         { "Name": "PACIFICATION METHOD", "Pool": "5" },
         { "Name": "JAILTIME", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "ROBOTIC NINJA", "Pool": "7" },
         { "Name": "AETHERBURST", "Pool": "8" },
         { "Name": "DON'T SPEAK", "Pool": "9" },
         { "Name": "EDWARD RETURNS", "Pool": "10" }
@@ -91,7 +91,7 @@
         { "Name": "BROAD HAMMER", "Pool": "4" },
         { "Name": "FIRST RESPONDER", "Pool": "5" },
         { "Name": "USHERED PEACE", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "COLD SMOLDER", "Pool": "7" },
         { "Name": "MENACE", "Pool": "8" },
         { "Name": "POLAR RIP", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -107,7 +107,7 @@
         { "Name": "RIPPLE", "Pool": "4" },
         { "Name": "ICEBITE", "Pool": "5" },
         { "Name": "DREADFIN", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "PACK LEADER", "Pool": "7" },
         { "Name": "GREENHOUSE GRASSES", "Pool": "8" },
         { "Name": "DREADHORN", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -123,7 +123,7 @@
         { "Name": "HAWKWING", "Pool": "4" },
         { "Name": "IDIOPATHIC", "Pool": "5" },
         { "Name": "BOMBAST", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "UNRELEASED", "Pool": "7" },
         { "Name": "SILVERBITE", "Pool": "8" },
         { "Name": "BAD BEAT", "Pool": "9" },
         { "Name": "BLUNTMAN STUNTMAN", "Pool": "10" }
@@ -139,7 +139,7 @@
         { "Name": "DALE!", "Pool": "4" },
         { "Name": "BLACKCELL DEATH BLOW", "Pool": "5" },
         { "Name": "BACON WRAPPED", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "UNRELEASED", "Pool": "7" },
         { "Name": "BANDAGED", "Pool": "8" },
         { "Name": "STREAM TEAM", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -155,7 +155,7 @@
         { "Name": "NOTHING", "Pool": "4" },
         { "Name": "BARRELED BARRAGE", "Pool": "5" },
         { "Name": "NOTHING", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "7" },
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "DRAGON EMBLEM", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -172,7 +172,7 @@
         { "Name": "UNRELEASED", "Pool": "4" },
         { "Name": "VERDUROUS MENACE", "Pool": "5" },
         { "Name": "UNRELEASED", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "7" },
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "GAME OVER", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -188,7 +188,7 @@
         { "Name": "GOLD STANDARD", "Pool": "4" },
         { "Name": "DEMOTED", "Pool": "5" },
         { "Name": "KILLSWITCH", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "FAN MADE", "Pool": "7" },
         { "Name": "SUBVERTER", "Pool": "8" },
         { "Name": "HOWLER", "Pool": "9" },
         { "Name": "CHICANE", "Pool": "10" }
@@ -204,7 +204,7 @@
         { "Name": "MAGICAL WHIFF", "Pool": "4" },
         { "Name": "FAIR DINKUM", "Pool": "5" },
         { "Name": "LONG BOMB", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "POCUS", "Pool": "7" },
         { "Name": "BACON GRILLER", "Pool": "8" },
         { "Name": "BONGSHOT", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -220,7 +220,7 @@
         { "Name": "QUANTUM REAVER", "Pool": "4" },
         { "Name": "THORN", "Pool": "5" },
         { "Name": "DECK CUTTER", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "SHADOWED", "Pool": "7" },
         { "Name": "PUNKER", "Pool": "8" },
         { "Name": "CAT'S CLAW", "Pool": "9" },
         { "Name": "BLACKCELL NOVABURST", "Pool": "10" }
@@ -236,7 +236,7 @@
         { "Name": "CARRION", "Pool": "4" },
         { "Name": "RAT-O-MATIC", "Pool": "5" },
         { "Name": "ENIGMA TECH", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "7" },
         { "Name": "PSYCHEDELIC", "Pool": "8" },
         { "Name": "OCCULT", "Pool": "9" },
         { "Name": "BECQUEREL MONITOR", "Pool": "10" }
@@ -252,7 +252,7 @@
         { "Name": "GAME GUARD", "Pool": "4" },
         { "Name": "THE ROAR", "Pool": "5" },
         { "Name": "DIMENSIONS", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "BLACKCELL BONESHARD", "Pool": "7" },
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" },
         { "Name": "CHRONIC UNAPOLOGETIC", "Pool": "10" }
@@ -268,7 +268,7 @@
         { "Name": "STARS ALIGN", "Pool": "4" },
         { "Name": "HALFPIPE HANDLER", "Pool": "5" },
         { "Name": "SCRAPPER", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "GOLDEN CALF", "Pool": "7" },
         { "Name": "SHUSH", "Pool": "8" },
         { "Name": "EXQUISITOR", "Pool": "9" },
         { "Name": "UNRELEASED", "Pool": "10" }
@@ -284,7 +284,7 @@
         { "Name": "EXHUMATION", "Pool": "4" },
         { "Name": "BLACKCELL SALUTATIONS", "Pool": "5" },
         { "Name": "SCRATCH ONE", "Pool": "6" },
-        { "Name": "", "Pool": "7" },
+        { "Name": "SEASONED SCOUT", "Pool": "7" },
         { "Name": "DESECRATION", "Pool": "8" },
         { "Name": "MECHA-DRAKE", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" }
@@ -311,8 +311,8 @@
       "Name": "LADRA",
       "Category": "1",
       "Blueprints": [
-        { "Name": "", "Pool": "1" },
-        { "Name": "", "Pool": "2" },
+        { "Name": "BARBED WHISPER", "Pool": "1" },
+        { "Name": "UNRELEASED", "Pool": "2" },
         { "Name": "UNRELEASED", "Pool": "3" },
         { "Name": "NOTHING", "Pool": "4" },
         { "Name": "UNRELEASED", "Pool": "5" },
