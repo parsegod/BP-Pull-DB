@@ -160,8 +160,8 @@ function populatePoolFilter() {
     label.appendChild(checkbox);
     label.appendChild(document.createTextNode(pool));
     checkboxesContainer.appendChild(label);
+    poolFilterContainer.appendChild(checkboxesContainer);
   });
-  poolFilterContainer.appendChild(checkboxesContainer);
 }
 
 function applyFilters() {
