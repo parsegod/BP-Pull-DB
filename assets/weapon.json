@@ -34,7 +34,11 @@
         { "Name": "BLACKCELL VITRIOL", "Pool": "7" },
         { "Name": "VITRIOL", "Pool": "8" },
         { "Name": "PAYBACK", "Pool": "9" },
-        { "Name": "SINGLE ISSUE", "Pool": "10" }
+        { "Name": "SINGLE ISSUE", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -50,7 +54,11 @@
         { "Name": "SPRINKLED", "Pool": "7" },
         { "Name": "CLASSIFIED ARSENAL", "Pool": "8" },
         { "Name": "UNRELEASED", "Pool": "9" },
-        { "Name": "ROBODILE", "Pool": "10" }
+        { "Name": "ROBODILE", "Pool": "10" },
+        { "Name": "MOST WANTED MVP", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -66,7 +74,11 @@
         { "Name": "RETALIATOR", "Pool": "7" },
         { "Name": "RAMPAGER", "Pool": "8" },
         { "Name": "JUNGLE GROWL", "Pool": "9" },
-        { "Name": "UNRELEASED", "Pool": "10" }
+        { "Name": "UNRELEASED", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -82,7 +94,11 @@
         { "Name": "ROBOTIC NINJA", "Pool": "7" },
         { "Name": "AETHERBURST", "Pool": "8" },
         { "Name": "DON'T SPEAK", "Pool": "9" },
-        { "Name": "EDWARD RETURNS", "Pool": "10" }
+        { "Name": "EDWARD RETURNS", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -98,7 +114,11 @@
         { "Name": "COLD SMOLDER", "Pool": "7" },
         { "Name": "MENACE", "Pool": "8" },
         { "Name": "POLAR RIP", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -114,7 +134,11 @@
         { "Name": "PACK LEADER", "Pool": "7" },
         { "Name": "GREENHOUSE GRASSES", "Pool": "8" },
         { "Name": "DREADHORN", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "INDUSTRIAL", "Pool": "14" }
       ]
     },
     {
@@ -130,7 +154,11 @@
         { "Name": "UNRELEASED", "Pool": "7" },
         { "Name": "SILVERBITE", "Pool": "8" },
         { "Name": "BAD BEAT", "Pool": "9" },
-        { "Name": "BLUNTMAN STUNTMAN", "Pool": "10" }
+        { "Name": "BLUNTMAN STUNTMAN", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -146,7 +174,11 @@
         { "Name": "UNRELEASED", "Pool": "7" },
         { "Name": "BANDAGED", "Pool": "8" },
         { "Name": "STREAM TEAM", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -162,7 +194,11 @@
         { "Name": "NOTHING", "Pool": "7" },
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "DRAGON EMBLEM", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
         
       ]
     },
@@ -179,7 +215,11 @@
         { "Name": "NOTHING", "Pool": "7" },
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "GAME OVER", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -195,7 +235,11 @@
         { "Name": "FAN MADE", "Pool": "7" },
         { "Name": "SUBVERTER", "Pool": "8" },
         { "Name": "HOWLER", "Pool": "9" },
-        { "Name": "CHICANE", "Pool": "10" }
+        { "Name": "CHICANE", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "SWEET TREAT", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -211,7 +255,11 @@
         { "Name": "POCUS", "Pool": "7" },
         { "Name": "BACON GRILLER", "Pool": "8" },
         { "Name": "BONGSHOT", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -227,7 +275,11 @@
         { "Name": "SHADOWED", "Pool": "7" },
         { "Name": "PUNKER", "Pool": "8" },
         { "Name": "CAT'S CLAW", "Pool": "9" },
-        { "Name": "BLACKCELL NOVABURST", "Pool": "10" }
+        { "Name": "BLACKCELL NOVABURST", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -243,7 +295,11 @@
         { "Name": "MIRE", "Pool": "7" },
         { "Name": "PSYCHEDELIC", "Pool": "8" },
         { "Name": "OCCULT", "Pool": "9" },
-        { "Name": "BECQUEREL MONITOR", "Pool": "10" }
+        { "Name": "BECQUEREL MONITOR", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -259,7 +315,11 @@
         { "Name": "BLACKCELL BONESHARD", "Pool": "7" },
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" },
-        { "Name": "CHRONIC UNAPOLOGETIC", "Pool": "10" }
+        { "Name": "CHRONIC UNAPOLOGETIC", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -275,7 +335,11 @@
         { "Name": "GOLDEN CALF", "Pool": "7" },
         { "Name": "SHUSH", "Pool": "8" },
         { "Name": "EXQUISITOR", "Pool": "9" },
-        { "Name": "UNRELEASED", "Pool": "10" }
+        { "Name": "UNRELEASED", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -291,7 +355,11 @@
         { "Name": "SEASONED SCOUT", "Pool": "7" },
         { "Name": "DESECRATION", "Pool": "8" },
         { "Name": "MECHA-DRAKE", "Pool": "9" },
-        { "Name": "NOTHING", "Pool": "10" }
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -308,7 +376,10 @@
         { "Name": "UNRELEASED", "Pool": "8" },
         { "Name": "GLOOMNOUGHT", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -325,7 +396,10 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "DESECRATION", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -342,7 +416,10 @@
         { "Name": "HELLISH ARTIFACT", "Pool": "8" },
         { "Name": "BIG BOOMER", "Pool": "9" },
         { "Name": "UNRELEASED", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -359,7 +436,10 @@
         { "Name": "LIFELINE", "Pool": "8" },
         { "Name": "MOTHER CLUCKER", "Pool": "9" },
         { "Name": "BLACKCELL SHATTER", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "SHATTER", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -376,7 +456,10 @@
         { "Name": "CHATTER TEETH", "Pool": "8" },
         { "Name": "PARTY ETIQUETTE", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -393,7 +476,10 @@
         { "Name": "UNEARTHER", "Pool": "8" },
         { "Name": "ILL WIND", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -410,7 +496,10 @@
         { "Name": "IDLE HANDS", "Pool": "8" },
         { "Name": "BLOODY WATER", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "GREEN MACHINE", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -427,7 +516,10 @@
         { "Name": "BIG BRAINED", "Pool": "8" },
         { "Name": "BLUNT TRAUMA", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
         
       ]
     },
@@ -445,7 +537,10 @@
         { "Name": "GUMMY DISASTER", "Pool": "8" },
         { "Name": "SHRED", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -462,7 +557,10 @@
         { "Name": "QUIP", "Pool": "8" },
         { "Name": "UNRELEASED", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -479,7 +577,10 @@
         { "Name": "AEROBRAKE", "Pool": "8" },
         { "Name": "DOG BITE", "Pool": "9" },
         { "Name": "", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -496,7 +597,10 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "BLOOD FANG", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -513,7 +617,10 @@
         { "Name": "SLUICEGATE", "Pool": "8" },
         { "Name": "HALBERD", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -530,7 +637,10 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "HUMBLE BRAG", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
@@ -547,7 +657,10 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "HELM", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "", "Pool": "11" },
+        { "Name": "", "Pool": "12" },
+        { "Name": "", "Pool": "13" },
+        { "Name": "", "Pool": "14" }
       ]
     },
     {
