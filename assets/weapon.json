@@ -228,7 +228,8 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" }
+        { "Name": "", "Pool": "16" },
+        { "Name": "", "Pool": "17" }
         
       ]
     },
@@ -472,10 +473,10 @@
         { "Name": "HELLISH ARTIFACT", "Pool": "8" },
         { "Name": "BIG BOOMER", "Pool": "9" },
         { "Name": "UNRELEASED", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "HARD REBOOT", "Pool": "13" },
+        { "Name": "EXHUMER", "Pool": "14" },
         { "Name": "TRENCH WRECKER", "Pool": "15" }
       ]
     },
