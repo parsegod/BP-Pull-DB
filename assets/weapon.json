@@ -43,7 +43,9 @@
         { "Name": "UNRELEASED", "Pool": "12" },
         { "Name": "MARINE MENAGERIE", "Pool": "13" },
         { "Name": "EXILE'S RESOLVE", "Pool": "14" },
-        { "Name": "CHAOS SOW", "Pool": "15" }
+        { "Name": "CHAOS SOW", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "UNRELEASED", "Pool": "17" }
       ]
     },
     {
@@ -209,11 +211,11 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "DRAGON EMBLEM", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" },
-        { "Name": "", "Pool": "15" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" }
         
       ]
     },
@@ -231,11 +233,11 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "GAME OVER", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
         { "Name": "", "Pool": "14" },
-        { "Name": "", "Pool": "15" }
+        { "Name": "NOTHING", "Pool": "15" }
       ]
     },
     {
@@ -252,10 +254,11 @@
         { "Name": "SUBVERTER", "Pool": "8" },
         { "Name": "HOWLER", "Pool": "9" },
         { "Name": "CHICANE", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "UNRELEASED", "Pool": "12" },
         { "Name": "SWEET TREAT", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "TANK", "Pool": "14" },
+        { "Name": "UNRELEASED", "Pool": "15" }        
       ]
     },
     {
@@ -272,10 +275,11 @@
         { "Name": "BACON GRILLER", "Pool": "8" },
         { "Name": "BONGSHOT", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" }
       ]
     },
     {
@@ -292,11 +296,13 @@
         { "Name": "PUNKER", "Pool": "8" },
         { "Name": "CAT'S CLAW", "Pool": "9" },
         { "Name": "BLACKCELL NOVABURST", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
         { "Name": "NOVABURST", "Pool": "13" },
-        { "Name": "", "Pool": "14" },
-        { "Name": "FISSION", "Pool": "15" }
+        { "Name": "STINGFERNO", "Pool": "14" },
+        { "Name": "FISSION", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "", "Pool": "17" }
       ]
     },
     {
@@ -316,7 +322,8 @@
         { "Name": "", "Pool": "11" },
         { "Name": "", "Pool": "12" },
         { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "", "Pool": "14" },
+        { "Name": "", "Pool": "15" }
       ]
     },
     {
