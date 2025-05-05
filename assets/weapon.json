@@ -18,7 +18,7 @@
         { "Name": "BLACKCELL ENERGY SIPHON", "Pool": "12" },
         { "Name": "VENOMER", "Pool": "13" },
         { "Name": "HIGH AUTHORITY", "Pool": "14" },
-        { "Name": "", "Pool": "15" },
+        { "Name": "SHARED FATE", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "SPEEDWAY", "Pool": "17" }
         
@@ -205,7 +205,8 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "UNRELEASED", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" }
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
