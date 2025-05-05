@@ -89,7 +89,9 @@
         { "Name": "NOTHING", "Pool": "12" },
         { "Name": "WOLFCALL", "Pool": "13" },
         { "Name": "ETERNAL STRIFE", "Pool": "14" },
-        { "Name": "UNRELEASED", "Pool": "15" }
+        { "Name": "UNRELEASED", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
@@ -110,7 +112,9 @@
         { "Name": "UNRELEASED", "Pool": "12" },
         { "Name": "CORRUPTED SÉANCE", "Pool": "13" },
         { "Name": "BULLION", "Pool": "14" },
-        { "Name": "RAZOR FOX", "Pool": "15" }
+        { "Name": "RAZOR FOX", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "UNRELEASED", "Pool": "17" }
       ]
     },
     {
@@ -340,11 +344,11 @@
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" },
         { "Name": "CHRONIC UNAPOLOGETIC", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" },
-        { "Name": "", "Pool": "15" },
+        { "Name": "UNRELEASED", "Pool": "11" },
+        { "Name": "GOLD ISSUE", "Pool": "12" },
+        { "Name": "GILLED", "Pool": "13" },
+        { "Name": "BASS BOOST", "Pool": "14" },
+        { "Name": "PRO ISSUE", "Pool": "15" },
         { "Name": "AKUMU KITSUNE", "Pool": "16" }
       ]
     },
@@ -362,10 +366,12 @@
         { "Name": "SHUSH", "Pool": "8" },
         { "Name": "EXQUISITOR", "Pool": "9" },
         { "Name": "UNRELEASED", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "WILDLIFE", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "UNRELEASED", "Pool": "13" },
+        { "Name": "WILDLIFE", "Pool": "14" },
+        { "Name": "STRIKE ORDER", "Pool": "15" },
+        { "Name": "", "Pool": "16" }
       ]
     },
     {
