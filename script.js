@@ -65,11 +65,11 @@ function renderTable(data) {
       arrow.style.marginRight = '8px';
 
       blueprintCell.appendChild(arrow);
-      blueprintCell.textContent = blueprint.Name;
+      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
       row.appendChild(blueprintCell);
 
-      const poolCell = document.createElement('td');      
-      poolCell.appendChild(document.createTextNode(blueprint.Pool));
+      const poolCell = document.createElement('td');
+      poolCell.textContent = blueprint.Pool;
       row.appendChild(poolCell);
 
       tableBody.appendChild(row);
