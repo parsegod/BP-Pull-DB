@@ -232,7 +232,7 @@
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" }
         
       ]
     },
@@ -255,7 +255,8 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" }
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
@@ -497,10 +498,11 @@
         { "Name": "LIFELINE", "Pool": "8" },
         { "Name": "MOTHER CLUCKER", "Pool": "9" },
         { "Name": "BLACKCELL SHATTER", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "11" },
         { "Name": "SHATTER", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "BATTLEWAX", "Pool": "13" },
+        { "Name": "BLACKCELL PYTHONICUS", "Pool": "14" },
+        { "Name": "UNRELEASED", "Pool": "15" }
       ]
     },
     {
