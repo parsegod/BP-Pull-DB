@@ -278,11 +278,51 @@ nothingCheckbox.addEventListener('change', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
   applyFilters();
-});
 
-if (imageCheckbox.checked) {
-    imageCheckbox.dispatchEvent(new Event('change'));
+  if (imageCheckbox.checked) {
+
+    document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
+      const accordionContent = row.querySelector('div');
+      const arrow = row.querySelector('span');
+
+      if (accordionContent && arrow) {
+        accordionContent.style.display = 'block';
+        arrow.textContent = '▼';
+
+        if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
+          const weaponName = row.previousSibling?.querySelector('td')?.textContent;
+          const blueprintName = row.previousSibling?.querySelectorAll('td')?.[2]?.textContent?.trim().replace(/^▶\s*/, '');
+
+          if (weaponName && blueprintName) {
+            const img = document.createElement('img');
+            img.src = `assets/blueprints/images/${weaponName}/${blueprintName}.jpg`;
+            img.alt = blueprintName;
+            img.style.maxWidth = '100%';
+
+            img.onload = () => {
+              accordionContent.innerHTML = '';
+              accordionContent.appendChild(img);
+            };
+
+            img.onerror = () => {
+              accordionContent.innerHTML = '<em>No image available.</em>';
+            };
+          }
+        }
+      }
+    });
+  } else {
+    document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
+      const accordionContent = row.querySelector('div');
+      const arrow = row.querySelector('span');
+
+      if (accordionContent && arrow) {
+        accordionContent.style.display = 'none';
+        arrow.textContent = '▶';
+      }
+    });
   }
+});
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
