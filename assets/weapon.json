@@ -370,7 +370,12 @@
         { "Name": "GILLED", "Pool": "13" },
         { "Name": "BASS BOOST", "Pool": "14" },
         { "Name": "PRO ISSUE", "Pool": "15" },
-        { "Name": "AKUMU KITSUNE", "Pool": "16" }
+        { "Name": "AKUMU KITSUNE", "Pool": "16" },
+        { "Name": "", "Pool": "17" },
+        { "Name": "", "Pool": "18" },
+        { "Name": "", "Pool": "19" },
+        { "Name": "", "Pool": "20" },
+        { "Name": "CRIMSON ISSUE", "Pool": "21" }
       ]
     },
     {
@@ -842,7 +847,13 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "RED CARD", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
