@@ -286,22 +286,22 @@ function applyImageToggle() {
   const rows = document.querySelectorAll('#pullsTable tbody tr');
 
   if (imageCheckbox.checked) {
+    console.log(`check 1`);
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
 
       if (accordionContent && arrow) {
+        console.log(`check 2`);
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
 
         const img = accordionContent.querySelector('img');
 
         if (img && !img.src) {
+          console.log(`check 3`);
           img.src = img.dataset.src;
-
-          img.onload = () => {
-          };
 
           img.onerror = () => {
             accordionContent.innerHTML = '<em>No image.</em>';
