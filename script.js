@@ -277,6 +277,7 @@ searchInput.addEventListener('input', applyFilters);
 nothingCheckbox.addEventListener('change', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
+  console.log("🔧 Checkbox wurde geändert");
   applyFilters();
 
   const rows = document.querySelectorAll('#pullsTable tbody tr');
@@ -290,6 +291,7 @@ imageCheckbox.addEventListener('change', () => {
       if (accordionContent && arrow) {
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
+        console.log("🔧 accordionContent && arrow not null ");
 
         if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
           const mainRow = row.previousElementSibling;
