@@ -87,17 +87,21 @@ function renderTable(data) {
 
       const img = document.createElement('img');
 
-      img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
-      img.alt = blueprint.Name;
-      img.style.maxWidth = '100%';
+      const hideImage = blueprint.Name === "NOTHING" || blueprint.Name === "UNRELEASED";
 
-      img.onerror = () => {
-        accordionContent.innerHTML = '<em>No image.</em>';
-      };
+      if (!hideImage) {
+        img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
+        img.alt = blueprint.Name;
+        img.style.maxWidth = '100%';
 
-      img.onload = () => {
-        accordionContent.appendChild(img);
-      };
+        img.onerror = () => {
+          accordionContent.innerHTML = '<em>No image.</em>';
+        };
+
+        img.onload = () => {
+          accordionContent.appendChild(img);
+        };
+      }
 
       accordionCell.appendChild(accordionContent);
       accordionRow.appendChild(accordionCell);
