@@ -8,6 +8,7 @@ const poolFilterContainer = document.getElementById('poolCheckboxes');
 const togglePoolDropdown = document.getElementById('togglePoolDropdown');
 const poolArrow = document.getElementById('poolArrow');
 const nothingCheckbox = document.getElementById('nothingCheckbox');
+const imageCheckbox = document.getElementById('imageCheckbox');
 
 const categoryMap = {
   "0": "ASSAULT RIFLES",
@@ -256,6 +257,21 @@ function applyFilters() {
 searchInput.addEventListener('input', applyFilters);
 
 nothingCheckbox.addEventListener('change', applyFilters);
+
+imageCheckbox.addEventListener('change', () => {
+  const expand = imageCheckbox.checked;
+
+   document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
+    const accordionContent = row.querySelector('div');
+    const arrow = row.querySelector('span');
+
+    if (accordionContent && arrow) {
+      accordionContent.style.display = expand ? 'block' : 'none';
+      arrow.textContent = expand ? '▼' : '▶';
+    }
+  });
+});
+
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
