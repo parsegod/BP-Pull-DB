@@ -289,9 +289,10 @@ function applyImageToggle() {
   if (imageCheckbox.checked) {
     console.log(`check 1`);
     for (let i = 0; i < rows.length; i++) {
-      const row = rows[i];
-      const accordionContent = row.querySelector('div');
-      const arrow = row.querySelector('span');
+      const accordionRow = rows[i];
+      const accordionContent = accordionRow.querySelector('div');
+      const dataRow = accordionRow.previousElementSibling;
+      const arrow = dataRow?.querySelector('span');
       console.log(arrow, accordionContent);
       if (accordionContent && arrow) {
         console.log(`check 2`);
