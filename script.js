@@ -7,6 +7,7 @@ const searchView = document.getElementById('searchView');
 const poolFilterContainer = document.getElementById('poolCheckboxes');
 const togglePoolDropdown = document.getElementById('togglePoolDropdown');
 const poolArrow = document.getElementById('poolArrow');
+const nothingCheckbox = document.getElementById('nothingCheckbox');
 
 const categoryMap = {
   "0": "ASSAULT RIFLES",
@@ -235,10 +236,12 @@ function applyFilters() {
     .filter(w => activeCategories.includes(categoryMap[w.Category]))
     .map(weapon => {
       const filteredBlueprints = weapon.Blueprints.filter(bp => {
+        if (!nothingCheckbox.checked && bp.Name === "NOTHING") return false;
         const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
         const inPool = activePools.includes(bp.Pool);
         return inText && inPool;
       });
+      
 
       return {
         ...weapon,
@@ -253,6 +256,8 @@ function applyFilters() {
 
 // 🔹 Live-Search
 searchInput.addEventListener('input', applyFilters);
+
+nothingCheckbox.addEventListener('change', applyFilters);
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -284,3 +289,4 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
