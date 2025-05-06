@@ -65,8 +65,10 @@ function renderTable(data) {
       const arrow = document.createElement('span');
       arrow.style.cursor = 'pointer';
       arrow.textContent = '▶';
+      arrow.style.display = 'inline-block';
+      arrow.style.width = '1.2em'; // consistent width for both ▶ and ▼
+      arrow.style.textAlign = 'center';
       arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible'; // always in DOM
-      arrow.style.width = '1em'; // reserve space to avoid jump
 
       blueprintCell.appendChild(arrow);
       blueprintCell.appendChild(document.createTextNode(blueprint.Name));
