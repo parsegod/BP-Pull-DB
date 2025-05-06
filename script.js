@@ -87,7 +87,9 @@ function renderTable(data) {
 
       const img = document.createElement('img');
 
-      img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
+      const imgSrc = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
+      img.dataset.src = imgSrc;
+      img.src = imgSrc;
       img.alt = blueprint.Name;
       img.style.maxWidth = '100%';
 
