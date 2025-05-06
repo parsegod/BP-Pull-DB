@@ -61,24 +61,15 @@ function renderTable(data) {
       row.appendChild(categoryCell);
 
       const blueprintCell = document.createElement('td');
-      
-      const toggleContainer = document.createElement('span');
-      toggleContainer.style.cursor = 'pointer';
-      toggleContainer.style.display = 'inline-flex';
-      toggleContainer.style.alignItems = 'center';
-      toggleContainer.style.gap = '8px';
 
       const arrow = document.createElement('span');
+      arrow.style.cursor = 'pointer';
       arrow.textContent = '▶';
       arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible'; // always in DOM
       arrow.style.width = '1em'; // reserve space to avoid jump
 
-      const nameSpan = document.createElement('span');
-      nameSpan.textContent = blueprint.Name;
-
-      toggleContainer.appendChild(arrow);
-      toggleContainer.appendChild(nameSpan);
-      blueprintCell.appendChild(toggleContainer);
+      blueprintCell.appendChild(arrow);
+      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
@@ -123,7 +114,7 @@ function renderTable(data) {
       let imageLoaded = false;
       
 if (!isInvalidImage) {
-  toggleContainer.addEventListener('click', (e) => {
+  arrow.addEventListener('click', (e) => {
     e.stopPropagation();
     const isVisible = accordionContent.style.display === 'block';
   
