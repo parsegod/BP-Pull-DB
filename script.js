@@ -122,7 +122,7 @@ arrow.addEventListener('click', (e) => {
     accordionContent.style.display = 'block';
     arrow.textContent = '▼';
 
-    if (!imageLoaded) {
+    if (!imageLoaded && img) {
       img.src = img.dataset.src;
       accordionContent.appendChild(img);
       imageLoaded = true;
@@ -136,7 +136,7 @@ arrow.addEventListener('click', (e) => {
 if (imageCheckbox.checked) {
   accordionContent.style.display = 'block';
   arrow.textContent = '▼';
-  if (!imageLoaded) {
+  if (!imageLoaded && img) {
     accordionContent.appendChild(img);
     imageLoaded = true;
   }
