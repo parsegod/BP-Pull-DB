@@ -85,7 +85,7 @@ function renderTable(data) {
       accordionCell.style.border = 'none';
 
       const accordionContent = document.createElement('div');
-      accordionContent.style.display = 'none';
+      accordionContent.classList.add('accordion-content', 'accordion-hidden');
 
       const img = document.createElement('img');
 
@@ -116,7 +116,7 @@ function renderTable(data) {
 if (!isInvalidImage) {
   arrow.addEventListener('click', (e) => {
     e.stopPropagation();
-    const isVisible = accordionContent.style.display === 'block';
+    const isVisible = accordionContent.classList.contains('accordion-hidden');
   
     if (!imageCheckbox.checked){
     document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
@@ -124,7 +124,7 @@ if (!isInvalidImage) {
     }
   
     if (!isVisible) {
-      accordionContent.style.display = 'block';
+      accordionContent.classList.remove('accordion-hidden');
       arrow.textContent = '▼';
 
       if (!imageLoaded && img) {
@@ -133,13 +133,13 @@ if (!isInvalidImage) {
         imageLoaded = true;
       }
     } else {
-      accordionContent.style.display = 'none';
+      accordionContent.classList.add('accordion-hidden');
       arrow.textContent = '▶';
     }
   });
 }
 if (imageCheckbox.checked) {
-  accordionContent.style.display = 'block';
+  accordionContent.classList.remove('accordion-hidden');
   arrow.textContent = '▼';
   if (!imageLoaded && img) {
     accordionContent.appendChild(img);
@@ -304,7 +304,7 @@ function applyImageToggle() {
       const dataRow = accordionRow.previousElementSibling;
       const arrow = dataRow?.querySelector('span');
       if (accordionContent && arrow) {
-        accordionContent.style.display = 'block';
+        accordionContent.classList.remove('accordion-hidden');
         arrow.textContent = '▼';
 
         const img = accordionContent.querySelector('img');
@@ -324,7 +324,7 @@ function applyImageToggle() {
       const arrow = row.querySelector('span');
 
       if (accordionContent && arrow) {
-        accordionContent.style.display = 'none';
+        accordionContent.classList.add('accordion-hidden');
         arrow.textContent = '▶';
       }
     });
