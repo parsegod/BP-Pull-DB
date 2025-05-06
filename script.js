@@ -87,9 +87,7 @@ function renderTable(data) {
 
       const img = document.createElement('img');
 
-      const imgSrc = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
-      img.dataset.src = imgSrc;
-      img.src = imgSrc;
+      img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
       img.alt = blueprint.Name;
       img.style.maxWidth = '100%';
 
@@ -284,59 +282,38 @@ imageCheckbox.addEventListener('change', () => {
   applyImageToggle();
 })
 
- function applyImageToggle() {
- const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr'))
-  .filter(row => row.querySelector('td[colspan="4"]'));
-  console.log(`check 1`);
+function applyImageToggle() {
+  const rows = document.querySelectorAll('#pullsTable tbody tr');
+
   if (imageCheckbox.checked) {
-    for (let i = 0; i < accordionRows.length; i++) {
-  const row = accordionRows[i];
-  const accordionContent = row.querySelector('div');
-  const mainRow = row.previousElementSibling;
-  const arrow = mainRow?.querySelector('span');
-console.log(`check 2`);
-console.log(arrow, accordionContent);
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const accordionContent = row.querySelector('div');
+      const arrow = row.querySelector('span');
+
       if (accordionContent && arrow) {
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
-console.log(`check 3`);
-console.log(accordionContent.querySelector('img'), accordionContent.textContent.includes('No image'));
-        if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
-          console.log(`check 4`);
-          const mainRow = row.previousElementSibling;
 
-          if (mainRow) {
-            console.log(`check 5`);
-            const weaponName = mainRow.querySelector('td')?.textContent?.trim();
-            const blueprintName = mainRow.querySelectorAll('td')?.[2]?.textContent?.trim().replace(/^▶\s*/, '');
+        const img = accordionContent.querySelector('img');
 
-            console.log(`✔ Versuche Bild zu laden für: ${weaponName} / ${blueprintName}`);
+        if (img && !img.src) {
+          img.src = img.dataset.src;
 
-            if (weaponName && blueprintName) {
-              const img = document.createElement('img');
-              img.src = `assets/blueprints/images/${weaponName}/${blueprintName}.jpg`;
-              img.alt = blueprintName;
-              img.style.maxWidth = '100%';
+          img.onload = () => {
+          };
 
-              img.onload = () => {
-                accordionContent.innerHTML = '';
-                accordionContent.appendChild(img);
-                console.log(`✅ Bild erfolgreich geladen: ${img.src}`);
-              };
-
-              img.onerror = () => {
-                console.warn(`❌ Bild nicht gefunden: ${img.src}`);
-                accordionContent.innerHTML = '<em>No image available.</em>';
-              };
-            }
-          }
+          img.onerror = () => {
+            accordionContent.innerHTML = '<em>No image.</em>';
+          };
         }
       }
     }
   } else {
-    accordionRows.forEach(row => {
+    rows.forEach(row => {
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
+
       if (accordionContent && arrow) {
         accordionContent.style.display = 'none';
         arrow.textContent = '▶';
@@ -344,7 +321,6 @@ console.log(accordionContent.querySelector('img'), accordionContent.textContent.
     });
   }
 }
-
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
