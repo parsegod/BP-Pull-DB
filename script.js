@@ -98,11 +98,7 @@ function renderTable(data) {
 
         img.onerror = () => {
           accordionContent.innerHTML = '<em>No image.</em>';
-        };
-
-        img.onload = () => {
-          accordionContent.appendChild(img);
-        };
+        };   
       }
 
       accordionCell.appendChild(accordionContent);
@@ -116,14 +112,14 @@ function renderTable(data) {
 if (!isInvalidImage) {
   arrow.addEventListener('click', (e) => {
     e.stopPropagation();
-    const isVisible = accordionContent.classList.contains('accordion-hidden');
+    const isHidden = accordionContent.classList.contains('accordion-hidden');
   
     if (!imageCheckbox.checked){
     document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
     document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
     }
   
-    if (!isVisible) {
+    if (!isHidden) {
       accordionContent.classList.remove('accordion-hidden');
       arrow.textContent = '▼';
 
