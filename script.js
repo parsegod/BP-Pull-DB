@@ -63,10 +63,61 @@ function renderTable(data) {
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
-      poolCell.textContent = blueprint.Pool;
+      const arrow = document.createElement('span');
+      arrow.textContent = '▶';
+      arrow.style.cursor = 'pointer';
+      arrow.style.marginRight = '8px';
+
+      poolCell.appendChild(arrow);
+      poolCell.appendChild(document.createTextNode(blueprint.Pool));
       row.appendChild(poolCell);
 
       tableBody.appendChild(row);
+      
+      const accordionRow = document.createElement('tr');
+      const accordionCell = document.createElement('td');
+      accordionCell.colSpan = 4;
+      accordionCell.style.padding = '0';
+      accordionCell.style.border = 'none';
+
+      const accordionContent = document.createElement('div');
+      accordionContent.style.display = 'none';
+      accordionContent.style.padding = '10px';
+      accordionContent.style.backgroundColor = '#f9f9f9';
+
+      const img = document.createElement('img');
+
+      img.src = `assets/images/${weapon.Name}/${blueprint.Name}.jpg`;
+      img.alt = blueprint.Name;
+      img.style.maxWidth = '100%';
+
+      img.onerror = () => {
+        accordionContent.innerHTML = '<em>No image.</em>';
+      };
+
+      img.onload = () => {
+        accordionContent.appendChild(img);
+      };
+
+      accordionCell.appendChild(accordionContent);
+      accordionRow.appendChild(accordionCell);
+      tableBody.appendChild(accordionRow);
+
+      arrow.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isVisible = accordionContent.style.display === 'block';
+
+        document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
+        document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
+
+        if (!isVisible) {
+          accordionContent.style.display = 'block';
+          arrow.textContent = '▼';
+        } else {
+          accordionContent.style.display = 'none';
+          arrow.textContent = '▶';
+        }
+      });
     });
   });
 }
