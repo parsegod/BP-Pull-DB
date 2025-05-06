@@ -125,7 +125,9 @@ if (!isInvalidImage) {
 
       if (!imageLoaded && img) {
         img.src = img.dataset.src;
+        if (!accordionContent.contains(img)) {
         accordionContent.appendChild(img);
+        }
         imageLoaded = true;
       }
     } else {
