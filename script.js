@@ -48,7 +48,7 @@ function renderTable(data) {
   data.forEach((weapon, i) => {
     weapon.Blueprints.forEach(blueprint => {
       if (blueprint.Name === "") return;
-
+      const isInvalidImage = blueprint.Name === "NOTHING" || blueprint.Name === "UNRELEASED";
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
 
@@ -65,8 +65,9 @@ function renderTable(data) {
       arrow.textContent = '▶';
       arrow.style.cursor = 'pointer';
       arrow.style.marginRight = '8px';
-
+      if (!isInvalidImage) {
       blueprintCell.appendChild(arrow);
+      }
       blueprintCell.appendChild(document.createTextNode(blueprint.Name));
       row.appendChild(blueprintCell);
 
@@ -105,7 +106,9 @@ function renderTable(data) {
 
       accordionCell.appendChild(accordionContent);
       accordionRow.appendChild(accordionCell);
+      if (!isInvalidImage) {
       tableBody.appendChild(accordionRow);
+      }
 
       let imageLoaded = false;
 
