@@ -65,10 +65,10 @@ function renderTable(data) {
       arrow.textContent = '▶';
       arrow.style.cursor = 'pointer';
       arrow.style.marginRight = '8px';
+      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
       if (!isInvalidImage) {
       blueprintCell.appendChild(arrow);
       }
-      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
