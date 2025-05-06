@@ -108,10 +108,12 @@ function renderTable(data) {
 arrow.addEventListener('click', (e) => {
   e.stopPropagation();
   const isVisible = accordionContent.style.display === 'block';
-
+  
+  if (!imageCheckbox.checked){
   document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
   document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
-
+  }
+  
   if (!isVisible) {
     accordionContent.style.display = 'block';
     arrow.textContent = '▼';
