@@ -71,7 +71,8 @@
         { "Name": "NEON LIGHTS", "Pool": "17" },
         { "Name": "THE ATOMIZER", "Pool": "18" },
         { "Name": "HONOR CLASH", "Pool": "19" },
-        { "Name": "BLACKCELL CLOVERLEAF", "Pool": "20" }
+        { "Name": "BLACKCELL CLOVERLEAF", "Pool": "20" },
+        { "Name": "PRO ISSUE", "Pool": "21" }
       ]
     },
     {
@@ -772,7 +773,13 @@
         { "Name": "FLOATIN` AROUND", "Pool": "8" },
         { "Name": "SCORCHER", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
@@ -794,8 +801,8 @@
         { "Name": "RETRO", "Pool": "13" },
         { "Name": "LACQUERED", "Pool": "14" },
         { "Name": "LIKE", "Pool": "15" },
-        { "Name": "NO TE PIERAS", "Pool": "16" }
-        
+        { "Name": "NO TE PIERAS", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }        
       ]
     },
     {
@@ -812,7 +819,13 @@
         { "Name": "IRON RAIN", "Pool": "8" },
         { "Name": "BATTERING RAM", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
