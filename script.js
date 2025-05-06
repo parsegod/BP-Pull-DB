@@ -277,15 +277,16 @@ searchInput.addEventListener('input', applyFilters);
 nothingCheckbox.addEventListener('change', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
-  applyFilters();
+  applyFilters();  
 
   if (imageCheckbox.checked) {
 
     document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
-
+      
       if (accordionContent && arrow) {
+
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
 
