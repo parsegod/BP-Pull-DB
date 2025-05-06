@@ -289,22 +289,18 @@ function applyImageToggle() {
   .filter(row => row.querySelector('td[colspan="4"]'));
 
   if (imageCheckbox.checked) {
-    console.log(`check 1`);
     for (let i = 0; i < rows.length; i++) {
       const accordionRow = rows[i];
       const accordionContent = accordionRow.querySelector('div');
       const dataRow = accordionRow.previousElementSibling;
       const arrow = dataRow?.querySelector('span');
-      console.log(arrow, accordionContent);
       if (accordionContent && arrow) {
-        console.log(`check 2`);
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
 
         const img = accordionContent.querySelector('img');
 
         if (img && !img.src) {
-          console.log(`check 3`);
           img.src = img.dataset.src;
 
           img.onerror = () => {
