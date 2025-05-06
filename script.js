@@ -298,7 +298,7 @@ console.log(arrow, accordionContent);
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
 console.log(`check 3`);
-console.log(arrow);
+console.log(accordionContent.querySelector('img'), accordionContent.textContent.includes('No image'));
         if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
           console.log(`check 4`);
           const mainRow = row.previousElementSibling;
