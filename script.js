@@ -286,7 +286,6 @@ imageCheckbox.addEventListener('change', () => {
  const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr'))
   .filter(row => row.querySelector('td[colspan="4"]'));
   console.log(`check 1`);
-     console.log(rows);
   if (imageCheckbox.checked) {
     for (let i = 0; i < accordionRows.length; i++) {
   const row = accordionRows[i];
