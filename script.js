@@ -330,7 +330,7 @@ console.log(arrow);
       }
     }
   } else {
-    rows.forEach(row => {
+    accordionRows.forEach(row => {
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
       if (accordionContent && arrow) {
