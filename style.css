@@ -167,7 +167,6 @@ th.sorted-desc::after {
 }
 
 .accordion-content {
-  min-height: 160px; /* reserve space for image */
   transition: max-height 0.3s ease, opacity 0.3s ease;
   overflow: hidden;
   opacity: 1;
