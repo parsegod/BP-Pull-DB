@@ -300,9 +300,11 @@ console.log(arrow, accordionContent);
 console.log(`check 3`);
 console.log(arrow);
         if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
+          console.log(`check 4`);
           const mainRow = row.previousElementSibling;
 
           if (mainRow) {
+            console.log(`check 5`);
             const weaponName = mainRow.querySelector('td')?.textContent?.trim();
             const blueprintName = mainRow.querySelectorAll('td')?.[2]?.textContent?.trim().replace(/^▶\s*/, '');
 
