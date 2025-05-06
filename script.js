@@ -283,7 +283,7 @@ imageCheckbox.addEventListener('change', () => {
 })
 
  function applyImageToggle() {
-  const rows = document.querySelectorAll('#pullsTable tbody tr');
+ const rows = document.querySelectorAll('#pullsTable tbody tr.even, #pullsTable tbody tr.odd');
   console.log(`check 1`);
      console.log(rows);
   if (imageCheckbox.checked) {
