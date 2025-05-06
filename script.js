@@ -277,19 +277,11 @@ nothingCheckbox.addEventListener('change', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
   applyFilters();
+
+  if (imageCheckbox.checked) {
+    imageCheckbox.dispatchEvent(new Event('change'));
+  }
 });
-
-   document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
-    const accordionContent = row.querySelector('div');
-    const arrow = row.querySelector('span');
-
-    if (accordionContent && arrow) {
-      accordionContent.style.display = expand ? 'block' : 'none';
-      arrow.textContent = expand ? '▼' : '▶';
-    }
-  });
-});
-
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
