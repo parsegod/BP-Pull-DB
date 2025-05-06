@@ -10,7 +10,7 @@
 
     <div id="searchView" class="hidden">
       <div class="search-bar-row">
-        <input type="search" id="search" placeholder="Search Blueprint..." />
+        <input type="search" id="search" placeholder="Search Blueprint..." />        
         
         <div class="filter-dropdown">
           <button id="toggleCategoryDropdown" type="button">
@@ -18,6 +18,7 @@
           </button>
           <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
         </div>
+        
         <div class="filter-dropdown">
          <button id="togglePoolDropdown" type="button">
            Filter Pool <span id="poolArrow">▼</span>
@@ -26,6 +27,9 @@
         </div>
       </div>
     </div>
+    
+    <input type="checkbox" id="nothingCheckbox" name="nothingCheckbox" value="">
+    <label for="nothingCheckbox">Show Nothing entries</label>
 
     <table id="pullsTable">
       <thead>
