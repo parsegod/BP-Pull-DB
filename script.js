@@ -61,14 +61,23 @@ function renderTable(data) {
       row.appendChild(categoryCell);
 
       const blueprintCell = document.createElement('td');
+      
+      const toggleContainer = document.createElement('span');
+      toggleContainer.style.cursor = 'pointer';
+      
       const arrow = document.createElement('span');
       arrow.textContent = '▶';
-      arrow.style.cursor = 'pointer';
       arrow.style.marginRight = '8px';
-      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
-      if (!isInvalidImage) {
-      blueprintCell.appendChild(arrow);
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = blueprint.Name;
+      toggleContainer.appendChild(nameSpan);
+      
+      if (!isInvalidImage) {    
+      toggleContainer.appendChild(arrow);
       }
+      
+      blueprintCell.appendChild(toggleContainer);
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
@@ -112,7 +121,7 @@ function renderTable(data) {
 
       let imageLoaded = false;
 
-arrow.addEventListener('click', (e) => {
+toggleContainer.addEventListener('click', (e) => {
   e.stopPropagation();
   const isVisible = accordionContent.style.display === 'block';
   
