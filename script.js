@@ -59,16 +59,16 @@ function renderTable(data) {
       row.appendChild(categoryCell);
 
       const blueprintCell = document.createElement('td');
-      blueprintCell.textContent = blueprint.Name;
-      row.appendChild(blueprintCell);
-
-      const poolCell = document.createElement('td');
       const arrow = document.createElement('span');
       arrow.textContent = '▶';
       arrow.style.cursor = 'pointer';
       arrow.style.marginRight = '8px';
 
-      poolCell.appendChild(arrow);
+      blueprintCell.appendChild(arrow);
+      blueprintCell.textContent = blueprint.Name;
+      row.appendChild(blueprintCell);
+
+      const poolCell = document.createElement('td');      
       poolCell.appendChild(document.createTextNode(blueprint.Pool));
       row.appendChild(poolCell);
 
