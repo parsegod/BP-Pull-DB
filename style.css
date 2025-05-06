@@ -171,10 +171,9 @@ th.sorted-desc::after {
   transition: max-height 0.3s ease, opacity 0.3s ease;
   overflow: hidden;
   opacity: 1;
+  display: none;
 }
 
-.accordion-hidden {
-  max-height: 0;
-  opacity: 0;
-  padding: 0 !important;
+.accordion-content.expanded {
+  display: block;
 }
