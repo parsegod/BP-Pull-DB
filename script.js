@@ -278,11 +278,11 @@ nothingCheckbox.addEventListener('change', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
   applyFilters();
+});
 
-  if (imageCheckbox.checked) {
+if (imageCheckbox.checked) {
     imageCheckbox.dispatchEvent(new Event('change'));
   }
-});
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
