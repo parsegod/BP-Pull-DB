@@ -284,17 +284,17 @@ imageCheckbox.addEventListener('change', () => {
 
  function applyImageToggle() {
   const rows = document.querySelectorAll('#pullsTable tbody tr');
-
+  console.log(rows);
   if (imageCheckbox.checked) {
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
-
+console.log(arrow);
       if (accordionContent && arrow) {
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
-
+console.log(arrow);
         if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
           const mainRow = row.previousElementSibling;
 
