@@ -280,7 +280,7 @@ nothingCheckbox.addEventListener('change', applyFilters);
 imageCheckbox.addEventListener('change', () => {
   applyFilters();
   applyImageToggle();
-)}
+})
 
  function applyImageToggle() {
   const rows = document.querySelectorAll('#pullsTable tbody tr');
