@@ -283,7 +283,8 @@ imageCheckbox.addEventListener('change', () => {
 })
 
 function applyImageToggle() {
-  const rows = document.querySelectorAll('#pullsTable tbody tr');
+  const rows = Array.from(document.querySelectorAll('#pullsTable tbody tr'))
+  .filter(row => row.querySelector('td[colspan="4"]'));
 
   if (imageCheckbox.checked) {
     console.log(`check 1`);
