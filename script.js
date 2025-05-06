@@ -292,7 +292,7 @@ function applyImageToggle() {
       const row = rows[i];
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
-
+      console.log(arrow, accordionContent);
       if (accordionContent && arrow) {
         console.log(`check 2`);
         accordionContent.style.display = 'block';
