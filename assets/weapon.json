@@ -68,7 +68,8 @@
         { "Name": "RELENTLESS FORCE", "Pool": "14" },
         { "Name": "CLOVERLEAF", "Pool": "15" },
         { "Name": "RETRO", "Pool": "16" },
-        { "Name": "NEON LIGHTS", "Pool": "17" }
+        { "Name": "NEON LIGHTS", "Pool": "17" },
+        { "Name": "THE ATOMIZER", "Pool": "18" }        
       ]
     },
     {
@@ -757,7 +758,8 @@
         { "Name": "UNRELEASED", "Pool": "12" },
         { "Name": "RETRO", "Pool": "13" },
         { "Name": "LACQUERED", "Pool": "14" },
-        { "Name": "LIKE", "Pool": "15" }
+        { "Name": "LIKE", "Pool": "15" },
+        { "Name": "NO TE PIERAS", "Pool": "16" }
         
       ]
     },
