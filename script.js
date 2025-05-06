@@ -277,50 +277,54 @@ searchInput.addEventListener('input', applyFilters);
 nothingCheckbox.addEventListener('change', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
-  applyFilters();  
+  applyFilters();
+
+  const rows = document.querySelectorAll('#pullsTable tbody tr');
 
   if (imageCheckbox.checked) {
-
-    document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
-      
-      if (accordionContent && arrow) {
 
+      if (accordionContent && arrow) {
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
 
         if (!accordionContent.querySelector('img') && !accordionContent.textContent.includes('No image')) {
-          const weaponName = row.previousSibling?.querySelector('td')?.textContent;
-          const blueprintName = row.previousSibling?.querySelectorAll('td')?.[2]?.textContent?.trim().replace(/^▶\s*/, '');
+          const mainRow = row.previousElementSibling;
 
-           console.log(`Row ${index} | Weapon: ${weaponName} | Blueprint: ${blueprintName}`);
+          if (mainRow) {
+            const weaponName = mainRow.querySelector('td')?.textContent?.trim();
+            const blueprintName = mainRow.querySelectorAll('td')?.[2]?.textContent?.trim().replace(/^▶\s*/, '');
 
-          if (weaponName && blueprintName) {
-            const img = document.createElement('img');
-            img.src = `assets/blueprints/images/${weaponName}/${blueprintName}.jpg`;
-            img.alt = blueprintName;
-            img.style.maxWidth = '100%';
+            console.log(`✔ Versuche Bild zu laden für: ${weaponName} / ${blueprintName}`);
 
-            img.onload = () => {
-              accordionContent.innerHTML = '';
-              accordionContent.appendChild(img);
-              console.log(`Bild geladen für ${weaponName}/${blueprintName}`);
-            };
+            if (weaponName && blueprintName) {
+              const img = document.createElement('img');
+              img.src = `assets/blueprints/images/${weaponName}/${blueprintName}.jpg`;
+              img.alt = blueprintName;
+              img.style.maxWidth = '100%';
 
-            img.onerror = () => {
-              console.warn(`❌ Bild nicht gefunden: ${weaponName}/${blueprintName}`);
-              accordionContent.innerHTML = '<em>No image available.</em>';
-            };
+              img.onload = () => {
+                accordionContent.innerHTML = '';
+                accordionContent.appendChild(img);
+                console.log(`✅ Bild erfolgreich geladen: ${img.src}`);
+              };
+
+              img.onerror = () => {
+                console.warn(`❌ Bild nicht gefunden: ${img.src}`);
+                accordionContent.innerHTML = '<em>No image available.</em>';
+              };
+            }
           }
         }
       }
-    });
+    }
   } else {
     document.querySelectorAll('#pullsTable tbody tr').forEach(row => {
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
-
       if (accordionContent && arrow) {
         accordionContent.style.display = 'none';
         arrow.textContent = '▶';
@@ -328,6 +332,7 @@ imageCheckbox.addEventListener('change', () => {
     });
   }
 });
+
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
