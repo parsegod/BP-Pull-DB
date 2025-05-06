@@ -541,10 +541,13 @@
         { "Name": "UNEARTHER", "Pool": "8" },
         { "Name": "ILL WIND", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
@@ -561,10 +564,13 @@
         { "Name": "IDLE HANDS", "Pool": "8" },
         { "Name": "BLOODY WATER", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
         { "Name": "GREEN MACHINE", "Pool": "13" },
-        { "Name": "", "Pool": "14" }
+        { "Name": "BATUQUE", "Pool": "14" },
+        { "Name": "HAUNTED PORTRAIT", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
       ]
     },
     {
@@ -581,11 +587,13 @@
         { "Name": "BIG BRAINED", "Pool": "8" },
         { "Name": "BLUNT TRAUMA", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" },
-        { "Name": "", "Pool": "12" },
-        { "Name": "", "Pool": "13" },
-        { "Name": "", "Pool": "14" },
-        { "Name": "DAMASCUS RELOADED", "Pool": "15" }
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "UNRELEASED", "Pool": "13" },
+        { "Name": "BLACKCELL DAMASCUS RELOADED", "Pool": "14" },
+        { "Name": "DAMASCUS RELOADED", "Pool": "15" },
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" }
         
       ]
     },
