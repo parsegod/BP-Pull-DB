@@ -121,31 +121,32 @@ function renderTable(data) {
       }
 
       let imageLoaded = false;
-
-toggleContainer.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isVisible = accordionContent.style.display === 'block';
+      
+if (!isInvalidImage) {
+  toggleContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isVisible = accordionContent.style.display === 'block';
   
-  if (!imageCheckbox.checked){
-  document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
-  document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
-  }
-  
-  if (!isVisible) {
-    accordionContent.style.display = 'block';
-    arrow.textContent = '▼';
-
-    if (!imageLoaded && img) {
-      img.src = img.dataset.src;
-      accordionContent.appendChild(img);
-      imageLoaded = true;
+    if (!imageCheckbox.checked){
+    document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
+    document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
     }
-  } else {
-    accordionContent.style.display = 'none';
-    arrow.textContent = '▶';
-  }
-});
+  
+    if (!isVisible) {
+      accordionContent.style.display = 'block';
+      arrow.textContent = '▼';
 
+      if (!imageLoaded && img) {
+        img.src = img.dataset.src;
+        accordionContent.appendChild(img);
+        imageLoaded = true;
+      }
+    } else {
+      accordionContent.style.display = 'none';
+      arrow.textContent = '▶';
+    }
+  });
+}
 if (imageCheckbox.checked) {
   accordionContent.style.display = 'block';
   arrow.textContent = '▼';
