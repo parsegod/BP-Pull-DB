@@ -83,8 +83,6 @@ function renderTable(data) {
 
       const accordionContent = document.createElement('div');
       accordionContent.style.display = 'none';
-      accordionContent.style.padding = '10px';
-      accordionContent.style.backgroundColor = '#f9f9f9';
 
       const img = document.createElement('img');
 
