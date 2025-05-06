@@ -115,7 +115,7 @@ if (!isInvalidImage) {
     const isVisible = accordionContent.classList.contains('expanded');
   
     if (!imageCheckbox.checked){
-    document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
+    document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.classList.remove('expanded'));
     document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
     }
   
