@@ -292,7 +292,7 @@ imageCheckbox.addEventListener('change', () => {
       const accordionContent = row.querySelector('div');
       const arrow = row.querySelector('span');
 console.log(`check 2`);
-console.log(arrow);
+console.log(arrow, accordionContent);
       if (accordionContent && arrow) {
         accordionContent.style.display = 'block';
         arrow.textContent = '▼';
