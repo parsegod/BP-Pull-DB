@@ -87,7 +87,7 @@ function renderTable(data) {
 
       const img = document.createElement('img');
 
-      img.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
+      img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
       img.alt = blueprint.Name;
       img.style.maxWidth = '100%';
 
@@ -117,6 +117,7 @@ arrow.addEventListener('click', (e) => {
     arrow.textContent = '▼';
 
     if (!imageLoaded) {
+      img.src = img.dataset.src;
       accordionContent.appendChild(img);
       imageLoaded = true;
     }
