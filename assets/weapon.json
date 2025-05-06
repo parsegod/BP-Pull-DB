@@ -20,7 +20,8 @@
         { "Name": "HIGH AUTHORITY", "Pool": "14" },
         { "Name": "SHARED FATE", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "SPEEDWAY", "Pool": "17" }
+        { "Name": "SPEEDWAY", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
         
       
       ]
@@ -45,7 +46,8 @@
         { "Name": "EXILE'S RESOLVE", "Pool": "14" },
         { "Name": "CHAOS SOW", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "UNRELEASED", "Pool": "17" }
+        { "Name": "UNRELEASED", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -95,7 +97,8 @@
         { "Name": "ETERNAL STRIFE", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -118,7 +121,8 @@
         { "Name": "BULLION", "Pool": "14" },
         { "Name": "RAZOR FOX", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "UNRELEASED", "Pool": "17" }
+        { "Name": "UNRELEASED", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -141,7 +145,8 @@
         { "Name": "FIELD WORK", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -164,7 +169,8 @@
         { "Name": "INDUSTRIAL", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -210,7 +216,8 @@
         { "Name": "UNRELEASED", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
