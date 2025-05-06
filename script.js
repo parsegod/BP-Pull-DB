@@ -64,19 +64,20 @@ function renderTable(data) {
       
       const toggleContainer = document.createElement('span');
       toggleContainer.style.cursor = 'pointer';
-      
+      toggleContainer.style.display = 'inline-flex';
+      toggleContainer.style.alignItems = 'center';
+      toggleContainer.style.gap = '8px';
+
       const arrow = document.createElement('span');
       arrow.textContent = '▶';
-      arrow.style.marginRight = '8px';
+      arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible'; // always in DOM
+      arrow.style.width = '1em'; // reserve space to avoid jump
 
       const nameSpan = document.createElement('span');
       nameSpan.textContent = blueprint.Name;
-      toggleContainer.appendChild(nameSpan);
-      
-      if (!isInvalidImage) {    
+
       toggleContainer.appendChild(arrow);
-      }
-      
+      toggleContainer.appendChild(nameSpan);
       blueprintCell.appendChild(toggleContainer);
       row.appendChild(blueprintCell);
 
