@@ -577,7 +577,7 @@
       "Name": "GPMG-7",
       "Category": "3",
       "Blueprints": [
-        { "Name": "EXO ORGANISM", "Pool": "1" },
+        { "Name": "EXO-ORGANISM", "Pool": "1" },
         { "Name": "BLACKCELL", "Pool": "2" },
         { "Name": "HITHER SLITHER", "Pool": "3" },
         { "Name": "ENCRYPTED", "Pool": "4" },
