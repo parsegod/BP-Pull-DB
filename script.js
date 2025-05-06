@@ -283,14 +283,16 @@ imageCheckbox.addEventListener('change', () => {
 })
 
  function applyImageToggle() {
- const rows = document.querySelectorAll('#pullsTable tbody tr.even, #pullsTable tbody tr.odd');
+ const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr'))
+  .filter(row => row.querySelector('td[colspan="4"]'));
   console.log(`check 1`);
      console.log(rows);
   if (imageCheckbox.checked) {
-    for (let i = 0; i < rows.length; i++) {
-      const row = rows[i];
-      const accordionContent = row.querySelector('div');
-      const arrow = row.querySelector('span');
+    for (let i = 0; i < accordionRows.length; i++) {
+  const row = accordionRows[i];
+  const accordionContent = row.querySelector('div');
+  const mainRow = row.previousElementSibling;
+  const arrow = mainRow?.querySelector('span');
 console.log(`check 2`);
 console.log(arrow, accordionContent);
       if (accordionContent && arrow) {
