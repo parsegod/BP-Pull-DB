@@ -85,7 +85,7 @@ function renderTable(data) {
       accordionCell.style.border = 'none';
 
       const accordionContent = document.createElement('div');
-      accordionContent.classList.add('accordion-content', 'accordion-hidden');
+      accordionContent.className = 'accordion-content';
 
       const img = document.createElement('img');
 
@@ -112,15 +112,15 @@ function renderTable(data) {
 if (!isInvalidImage) {
   arrow.addEventListener('click', (e) => {
     e.stopPropagation();
-    const isHidden = accordionContent.classList.contains('accordion-hidden');
+    const isVisible = accordionContent.classList.contains('expanded');
   
     if (!imageCheckbox.checked){
     document.querySelectorAll('#pullsTable tbody tr div').forEach(div => div.style.display = 'none');
     document.querySelectorAll('#pullsTable tbody tr span').forEach(sp => sp.textContent = '▶');
     }
   
-    if (!isHidden) {
-      accordionContent.classList.remove('accordion-hidden');
+     if (!isVisible) {
+      accordionContent.classList.add('expanded');
       arrow.textContent = '▼';
 
       if (!imageLoaded && img) {
@@ -131,13 +131,13 @@ if (!isInvalidImage) {
         imageLoaded = true;
       }
     } else {
-      accordionContent.classList.add('accordion-hidden');
+      accordionContent.classList.remove('expanded');
       arrow.textContent = '▶';
     }
   });
 }
 if (imageCheckbox.checked) {
-  accordionContent.classList.remove('accordion-hidden');
+  accordionContent.classList.add('expanded');
   arrow.textContent = '▼';
   if (!imageLoaded && img) {
     accordionContent.appendChild(img);
@@ -302,7 +302,7 @@ function applyImageToggle() {
       const dataRow = accordionRow.previousElementSibling;
       const arrow = dataRow?.querySelector('span');
       if (accordionContent && arrow) {
-        accordionContent.classList.remove('accordion-hidden');
+        accordionContent.classList.add('expanded');
         arrow.textContent = '▼';
 
         const img = accordionContent.querySelector('img');
@@ -322,7 +322,7 @@ function applyImageToggle() {
       const arrow = row.querySelector('span');
 
       if (accordionContent && arrow) {
-        accordionContent.classList.add('accordion-hidden');
+        accordionContent.classList.remove('expanded');
         arrow.textContent = '▶';
       }
     });
