@@ -294,6 +294,8 @@ imageCheckbox.addEventListener('change', () => {
           const weaponName = row.previousSibling?.querySelector('td')?.textContent;
           const blueprintName = row.previousSibling?.querySelectorAll('td')?.[2]?.textContent?.trim().replace(/^▶\s*/, '');
 
+           console.log(`Row ${index} | Weapon: ${weaponName} | Blueprint: ${blueprintName}`);
+
           if (weaponName && blueprintName) {
             const img = document.createElement('img');
             img.src = `assets/blueprints/images/${weaponName}/${blueprintName}.jpg`;
@@ -303,9 +305,11 @@ imageCheckbox.addEventListener('change', () => {
             img.onload = () => {
               accordionContent.innerHTML = '';
               accordionContent.appendChild(img);
+              console.log(`Bild geladen für ${weaponName}/${blueprintName}`);
             };
 
             img.onerror = () => {
+              console.warn(`❌ Bild nicht gefunden: ${weaponName}/${blueprintName}`);
               accordionContent.innerHTML = '<em>No image available.</em>';
             };
           }
