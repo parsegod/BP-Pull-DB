@@ -986,8 +986,8 @@
       "Name": "9MM PM",
       "Category": "6",
       "Blueprints": [
-        { "Name": "PURPLE SNAKE", "Pool": "1" },
-        { "Name": "FIRE CRACKER", "Pool": "2" },
+        { "Name": "SCRUB", "Pool": "1" },
+        { "Name": "FIRECRACKER", "Pool": "2" },
         { "Name": "THRONEBUSTER", "Pool": "3" },
         { "Name": "UNRELEASED", "Pool": "4" },
         { "Name": "MAJOR GIFT", "Pool": "5" },
