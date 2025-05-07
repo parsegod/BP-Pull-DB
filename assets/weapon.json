@@ -431,7 +431,8 @@
         { "Name": "WILDLIFE", "Pool": "14" },
         { "Name": "STRIKE ORDER", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -455,7 +456,8 @@
         { "Name": "INKSPINE", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
         
       ]
     },
@@ -480,7 +482,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -504,7 +507,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -526,7 +530,8 @@
         { "Name": "HARD REBOOT", "Pool": "13" },
         { "Name": "EXHUMER", "Pool": "14" },
         { "Name": "TRENCH WRECKER", "Pool": "15" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -548,7 +553,8 @@
         { "Name": "BATTLEWAX", "Pool": "13" },
         { "Name": "BLACKCELL PYTHONICUS", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "UNRELEASED", "Pool": "22" }
       ]
     },
     {
@@ -570,7 +576,8 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "QUIET DOWN", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -594,7 +601,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "", "Pool": "22" }
       ]
     },
     {
@@ -618,7 +626,8 @@
         { "Name": "HAUNTED PORTRAIT", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
