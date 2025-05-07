@@ -759,7 +759,7 @@
         { "Name": "BLACKCELL BOILING POINT", "Pool": "6" },
         { "Name": "NOTHING", "Pool": "7" },
         { "Name": "AEROBRAKE", "Pool": "8" },
-        { "Name": "DOG BITE", "Pool": "9" },
+        { "Name": "DOGBITE", "Pool": "9" },
         { "Name": "", "Pool": "10" },
         { "Name": "NOTHING", "Pool": "11" },
         { "Name": "NOTHING", "Pool": "12" },
