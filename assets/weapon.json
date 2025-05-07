@@ -639,7 +639,7 @@
         { "Name": "GREEN MACHINE", "Pool": "13" },
         { "Name": "BATUQUE", "Pool": "14" },
         { "Name": "HAUNTED PORTRAIT", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -664,7 +664,7 @@
         { "Name": "UNRELEASED", "Pool": "13" },
         { "Name": "BLACKCELL DAMASCUS RELOADED", "Pool": "14" },
         { "Name": "DAMASCUS RELOADED", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -690,7 +690,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -840,7 +840,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -865,7 +865,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -890,7 +890,7 @@
         { "Name": "RETRO", "Pool": "13" },
         { "Name": "LACQUERED", "Pool": "14" },
         { "Name": "LIKE", "Pool": "15" },
-        { "Name": "NO TE PIERAS", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "SEGMENT", "Pool": "22" }
@@ -915,7 +915,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -940,7 +940,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
