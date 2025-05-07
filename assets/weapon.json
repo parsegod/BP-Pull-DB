@@ -136,7 +136,7 @@
         { "Name": "RAZOR FOX", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "UNRELEASED", "Pool": "17" },
-        { "Name": "", "Pool": "18" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -162,7 +162,7 @@
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "", "Pool": "18" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -293,6 +293,7 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -318,6 +319,7 @@
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -343,6 +345,7 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -368,6 +371,7 @@
         { "Name": "FISSION", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -393,6 +397,7 @@
         { "Name": "JUDGMENT", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "ERODER", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "UNRELEASED", "Pool": "22" }
       ]
