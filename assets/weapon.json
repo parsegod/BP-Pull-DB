@@ -881,7 +881,7 @@
       "Name": "SVD",
       "Category": "5",
       "Blueprints": [
-        { "Name": "DARK FLARE", "Pool": "1" },
+        { "Name": "DARKFLARE", "Pool": "1" },
         { "Name": "LOVELESS", "Pool": "2" },
         { "Name": "AXEL", "Pool": "3" },
         { "Name": "MAX DAMAGE", "Pool": "4" },
