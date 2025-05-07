@@ -751,7 +751,7 @@
       "Name": "TSARKOV 7.62",
       "Category": "4",
       "Blueprints": [
-        { "Name": "RITUALS PATH", "Pool": "1" },
+        { "Name": "RITUAL'S PATH", "Pool": "1" },
         { "Name": "FEEDBACK LOOP", "Pool": "2" },
         { "Name": "FURIOUS", "Pool": "3" },
         { "Name": "SUBSCRIBE", "Pool": "4" },
