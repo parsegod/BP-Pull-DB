@@ -259,7 +259,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -285,7 +285,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -310,7 +310,7 @@
         { "Name": "SWEET TREAT", "Pool": "13" },
         { "Name": "TANK", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -335,7 +335,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -360,7 +360,7 @@
         { "Name": "NOVABURST", "Pool": "13" },
         { "Name": "STINGFERNO", "Pool": "14" },
         { "Name": "FISSION", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -385,7 +385,7 @@
         { "Name": "BLACKCELL CLOSE RANGE", "Pool": "13" },
         { "Name": "HARD RIGHT", "Pool": "14" },
         { "Name": "JUDGMENT", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "ERODER", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "UNRELEASED", "Pool": "22" }
@@ -438,7 +438,7 @@
         { "Name": "UNRELEASED", "Pool": "13" },
         { "Name": "WILDLIFE", "Pool": "14" },
         { "Name": "STRIKE ORDER", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -463,7 +463,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "MARBLED", "Pool": "14" },
         { "Name": "INKSPINE", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -489,7 +489,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "UNRELEASED", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -514,7 +514,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -539,6 +539,7 @@
         { "Name": "HARD REBOOT", "Pool": "13" },
         { "Name": "EXHUMER", "Pool": "14" },
         { "Name": "TRENCH WRECKER", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -563,6 +564,7 @@
         { "Name": "BATTLEWAX", "Pool": "13" },
         { "Name": "BLACKCELL PYTHONICUS", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "INSOMNIA", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "UNRELEASED", "Pool": "22" }
@@ -587,6 +589,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "QUIET DOWN", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -611,7 +614,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
