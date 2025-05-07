@@ -602,7 +602,7 @@
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
-        { "Name": "", "Pool": "22" }
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -651,7 +651,8 @@
         { "Name": "DAMASCUS RELOADED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
         
       ]
     },
@@ -676,7 +677,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -700,7 +702,8 @@
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -724,7 +727,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -748,7 +752,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -772,7 +777,8 @@
         { "Name": "THREATENING HOWL", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -796,7 +802,8 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
