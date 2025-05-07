@@ -423,7 +423,7 @@
         { "Name": "PRO ISSUE", "Pool": "15" },
         { "Name": "AKUMU KITSUNE", "Pool": "16" },
         { "Name": "DIAMOND ISSUE", "Pool": "17" },
-        { "Name": "", "Pool": "18" },
+        { "Name": "PLATINUM ISSUE", "Pool": "18" },
         { "Name": "", "Pool": "19" },
         { "Name": "", "Pool": "20" },
         { "Name": "CRIMSON ISSUE", "Pool": "21" },
@@ -451,6 +451,7 @@
         { "Name": "STRIKE ORDER", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -476,6 +477,7 @@
         { "Name": "INKSPINE", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
         
@@ -502,6 +504,7 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -527,6 +530,7 @@
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -552,6 +556,7 @@
         { "Name": "TRENCH WRECKER", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
       ]
@@ -577,6 +582,7 @@
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
         { "Name": "INSOMNIA", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "UNRELEASED", "Pool": "22" }
       ]
