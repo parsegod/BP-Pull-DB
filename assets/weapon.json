@@ -129,7 +129,8 @@
         { "Name": "RAZOR FOX", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "UNRELEASED", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -153,7 +154,8 @@
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -630,7 +632,8 @@
         { "Name": "BLACKCELL DAMASCUS RELOADED", "Pool": "14" },
         { "Name": "DAMASCUS RELOADED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
         
       ]
     },
@@ -654,7 +657,8 @@
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -677,7 +681,8 @@
         { "Name": "UNRELEASED", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -700,7 +705,8 @@
         { "Name": "BUILT TOUGH", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -723,7 +729,8 @@
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -746,7 +753,8 @@
         { "Name": "FURBISHED", "Pool": "14" },
         { "Name": "THREATENING HOWL", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
