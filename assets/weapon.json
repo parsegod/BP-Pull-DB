@@ -425,9 +425,12 @@
         { "Name": "DIAMOND ISSUE", "Pool": "17" },
         { "Name": "PLATINUM ISSUE", "Pool": "18" },
         { "Name": "POTENT CURIO", "Pool": "19" },
-        { "Name": "", "Pool": "20" },
+        { "Name": "IRIDESCENT ISSUE", "Pool": "20" },
         { "Name": "CRIMSON ISSUE", "Pool": "21" },
-        { "Name": "T250 ISSUE", "Pool": "22" }
+        { "Name": "T250 ISSUE", "Pool": "22" },
+        { "Name": "BANANA SPLITTIN` DOMES", "Pool": "23" },
+        { "Name": "NOTHING", "Pool": "24" },
+        { "Name": "UNRELEASED", "Pool": "25" }
       ]
     },
     {
