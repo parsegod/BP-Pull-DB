@@ -342,7 +342,8 @@
         { "Name": "STINGFERNO", "Pool": "14" },
         { "Name": "FISSION", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "", "Pool": "17" }
+        { "Name": "", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -365,7 +366,8 @@
         { "Name": "HARD RIGHT", "Pool": "14" },
         { "Name": "JUDGMENT", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "", "Pool": "17" }
+        { "Name": "", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -415,7 +417,8 @@
         { "Name": "UNRELEASED", "Pool": "13" },
         { "Name": "WILDLIFE", "Pool": "14" },
         { "Name": "STRIKE ORDER", "Pool": "15" },
-        { "Name": "", "Pool": "16" }
+        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -438,7 +441,8 @@
         { "Name": "MARBLED", "Pool": "14" },
         { "Name": "INKSPINE", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "", "Pool": "17" }
+        { "Name": "", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
         
       ]
     },
@@ -462,7 +466,8 @@
         { "Name": "UNRELEASED", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "", "Pool": "17" }
+        { "Name": "", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
