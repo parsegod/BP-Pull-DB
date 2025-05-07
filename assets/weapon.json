@@ -24,7 +24,8 @@
         { "Name": "", "Pool": "18" },
         { "Name": "", "Pool": "19" },
         { "Name": "", "Pool": "20" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "CONDUIT", "Pool": "22" }
         
       
       ]
@@ -103,7 +104,8 @@
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
-        { "Name": "NOTHING", "Pool": "21" }
+        { "Name": "NOTHING", "Pool": "21" },
+        { "Name": "NOTHING", "Pool": "22" }
       ]
     },
     {
@@ -490,7 +492,8 @@
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "", "Pool": "17" }
+        { "Name": "", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -511,7 +514,8 @@
         { "Name": "NOTHING", "Pool": "12" },
         { "Name": "HARD REBOOT", "Pool": "13" },
         { "Name": "EXHUMER", "Pool": "14" },
-        { "Name": "TRENCH WRECKER", "Pool": "15" }
+        { "Name": "TRENCH WRECKER", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -532,7 +536,8 @@
         { "Name": "SHATTER", "Pool": "12" },
         { "Name": "BATTLEWAX", "Pool": "13" },
         { "Name": "BLACKCELL PYTHONICUS", "Pool": "14" },
-        { "Name": "UNRELEASED", "Pool": "15" }
+        { "Name": "UNRELEASED", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -553,7 +558,8 @@
         { "Name": "NOTHING", "Pool": "12" },
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "QUIET DOWN", "Pool": "14" },
-        { "Name": "UNRELEASED", "Pool": "15" }
+        { "Name": "UNRELEASED", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -576,7 +582,8 @@
         { "Name": "NOTHING", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
@@ -599,7 +606,8 @@
         { "Name": "BATUQUE", "Pool": "14" },
         { "Name": "HAUNTED PORTRAIT", "Pool": "15" },
         { "Name": "", "Pool": "16" },
-        { "Name": "NOTHING", "Pool": "17" }
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "21" }
       ]
     },
     {
