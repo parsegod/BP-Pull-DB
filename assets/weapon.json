@@ -19,13 +19,15 @@
         { "Name": "VENOMER", "Pool": "13" },
         { "Name": "HIGH AUTHORITY", "Pool": "14" },
         { "Name": "SHARED FATE", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "SPEEDWAY", "Pool": "17" },
         { "Name": "", "Pool": "18" },
         { "Name": "", "Pool": "19" },
         { "Name": "UNRELEASED", "Pool": "20" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "CONDUIT", "Pool": "22" },
+        { "Name": "", "Pool": "23" },
+        { "Name": "", "Pool": "24" },
         { "Name": "NOTHING", "Pool": "25" }
         
       
@@ -50,7 +52,7 @@
         { "Name": "MARINE MENAGERIE", "Pool": "13" },
         { "Name": "EXILE'S RESOLVE", "Pool": "14" },
         { "Name": "CHAOS SOW", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "UNRELEASED", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "20" },
         { "Name": "NOTHING", "Pool": "21" },
@@ -107,7 +109,7 @@
         { "Name": "WOLFCALL", "Pool": "13" },
         { "Name": "ETERNAL STRIFE", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -132,7 +134,7 @@
         { "Name": "CORRUPTED SÉANCE", "Pool": "13" },
         { "Name": "BULLION", "Pool": "14" },
         { "Name": "RAZOR FOX", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "UNRELEASED", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -157,7 +159,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "FIELD WORK", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -182,7 +184,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "INDUSTRIAL", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -207,7 +209,7 @@
         { "Name": "SERRATED DENTICLE", "Pool": "13" },
         { "Name": "LAYERED FINISH", "Pool": "14" },
         { "Name": "DICER", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
@@ -232,7 +234,7 @@
         { "Name": "NOTHING", "Pool": "13" },
         { "Name": "UNRELEASED", "Pool": "14" },
         { "Name": "NOTHING", "Pool": "15" },
-        { "Name": "", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "16" },
         { "Name": "NOTHING", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "NOTHING", "Pool": "22" }
