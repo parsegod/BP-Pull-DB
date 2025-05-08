@@ -36,7 +36,7 @@
       "Category": "0",
       "Blueprints": [
         { "Name": "GRATITUDE", "Pool": "1" },
-        { "Name": "OIL SLICK", "Pool": "2" },
+        { "Name": "NULL", "Pool": "2" },
         { "Name": "TATTERED", "Pool": "3" },
         { "Name": "PURIFIER", "Pool": "4" },
         { "Name": "UNRELEASED", "Pool": "5" },
