@@ -673,7 +673,7 @@
       "Category": "3",
       "Blueprints": [
         { "Name": "EXO-ORGANISM", "Pool": "1" },
-        { "Name": "BLACKCELL", "Pool": "2" },
+        { "Name": "BLACKCELL HITHER SLITHER", "Pool": "2" },
         { "Name": "HITHER SLITHER", "Pool": "3" },
         { "Name": "ENCRYPTED", "Pool": "4" },
         { "Name": "UNRELEASED", "Pool": "5" },
