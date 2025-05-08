@@ -908,7 +908,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "BRAINSTORM", "Pool": "1" },
-        { "Name": "WOOD/WHITE", "Pool": "2" },
+        { "Name": "SANCTIFIER", "Pool": "2" },
         { "Name": "GHOSTLY GUILE", "Pool": "3" },
         { "Name": "ONYX ECHO", "Pool": "4" },
         { "Name": "UNRELEASED", "Pool": "5" },
