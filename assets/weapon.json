@@ -756,7 +756,7 @@
         { "Name": "FURIOUS", "Pool": "3" },
         { "Name": "SUBSCRIBE", "Pool": "4" },
         { "Name": "C-THRU", "Pool": "5" },
-        { "Name": "BLACKCELL BOILING POINT", "Pool": "6" },
+        { "Name": "BLACKCELL FURIOUS", "Pool": "6" },
         { "Name": "NOTHING", "Pool": "7" },
         { "Name": "AEROBRAKE", "Pool": "8" },
         { "Name": "DOGBITE", "Pool": "9" },
