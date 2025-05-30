@@ -90,7 +90,8 @@
         { "Name": "GO WITH THE FLOW", "Pool": "22" },
         { "Name": "MIDNIGHT MIRAGE", "Pool": "23" },
         { "Name": "ALL CHIPPED OUT", "Pool": "24" },
-        { "Name": "ISLAND VIBES", "Pool": "25" }
+        { "Name": "ISLAND VIBES", "Pool": "25" },
+        { "Name": "LETHAL INSPECTION", "Pool": "26" }
       ]
     },
     {
@@ -468,7 +469,7 @@
         { "Name": "BLOOD DRAW", "Pool": "8" },
         { "Name": "PAINBOW", "Pool": "9" },
         { "Name": "CHRONIC UNAPOLOGETIC", "Pool": "10" },
-        { "Name": "UNRELEASED", "Pool": "11" },
+        { "Name": "PEDATION", "Pool": "11" },
         { "Name": "GOLD ISSUE", "Pool": "12" },
         { "Name": "GILLED", "Pool": "13" },
         { "Name": "BASS BOOST", "Pool": "14" },
@@ -482,7 +483,8 @@
         { "Name": "TOP 250 ISSUE", "Pool": "22" },
         { "Name": "BANANA SPLITTIN' DOMES", "Pool": "23" },
         { "Name": "NOTHING", "Pool": "24" },
-        { "Name": "UNRELEASED", "Pool": "25" }
+        { "Name": "UNRELEASED", "Pool": "25" },
+        { "Name": "BLACKCELL SWORN RIVALS", "Pool": "26" }
       ]
     },
     {
