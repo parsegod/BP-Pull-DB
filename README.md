@@ -1,8 +1,9 @@
 
 
-                                      𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐁𝐥𝐮𝐞𝐩𝐫𝐢𝐧𝐭 𝐏𝐮𝐥𝐥 𝐃𝐁!
-                              browse, search, and filter weapon blueprints from a 
-                                           structured JSON dataset.  
+
+                                        𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐁𝐥𝐮𝐞𝐩𝐫𝐢𝐧𝐭 𝐏𝐮𝐥𝐥 𝐃𝐁!
+                                browse, search, and filter weapon blueprints from a 
+                                             structured JSON dataset. 
 #                                                        𝐓 𝐎 𝐂
 
 
