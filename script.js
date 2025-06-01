@@ -55,7 +55,7 @@ function renderTable(data) {
       // Skip blueprints with empty names
       if (blueprint.Name === "") return;
 
-      const isInvalidImage = blueprint.Name === "Nothing Pulls" || blueprint.Name === "Unreleased";
+      const isInvalidImage = blueprint.Name === "NOTHING" || blueprint.Name === "UNRELEASED";
       
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
@@ -307,7 +307,7 @@ function populateStatusFilter() {
     buttonContainer.appendChild(deselectAllBtn);
     statusFilterContainer.appendChild(buttonContainer);
 
-    const statusOptions = ['Normal', 'Nothing Pulls', 'Unreleased']; // Define blueprint status options
+    const statusOptions = ['Normal', 'NOTHING', 'UNRELEASED']; // Define blueprint status options
 
     statusOptions.forEach(status => {
         const label = document.createElement('label');
@@ -320,7 +320,7 @@ function populateStatusFilter() {
         checkbox.addEventListener('change', applyFilters);
 
         label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(status === 'Normal' ? 'Normal Blueprints' : `Show ${status}`)); // Display "Show Nothing Pulls", "Show Unreleased"
+        label.appendChild(document.createTextNode(status === 'Normal' ? 'Normal Blueprints' : `Show ${status}`)); // Display "Show NOTHING", "Show UNRELEASED"
         statusFilterContainer.appendChild(label);
     });
 }
@@ -343,13 +343,13 @@ function applyFilters() {
 
         // NEW: Status Filtering Logic
         let inStatus = false;
-        if (activeStatuses.includes('Normal') && bp.Name !== "Nothing Pulls" && bp.Name !== "Unreleased") {
+        if (activeStatuses.includes('Normal') && bp.Name !== "NOTHING" && bp.Name !== "UNRELEASED") {
             inStatus = true;
         }
-        if (activeStatuses.includes('Nothing Pulls') && bp.Name === "Nothing Pulls") {
+        if (activeStatuses.includes('NOTHING') && bp.Name === "NOTHING") {
             inStatus = true;
         }
-        if (activeStatuses.includes('Unreleased') && bp.Name === "Unreleased") {
+        if (activeStatuses.includes('UNRELEASED') && bp.Name === "UNRELEASED") {
             inStatus = true;
         }
         // If no status is selected, no blueprints will be shown
@@ -375,15 +375,15 @@ function applyFilters() {
 searchInput.addEventListener('input', applyFilters);
 
 // Old checkbox listeners removed
-// Nothing PullsCheckbox.addEventListener('change', applyFilters);
-// UnreleasedCheckbox.addEventListener('change', applyFilters); 
+// NOTHINGCheckbox.addEventListener('change', applyFilters);
+// UNRELEASEDCheckbox.addEventListener('change', applyFilters); 
 
 imageCheckbox.addEventListener('change', () => {
   applyFilters(); // Re-render table to ensure correct initial state of accordions
 })
 
 function applyImageToggle() {
-  // Select only accordion rows that are not for "Nothing Pulls" or "Unreleased" blueprints
+  // Select only accordion rows that are not for "NOTHING" or "UNRELEASED" blueprints
   const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
     const isAccordionRow = row.querySelector('td[colspan="4"]');
     if (!isAccordionRow) return false; // Not an accordion row
@@ -394,7 +394,7 @@ function applyImageToggle() {
     // Extract text content, remove arrow characters, and trim whitespace
     const blueprintName = blueprintNameCell ? blueprintNameCell.textContent.replace(/[▶▼]/g, '').trim() : '';
     
-    return blueprintName !== 'Nothing Pulls' && blueprintName !== 'Unreleased';
+    return blueprintName !== 'NOTHING' && blueprintName !== 'UNRELEASED';
   });
 
   accordionRows.forEach(accordionRow => {
