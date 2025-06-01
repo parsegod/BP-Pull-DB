@@ -4,7 +4,8 @@
                                         𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐁𝐥𝐮𝐞𝐩𝐫𝐢𝐧𝐭 𝐏𝐮𝐥𝐥 𝐃𝐁!
                                 browse, search, and filter weapon blueprints from a 
                                              structured JSON dataset.
-                                          created by. Liam enhanced by Parse
+                                             
+                                        𝗰𝗿𝗲𝗮𝘁𝗲𝗱 𝗯𝘆 𝗟𝗶𝗮𝗺 𝗲𝗻𝗵𝗮𝗻𝗰𝗲𝗱 𝗯𝘆 𝗣𝗮𝗿𝘀𝗲
 #                                                        𝐓 𝐎 𝐂
 
 
