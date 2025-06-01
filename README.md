@@ -190,21 +190,7 @@ const categoryMap = {
 };
 ```
 
-**Important Note on Images**: Blueprint images are expected to follow a specific naming convention and path: `assets/blueprints/images/{WeaponName}/{BlueprintName}.jpg`. Ensure your image files match this structure for them to load correctly!
-
-## 💡 Future Ideas
-
-This project is a solid foundation, but there's always room to grow! Here are a few ideas for potential enhancements:
-
-* **Sorting Table Columns**: Add functionality to sort the table by Weapon Name, Category, Blueprint Name, or Pool.
-
-* **More Data Points**: Integrate additional blueprint details like rarity, unlock requirements, or associated events.
-
-* **User Customization**: Allow users to save their filter preferences or even create custom lists of favorite blueprints (requires local storage or a simple backend).
-
-* **Improved Image Handling**: Implement lazy loading for images to boost performance, especially with large datasets.
-
-* **Accessibility Enhancements**: Further improve keyboard navigation and screen reader support.
+**Important Note on Images**: Blueprint images are expected to follow a specific naming convention and path: `assets/blueprints/images/{WeaponName}/{BlueprintName}.jpg`. Ensure your image files match this structure for them to load correctly
 
 ## 🤝 Contributing
 
