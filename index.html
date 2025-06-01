@@ -7,7 +7,7 @@
 </head>
 <body>
   <div class="container">
-
+<img src="https://files.catbox.moe/bsxp1x.png" alt="Logo" class="logo">
     <div id="searchView" class="hidden">
       <div class="search-bar-row">
         <input type="search" id="search" placeholder="Search Blueprint..." />        
@@ -25,14 +25,22 @@
          </button>
          <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
         </div>
+
+        <div class="filter-dropdown">
+          <button id="toggleStatusDropdown" type="button">
+            Filter Status <span id="statusArrow">▼</span>
+          </button>
+          <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
+        </div>
       </div>
     </div>
     
-    <input type="checkbox" id="nothingCheckbox" name="nothingCheckbox" value="">
-    <label for="nothingCheckbox">Show nothing entries</label>
-
-    <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
-    <label for="imageCheckbox">Show all images</label>
+    <div class="checkbox-controls">
+      <label for="imageCheckbox">
+        <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
+        Show All Previews
+      </label>
+      </div>
 
     <table id="pullsTable">
       <thead>
