@@ -87,22 +87,6 @@ Ready to get this blueprint tracker up and running on your local machine? It's s
 
 * Then, open your browser and go to `http://localhost:8000`.
 
-#                                                   🎮 How to Use
-
-Once the application is loaded, you'll find it quite intuitive:
-
-* **Searching**: Locate the "Search Blueprint..." input field at the top. Type in any part of a weapon name or blueprint name, and watch the table update instantly.
-
-* **Filtering by Category**: Click the "Filter Category" button. A dropdown will appear with various weapon categories. Check the boxes next to the categories you want to see. Don't forget the handy "Select All" and "Deselect All" buttons!
-
-* **Filtering by Pool**: Similarly, click the "Filter Pool" button. You'll see a list of blueprint acquisition pools. Select the ones you're interested in.
-
-* **"Show nothing entries" Checkbox**: If you want to include blueprints explicitly marked as "NOTHING" (e.g., placeholders), check this box. Uncheck it to hide them.
-
-* **"Show all images" Checkbox**: This is a neat trick! Check this box to expand all blueprint images simultaneously. Uncheck it to collapse them all back into their accordion state.
-
-* **Viewing Blueprint Images**: For individual blueprints, simply click the small "▶" arrow next to its name in the table. This will expand a row below, revealing the blueprint's image. Click the "▼" again to collapse it.
-
 #                                                   📂 File Tree
 
 * qiuck example of the file tree
