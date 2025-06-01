@@ -9,12 +9,10 @@ const togglePoolDropdown = document.getElementById('togglePoolDropdown');
 const poolArrow = document.getElementById('poolArrow');
 const imageCheckbox = document.getElementById('imageCheckbox');
 
-// NEW STATUS FILTER ELEMENTS
 const statusFilterContainer = document.getElementById('statusCheckboxes');
 const toggleStatusDropdown = document.getElementById('toggleStatusDropdown');
 const statusArrow = document.getElementById('statusArrow');
 
-// NEW COUNTER ELEMENTS
 const totalBlueprintsSpan = document.getElementById('totalBlueprints');
 const normalBlueprintsSpan = document.getElementById('normalBlueprints');
 const unreleasedBlueprintsSpan = document.getElementById('unreleasedBlueprints');
@@ -47,47 +45,45 @@ fetch('assets/weapon.json')
     currentData = [...Weapons];
     populateCategoryFilter();
     populatePoolFilter();
-    populateStatusFilter(); // NEW: Call to populate the new status filter
+    populateStatusFilter(); 
     applyFilters();
     searchView.classList.remove('hidden');
   })
   .catch(err => console.error("Error on load:", err));
 
 function renderTable(data) {
-  let totalCount = 0; // Initialize total count
-  let normalCount = 0; // Initialize normal count
-  let unreleasedCount = 0; // Initialize unreleased count
-  let nothingCount = 0; // Initialize nothing count
+  let totalCount = 0; 
+  let normalCount = 0; 
+  let unreleasedCount = 0; 
+  let nothingCount = 0; 
 
-  // Calculate counts based on the filtered data
-  data.forEach(weapon => { // Iterate through each weapon
-    weapon.Blueprints.forEach(blueprint => { // Iterate through each blueprint of the weapon
-      totalCount++; // Increment total count
-      if (blueprint.Name === "UNRELEASED") { // Check if blueprint is UNRELEASED
-        unreleasedCount++; // Increment unreleased count
-      } else if (blueprint.Name === "NOTHING") { // Check if blueprint is NOTHING
-        nothingCount++; // Increment nothing count
+  data.forEach(weapon => { 
+    weapon.Blueprints.forEach(blueprint => { 
+      totalCount++; 
+      if (blueprint.Name === "UNRELEASED") { 
+        unreleasedCount++; 
+      } else if (blueprint.Name === "NOTHING") { 
+        nothingCount++; 
       } else {
-        normalCount++; // Increment normal count for other blueprints
+        normalCount++; 
       }
     });
   });
 
-  // Update the display spans
-  totalBlueprintsSpan.textContent = totalCount; // Update total blueprints display
-  normalBlueprintsSpan.textContent = normalCount; // Update normal blueprints display
-  unreleasedBlueprintsSpan.textContent = unreleasedCount; // Update unreleased blueprints display
-  nothingBlueprintsSpan.textContent = nothingCount; // Update nothing blueprints display
+  totalBlueprintsSpan.textContent = totalCount; 
+  normalBlueprintsSpan.textContent = normalCount; 
+  unreleasedBlueprintsSpan.textContent = unreleasedCount; 
+  nothingBlueprintsSpan.textContent = nothingCount; 
 
   tableBody.innerHTML = '';
 
   data.forEach((weapon, i) => {
     weapon.Blueprints.forEach(blueprint => {
-      // Skip blueprints with empty names
+
       if (blueprint.Name === "") return;
 
       const isInvalidImage = blueprint.Name === "NOTHING" || blueprint.Name === "UNRELEASED";
-      
+
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
 
@@ -105,9 +101,9 @@ function renderTable(data) {
       arrow.style.cursor = 'pointer';
       arrow.textContent = '▶';
       arrow.style.display = 'inline-block';
-      arrow.style.width = '1.2em'; // consistent width for both ▶ and ▼
+      arrow.style.width = '1.2em'; 
       arrow.style.textAlign = 'center';
-      arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible'; // always in DOM, but hidden for invalid images
+      arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible'; 
 
       blueprintCell.appendChild(arrow);
       blueprintCell.appendChild(document.createTextNode(blueprint.Name));
@@ -118,8 +114,7 @@ function renderTable(data) {
       row.appendChild(poolCell);
 
       tableBody.appendChild(row);
-      
-      // Only create and append accordion row if it's a valid image blueprint
+
       if (!isInvalidImage) {
         const accordionRow = document.createElement('tr');
         const accordionCell = document.createElement('td');
@@ -134,33 +129,30 @@ function renderTable(data) {
         img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
         img.alt = blueprint.Name;
         img.style.maxWidth = '100%';
-        img.style.height = 'auto'; // Ensure aspect ratio is maintained
+        img.style.height = 'auto'; 
 
-        // Add an error handler for the image
         img.onerror = () => {
           accordionContent.innerHTML = '<em>No image.</em>';
-          // Remove the image element from the DOM if it exists
+
           if (img.parentNode) {
             img.parentNode.removeChild(img);
           }
         };   
-        
+
         accordionCell.appendChild(accordionContent);
         accordionRow.appendChild(accordionCell);
         tableBody.appendChild(accordionRow);
 
         let imageLoaded = false;
-        
-        // Event listener for the arrow to toggle accordion content
+
         arrow.addEventListener('click', (e) => {
           e.stopPropagation();
           const isVisible = accordionContent.classList.contains('expanded');
-        
-          // If "Show All Previews" is not checked, collapse all other open accordions
+
           if (!imageCheckbox.checked){
             document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
               div.classList.remove('expanded');
-              // Find the corresponding arrow and change its text
+
               const parentAccordionRow = div.closest('tr');
               const dataRow = parentAccordionRow?.previousElementSibling;
               const associatedArrow = dataRow?.querySelector('span');
@@ -169,16 +161,14 @@ function renderTable(data) {
               }
             });
           }
-        
-          // Toggle the current accordion
+
           if (!isVisible) {
             accordionContent.classList.add('expanded');
             arrow.textContent = '▼';
 
-            // Load image only if it hasn't been loaded and a src is available
             if (!imageLoaded && img.dataset.src) {
               img.src = img.dataset.src;
-              // Append image only if it's not already a child
+
               if (!accordionContent.contains(img)) {
                 accordionContent.appendChild(img);
               }
@@ -190,7 +180,6 @@ function renderTable(data) {
           }
         });
 
-        // If "Show All Previews" is checked, expand this accordion and load image
         if (imageCheckbox.checked) {
           accordionContent.classList.add('expanded');
           arrow.textContent = '▼';
@@ -205,7 +194,7 @@ function renderTable(data) {
       }
     });
   });
-  // After rendering, apply the image toggle state based on checkbox
+
   applyImageToggle(); 
 }
 
@@ -281,7 +270,7 @@ function populatePoolFilter() {
 
   const checkboxesContainer = document.createElement('div');
   checkboxesContainer.className = 'checkboxes-container';
-  
+
   const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
 
   const half = Math.ceil(uniquePools.length / 2);
@@ -293,7 +282,7 @@ function populatePoolFilter() {
     if (left[i]) interleaved.push(left[i]);
     if (right[i]) interleaved.push(right[i]);
   }
-  
+
   interleaved.forEach(pool => {
     const label = document.createElement('label');
     label.style.display = 'block';
@@ -311,7 +300,6 @@ function populatePoolFilter() {
   poolFilterContainer.appendChild(checkboxesContainer);
 }
 
-// NEW FUNCTION: Populate Status Filter
 function populateStatusFilter() {
     statusFilterContainer.innerHTML = '';
 
@@ -338,7 +326,7 @@ function populateStatusFilter() {
     buttonContainer.appendChild(deselectAllBtn);
     statusFilterContainer.appendChild(buttonContainer);
 
-    const statusOptions = ['Normal', 'NOTHING', 'UNRELEASED']; // Define blueprint status options
+    const statusOptions = ['Normal', 'NOTHING', 'UNRELEASED']; 
 
     statusOptions.forEach(status => {
         const label = document.createElement('label');
@@ -347,11 +335,11 @@ function populateStatusFilter() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.value = status;
-        checkbox.checked = (status === 'Normal'); // Default: only 'Normal Blueprints' are checked
+        checkbox.checked = (status === 'Normal'); 
         checkbox.addEventListener('change', applyFilters);
 
         label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(status === 'Normal' ? 'Normal Blueprints' : `Show ${status}`)); // Display "Show NOTHING", "Show UNRELEASED"
+        label.appendChild(document.createTextNode(status === 'Normal' ? 'Normal Blueprints' : `Show ${status}`)); 
         statusFilterContainer.appendChild(label);
     });
 }
@@ -362,7 +350,7 @@ function applyFilters() {
     .map(cb => cb.value);
   const activePools = [...poolFilterContainer.querySelectorAll('input:checked')]
     .map(cb => cb.value);
-  const activeStatuses = [...statusFilterContainer.querySelectorAll('input:checked')] // NEW: Get active statuses
+  const activeStatuses = [...statusFilterContainer.querySelectorAll('input:checked')] 
     .map(cb => cb.value);
 
   const filtered = Weapons
@@ -372,7 +360,6 @@ function applyFilters() {
         const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
         const inPool = activePools.includes(bp.Pool);
 
-        // NEW: Status Filtering Logic
         let inStatus = false;
         if (activeStatuses.includes('Normal') && bp.Name !== "NOTHING" && bp.Name !== "UNRELEASED") {
             inStatus = true;
@@ -383,14 +370,14 @@ function applyFilters() {
         if (activeStatuses.includes('UNRELEASED') && bp.Name === "UNRELEASED") {
             inStatus = true;
         }
-        // If no status is selected, no blueprints will be shown
+
         if (activeStatuses.length === 0) {
             inStatus = false;
         }
 
-        return inText && inPool && inStatus; // Combine all filters
+        return inText && inPool && inStatus; 
       });
-      
+
       return {
         ...weapon,
         Blueprints: filteredBlueprints
@@ -401,30 +388,23 @@ function applyFilters() {
   renderTable(filtered);
 }
 
-
-// 🔹 Live-Search
 searchInput.addEventListener('input', applyFilters);
 
-// Old checkbox listeners removed
-// NOTHINGCheckbox.addEventListener('change', applyFilters);
-// UNRELEASEDCheckbox.addEventListener('change', applyFilters); 
-
 imageCheckbox.addEventListener('change', () => {
-  applyFilters(); // Re-render table to ensure correct initial state of accordions
+  applyFilters(); 
 })
 
 function applyImageToggle() {
-  // Select only accordion rows that are not for "NOTHING" or "UNRELEASED" blueprints
+
   const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
     const isAccordionRow = row.querySelector('td[colspan="4"]');
-    if (!isAccordionRow) return false; // Not an accordion row
+    if (!isAccordionRow) return false; 
 
-    // Check the blueprint name from the *previous* data row
     const dataRow = row.previousElementSibling;
     const blueprintNameCell = dataRow?.querySelector('td:nth-child(3)');
-    // Extract text content, remove arrow characters, and trim whitespace
+
     const blueprintName = blueprintNameCell ? blueprintNameCell.textContent.replace(/[▶▼]/g, '').trim() : '';
-    
+
     return blueprintName !== 'NOTHING' && blueprintName !== 'UNRELEASED';
   });
 
@@ -432,22 +412,21 @@ function applyImageToggle() {
     const accordionContent = accordionRow.querySelector('div.accordion-content');
     const dataRow = accordionRow.previousElementSibling;
     const arrow = dataRow?.querySelector('span');
-    const img = accordionContent?.querySelector('img'); // Get the img element if it exists
+    const img = accordionContent?.querySelector('img'); 
 
     if (accordionContent && arrow) {
       if (imageCheckbox.checked) {
         accordionContent.classList.add('expanded');
         arrow.textContent = '▼';
-        // Load image if it exists, has a dataset.src, and hasn't been loaded yet
+
         if (img && img.dataset.src && !img.src) {
           img.src = img.dataset.src;
         }
-        // Ensure image is appended if it's not already there (e.g., after a filter change)
+
         if (img && !accordionContent.contains(img)) {
           accordionContent.appendChild(img);
         } else if (!img && !accordionContent.querySelector('em')) {
-          // This case should ideally not be hit if renderTable creates the img correctly
-          // but as a fallback, if no img and no 'No image.' message, create and append
+
           const tempImg = document.createElement('img');
           const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
           if (blueprintName) {
@@ -458,21 +437,20 @@ function applyImageToggle() {
             tempImg.onerror = () => {
               accordionContent.innerHTML = '<em>No image.</em>';
             };
-            tempImg.src = tempImg.dataset.src; // Set src immediately
+            tempImg.src = tempImg.dataset.src; 
             accordionContent.appendChild(tempImg);
           } else {
             accordionContent.innerHTML = '<em>No image.</em>';
           }
         }
       } else {
-        // If imageCheckbox is not checked, collapse the accordion
+
         accordionContent.classList.remove('expanded');
         arrow.textContent = '▶';
       }
     }
   });
 }
-
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -505,7 +483,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// NEW: Event listeners for Status dropdown
 toggleStatusDropdown.addEventListener('click', (e) => {
     e.stopPropagation();
     const isHidden = statusFilterContainer.classList.toggle('hidden');
