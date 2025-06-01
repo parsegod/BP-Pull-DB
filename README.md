@@ -230,14 +230,9 @@ This project is a solid foundation, but there's always room to grow! Here are a 
 
 ## ⚖️ License
 
-This project is proudly open source and distributed under the **MIT License**. Feel free to use, modify, and distribute it as you see fit!
+* This project is proudly open source and distributed under the **MIT License**. Feel free to use, modify, and distribute it as you see fit!
 
-## 📬 Contact
 
-Have questions, feedback, or just want to chat about blueprints? I'd love to hear from you!
+* **Creator Link**: `https://github.com/Liamcky/BlueprintPulling`
 
-* **Your Name/Handle**: \[Your GitHub Profile Link or Email\]
-
-* **Project Link**: `https://github.com/your-username/blueprint-pull-table` (Please update this link to your actual repository!)
-
-Happy blueprint hunting! 🚀
+* # Happy blueprint hunting! 🚀
