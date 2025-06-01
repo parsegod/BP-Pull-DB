@@ -343,7 +343,7 @@ function applyFilters() {
 
         // NEW: Status Filtering Logic
         let inStatus = false;
-        if (activeStatuses.includes('Normal') && bp.Name !== "Nothing Pullss" && bp.Name !== "Unreleased") {
+        if (activeStatuses.includes('Normal') && bp.Name !== "Nothing Pulls" && bp.Name !== "Unreleased") {
             inStatus = true;
         }
         if (activeStatuses.includes('Nothing Pulls') && bp.Name === "Nothing Pulls") {
