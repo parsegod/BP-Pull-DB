@@ -1,13 +1,18 @@
 
 
 
+
                                         𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐁𝐥𝐮𝐞𝐩𝐫𝐢𝐧𝐭 𝐏𝐮𝐥𝐥 𝐃𝐁!
                                 browse, search, and filter weapon blueprints from a 
                                              structured JSON dataset.
                                              
                                         𝗰𝗿𝗲𝗮𝘁𝗲𝗱 𝗯𝘆 𝗟𝗶𝗮𝗺 𝗲𝗻𝗵𝗮𝗻𝗰𝗲𝗱 𝗯𝘆 𝗣𝗮𝗿𝘀𝗲
-#                                                        𝐓 𝐎 𝐂
+*  Test v1 [HERE][creator-site]
+*  Test V2 [HERE][my-website]
 
+[my-website]: https://parsegod.github.io/BP-Pull-DB/ "My Awesome Portfolio"
+[creator-site]: https://liamcky.github.io/BlueprintPulling/
+#                                                        𝐓 𝐎 𝐂
 
 * [✨ Key Features](#-key-features)
 * [🛠️ Under the Hood](#️-under-the-hood)
