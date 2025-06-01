@@ -1,164 +1,362 @@
 /* Base styles */
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 body {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
   margin: 0;
-  font-family: sans-serif;
-  background: #121212;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(270deg, #102A43, #0077B6);
+  background-size: 400% 400%;
   color: #e0e0e0;
+  line-height: 1.6;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+/* Keyframes for gradient animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Layout container */
 .container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+  width: calc(100% - 20px); /* MODIFIED: Reduced side padding slightly */
+  max-width: 900px; /* MODIFIED: Reduced max-width significantly for a more compact GUI */
+  min-width: 320px;
+  margin: 0 auto 20px auto;
+  padding: 15px; /* MODIFIED: Reduced overall padding */
+  background: rgba(16, 42, 67, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+  min-height: calc(100vh - 40px);
+  padding-top: 190px; /* MODIFIED: Reduced padding-top slightly for logo if needed, adjust if logo overlaps */
+}
+
+/* Logo specific styles */
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* MODIFIED: Slightly reduced logo size */
+  height: auto;
+  z-index: 10;
 }
 
 /* Form controls */
-input,
-select {
-  background: #1e1e1e;
+input[type="search"],
+.filter-dropdown button {
+  background: #0D3B66;
   color: #fff;
-  padding: 10px;
-  border: none;
-  margin-bottom: 2px;
+  padding: 8px 10px; /* MODIFIED: Reduced padding for inputs/buttons */
+  border: 1px solid #0077B6;
+  border-radius: 6px; /* MODIFIED: Slightly less rounded corners */
+  font-size: 0.85em; /* MODIFIED: Smaller font size */
+  transition: all 0.3s ease;
+}
+
+input[type="search"]:focus,
+.filter-dropdown button:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
 }
 
 input[type="search"] {
-  width: 100%;
-  margin: 10px 0;
-  background: #222;
-  border: 1px solid #444;
+  flex: 0 1 250px; /* MODIFIED: Smaller preferred width for search bar */
+  max-width: 250px; /* MODIFIED: Smaller max width */
+  min-width: 120px; /* MODIFIED: Smaller min width */
+  margin: 8px 0; /* MODIFIED: Reduced margin */
+  box-sizing: border-box;
+}
+
+/* Checkbox specific styles */
+input[type="checkbox"] {
+  appearance: none;
+  width: 14px; /* MODIFIED: Smaller checkbox */
+  height: 14px; /* MODIFIED: Smaller checkbox */
+  border: 2px solid #0077B6;
+  border-radius: 3px; /* MODIFIED: Slightly less rounded */
+  background-color: #0D3B66;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px; /* MODIFIED: Reduced margin */
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #00A6FB;
+  border-color: #00A6FB;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  font-size: 10px; /* MODIFIED: Smaller checkmark */
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px; /* MODIFIED: Reduced margin */
+  font-size: 0.85em; /* MODIFIED: Smaller font size for labels */
+  cursor: pointer;
+}
+
+/* Checkbox controls container */
+.checkbox-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 15px; /* MODIFIED: Reduced gap */
+  margin-bottom: 10px; /* MODIFIED: Reduced margin */
+  padding: 5px 0; /* MODIFIED: Reduced padding */
+}
+
+.checkbox-controls label {
+  margin-bottom: 0;
 }
 
 /* Search bar */
 .search-bar-row {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px; /* MODIFIED: Reduced gap between search bar and filters */
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* MODIFIED: Reduced margin */
 }
 
 .search-bar-row input[type="search"] {
-  flex: 1;
   margin: 0;
 }
 
 /* Dropdown styles */
 .filter-dropdown {
   position: relative;
+  flex: 0 0 auto;
+  min-width: 100px; /* MODIFIED: Smaller minimum width for dropdown containers */
 }
 
 .filter-dropdown button {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 80px;
-  border-radius: 6px;
-  background: #2a2a2a;
-  padding: 10px;
-  color: #fff;
-  border: none;
-  cursor: pointer;
+  gap: 6px;
   white-space: nowrap;
-  width: fit-content;
+  width: 100%;
+  min-width: 100px; /* MODIFIED: Smaller minimum width for dropdown buttons */
+  cursor: pointer;
 }
 
 .filter-dropdown button:hover {
-  background: #444;
+  background: #00508C;
+  transform: translateY(-1px); /* MODIFIED: Smaller lift effect */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* MODIFIED: Softer shadow */
 }
 
 .filter-buttons {
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
-  margin-bottom: 10px;
-  gap: 8px;
+  align-items: center;
+  margin-bottom: 15px; /* MODIFIED: Reduced margin below buttons */
 }
 
 .filter-buttons button {
-  padding: 6px 6px;
-  font-size: 0.85em;
-  border-radius: 6px;
-  background: #2a2a2a;
-  border: 1px solid #444;
+  padding: 5px 8px; /* MODIFIED: Reduced padding for filter buttons */
+  font-size: 0.75em; /* MODIFIED: Smaller font size for filter buttons */
+  border-radius: 5px; /* MODIFIED: Slightly less rounded */
+  background: #0077B6;
+  border: 1px solid #00A6FB;
   color: #fff;
   cursor: pointer;
+  transition: all 0.2s ease;
+  width: calc(50% - 6px); /* MODIFIED: Adjusted for new button size */
+  box-sizing: border-box;
 }
 
-.filter-buttons button:hover {
-  background: #3a3a3a;
+#categoryArrow, #poolArrow, #statusArrow {
+  font-size: 0.6em; /* Existing style */
+  transition: transform 0.3s ease; /* Existing style */
+  pointer-events: none; /* ADD THIS LINE */
 }
 
-#Arrow {
-  font-size: 0.9em;
+.filter-dropdown button[aria-expanded="true"] #categoryArrow,
+.filter-dropdown button[aria-expanded="true"] #poolArrow,
+.filter-dropdown button[aria-expanded="true"] #statusArrow {
+  transform: rotate(180deg);
 }
 
 .dropdown-panel {
   position: absolute;
-  top: 110%;
+  top: calc(100% + 5px); /* MODIFIED: Reduced gap below the button */
   left: 0;
-  background: #1e1e1e;
-  padding: 12px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  max-height: 400px;
+  background: #0D3B66;
+  padding: 10px; /* MODIFIED: Reduced padding */
+  border: 1px solid #0077B6;
+  border-radius: 8px; /* MODIFIED: Slightly less rounded */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* MODIFIED: Softer shadow */
+  max-height: 200px; /* MODIFIED: Reduced max-height for dropdown panels */
   overflow-y: auto;
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  min-width: 240px; /* MODIFIED: Reduced minimum width for dropdown panel */
 }
 
 .dropdown-panel label {
-  margin-bottom: 2px;
-  font-size: 0.9em;
+  margin-bottom: 2px; /* MODIFIED: Reduced space between labels */
+  font-size: 0.8em; /* MODIFIED: Smaller font size */
+  padding: 0; /* MODIFIED: Removed padding */
 }
 
 .checkboxes-container {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 5px; /* MODIFIED: Reduced gap between checkboxes */
 }
 
-.checkboxes-container label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2px;
-  font-size: 0.9em;
+/* New style for table container to keep UI size fixed */
+.table-container {
+  max-height: 40vh; /* MODIFIED: Reduced table max height */
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 15px; /* MODIFIED: Reduced margin */
+  border-radius: 8px; /* MODIFIED: Slightly less rounded */
+  background: #102A43;
 }
 
 /* Table styles */
 table {
   width: 100%;
-  border-collapse: collapse;
-}
-
-table, th, td {
-  border: 1px solid black;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px; /* MODIFIED: Match container border-radius */
+  overflow: hidden;
+  table-layout: fixed;
 }
 
 th, td {
-  padding: 6px;
+  padding: 8px 10px; /* MODIFIED: Reduced padding for table cells */
   text-align: left;
+  border-bottom: 1px solid #0D3B66;
+  font-size: 0.85em; /* MODIFIED: Smaller font size for table content */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Explicit column widths for stable table layout */
+th:nth-child(1), td:nth-child(1) {
+  width: 25%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+  width: 25%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+  width: 35%;
+}
+
+th:nth-child(4), td:nth-child(4) {
+  width: 15%;
 }
 
 th {
-  background: #333;
+  background: #0077B6;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+th:first-child {
+  border-top-left-radius: 8px; /* MODIFIED: Match container border-radius */
+}
+
+th:last-child {
+  border-top-right-radius: 8px; /* MODIFIED: Match container border-radius */
 }
 
 th.sorted-asc::after {
   content: ' ▲';
+  font-size: 0.6em; /* MODIFIED: Smaller arrow font size */
+  vertical-align: middle;
 }
 
 th.sorted-desc::after {
   content: ' ▼';
+  font-size: 0.6em; /* MODIFIED: Smaller arrow font size */
+  vertical-align: middle;
 }
 
 /* Table row striping */
 #pullsTable tbody tr.even {
-  background-color: #1e1e1e;
+  background-color: #0D3B66;
 }
 
 #pullsTable tbody tr.odd {
-  background-color: #2a2a2a;
+  background-color: #102A43;
+}
+
+#pullsTable tbody tr:hover {
+  background-color: #00508C;
+  transition: background-color 0.2s ease;
+}
+
+/* Accordion content for images */
+.accordion-content {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  overflow: hidden;
+  padding: 0 10px; /* MODIFIED: Reduced padding for content inside */
+  background-color: #081D2E;
+  border-top: 1px solid #0D3B66;
+}
+
+.accordion-content.expanded {
+  max-height: 300px; /* MODIFIED: Further reduced max height for previews */
+  opacity: 1;
+  padding: 10px; /* MODIFIED: Reduced padding when expanded */
+}
+
+.accordion-content img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 85%; /* MODIFIED: Slightly more constrained max-width for images */
+  height: auto;
 }
 
 /* Utility */
@@ -166,13 +364,37 @@ th.sorted-desc::after {
   display: none;
 }
 
-.accordion-content {
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  overflow: hidden;
-  opacity: 1;
-  display: none;
-}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    width: calc(100% - 10px); /* MODIFIED: Reduce side padding further on small screens */
+    padding: 10px; /* MODIFIED: Reduce overall padding on small screens */
+    padding-top: 120px; /* MODIFIED: Adjust padding-top for smaller screens */
+  }
 
-.accordion-content.expanded {
-  display: block;
+  .logo {
+    width: 180px; /* MODIFIED: Smaller logo on small screens */
+  }
+
+  input[type="search"],
+  .filter-dropdown button {
+    font-size: 0.8em; /* MODIFIED: Even smaller font on small screens */
+    padding: 6px 8px; /* MODIFIED: Smaller padding */
+  }
+
+  table, th, td {
+    font-size: 0.75em; /* MODIFIED: Further smaller font for tables on small screens */
+    padding: 5px 6px; /* MODIFIED: Further reduced padding */
+  }
+
+  .dropdown-panel {
+    width: calc(100% - 20px); /* MODIFIED: Adjust width for padding on small screens */
+    padding: 8px; /* MODIFIED: Smaller padding for panels */
+  }
+
+  .filter-buttons button {
+    font-size: 0.7em; /* MODIFIED: Even smaller font for filter buttons */
+    padding: 4px 6px; /* MODIFIED: Smaller padding */
+    width: calc(50% - 5px); /* MODIFIED: Adjusted for new padding */
+  }
 }
