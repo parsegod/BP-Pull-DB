@@ -15,11 +15,8 @@
 * [🎮 How to Use](#-how-to-use)
 * [📂 Project Structure](#-project-structure)
 * [📊 Data Format](#-data-format)
-* [💡 Future Ideas](#-future-ideas)
 * [🤝 Contributing](#-contributing) 
 * [⚖️ License](#️-license)
-* [📬 Contact](#-contact)
-
 #                                                   ✨ 𝐊𝐞𝐲 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐬
 * **Blueprint Display**: Continuly Updated list of blueprints
 
@@ -130,65 +127,7 @@ Once the application is loaded, you'll find it quite intuitive:
 
 #                                                    📊 Data Format
 
-The heart of this application's data lies within the `assets/weapon.json` file. It's structured to be straightforward and easily parsable:
-
-
-```
-{
-"Weapons": \[
-{
-"Name": "Assault Rifle A",
-"Category": "0", // This numeric ID maps to "ASSAULT RIFLES"
-"Blueprints": \[
-{
-"Name": "Blueprint Alpha",
-"Pool": "Common"
-},
-{
-"Name": "Blueprint Beta",
-"Pool": "Rare"
-},
-{
-"Name": "NOTHING",
-"Pool": "N/A" // Special entry for placeholders
-}
-\]
-},
-{
-"Name": "SMG B",
-"Category": "1", // This numeric ID maps to "SUBMACHINE GUNS"
-"Blueprints": \[
-{
-"Name": "Blueprint Gamma",
-"Pool": "Epic"
-},
-{
-"Name": "UNRELEASED",
-"Pool": "N/A" // Another special entry
-}
-\]
-}
-\]
-}
-```
-
 The `categoryMap` in `script.js` is where the magic happens, translating those numeric `Category` IDs into human-readable names:
-
-
-```
-const categoryMap = {
-"0": "ASSAULT RIFLES",
-"1": "SUBMACHINE GUNS",
-"2": "SHOTGUNS",
-"3": "LIGHT MACHINE GUNS",
-"4": "MARKSMAN RIFLES",
-"5": "SNIPER RIFLES",
-"6": "PISTOLS",
-"7": "LAUNCHERS",
-"8": "SPECIAL",
-"9": "MELEE"
-};
-```
 
 **Important Note on Images**: Blueprint images are expected to follow a specific naming convention and path: `assets/blueprints/images/{WeaponName}/{BlueprintName}.jpg`. Ensure your image files match this structure for them to load correctly
 
