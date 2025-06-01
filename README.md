@@ -7,8 +7,9 @@
                                              structured JSON dataset.
                                              
                                         𝗰𝗿𝗲𝗮𝘁𝗲𝗱 𝗯𝘆 𝗟𝗶𝗮𝗺 𝗲𝗻𝗵𝗮𝗻𝗰𝗲𝗱 𝗯𝘆 𝗣𝗮𝗿𝘀𝗲
-*  Test v1 [HERE][creator-site]
-*  Test V2 [HERE][my-website]
+*  Owner : [Liam][my-website]
+*  Revampd : [Parse][creator-site]
+
 
 [my-website]: https://parsegod.github.io/BP-Pull-DB/ "My Awesome Portfolio"
 [creator-site]: https://liamcky.github.io/BlueprintPulling/
