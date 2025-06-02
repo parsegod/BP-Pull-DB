@@ -23,7 +23,7 @@
         { "Name": "SPEEDWAY", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "19" },
-        { "Name": "UNRELEASED", "Pool": "20" },
+        { "Name": "THERMOPLASTIC", "Pool": "20" },
         { "Name": "NOTHING", "Pool": "21" },
         { "Name": "CONDUIT", "Pool": "22" },
         { "Name": "NOTHING", "Pool": "23" },
@@ -90,8 +90,7 @@
         { "Name": "GO WITH THE FLOW", "Pool": "22" },
         { "Name": "MIDNIGHT MIRAGE", "Pool": "23" },
         { "Name": "ALL CHIPPED OUT", "Pool": "24" },
-        { "Name": "ISLAND VIBES", "Pool": "25" },
-        { "Name": "LETHAL INSPECTION", "Pool": "26" }
+        { "Name": "ISLAND VIBES", "Pool": "25" }
       ]
     },
     {
@@ -145,7 +144,7 @@
         { "Name": "BULLION", "Pool": "14" },
         { "Name": "RAZOR FOX", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
-        { "Name": "UNRELEASED", "Pool": "17" },
+        { "Name": "NO PAROLE", "Pool": "17" },
         { "Name": "NOTHING", "Pool": "18" },
         { "Name": "NOTHING", "Pool": "19" },
         { "Name": "NOTHING", "Pool": "20" },
@@ -315,7 +314,7 @@
       "Category": "0",
       "Blueprints": [
         {"Name": "BLACKCELL VERDUROUS MENACE", "Pool": "1" },
-        { "Name": "DATA BREACHER", "Pool": "2" },
+        { "Name": "VERDUROUS MENACE", "Pool": "2" },
         { "Name": "GLAZED OUT", "Pool": "3" },
         { "Name": "SEA CHOMPER", "Pool": "4" },
         { "Name": "VERDUROUS MENACE", "Pool": "5" },
@@ -484,7 +483,7 @@
         { "Name": "BANANA SPLITTIN' DOMES", "Pool": "23" },
         { "Name": "NOTHING", "Pool": "24" },
         { "Name": "UNRELEASED", "Pool": "25" },
-        { "Name": "BLACKCELL SWORN RIVALS", "Pool": "26" }
+        { "Name": "SWORN RIVALS", "Pool": "26" }
       ]
     },
     {
@@ -529,7 +528,7 @@
         { "Name": "NOTHING", "Pool": "10" },
         { "Name": "NOTHING", "Pool": "11" },
         { "Name": "NOTHING", "Pool": "12" },
-        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "FILE", "Pool": "13" },
         { "Name": "MARBLED", "Pool": "14" },
         { "Name": "INKSPINE", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
@@ -660,7 +659,7 @@
         { "Name": "NOTHING", "Pool": "10" },
         { "Name": "NOTHING", "Pool": "11" },
         { "Name": "NOTHING", "Pool": "12" },
-        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "BARRAINA", "Pool": "13" },
         { "Name": "QUIET DOWN", "Pool": "14" },
         { "Name": "UNRELEASED", "Pool": "15" },
         { "Name": "NOTHING", "Pool": "16" },
@@ -884,7 +883,7 @@
       "Category": "4",
       "Blueprints": [
         { "Name": "CUT OUT", "Pool": "1" },
-        { "Name": "UNRELEASED", "Pool": "2" },
+        { "Name": "BEAT `EM UP", "Pool": "2" },
         { "Name": "NOTHING", "Pool": "3" },
         { "Name": "NOTHING", "Pool": "4" },
         { "Name": "OLD TIMER", "Pool": "5" },
@@ -1047,7 +1046,7 @@
         { "Name": "MAJOR GIFT", "Pool": "5" },
         { "Name": "CRACKED", "Pool": "6" },
         { "Name": "NOTHING", "Pool": "7" },
-        { "Name": "NOTHING", "Pool": "8" },
+        { "Name": "ARABESQUE", "Pool": "8" },
         { "Name": "UNRELEASED", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
         { "Name": "", "Pool": "11" }
