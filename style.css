@@ -1,4 +1,3 @@
-/* Base styles */
 html {
   box-sizing: border-box;
 }
@@ -12,7 +11,7 @@ body {
   height: 100%;
   min-width: 0;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto; /* Changed to auto to allow vertical scrolling */
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: linear-gradient(270deg, #102A43, #0077B6);
@@ -20,9 +19,38 @@ body {
   color: #e0e0e0;
   line-height: 1.6;
   animation: gradientAnimation 15s ease infinite;
+  list-style: none;
 }
 
-/* Keyframes for gradient animation */
+::-webkit-scrollbar {
+  width: 0; /* Set width to 0 to hide the scrollbar */
+  height: 0; /* Set height to 0 to hide the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #0D3B66;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0077B6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00A6FB;
+}
+
+::-webkit-scrollbar-corner {
+  background: #0D3B66;
+}
+
+::-webkit-scrollbar-button {
+  background: #0D3B66;
+  height: 0;
+  width: 0;
+}
+
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
@@ -35,7 +63,6 @@ body {
   }
 }
 
-/* Layout container */
 .container {
   width: calc(100% - 20px);
   max-width: 900px;
@@ -48,10 +75,9 @@ body {
   position: relative;
   z-index: 2;
   min-height: calc(100vh - 40px);
-  padding-top: 200px; /* Adjusted padding-top for logo and motto */
+  padding-top: 200px;
 }
 
-/* Logo specific styles */
 .logo {
   position: absolute;
   top: 10px;
@@ -62,10 +88,9 @@ body {
   z-index: 10;
 }
 
-/* Motto specific styles */
 .motto {
   position: absolute;
-  top: 155px; /* Adjust this value to position it correctly below your logo */
+  top: 155px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
@@ -78,7 +103,6 @@ body {
 }
 
 
-/* Form controls */
 input[type="search"],
 .filter-dropdown button {
   background: #0D3B66;
@@ -105,7 +129,6 @@ input[type="search"] {
   box-sizing: border-box;
 }
 
-/* Checkbox specific styles */
 input[type="checkbox"] {
   appearance: none;
   width: 14px;
@@ -144,7 +167,6 @@ label {
   cursor: pointer;
 }
 
-/* Checkbox controls container */
 .checkbox-controls {
   display: flex;
   flex-wrap: wrap;
@@ -158,7 +180,6 @@ label {
   margin-bottom: 0;
 }
 
-/* Search bar */
 .search-bar-row {
   display: flex;
   flex-wrap: wrap;
@@ -172,7 +193,6 @@ label {
   margin: 0;
 }
 
-/* Dropdown styles */
 .filter-dropdown {
   position: relative;
   flex: 0 0 auto;
@@ -239,7 +259,7 @@ label {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   max-height: 200px;
-  overflow-y: auto;
+  overflow-y: auto; /* Changed to auto to allow vertical scrolling */
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -258,17 +278,15 @@ label {
   gap: 5px;
 }
 
-/* New style for table container to keep UI size fixed */
 .table-container {
   max-height: 40vh;
-  overflow-y: auto;
+  overflow-y: auto; /* Changed to auto to allow vertical scrolling */
   overflow-x: hidden;
   margin-top: 15px;
   border-radius: 8px;
   background: #102A43;
 }
 
-/* Table styles */
 table {
   width: 100%;
   border-collapse: separate;
@@ -288,7 +306,6 @@ th, td {
   white-space: nowrap;
 }
 
-/* Explicit column widths for stable table layout */
 th:nth-child(1), td:nth-child(1) {
   width: 25%;
 }
@@ -335,7 +352,6 @@ th.sorted-desc::after {
   vertical-align: middle;
 }
 
-/* Table row striping */
 #pullsTable tbody tr.even {
   background-color: #0D3B66;
 }
@@ -349,7 +365,6 @@ th.sorted-desc::after {
   transition: background-color 0.2s ease;
 }
 
-/* Accordion content for images */
 .accordion-content {
   max-height: 0;
   opacity: 0;
@@ -358,34 +373,32 @@ th.sorted-desc::after {
   padding: 0 10px;
   background-color: #081D2E;
   border-top: 1px solid #0D3B66;
-  display: flex; /* Use flexbox for better image centering and control */
-  justify-content: center; /* Center image horizontally */
-  align-items: center; /* Center image vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .accordion-content.expanded {
-  max-height: 200px; /* Adjusted to a more accommodating height for images */
+  max-height: 200px;
   opacity: 1;
   padding: 10px;
 }
 
 .accordion-content img {
   display: block;
-  max-height: 100%; /* Image will scale down to fit the height of its container */
-  max-width: 100%;  /* Image will scale down to fit the width of its container */
-  width: auto;      /* Maintain aspect ratio */
-  height: auto;     /* Maintain aspect ratio */
-  object-fit: contain; /* CRUCIAL: Scales the image to fit entirely within the content box */
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Utility */
 .hidden {
   display: none;
 }
 
-/* Blueprint Counters Style */
 .blueprint-counters {
     display: flex;
     flex-wrap: wrap;
@@ -407,15 +420,14 @@ th.sorted-desc::after {
 
 .blueprint-counters span {
     font-weight: bold;
-    color: #00A6FB; /* Highlight color for the numbers */
+    color: #00A6FB;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .container {
     width: calc(100% - 10px);
     padding: 10px;
-    padding-top: 150px; /* Adjusted padding-top for smaller screens */
+    padding-top: 150px;
   }
 
   .logo {
@@ -460,18 +472,7 @@ th.sorted-desc::after {
   }
 }
 
-/* Keyframes for glow animation */
-@keyframes neon-glow {
-  0% {
-    box-shadow: 0 0 5px #00E6FF, 0 0 10px #00E6FF, 0 0 15px #00E6FF, 0 0 20px #00A6FB, 0 0 25px #00A6FB;
-  }
-  100% {
-    box-shadow: 0 0 8px #00E6FF, 0 0 15px #00E6FF, 0 0 25px #00E6FF, 0 0 35px #00A6FB, 0 0 45px #00A6FB;
-  }
-}
 
-
-/* Changelog Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -494,31 +495,20 @@ th.sorted-desc::after {
 }
 
 .modal-content {
-    background: #1A2A3A; /* Darker, more refined background */
-    padding: 40px; /* More padding */
-    border-radius: 15px; /* Softer rounded corners */
-    box-shadow: 0 0 15px rgba(0, 230, 255, 0.6), inset 0 0 10px rgba(0, 230, 255, 0.3); /* Neon glow effect + inner shadow */
-    max-width: 700px; /* Slightly wider */
+    background: rgba(16, 42, 67, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    max-width: 600px;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Changed to auto to allow vertical scrolling */
     position: relative;
-    transform: translateY(-20px);
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.8s ease-in-out; /* Bounce effect */
-    animation: neon-glow 2s ease-in-out infinite alternate; /* Pulsating glow */
+    transform: translateY(0);
+    transition: none;
+    animation: none;
 
-    /* Add a subtle pseudo-element grid/circuit pattern */
     &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(#00A6FB 1px, transparent 1px);
-        background-size: 20px 20px;
-        opacity: 0.05; /* Very subtle */
-        z-index: -1;
-        border-radius: 15px;
+        content: none;
     }
 }
 
@@ -527,39 +517,39 @@ th.sorted-desc::after {
 }
 
 .modal-content h2 {
-    font-family: 'Oswald', sans-serif; /* Modern title font */
-    color: #00E6FF; /* Brighter blue for title */
-    text-shadow: 0 0 15px rgba(0, 230, 255, 0.8), 0 0 25px rgba(0, 230, 255, 0.4); /* Stronger glow */
-    letter-spacing: 2px; /* More spaced out */
-    font-size: 2.5em; /* Larger title */
+    font-family: 'Oswald', sans-serif;
+    color: #e0e0e0;
+    text-shadow: none;
+    letter-spacing: 1px;
+    font-size: 2em;
     margin-top: 0;
-    margin-bottom: 30px; /* More space */
+    margin-bottom: 20px;
     text-align: center;
-    text-transform: uppercase; /* All caps for impact */
-    background: linear-gradient(90deg, #00A6FB, #00E6FF); /* Gradient text (might need -webkit-background-clip) */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
 }
 
 .modal-close-button {
-    color: #FF6B6B; /* Red close button */
-    font-size: 2.8em; /* Larger */
-    right: 20px;
-    top: 20px;
-    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), color 0.3s ease; /* Bounce + color transition */
+    color: #e0e0e0;
+    font-size: 2.2em;
+    right: 15px;
+    top: 15px;
+    transition: color 0.2s ease;
     background: none;
     border: none;
     cursor: pointer;
     position: absolute;
-    z-index: 10; /* Ensure it's above other elements */
+    z-index: 10;
+    transform: none;
 }
 
 .modal-close-button:hover {
-    transform: rotate(180deg) scale(1.1); /* More dramatic spin and slight enlarge */
-    color: #FF3333;
+    color: #00A6FB;
+    transform: none;
 }
 
-/* Changelog entries styling */
 .changelog-entries ul {
   list-style: none;
   padding: 0;
@@ -567,135 +557,121 @@ th.sorted-desc::after {
 }
 
 .changelog-entries li {
-    background-color: #1A3A50; /* Slightly lighter card background */
-    padding: 20px 25px; /* More internal padding */
-    border-radius: 12px; /* Softer rounded card corners */
-    margin-bottom: 18px; /* More space between cards */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(0, 119, 182, 0.2); /* Deeper shadow + inner glow */
-    border: 1px solid #00568C; /* Subtle border */
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: #0D3B66;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #0077B6;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
-    font-size: 0.95em;
+    font-size: 0.9em;
     line-height: 1.5;
-    position: relative; /* For pseudo-elements */
-    perspective: 1000px; /* For 3D transforms */
+    position: relative;
+    perspective: none;
+    list-style: none;
 
-    /* Add a subtle diagonal line pattern with pseudo-element */
     &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: repeating-linear-gradient(
-            45deg,
-            rgba(0, 119, 182, 0.05),
-            rgba(0, 119, 182, 0.05) 5px,
-            transparent 5px,
-            transparent 10px
-        );
-        z-index: 0;
-        opacity: 0.5;
-        border-radius: 12px;
+        content: none;
     }
 }
 
 .changelog-entries li:hover {
-    transform: translateY(-5px) rotateX(2deg) scale(1.01); /* Lift, slight X-axis rotation, slight enlarge */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(0, 230, 255, 0.4); /* More intense shadow and glow */
-    background-color: #1E4A66; /* Slightly brighter on hover */
+    transform: none;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background-color: #00508C;
 }
 
 .changelog-entries li strong {
     font-family: 'Open Sans', sans-serif;
-    color: #4CAF50; /* Green for dates */
-    font-size: 1.3em; /* Slightly larger date */
+    color: #00A6FB;
+    font-size: 1.1em;
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
-    border-bottom: 1px dashed rgba(0, 119, 182, 0.5); /* Stronger dashed separator */
-    padding-bottom: 10px;
-    text-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Date glow */
+    margin-bottom: 10px;
+    border-bottom: 1px solid #0077B6;
+    padding-bottom: 8px;
+    text-shadow: none;
 }
 
 .changelog-entries li strong::before {
-    content: '📅'; /* Calendar icon */
-    margin-right: 10px; /* More space */
-    font-size: 1.1em; /* Larger icon */
-    color: #00E6FF; /* Icon color */
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2300A6FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>');
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateY(-2px);
 }
 
 .changelog-entries li ul {
     list-style: none;
-    padding-left: 20px; /* More indent */
-    margin-top: 15px; /* More space */
+    padding-left: 15px;
+    margin-top: 10px;
 }
 
 .changelog-entries li ul li {
     background: none;
     box-shadow: none;
     border: none;
-    padding: 7px 0; /* More padding for individual changes */
-    margin-bottom: 7px;
-    color: #CCE0F0; /* Lighter text for changes */
-    font-size: 0.9em;
+    padding: 5px 0;
+    margin-bottom: 5px;
+    color: #CCE0F0;
+    font-size: 0.85em;
     position: relative;
-    padding-left: 25px; /* Space for custom bullet */
+    padding-left: 20px;
     transition: color 0.2s ease;
-    z-index: 1; /* Ensure text is above pseudo-element pattern */
+    z-index: 1;
 }
 
 .changelog-entries li ul li:last-child {
-    margin-bottom: 0; /* No margin for last item */
+    margin-bottom: 0;
 }
 
 .changelog-entries li ul li::before {
-    content: '‣'; /* More unique bullet point (or use unicode for a cool arrow) */
-    color: #00A6FB; /* Blue bullet color */
+    content: '•';
+    color: #00A6FB;
     position: absolute;
     left: 0;
     font-weight: bold;
-    font-size: 1.5em; /* Larger bullet */
+    font-size: 1.2em;
     line-height: 1;
-    transform: translateY(-2px); /* Align bullet vertically */
-    text-shadow: 0 0 3px rgba(0, 166, 251, 0.8); /* Bullet glow */
+    transform: translateY(-1px);
+    text-shadow: none;
 }
 
 .changelog-entries li ul li:hover {
-    color: #FFF; /* White on hover for individual changes */
-    /* No transform or box-shadow on sub-list items to avoid visual clutter */
+    color: #FFF;
 }
 
 .changelog-button {
-  background: linear-gradient(45deg, #0077B6, #00A6FB); /* Gradient button */
+  background: #0077B6;
   color: #fff;
-  padding: 10px 18px; /* More padding */
-  border: 2px solid #00E6FF; /* Brighter border */
-  border-radius: 8px; /* More rounded */
-  font-size: 0.95em; /* Slightly larger font */
+  padding: 8px 15px;
+  border: 1px solid #00A6FB;
+  border-radius: 6px;
+  font-size: 0.85em;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy effect */
+  transition: all 0.2s ease;
   margin-left: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  text-transform: uppercase; /* All caps */
-  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .changelog-button:hover {
-  background: linear-gradient(45deg, #00A6FB, #00E6FF); /* Brighter gradient on hover */
-  transform: translateY(-3px) scale(1.02); /* Lift and slight enlarge */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 230, 255, 0.7); /* More intense shadow and glow */
-  border-color: #fff; /* White border on hover */
+  background: #00508C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-color: #00A6FB;
 }
 
-/* Responsive adjustments for modal */
 @media (max-width: 768px) {
   .modal-content {
     padding: 20px;
     width: 95%;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 230, 255, 0.5), inset 0 0 5px rgba(0, 230, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
   .modal-content h2 {
@@ -719,8 +695,8 @@ th.sorted-desc::after {
   }
 
   .changelog-entries li:hover {
-      transform: translateY(-2px) rotateX(1deg) scale(1.005);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(0, 230, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   }
 
   .changelog-entries li strong {
@@ -759,7 +735,7 @@ th.sorted-desc::after {
   }
 
   .changelog-button:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 230, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 }
