@@ -48,14 +48,25 @@ let currentData = [];
 
 // Define changelog entries
 const changelogEntries = [
+    {
+    date: "2025-06-02 6:20AM",
+    changes: [
+      "𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀:",
+      "- LADRA : HELLBLOCK (Pool 2)",
+      "- FENG 82 : LOCK UP (Pool 7)",
+      "- LW31A1 FROSTLINE : SNITCH UP (Pool 15)",
+      "- KRIG C  : IED (Pool 17)",
+      "- KRIG C  : IED BLACKCELL (Pool 20)"
+    ]
+  },
   {
     date: "2025-06-01",
     changes: [
-      "Added new blueprints:",
+      "𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀:",
       "- MODEL L: NO PAROLE (Pool 17)",
       "- XM4: THERMOPLASTIC (Pool 20)",
       "- 9MM PM: ARABESQUE (Pool 8)",
-      "- SAUG: FILE (Pool 13)",
+      "- SAUG: PILE (Pool 13)",
       "- JACKAL PDW: SWORN RIVALS (Blackcell 26)",
       "- AMES 85: LETHAL INSPECTION (Pool 26)",
       "- C9: THE PAINTSTORM (Pool 15)",
@@ -66,24 +77,6 @@ const changelogEntries = [
       "- TR2: BEAT `EM UP (Pool 2) (Replaces UNRELEASED)",
       "- GPMG-7: HEAD FIRST (Pool 13)",
       "- MAELSTROM: BARRAINA (Pool 13)"
-    ]
-  },
-  {
-    date: "2025-06-01",
-    changes: [
-      "Implemented 'Show All Previews' checkbox to toggle all blueprint images.",
-      "Added Blueprint Counters: Total, Normal, UNRELEASED, and NOTHING blueprints displayed.",
-      "Introduced 'Filter Status' dropdown for 'Normal Blueprints', 'Show NOTHING', and 'Show UNRELEASED'."
-    ]
-  },
-  {
-    date: "2025-06-01",
-    changes: [
-      "Initial release of the Blueprint Pull Table.",
-      "Search functionality by weapon and blueprint name.",
-      "Filter options for Category and Pool.",
-      "Sortable table columns.",
-      "Expandable blueprint image previews."
     ]
   }
 ];
