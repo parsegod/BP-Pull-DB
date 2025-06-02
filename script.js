@@ -20,6 +20,12 @@ const normalBlueprintsSpan = document.getElementById('normalBlueprints');
 const unreleasedBlueprintsSpan = document.getElementById('unreleasedBlueprints');
 const nothingBlueprintsSpan = document.getElementById('nothingBlueprints');
 
+// NEW CHANGELOG ELEMENTS
+const changelogModal = document.getElementById('changelogModal');
+const closeChangelogModalBtn = document.getElementById('closeChangelogModal');
+const changelogButton = document.getElementById('changelogButton');
+const changelogContentDiv = document.getElementById('changelogContent');
+
 const categoryMap = {
   "0": "ASSAULT RIFLES",
   "1": "SUBMACHINE GUNS",
@@ -40,6 +46,48 @@ const categoryMapReverse = Object.fromEntries(
 let Weapons = [];
 let currentData = [];
 
+// Define changelog entries
+const changelogEntries = [
+  {
+    date: "2025-06-01",
+    changes: [
+      "Added new blueprints:",
+      "- MODEL L: NO PAROLE (Pool 17)",
+      "- XM4: THERMOPLASTIC (Pool 20)",
+      "- 9MM PM: ARABESQUE (Pool 8)",
+      "- SAUG: FILE (Pool 13)",
+      "- JACKAL PDW: SWORN RIVALS (Blackcell 26)",
+      "- AMES 85: LETHAL INSPECTION (Pool 26)",
+      "- C9: THE PAINTSTORM (Pool 15)",
+      "- CYPHER 091: THE PAINTBURST (Pool 7)",
+      "- CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
+      "- CR-56 AMAX: SEA CHOMPER (Pool 4)",
+      "- PPSH-41: SHRILL BLEAATER (Pool 8)",
+      "- TR2: BEAT `EM UP (Pool 2) (Replaces UNRELEASED)",
+      "- GPMG-7: HEAD FIRST (Pool 13)",
+      "- MAELSTROM: BARRAINA (Pool 13)"
+    ]
+  },
+  {
+    date: "2025-06-01",
+    changes: [
+      "Implemented 'Show All Previews' checkbox to toggle all blueprint images.",
+      "Added Blueprint Counters: Total, Normal, UNRELEASED, and NOTHING blueprints displayed.",
+      "Introduced 'Filter Status' dropdown for 'Normal Blueprints', 'Show NOTHING', and 'Show UNRELEASED'."
+    ]
+  },
+  {
+    date: "2025-06-01",
+    changes: [
+      "Initial release of the Blueprint Pull Table.",
+      "Search functionality by weapon and blueprint name.",
+      "Filter options for Category and Pool.",
+      "Sortable table columns.",
+      "Expandable blueprint image previews."
+    ]
+  }
+];
+
 fetch('assets/weapon.json')
   .then(res => res.json())
   .then(data => {
@@ -50,6 +98,7 @@ fetch('assets/weapon.json')
     populateStatusFilter(); // NEW: Call to populate the new status filter
     applyFilters();
     searchView.classList.remove('hidden');
+    showChangelogOnFirstVisit(); // NEW: Check and show changelog on first visit
   })
   .catch(err => console.error("Error on load:", err));
 
@@ -362,7 +411,7 @@ function applyFilters() {
     .map(cb => cb.value);
   const activePools = [...poolFilterContainer.querySelectorAll('input:checked')]
     .map(cb => cb.value);
-  const activeStatuses = [...statusFilterContainer.querySelectorAll('input:checked')] // NEW: Get active statuses
+  const activeStatuses = [...statusFilterContainer.querySelectorAll('input:checked')]
     .map(cb => cb.value);
 
   const filtered = Weapons
@@ -372,7 +421,7 @@ function applyFilters() {
         const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
         const inPool = activePools.includes(bp.Pool);
 
-        // NEW: Status Filtering Logic
+        // Status Filtering Logic
         let inStatus = false;
         if (activeStatuses.includes('Normal') && bp.Name !== "NOTHING" && bp.Name !== "UNRELEASED") {
             inStatus = true;
@@ -388,7 +437,7 @@ function applyFilters() {
             inStatus = false;
         }
 
-        return inText && inPool && inStatus; // Combine all filters
+        return inText && inPool && inStatus;
       });
       
       return {
@@ -405,10 +454,6 @@ function applyFilters() {
 // 🔹 Live-Search
 searchInput.addEventListener('input', applyFilters);
 
-// Old checkbox listeners removed
-// NOTHINGCheckbox.addEventListener('change', applyFilters);
-// UNRELEASEDCheckbox.addEventListener('change', applyFilters); 
-
 imageCheckbox.addEventListener('change', () => {
   applyFilters(); // Re-render table to ensure correct initial state of accordions
 })
@@ -417,7 +462,7 @@ function applyImageToggle() {
   // Select only accordion rows that are not for "NOTHING" or "UNRELEASED" blueprints
   const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
     const isAccordionRow = row.querySelector('td[colspan="4"]');
-    if (!isAccordionRow) return false; // Not an accordion row
+    if (!isAccordionRow) return false;
 
     // Check the blueprint name from the *previous* data row
     const dataRow = row.previousElementSibling;
@@ -432,7 +477,7 @@ function applyImageToggle() {
     const accordionContent = accordionRow.querySelector('div.accordion-content');
     const dataRow = accordionRow.previousElementSibling;
     const arrow = dataRow?.querySelector('span');
-    const img = accordionContent?.querySelector('img'); // Get the img element if it exists
+    const img = accordionContent?.querySelector('img');
 
     if (accordionContent && arrow) {
       if (imageCheckbox.checked) {
@@ -446,8 +491,6 @@ function applyImageToggle() {
         if (img && !accordionContent.contains(img)) {
           accordionContent.appendChild(img);
         } else if (!img && !accordionContent.querySelector('em')) {
-          // This case should ideally not be hit if renderTable creates the img correctly
-          // but as a fallback, if no img and no 'No image.' message, create and append
           const tempImg = document.createElement('img');
           const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
           if (blueprintName) {
@@ -458,7 +501,7 @@ function applyImageToggle() {
             tempImg.onerror = () => {
               accordionContent.innerHTML = '<em>No image.</em>';
             };
-            tempImg.src = tempImg.dataset.src; // Set src immediately
+            tempImg.src = tempImg.dataset.src;
             accordionContent.appendChild(tempImg);
           } else {
             accordionContent.innerHTML = '<em>No image.</em>';
@@ -521,3 +564,71 @@ document.addEventListener('click', (e) => {
       }
     }
 });
+
+// NEW CHANGELOG FUNCTIONS AND EVENT LISTENERS
+
+/**
+ * Populates the changelog modal with entries.
+ */
+function populateChangelog() {
+  changelogContentDiv.innerHTML = ''; // Clear existing content
+
+  changelogEntries.forEach(entry => {
+    const listItem = document.createElement('li');
+    const dateStrong = document.createElement('strong');
+    dateStrong.textContent = `Date: ${entry.date}`;
+    listItem.appendChild(dateStrong);
+
+    const ul = document.createElement('ul');
+    entry.changes.forEach(change => {
+      const li = document.createElement('li');
+      li.textContent = change;
+      ul.appendChild(li);
+    });
+    listItem.appendChild(ul);
+    changelogContentDiv.appendChild(listItem);
+  });
+}
+
+/**
+ * Displays the changelog modal.
+ */
+function showChangelogModal() {
+  populateChangelog(); // Ensure content is fresh
+  changelogModal.classList.add('visible');
+}
+
+/**
+ * Hides the changelog modal.
+ */
+function hideChangelogModal() {
+  changelogModal.classList.remove('visible');
+}
+
+// Event listener for the "View Changelog" button
+changelogButton.addEventListener('click', showChangelogModal);
+
+// Event listener for the close button inside the modal
+closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
+
+// Event listener to close modal when clicking outside content
+changelogModal.addEventListener('click', (e) => {
+  if (e.target === changelogModal) {
+    hideChangelogModal();
+  }
+});
+
+/**
+ * Checks if the changelog has been shown before using localStorage.
+ * Shows the changelog if it's the first visit, then sets a flag.
+ */
+function showChangelogOnFirstVisit() {
+  const lastChangelogDate = localStorage.getItem('lastChangelogDate');
+  const latestChangelogDate = changelogEntries[0].date; // Get the date of the most recent entry
+
+  // If there's no stored date, or the latest changelog date is newer than the stored one
+  if (!lastChangelogDate || latestChangelogDate > lastChangelogDate) {
+    showChangelogModal();
+    localStorage.setItem('lastChangelogDate', latestChangelogDate);
+  }
+}
