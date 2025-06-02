@@ -49,41 +49,52 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
+    date: "2025-06-02 7:45AM",
+    changes: [
+      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
+      " STRYDER .22 : HELLBLOCK (Pool 2)",
+      " FENG 82 : LOCK UP (Pool 7)",
+      " LW31A1 FROSTLINE : SNITCH UP (Pool 15)",
+      " KRIG C  : IED (Pool 17)",
+      " KRIG C  : IED BLACKCELL (Pool 20)"
+    ]
+  },
+    {
     date: "2025-06-02 6:50AM",
     changes: [
-      "𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗹𝗶𝘁𝘆:",
-      "* 𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗹𝗶𝗸𝗲 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗰𝗿𝗼𝗹𝗹 𝗯𝗮𝗿 𝘄𝗮𝘀 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝘀𝗼 𝗜 𝗿𝗲𝗺𝗼𝘃𝗲𝗱 𝗶𝘁𝘀 𝘃𝗶𝘀𝗮𝗯𝗶𝗹𝗶𝘁𝘆 *"
+      "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗹𝗶𝘁𝘆 ↶",
+      " 𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗹𝗶𝗸𝗲 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗰𝗿𝗼𝗹𝗹 𝗯𝗮𝗿 𝘄𝗮𝘀 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝘀𝗼 𝗜 𝗿𝗲𝗺𝗼𝘃𝗲𝗱 𝗶𝘁𝘀 𝘃𝗶𝘀𝗮𝗯𝗶𝗹𝗶𝘁𝘆 "
     ]
   },
   {
     date: "2025-06-02 6:20AM",
     changes: [
-      "𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀:",
-      "- LADRA : HELLBLOCK (Pool 2)",
-      "- FENG 82 : LOCK UP (Pool 7)",
-      "- LW31A1 FROSTLINE : SNITCH UP (Pool 15)",
-      "- KRIG C  : IED (Pool 17)",
-      "- KRIG C  : IED BLACKCELL (Pool 20)"
+      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
+      " LADRA : HELLBLOCK (Pool 2)",
+      " FENG 82 : LOCK UP (Pool 7)",
+      " LW31A1 FROSTLINE : SNITCH UP (Pool 15)",
+      " KRIG C  : IED (Pool 17)",
+      " KRIG C  : IED BLACKCELL (Pool 20)"
     ]
   },
   {
     date: "2025-06-01 11:32PM",
     changes: [
-      "𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀:",
-      "- MODEL L: NO PAROLE (Pool 17)",
-      "- XM4: THERMOPLASTIC (Pool 20)",
-      "- 9MM PM: ARABESQUE (Pool 8)",
-      "- SAUG: PILE (Pool 13)",
-      "- JACKAL PDW: SWORN RIVALS (Blackcell 26)",
-      "- AMES 85: LETHAL INSPECTION (Pool 26)",
-      "- C9: THE PAINTSTORM (Pool 15)",
-      "- CYPHER 091: THE PAINTBURST (Pool 7)",
-      "- CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
-      "- CR-56 AMAX: SEA CHOMPER (Pool 4)",
-      "- PPSH-41: SHRILL BLEAATER (Pool 8)",
-      "- TR2: BEAT `EM UP (Pool 2) (Replaces UNRELEASED)",
-      "- GPMG-7: HEAD FIRST (Pool 13)",
-      "- MAELSTROM: BARRAINA (Pool 13)"
+      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
+      " MODEL L: NO PAROLE (Pool 17)",
+      " XM4: THERMOPLASTIC (Pool 20)",
+      " 9MM PM: ARABESQUE (Pool 8)",
+      " SAUG: PILE (Pool 13)",
+      " JACKAL PDW: SWORN RIVALS (Blackcell 26)",
+      " AMES 85: LETHAL INSPECTION (Pool 26)",
+      " C9: THE PAINTSTORM (Pool 15)",
+      " CYPHER 091: THE PAINTBURST (Pool 7)",
+      " CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
+      " CR-56 AMAX: SEA CHOMPER (Pool 4)",
+      " PPSH-41: SHRILL BLEAATER (Pool 8)",
+      " TR2: BEAT `EM UP (Pool 2) (Replaces UNRELEASED)",
+      " GPMG-7: HEAD FIRST (Pool 13)",
+      " MAELSTROM: BARRAINA (Pool 13)"
     ]
   }
 ];
