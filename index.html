@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blu Base</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="https://files.catbox.moe/bsxp1x.png">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
@@ -53,6 +54,97 @@
         <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
         Show All Previews
       </label>
+      <button id="changelogButton" class="changelog-button">View Changelog</button>
+    </div>
+
+    <div class="blueprint-counters">
+      <p>Total Blueprints Displayed: <span id="totalBlueprints">0</span></p>
+      <p>Normal Blueprints: <span id="normalBlueprints">0</span></p>
+      <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
+      <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
+    </div>
+
+    <table id="pullsTable">
+      <thead>
+        <tr>
+          <th data-key="Weapon">Weapon</th>
+          <th data-key="Category">Category</th>
+          <th data-key="Blueprint">Blueprint</th>
+          <th data-key="Pool">Pool</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="changelogModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button class="modal-close-button" id="closeChangelogModal">&times;</button>
+      <h2>Changelog</h2>
+      <div id="changelogContent" class="changelog-entries">
+        </div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blu Base</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/bsxp1x.png">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:title" content="Blu Base" />
+  <meta property="og:description" content="your no.1 bp pull db!" />
+  <meta property="og:image" content="https://files.catbox.moe/bsxp1x.png" /> <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" /> <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blu Base">
+  <meta name="twitter:description" content="your no.1 bp pull db!">
+  <meta name="twitter:image" content="https://files.catbox.moe/bsxp1x.png">
+  </head>
+<body>
+  <div class="container">
+    <img src="https://files.catbox.moe/bsxp1x.png" alt="Logo" class="logo">
+    <h1 class="motto"></h1>
+    <div id="searchView" class="hidden">
+      <div class="search-bar-row">
+        <input type="search" id="search" placeholder="Search Blueprint..." />        
+        
+        <div class="filter-dropdown">
+          <button id="toggleCategoryDropdown" type="button">
+            Filter Category <span id="categoryArrow">▼</span>
+          </button>
+          <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
+        </div>
+        
+        <div class="filter-dropdown">
+           <button id="togglePoolDropdown" type="button">
+             Filter Pool <span id="poolArrow">▼</span>
+           </button>
+           <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
+        </div>
+
+        <div class="filter-dropdown">
+          <button id="toggleStatusDropdown" type="button">
+            Filter Status <span id="statusArrow">▼</span>
+          </button>
+          <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="checkbox-controls">
+      <label for="imageCheckbox">
+        <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
+        Show All Previews
+      </label>
+      <button id="changelogButton" class="changelog-button">View Changelog</button>
     </div>
 
     <div class="blueprint-counters">
