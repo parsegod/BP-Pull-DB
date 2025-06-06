@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs'); // fs is still needed for path operations, even if not for writing
 
 const app = express();
 // The PORT is mainly for local testing. Vercel's serverless environment manages ports automatically.
@@ -163,73 +163,17 @@ log('info', 'Express JSON parser applied globally.'); // This log is outside a r
 app.use(express.json()); // To parse JSON bodies if needed for other requests
 log('info', 'Express JSON parser applied globally.'); // This log is outside a request context
 
-// Define the base path for your blueprint images relative to this server.js file.
-// This path should point to the location within the 'public' directory that Vercel serves.
-// '__dirname' is 'your-project-name/api' on Vercel.
-// '..' goes up to 'your-project-name'.
-// 'public' enters the static assets directory.
-// 'assets/blueprints/images' is the specific subfolder.
+// Define the base path for your blueprint images where they are *expected to be served from*
+// by the frontend (ju.html). This is not where the server will save them.
 const imagesBasePath = path.join(__dirname, '..', 'public', 'assets', 'blueprints', 'images');
-log('info', `Configured images base path: '${imagesBasePath}'`); // This log is outside a request context
+log('info', `Frontend expects images from: '${imagesBasePath}' (Note: Server won't save here on Vercel)`); // This log is outside a request context
 
 // --- Multer Storage Configuration ---
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        log('info', `\n--- Multer Destination Logic (Request #${app.locals.currentRequestId}) ---`);
-        log('debug', `Raw Request Body for destination determination:`, req.body);
-
-        const weaponName = req.body.weaponName; // Get weaponName from the form data
-        log('info', `Extracted Weapon Name from form data: '${weaponName}'`);
-
-        if (!weaponName) {
-            log('error', `Error: Weapon name is missing from request body. Cannot determine destination path.`);
-            return cb(new Error('Weapon name is required for image upload.'), false);
-        }
-
-        const destinationPath = path.join(imagesBasePath, weaponName);
-        log('info', `Calculated full target directory path: '${destinationPath}'`);
-
-        // Check if directory exists, create if not
-        fs.mkdir(destinationPath, { recursive: true }, (err) => {
-            if (err) {
-                log('error', `Failed to create directory '${destinationPath}':`, err);
-                return cb(err, false);
-            }
-            log('success', `Directory '${destinationPath}' confirmed to exist or was created successfully.`);
-            cb(null, destinationPath); // Set the destination for the file
-            log('debug', `Multer destination callback invoked with path: '${destinationPath}'.`);
-        });
-    },
-    filename: (req, file, cb) => {
-        log('info', `\n--- Multer Filename Logic (Request #${app.locals.currentRequestId}) ---`);
-        log('debug', `File object received by Multer for filename generation:`, file);
-
-        const blueprintName = req.body.blueprintName; // Get blueprintName from form data
-        log('info', `Original Blueprint Name from request body: '${blueprintName}'`);
-
-        if (!blueprintName) {
-            log('error', `Error: Blueprint name is missing from request body. Cannot generate filename.`);
-            return cb(new Error('Blueprint name is required for image upload.'), false);
-        }
-
-        // Sanitize blueprint name for filename: replace problematic characters.
-        // Also, convert to ALL CAPS as requested by the user.
-        const sanitizedBlueprintName = blueprintName.toUpperCase().replace(/[\/\\]/g, '_');
-        log('info', `Blueprint Name after .toUpperCase() and sanitization: '${sanitizedBlueprintName}'`);
-
-        const fileExtension = path.extname(file.originalname); // Get original extension (e.g., .jpg, .png)
-        log('debug', `Detected original file extension: '${fileExtension}'`);
-
-        const newFileName = `${sanitizedBlueprintName}${fileExtension}`;
-        log('success', `Final generated filename for storage: '${newFileName}'`);
-
-        cb(null, newFileName);
-        log('debug', `Multer filename callback invoked with filename: '${newFileName}'.`);
-    }
-});
+// Changed to memoryStorage as diskStorage is not suitable for Vercel's ephemeral filesystem
+const storage = multer.memoryStorage();
 
 const upload = multer({
-    storage: storage,
+    storage: storage, // Use memory storage
     limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (5MB)
     fileFilter: (req, file, cb) => {
         log('info', `\n--- Multer FileFilter Logic (Request #${app.locals.currentRequestId}) ---`);
@@ -264,16 +208,23 @@ app.post('/api/upload-blueprint-image', upload.single('blueprintImage'), (req, r
     log('debug', `Final File Object (if uploaded successfully):`, req.file);
 
     if (req.file) {
-        log('success', `Image upload successful!`);
-        log('info', `Stored file details:`);
+        log('success', `Image upload received successfully in memory!`);
+        log('info', `File details received:`);
         log('info', `  - Original Name:   '${req.file.originalname}'`);
-        log('info', `  - New Name:        '${req.file.filename}'`);
-        log('info', `  - Destination Path: '${req.file.destination}'`);
-        log('info', `  - Full Path:       '${path.join(req.file.destination, req.file.filename)}'`);
-        log('info', `  - Size:            ${req.file.size} bytes`);
         log('info', `  - MimeType:        '${req.file.mimetype}'`);
-        res.json({ success: true, message: 'Image uploaded successfully!', filename: req.file.filename });
-        log('success', `Response sent: SUCCESS (Status 200).`);
+        log('info', `  - Size:            ${req.file.size} bytes`);
+        log('warn', `NOTE: On Vercel, files cannot be saved to the local filesystem. This file (${req.file.originalname}) was processed in memory but NOT persistently stored. For persistent storage, integrate with a cloud storage service like AWS S3 or Google Cloud Storage.`);
+        
+        // In a real application, you would now upload req.file.buffer to your cloud storage
+        // Example (conceptual, requires cloud storage SDK/API calls):
+        // await cloudStorageService.upload(req.file.originalname, req.file.buffer, req.file.mimetype);
+
+        res.json({ 
+            success: true, 
+            message: 'Image uploaded successfully (processed in memory, not persistently stored on server).', 
+            filename: req.file.originalname // Return original name as a placeholder
+        });
+        log('success', `Response sent: SUCCESS (Status 200 - Simulated Upload).`);
     } else {
         log('error', `Image upload failed!`);
         log('error', `Failure reason: ${req.fileValidationError || 'No file received or invalid file type.'}`);
