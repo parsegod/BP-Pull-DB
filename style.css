@@ -11,7 +11,7 @@ body {
   height: 100%;
   min-width: 0;
   overflow-x: hidden;
-  overflow-y: auto; /* Changed to auto to allow vertical scrolling */
+  overflow-y: auto; /* Restored to auto to allow vertical scrolling */
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: linear-gradient(270deg, #102A43, #0077B6);
@@ -19,9 +19,10 @@ body {
   color: #e0e0e0;
   line-height: 1.6;
   animation: gradientAnimation 15s ease infinite;
-  list-style: none;
+  list-style: none; /* Ensure no default list styling on body if accidentally inherited */
 }
 
+/* Custom scrollbar for Webkit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 0; /* Set width to 0 to hide the scrollbar */
   height: 0; /* Set height to 0 to hide the scrollbar */
@@ -51,6 +52,7 @@ body {
   width: 0;
 }
 
+/* Keyframes for gradient animation */
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
@@ -63,6 +65,37 @@ body {
   }
 }
 
+/* Announcement Banner Styling */
+.announcement-banner {
+  background-color: #00A6FB; /* A bright, attention-grabbing blue */
+  color: #0D3B66; /* Dark text for contrast */
+  text-align: center;
+  padding: 10px 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1000; /* Ensure it's on top of other content */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.announcement-banner p {
+  margin: 0;
+}
+
+.announcement-banner a {
+  color: #102A43; /* Darker blue for the link */
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.announcement-banner a:hover {
+  color: #e0e0e0; /* Light text on hover */
+}
+
+
+/* Layout container */
 .container {
   width: calc(100% - 20px);
   max-width: 900px;
@@ -74,10 +107,11 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   position: relative;
   z-index: 2;
-  min-height: calc(100vh - 40px);
-  padding-top: 200px;
+  min-height: calc(100vh - 40px); /* Adjust to ensure container fills viewport minus margin */
+  padding-top: 200px; /* Space for logo and motto */
 }
 
+/* Logo and Motto positioning */
 .logo {
   position: absolute;
   top: 10px;
@@ -102,7 +136,7 @@ body {
   width: 100%;
 }
 
-
+/* Input and button styling */
 input[type="search"],
 .filter-dropdown button {
   background: #0D3B66;
@@ -126,11 +160,12 @@ input[type="search"] {
   max-width: 250px;
   min-width: 120px;
   margin: 8px 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
+/* Checkbox styling */
 input[type="checkbox"] {
-  appearance: none;
+  appearance: none; /* Hide default checkbox */
   width: 14px;
   height: 14px;
   border: 2px solid #0077B6;
@@ -150,7 +185,7 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"]:checked::after {
-  content: '✔';
+  content: '✔'; /* Checkmark symbol */
   font-size: 10px;
   color: #fff;
   position: absolute;
@@ -167,6 +202,7 @@ label {
   cursor: pointer;
 }
 
+/* Controls for checkboxes and buttons */
 .checkbox-controls {
   display: flex;
   flex-wrap: wrap;
@@ -193,6 +229,7 @@ label {
   margin: 0;
 }
 
+/* Dropdown filter styles */
 .filter-dropdown {
   position: relative;
   flex: 0 0 auto;
@@ -240,7 +277,7 @@ label {
 #categoryArrow, #poolArrow, #statusArrow {
   font-size: 0.6em;
   transition: transform 0.3s ease;
-  pointer-events: none;
+  pointer-events: none; /* Ensure arrow doesn't interfere with button click */
 }
 
 .filter-dropdown button[aria-expanded="true"] #categoryArrow,
@@ -259,7 +296,7 @@ label {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   max-height: 200px;
-  overflow-y: auto; /* Changed to auto to allow vertical scrolling */
+  overflow-y: auto; /* Allow scrolling within dropdown if content overflows */
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -278,9 +315,10 @@ label {
   gap: 5px;
 }
 
+/* Table styling */
 .table-container {
-  max-height: 40vh;
-  overflow-y: auto; /* Changed to auto to allow vertical scrolling */
+  max-height: 40vh; /* Set a max height for scrollable table */
+  overflow-y: auto; /* Allow vertical scrolling within table container */
   overflow-x: hidden;
   margin-top: 15px;
   border-radius: 8px;
@@ -289,11 +327,11 @@ label {
 
 table {
   width: 100%;
-  border-collapse: separate;
+  border-collapse: separate; /* Allow border-radius on table */
   border-spacing: 0;
   border-radius: 8px;
-  overflow: hidden;
-  table-layout: fixed;
+  overflow: hidden; /* Ensures border-radius applies correctly */
+  table-layout: fixed; /* Prevents columns from resizing based on content */
 }
 
 th, td {
@@ -302,10 +340,11 @@ th, td {
   border-bottom: 1px solid #0D3B66;
   font-size: 0.85em;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
+/* Column widths */
 th:nth-child(1), td:nth-child(1) {
   width: 25%;
 }
@@ -327,9 +366,9 @@ th {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  position: sticky;
+  position: sticky; /* Keep header visible on scroll */
   top: 0;
-  z-index: 1;
+  z-index: 1; /* Ensure header stays above table content */
 }
 
 th:first-child {
@@ -340,6 +379,7 @@ th:last-child {
   border-top-right-radius: 8px;
 }
 
+/* Sorting indicators */
 th.sorted-asc::after {
   content: ' ▲';
   font-size: 0.6em;
@@ -352,6 +392,7 @@ th.sorted-desc::after {
   vertical-align: middle;
 }
 
+/* Table row alternating colors and hover effect */
 #pullsTable tbody tr.even {
   background-color: #0D3B66;
 }
@@ -365,6 +406,7 @@ th.sorted-desc::after {
   transition: background-color 0.2s ease;
 }
 
+/* Accordion content for images */
 .accordion-content {
   max-height: 0;
   opacity: 0;
@@ -379,7 +421,7 @@ th.sorted-desc::after {
 }
 
 .accordion-content.expanded {
-  max-height: 200px;
+  max-height: 200px; /* Max height when expanded */
   opacity: 1;
   padding: 10px;
 }
@@ -399,6 +441,7 @@ th.sorted-desc::after {
   display: none;
 }
 
+/* Blueprint counters section */
 .blueprint-counters {
     display: flex;
     flex-wrap: wrap;
@@ -423,6 +466,7 @@ th.sorted-desc::after {
     color: #00A6FB;
 }
 
+/* Media queries for responsiveness */
 @media (max-width: 768px) {
   .container {
     width: calc(100% - 10px);
@@ -472,7 +516,7 @@ th.sorted-desc::after {
   }
 }
 
-
+/* Modal overlay and content styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -501,19 +545,19 @@ th.sorted-desc::after {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     max-width: 600px;
     max-height: 80vh;
-    overflow-y: auto; /* Changed to auto to allow vertical scrolling */
+    overflow-y: auto; /* Allow scrolling within modal content if it overflows */
     position: relative;
     transform: translateY(0);
     transition: none;
-    animation: none;
+    animation: none; /* No animation on modal itself */
 
-    &::before {
+    &::before { /* Remove any pseudo-element from previous interactions */
         content: none;
     }
 }
 
 .modal-overlay.visible .modal-content {
-  transform: translateY(0);
+  transform: translateY(0); /* Ensure no lingering transforms */
 }
 
 .modal-content h2 {
@@ -526,7 +570,7 @@ th.sorted-desc::after {
     margin-bottom: 20px;
     text-align: center;
     text-transform: uppercase;
-    background: none;
+    background: none; /* Remove any gradient background */
     -webkit-background-clip: unset;
     -webkit-text-fill-color: unset;
 }
@@ -542,7 +586,7 @@ th.sorted-desc::after {
     cursor: pointer;
     position: absolute;
     z-index: 10;
-    transform: none;
+    transform: none; /* Ensure no lingering transforms */
 }
 
 .modal-close-button:hover {
@@ -550,6 +594,7 @@ th.sorted-desc::after {
     transform: none;
 }
 
+/* Changelog entries specific styles */
 .changelog-entries ul {
   list-style: none;
   padding: 0;
@@ -568,16 +613,16 @@ th.sorted-desc::after {
     font-size: 0.9em;
     line-height: 1.5;
     position: relative;
-    perspective: none;
+    perspective: none; /* Remove any 3D effects */
     list-style: none;
 
-    &::before {
+    &::before { /* Remove any pseudo-element from previous interactions */
         content: none;
     }
 }
 
 .changelog-entries li:hover {
-    transform: none;
+    transform: none; /* Remove any hover transforms */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     background-color: #00508C;
 }
@@ -595,6 +640,7 @@ th.sorted-desc::after {
 }
 
 .changelog-entries li strong::before {
+    /* SVG for a file icon - make sure the path is correct if you move this */
     content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2300A6FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>');
     margin-right: 8px;
     width: 20px;
@@ -605,7 +651,7 @@ th.sorted-desc::after {
 }
 
 .changelog-entries li ul {
-    list-style: none;
+    list-style: none; /* Remove default list style */
     padding-left: 15px;
     margin-top: 10px;
 }
@@ -629,7 +675,7 @@ th.sorted-desc::after {
 }
 
 .changelog-entries li ul li::before {
-    content: '•';
+    content: '•'; /* Bullet point */
     color: #00A6FB;
     position: absolute;
     left: 0;
@@ -664,78 +710,4 @@ th.sorted-desc::after {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border-color: #00A6FB;
-}
-
-@media (max-width: 768px) {
-  .modal-content {
-    padding: 20px;
-    width: 95%;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .modal-content h2 {
-    font-size: 1.8em;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .modal-close-button {
-    font-size: 2.2em;
-    top: 10px;
-    right: 10px;
-  }
-
-  .changelog-entries li {
-    padding: 15px;
-    font-size: 0.85em;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .changelog-entries li:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-  }
-
-  .changelog-entries li strong {
-    font-size: 1.1em;
-    margin-bottom: 8px;
-    padding-bottom: 6px;
-  }
-
-  .changelog-entries li strong::before {
-    margin-right: 8px;
-    font-size: 1em;
-  }
-
-  .changelog-entries li ul {
-    padding-left: 15px;
-    margin-top: 10px;
-  }
-
-  .changelog-entries li ul li {
-    padding: 5px 0;
-    margin-bottom: 5px;
-    font-size: 0.8em;
-    padding-left: 20px;
-  }
-
-  .changelog-entries li ul li::before {
-    font-size: 1.3em;
-  }
-
-  .changelog-button {
-    padding: 8px 12px;
-    font-size: 0.85em;
-    margin-left: 10px;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .changelog-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  }
 }
