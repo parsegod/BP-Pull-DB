@@ -660,7 +660,7 @@
         const imagesListContainer = document.getElementById('imagesListContainer');
         const refreshImagesBtn = document.getElementById('refreshImagesBtn');
         const imageUploadWeaponSelect = document.getElementById('imageUploadWeaponSelect');
-        const imageUploadBlueprintNameInput = document.getElementById('imageUploadBlueprintName');
+        const imageUploadBlueprintNameInput = document.getElementById('imageUploadBlueprintName'); // This was missing in your provided HTML
         const imageFileInput = document.getElementById('imageFileInput');
         const imageFileNameSpan = document.getElementById('imageFileName');
         const uploadImageBtn = document.getElementById('uploadImageBtn');
@@ -1180,7 +1180,8 @@
             }
 
             // Path relative to your ju.html file for images
-            const basePath = 'assets/blueprints/images/';
+            // This path should match where Vercel serves your static assets from the 'public' folder
+            const basePath = '/assets/blueprints/images/'; // Leading slash for absolute path from root
 
             jsonData.Weapons.forEach(weapon => {
                 if (weapon.Blueprints && weapon.Blueprints.length > 0) {
@@ -1204,6 +1205,7 @@
 
                         // Use the blueprint name in ALL CAPS for the image path
                         const formattedBlueprintName = blueprint.Name.toUpperCase();
+                        // Construct the image URL using encodeURIComponent for safe URL paths
                         const imgPath = `${basePath}${encodeURIComponent(weapon.Name)}/${encodeURIComponent(formattedBlueprintName)}.jpg`;
                         
                         const imgContainer = document.createElement('div'); // Container for image/placeholder and name
@@ -1321,8 +1323,8 @@
             formData.append('blueprintImage', imageFile); // 'blueprintImage' must match the name in upload.single() on server
 
             try {
-                // Send the file to your Node.js server
-                const response = await fetch('http://localhost:3000/upload-blueprint-image', { // Make sure this matches your server URL and port
+                // Send the file to your Node.js serverless function on Vercel
+                const response = await fetch('/api/upload-blueprint-image', { 
                     method: 'POST',
                     body: formData, // FormData handles setting the correct 'Content-Type' header
                 });
@@ -1353,7 +1355,8 @@
         window.onload = async () => {
             applySavedTheme(); // Apply theme first
             try {
-                const response = await fetch('weapon.json'); // Assumes weapon.json is in the same directory
+                // Assuming weapon.json will be a static asset served by Vercel
+                const response = await fetch('weapon.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -1364,7 +1367,7 @@
                 populateImageUploadWeaponSelect(); // Populate image upload dropdown
                 showMessage('weapon.json loaded successfully!', 'success');
             } catch (error) {
-                jsonInput.value = '/* Failed to load weapon.json. Ensure it\'s in the same directory as this HTML file. Please load a file manually or paste JSON. */';
+                jsonInput.value = '/* Failed to load weapon.json. Ensure it\'s in the same directory as this HTML file (or accessible as a static asset). Please load a file manually or paste JSON. */';
                 jsonOutput.value = '';
                 showMessage(`Could not load weapon.json: ${error.message}`, 'error');
                 console.error('Error loading initial JSON:', error);
