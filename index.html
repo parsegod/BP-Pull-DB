@@ -1,97 +1,223 @@
+<?php
+// index.php (or your main page name)
+// This file contains your HTML, and the PHP tracking logic embedded within it.
+
+// Configuration for the tracker
+$statsFile = __DIR__ . '/website_stats.json'; // Path to the JSON file where stats are stored
+$sessionCookieName = 'unique_visitor_id'; // Cookie name to track unique visitors
+$cookieExpiry = time() + (86400 * 30); // Cookie expires in 30 days (86400 seconds in a day)
+
+// Initialize stats structure if file doesn't exist or is empty
+if (!file_exists($statsFile) || filesize($statsFile) == 0) {
+    $initialStats = [
+        'viewers' => 0,
+        'uniqueViewers' => 0,
+        'clicks' => 0,
+        'lastUpdate' => date('c'), // ISO 8601 format
+        'loggedIPs' => [] // Store IPs for simple unique visitor tracking within a short window
+    ];
+    file_put_contents($statsFile, json_encode($initialStats, JSON_PRETTY_PRINT));
+}
+
+// Read current stats with file locking for concurrency safety
+$fileHandle = fopen($statsFile, 'r+');
+if ($fileHandle) {
+    if (flock($fileHandle, LOCK_EX)) { // Acquire exclusive lock
+        $rawStats = fread($fileHandle, filesize($statsFile));
+        $stats = json_decode($rawStats, true);
+
+        // Ensure default values if JSON decoding fails or structure is incomplete
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($stats)) {
+            $stats = [
+                'viewers' => 0,
+                'uniqueViewers' => 0,
+                'clicks' => 0,
+                'lastUpdate' => date('c'),
+                'loggedIPs' => []
+            ];
+        }
+
+        // --- Track Viewers ---
+        $stats['viewers']++;
+
+        // Basic unique viewer tracking using cookie and IP (resets after cookie expiry or IP change)
+        $isUniqueVisit = false;
+        if (!isset($_COOKIE[$sessionCookieName])) {
+            // Set a unique cookie for this visitor
+            $visitorId = uniqid('', true);
+            setcookie($sessionCookieName, $visitorId, $cookieExpiry, '/');
+            $isUniqueVisit = true;
+        }
+
+        // Also check IP to attempt to capture unique visits if cookies are blocked/cleared
+        // This is a simple IP-based check and not foolproof for true unique visitors.
+        $clientIp = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN_IP';
+        if (!in_array($clientIp, $stats['loggedIPs'])) {
+            $stats['loggedIPs'][] = $clientIp;
+            // Optionally, cap the size of loggedIPs to prevent it from growing indefinitely
+            if (count($stats['loggedIPs']) > 1000) { // Keep only last 1000 unique IPs
+                $stats['loggedIPs'] = array_slice($stats['loggedIPs'], -1000);
+            }
+            if (!$isUniqueVisit) { // Only increment if not already counted by cookie
+                $isUniqueVisit = true;
+            }
+        }
+
+        if ($isUniqueVisit) {
+            $stats['uniqueViewers']++;
+        }
+
+        // --- Track Clicks (if a specific request indicates a click) ---
+        // The JavaScript below will send a request to this same file with 'action=click'
+        if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'click') {
+            $stats['clicks']++;
+            // If this is an AJAX request for a click, you might not want to output the full HTML.
+            // You could simply exit here after updating, or return a JSON success message.
+            // For now, we'll let the HTML continue to render.
+        }
+
+        $stats['lastUpdate'] = date('c');
+
+        // Write updated stats back to file
+        ftruncate($fileHandle, 0); // Truncate file
+        rewind($fileHandle); // Rewind to start
+        fwrite($fileHandle, json_encode($stats, JSON_PRETTY_PRINT));
+        flock($fileHandle, LOCK_UN); // Release lock
+    } else {
+        error_log("Could not acquire file lock for $statsFile");
+    }
+    fclose($fileHandle);
+} else {
+    error_log("Could not open $statsFile for writing. Check permissions.");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Blu Base</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/bsxp1x.png">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Blu Base</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/bsxp1x.png">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-  <meta property="og:title" content="Blu Base" />
-  <meta property="og:description" content="your no.1 bp pull db!" />
-  <meta property="og:image" content="https://files.catbox.moe/bsxp1x.png" /> <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" /> <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Blu Base" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Blu Base">
-  <meta name="twitter:description" content="your no.1 bp pull db!">
-  <meta name="twitter:image" content="https://files.catbox.moe/bsxp1x.png">
+    <meta property="og:title" content="Blu Base" />
+    <meta property="og:description" content="your no.1 bp pull db!" />
+    <meta property="og:image" content="https://files.catbox.moe/bsxp1x.png" />
+    <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Blu Base" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blu Base">
+    <meta name="twitter:description" content="your no.1 bp pull db!">
+    <meta name="twitter:image" content="https://files.catbox.moe/bsxp1x.png">
 </head>
 <body>
-  <!-- Announcement Banner -->
-  <div class="announcement-banner">
-    <p>we now have a real URL <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
-  </div>
-
-  <div class="container">
-    <img src="https://files.catbox.moe/bsxp1x.png" alt="Logo" class="logo">
-    <h1 class="motto"></h1>
-    <div id="searchView" class="hidden">
-      <div class="search-bar-row">
-        <input type="search" id="search" placeholder="Search Blueprint..." />        
-        
-        <div class="filter-dropdown">
-          <button id="toggleCategoryDropdown" type="button">
-            Filter Category <span id="categoryArrow">▼</span>
-          </button>
-          <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
-        </div>
-        
-        <div class="filter-dropdown">
-           <button id="togglePoolDropdown" type="button">
-             Filter Pool <span id="poolArrow">▼</span>
-           </button>
-           <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
-        </div>
-
-        <div class="filter-dropdown">
-          <button id="toggleStatusDropdown" type="button">
-            Filter Status <span id="statusArrow">▼</span>
-          </button>
-          <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="checkbox-controls">
-      <label for="imageCheckbox">
-        <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
-        Show All Previews
-      </label>
-      <button id="changelogButton" class="changelog-button">View Changelog</button>
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        <p>🖤 Want faster updates? goto <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
-    <div class="blueprint-counters">
-      <p>Total Blueprints Displayed: <span id="totalBlueprints">0</span></p>
-      <p>Normal Blueprints: <span id="normalBlueprints">0</span></p>
-      <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
-      <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
+    <div class="container">
+        <img src="https://files.catbox.moe/bsxp1x.png" alt="Logo" class="logo">
+        <h1 class="motto"></h1>
+        <div id="searchView" class="hidden">
+            <div class="search-bar-row">
+                <input type="search" id="search" placeholder="Search Blueprint..." />
+
+                <div class="filter-dropdown">
+                    <button id="toggleCategoryDropdown" type="button">
+                        Filter Category <span id="categoryArrow">▼</span>
+                    </button>
+                    <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
+                </div>
+
+                <div class="filter-dropdown">
+                    <button id="togglePoolDropdown" type="button">
+                        Filter Pool <span id="poolArrow">▼</span>
+                    </button>
+                    <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
+                </div>
+
+                <div class="filter-dropdown">
+                    <button id="toggleStatusDropdown" type="button">
+                        Filter Status <span id="statusArrow">▼</span>
+                    </button>
+                    <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkbox-controls">
+            <label for="imageCheckbox">
+                <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
+                Show All Previews
+            </label>
+            <button id="changelogButton" class="changelog-button">View Changelog</button>
+        </div>
+
+        <!-- Add a button to test click tracking -->
+        <button id="trackClickButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md mb-4">
+            Track a Click!
+        </button>
+
+        <div class="blueprint-counters">
+            <p>Total Blueprints Displayed: <span id="totalBlueprints">0</span></p>
+            <p>Normal Blueprints: <span id="normalBlueprints">0</span></p>
+            <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
+            <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
+        </div>
+
+        <table id="pullsTable">
+            <thead>
+                <tr>
+                    <th data-key="Weapon">Weapon</th>
+                    <th data-key="Category">Category</th>
+                    <th data-key="Blueprint">Blueprint</th>
+                    <th data-key="Pool">Pool</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
-    <table id="pullsTable">
-      <thead>
-        <tr>
-          <th data-key="Weapon">Weapon</th>
-          <th data-key="Category">Category</th>
-          <th data-key="Blueprint">Blueprint</th>
-          <th data-key="Pool">Pool</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <div id="changelogModal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <button class="modal-close-button" id="closeChangelogModal">&times;</button>
-      <h2>Changelog</h2>
-      <div id="changelogContent" class="changelog-entries">
+    <div id="changelogModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-button" id="closeChangelogModal">&times;</button>
+            <h2>Changelog</h2>
+            <div id="changelogContent" class="changelog-entries">
+            </div>
         </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-
+    <script src="script.js"></script>
+    <script>
+        // JavaScript to send a click event to the embedded PHP tracker
+        document.addEventListener('DOMContentLoaded', () => {
+            const trackClickButton = document.getElementById('trackClickButton');
+            if (trackClickButton) {
+                trackClickButton.addEventListener('click', () => {
+                    // Send a request to the current page with the 'action=click' parameter
+                    // This will increment the 'clicks' count in your website_stats.json file
+                    fetch('?action=click') // Calls the current page URL with a query parameter
+                        .then(response => {
+                            if (!response.ok) {
+                                console.error('Failed to log click:', response.statusText);
+                            } else {
+                                console.log('Click successfully logged!');
+                                // Optionally, you could fetch and display the updated stats here
+                                // For real-time display, you'd fetch from get_stats.php (see below)
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error sending click request:', error);
+                        });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
