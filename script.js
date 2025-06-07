@@ -25,6 +25,13 @@ const closeChangelogModalBtn = document.getElementById('closeChangelogModal');
 const changelogButton = document.getElementById('changelogButton');
 const changelogContentDiv = document.getElementById('changelogContent');
 
+// New elements for How To Use modal
+const howToUseModal = document.getElementById('howToUseModal');
+const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
+const howToUseButton = document.getElementById('howToUseButton');
+const howToUseContentDiv = document.getElementById('howToUseContent');
+
+
 // Removed reference to addChangelogEntryButton as it's no longer in HTML
 // Removed reference to userIdDisplay as it's no longer in HTML
 
@@ -50,6 +57,13 @@ let currentData = [];
 
 // Define changelog entries
 const changelogEntries = [
+    {
+    date: "2025-06-06 8:51PM",
+    changes: [
+      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗛𝗼𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝘂𝗶 𝘁𝗵𝗮𝘁 𝗵𝗲𝗹𝗽𝘀 𝗻𝗲𝘄 𝘂𝘀𝗲𝗿𝘀 𝘂𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗶𝘁𝗲/𝗺𝗲𝘁𝗵𝗼𝗱 𝘄𝗼𝗿𝗸𝘀. "
+    ]
+  },
     {
         date: "2025-06-06 7:34 PM", 
         changes: [
@@ -653,6 +667,26 @@ changelogModal.addEventListener('click', (e) => {
     hideChangelogModal();
   }
 });
+
+// Functions for How To Use modal
+function showHowToUseModal() {
+  howToUseModal.classList.add('visible');
+}
+
+function hideHowToUseModal() {
+  howToUseModal.classList.remove('visible');
+}
+
+howToUseButton.addEventListener('click', showHowToUseModal);
+
+closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
+
+howToUseModal.addEventListener('click', (e) => {
+  if (e.target === howToUseModal) {
+    hideHowToUseModal();
+  }
+});
+
 
 // This function will now simply show the changelog every time the page loads
 function showChangelogOnPageLoad() {
