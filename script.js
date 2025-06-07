@@ -51,6 +51,40 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
+        date: "2025-06-06 7:29 PM", 
+        changes: [
+            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
+            "CR-56 AMAX: DATA BREACHER",
+            "LADRA: HELLBLOCK (Pool 2)",
+            "FENG 82: LOCK UP (Pool 7)",
+            "LW31A1 FROSTLINE: SNITCH UP (Pool 15)",
+            "KRIG C: IED (Pool 17)",
+            "KRIG C: IED BLACKCELL (Pool 20)",
+            "STRYDER .22: HOT FRANK (Pool 6)",
+            "MARINE SP: GEN POP PROP (Pool 12)",
+            "KOMPAKT 92: PRE OWNED (Pool 10)",
+            "AMR MOD 4: MAKESHIFT (Pool 7)",
+            "GS45: HOMESPUN (Pool 8)",
+            "AS VAL: SECURITY DETAIL (Pool 10)",
+            "ASG-89: ESCAPE PLAN (Pool 18)",
+            "ASG-89: ESCAPE PLAN BLACKCELL (Pool 21)",
+            "GPMG-7: CROWD CONTROL (Pool 17)",
+            "FFAR 1: COMBO BASH (Pool 9)",
+            "FFAR 1: PUNISHING BLOWS (Pool 1)",
+            "LC10: HULL BUSTER (Pool 5)",
+            "LC10: BYTE BLASTER (Pool 9)",
+            "AMES 85: LETHAL INSPECTION (Pool 26)",
+            "AMES 85: SCALES (Pool 27)",
+            "AMES 86: PRO REISSUE (Pool 28)",
+            "HDR: HYDRATOR (Pool 6)",
+            "DM-10: MUCKER (Pool 12)",
+            "MODEL L: DRAIN HAZARD (Pool 22)",
+            "MODEL L: DRAIN HAZARD BLACKCELL (Pool 12)",
+            "SAUG: OVERFLOW (Pool 20)"
+        ]
+    }
+];
+    {
     date: "2025-06-02 8:07AM",
     changes: [
       "↷ 𝗙𝗶𝘅𝗲𝗱 𝗗𝘂𝗽𝗲 ↶",
