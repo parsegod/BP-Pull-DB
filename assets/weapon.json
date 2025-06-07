@@ -630,7 +630,7 @@
     },
         {
       "Name": "LC10",
-      "Category": "0",
+      "Category": "1",
       "Blueprints": [
         { "Name": "STORM RAGE", "Pool": "1" },
         { "Name": "BLACKCELL HULL BUSTER", "Pool": "2" },
