@@ -51,10 +51,10 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
-        date: "2025-06-06 7:29 PM", 
+        date: "2025-06-06 7:34 PM", 
         changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "CR-56 AMAX: DATA BREACHER",
+            "CR-56 AMAX: DATA BREACHER (Pool 2)",
             "LADRA: HELLBLOCK (Pool 2)",
             "FENG 82: LOCK UP (Pool 7)",
             "LW31A1 FROSTLINE: SNITCH UP (Pool 15)",
