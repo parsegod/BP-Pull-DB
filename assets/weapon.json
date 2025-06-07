@@ -632,8 +632,8 @@
       "Name": "LC10",
       "Category": "0",
       "Blueprints": [
-        { "Name": "UNRELEASED", "Pool": "1" },
-        { "Name": "UNRELEASED", "Pool": "2" },
+        { "Name": "STORM RAGE", "Pool": "1" },
+        { "Name": "BLACKCELL HULL BUSTER", "Pool": "2" },
         { "Name": "UNRELEASED", "Pool": "3" },
         { "Name": "UNRELEASED", "Pool": "4" },
         { "Name": "HULL BUSTER", "Pool": "5" },
