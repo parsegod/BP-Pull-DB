@@ -105,32 +105,10 @@ const changelogEntries = [
     ]
   },
     {
-    date: "2025-06-02 7:45AM",
-    changes: [
-      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-      " STRYDER .22 : HELLBLOCK (Pool 2)",
-      " FENG 82 : LOCK UP (Pool 7)",
-      " LW31A1 FROSTLINE : SNITCH UP (Pool 15)",
-      " KRIG C  : IED (Pool 17)",
-      " KRIG C  : IED BLACKCELL (Pool 20)"
-    ]
-  },
-    {
     date: "2025-06-02 6:50AM",
     changes: [
       "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗹𝗶𝘁𝘆 ↶",
       " 𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗹𝗶𝗸𝗲 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗰𝗿𝗼𝗹𝗹 𝗯𝗮𝗿 𝘄𝗮𝘀 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝘀𝗼 𝗜 𝗿𝗲𝗺𝗼𝘃𝗲𝗱 𝗶𝘁𝘀 𝘃𝗶𝘀𝗮𝗯𝗶𝗹𝗶𝘁𝘆 "
-    ]
-  },
-  {
-    date: "2025-06-02 6:20AM",
-    changes: [
-      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-      " LADRA : HELLBLOCK (Pool 2)",
-      " FENG 82 : LOCK UP (Pool 7)",
-      " LW31A1 FROSTLINE : SNITCH UP (Pool 15)",
-      " KRIG C  : IED (Pool 17)",
-      " KRIG C  : IED BLACKCELL (Pool 20)"
     ]
   },
   {
