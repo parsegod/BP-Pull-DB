@@ -81,9 +81,8 @@ const changelogEntries = [
             "MODEL L: DRAIN HAZARD (Pool 22)",
             "MODEL L: DRAIN HAZARD BLACKCELL (Pool 12)",
             "SAUG: OVERFLOW (Pool 20)"
-        ]
-    }
-];
+    ]
+  },
     {
     date: "2025-06-02 8:07AM",
     changes: [
