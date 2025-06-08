@@ -62,7 +62,7 @@ const changelogEntries = [
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
             "MAELSTROM: DARK ENDING (Pool 15)",
-            "KRIG C: De-Animator  (Pool 12)"
+            "KRIG C: DE-ANIMATOR (Pool 12)"
     ]
   },
     {
