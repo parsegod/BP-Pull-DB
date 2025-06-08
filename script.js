@@ -58,6 +58,14 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
+    date: "2025-06-08 7:48AM",
+    changes: [
+            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
+            "MAELSTROM: DARK ENDING (Pool 15)",
+            "KRIG C: DE-Animator  (Pool 12)"
+    ]
+  },
+    {
     date: "2025-06-07 9:48AM",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
