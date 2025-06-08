@@ -61,7 +61,7 @@ const changelogEntries = [
     date: "2025-06-07 9:48AM",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "LC10: STORM RAGE (Pool 2)",
+            "LC10: STORM RAGE (Pool 1)",
             "LC10: BLACKCELL HULL BUSTER  (Pool 2)"
     ]
   },
