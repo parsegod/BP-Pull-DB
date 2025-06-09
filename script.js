@@ -58,6 +58,14 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
+    date: "2025-06-09 4:06PM",
+    changes: [
+            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
+            "LW31A1 FROSTLINE: THUNDERHEAD (Pool 7)",
+            "KOMPAKT 92: PRINTED END (Pool 13)"
+    ]
+  },
+    {
     date: "2025-06-08 7:48AM",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
