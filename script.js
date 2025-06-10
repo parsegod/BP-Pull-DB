@@ -58,6 +58,13 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
+    date: "2025-06-10 10:38AM",
+    changes: [
+            "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗣𝗿𝗶𝗻𝘁 ↶",
+            "HDR: NAUTILOID (Pool 7)"
+    ]
+  },
+    {
     date: "2025-06-09 4:06PM",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",

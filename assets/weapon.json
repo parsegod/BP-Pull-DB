@@ -1084,7 +1084,7 @@
       "Category": "5",
       "Blueprints": [
         { "Name": "BLACKCELL GLINT", "Pool": "1" },
-        { "Name": "NAUTILOID", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "2" },
         { "Name": "UNRELEASED", "Pool": "3" },
         { "Name": "NOTHING", "Pool": "4" },
         { "Name": "GLINT", "Pool": "5" },
