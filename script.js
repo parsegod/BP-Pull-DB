@@ -61,7 +61,7 @@ const changelogEntries = [
     date: "2025-06-10 10:38AM",
     changes: [
             "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗣𝗿𝗶𝗻𝘁 ↶",
-            "HDR: NAUTILOID (Pool 7)"
+            "HDR: NAUTILOID (Pool 2)"
     ]
   },
     {
