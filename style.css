@@ -711,3 +711,132 @@ th.sorted-desc::after {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border-color: #00A6FB;
 }
+
+/* How To Use Tab Styles */
+.how-to-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #00A6FB; /* Stronger border for separation */
+  padding-bottom: 0; /* Remove padding here, add to buttons */
+}
+
+.how-to-tabs .tab-button {
+  background: #0D3B66;
+  color: #e0e0e0;
+  padding: 12px 25px; /* Increased padding */
+  border: 1px solid #0D3B66;
+  border-bottom: none; /* Hide bottom border for active tab effect */
+  border-radius: 10px 10px 0 0; /* More rounded corners */
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1em; /* Slightly larger font */
+  font-weight: 600; /* Bolder text */
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Increased letter spacing */
+  transition: all 0.3s ease; /* Smoother transition */
+  margin: 0 4px; /* More gap between buttons */
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.3); /* Stronger shadow */
+  position: relative; /* For z-index and potential pseudo-elements */
+  top: 1px; /* Align with bottom border of how-to-tabs */
+}
+
+.how-to-tabs .tab-button:hover {
+  background: #00508C;
+  color: #fff;
+  transform: translateY(-3px); /* More pronounced lift on hover */
+  box-shadow: 0 -6px 15px rgba(0,0,0,0.5); /* Even stronger shadow */
+}
+
+.how-to-tabs .tab-button.active {
+  background: #0077B6;
+  color: #fff;
+  border-color: #00A6FB;
+  box-shadow: 0 -8px 20px rgba(0,0,0,0.6); /* Very strong shadow for active */
+  transform: translateY(-5px); /* More pronounced lift for active */
+  z-index: 2; /* Ensure active tab is on top */
+  border-width: 2px; /* Thicker border for active tab */
+  border-bottom: 2px solid #0077B6; /* Create a seamless look with content */
+}
+
+.how-to-sections {
+  padding-top: 10px; /* Space between tabs and content */
+}
+
+.tab-content {
+  background-color: #102A43; /* Slightly darker background for content */
+  padding: 25px; /* Increased padding */
+  border-radius: 0 0 12px 12px; /* Rounded bottom corners, flat top for tabs */
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.3); /* Stronger inner shadow */
+  border: 2px solid #0077B6; /* Consistent border with active tab */
+  border-top: none; /* No top border to connect with active tab */
+}
+
+.tab-content h3 {
+  font-family: 'Oswald', sans-serif;
+  color: #00A6FB; /* Bright blue for headings */
+  font-size: 1.8em; /* Larger heading */
+  margin-top: 0;
+  margin-bottom: 20px; /* More space below heading */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* More letter spacing */
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* Text shadow for depth */
+}
+
+.tab-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab-content li {
+  margin-bottom: 15px; /* More space between list items */
+  padding-left: 25px; /* More space for custom bullet */
+  position: relative;
+  font-size: 1em; /* Slightly larger font for content */
+  line-height: 1.7; /* Increased line height for readability */
+  background-color: rgba(13, 59, 102, 0.4); /* Subtle background for each list item */
+  padding: 15px; /* Padding inside each list item */
+  border-radius: 8px; /* Rounded corners for list items */
+  border: 1px solid rgba(0, 119, 182, 0.4); /* Subtle border for list items */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Small shadow for list items */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tab-content li:last-child {
+    margin-bottom: 0; /* No bottom margin for the last list item */
+}
+
+.tab-content li:hover {
+    background-color: rgba(0, 80, 140, 0.6); /* Darker background on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
+}
+
+.tab-content li strong {
+  color: #00A6FB; /* Bright blue for strong text */
+  font-size: 1.1em; /* Larger font for strong text */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Text shadow for strong text */
+}
+
+.tab-content li::before {
+  content: '✦'; /* More engaging bullet point */
+  color: #00A6FB; /* Bright blue bullet */
+  position: absolute;
+  left: 5px; /* Adjust position */
+  font-weight: bold;
+  font-size: 1.5em; /* Larger bullet point */
+  line-height: 1;
+  transform: translateY(-2px); /* Adjust vertical alignment */
+}
+
+.tab-content p {
+  text-align: center;
+  font-style: italic;
+  color: #CCE0F0;
+  margin-top: 25px; /* More space above paragraph */
+  font-size: 0.95em;
+  padding: 10px;
+  background-color: rgba(13, 59, 102, 0.2); /* Light background for paragraphs */
+  border-radius: 8px;
+}

@@ -29,7 +29,7 @@ const changelogContentDiv = document.getElementById('changelogContent');
 const howToUseModal = document.getElementById('howToUseModal');
 const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
-const howToUseContentDiv = document.getElementById('howToUseContent');
+const howToUseContentDiv = document.getElementById('howToUseContent'); // This is the main container for how-to sections
 
 
 // Removed reference to addChangelogEntryButton as it's no longer in HTML
@@ -57,6 +57,13 @@ let currentData = [];
 
 // Define changelog entries
 const changelogEntries = [
+    {
+    date: "2025-06-11 10:23PM",
+    changes: [
+      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲𝗱 𝗛𝗼𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝘀𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
+    ]
+  },
     {
     date: "2025-06-11 6:13AM",
     changes: [
@@ -687,6 +694,8 @@ changelogModal.addEventListener('click', (e) => {
 // Functions for How To Use modal
 function showHowToUseModal() {
   howToUseModal.classList.add('visible');
+  // Initialize the first tab as active when the modal opens
+  showHowToTab('explanation');
 }
 
 function hideHowToUseModal() {
@@ -701,6 +710,41 @@ howToUseModal.addEventListener('click', (e) => {
   if (e.target === howToUseModal) {
     hideHowToUseModal();
   }
+});
+
+// Function to handle tab switching within How To Use modal
+function showHowToTab(tabId) {
+  // Get all tab buttons and content sections
+  const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
+  const tabContents = document.querySelectorAll('.how-to-sections .tab-content');
+
+  // Deactivate all tab buttons and hide all tab content
+  tabButtons.forEach(button => button.classList.remove('active'));
+  tabContents.forEach(content => content.classList.add('hidden'));
+
+  // Activate the clicked tab button and show its corresponding content
+  const selectedButton = document.querySelector(`.how-to-tabs button[data-tab="${tabId}"]`);
+  const selectedContent = document.getElementById(`${tabId}-content`);
+
+  if (selectedButton) {
+    selectedButton.classList.add('active');
+  }
+  if (selectedContent) {
+    selectedContent.classList.remove('hidden');
+  }
+}
+
+// Attach event listeners to tab buttons
+document.addEventListener('DOMContentLoaded', () => {
+    const howToUseTabs = document.querySelector('.how-to-tabs');
+    if (howToUseTabs) {
+        howToUseTabs.addEventListener('click', (event) => {
+            if (event.target.classList.contains('tab-button')) {
+                const tabId = event.target.dataset.tab;
+                showHowToTab(tabId);
+            }
+        });
+    }
 });
 
 
