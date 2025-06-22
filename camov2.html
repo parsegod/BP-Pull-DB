@@ -116,7 +116,7 @@
         /* Progress bar styling */
         .progress-bar {
             height: 8px;
-            background-color: #0D3B66; /* secondary-dark */
+            background-color: '#0D3B66'; /* secondary-dark */
             border-radius: 4px;
             margin-bottom: 1.5rem;
             overflow: hidden; /* Ensures the fill stays within bounds */
@@ -124,7 +124,7 @@
         .progress-fill {
             height: 100%;
             width: 0%; /* Initial width is 0, animated to show progress */
-            background-color: #00A6FB; /* light-blue */
+            background-color: '#00A6FB'; /* light-blue */
             transition: width 0.3s ease-in-out; /* Smooth width transition */
             border-radius: 4px;
         }
@@ -134,7 +134,7 @@
             position: absolute;
             width: 10px;
             height: 10px;
-            background-color: #00A6FB; /* light-blue */
+            background-color: '#00A6FB'; /* light-blue */
             opacity: 0; /* Starts invisible */
             animation: confetti-fall 2s forwards; /* Animation to fall and fade */
             pointer-events: none; /* Allows clicks to pass through */
@@ -142,14 +142,14 @@
         }
         .confetti.square {
             border-radius: 0;
-            background-color: #22C55E; /* success-green */
+            background-color: '#22C55E'; /* success-green */
         }
         .confetti.triangle {
             width: 0;
             height: 0;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-bottom: 10px solid #0077B6; /* accent-blue */
+            border-bottom: 10px solid '#0077B6'; /* accent-blue */
             border-radius: 0;
         }
 
@@ -191,28 +191,28 @@
             z-index: 5000;
         }
         .message-box-content {
-            background-color: #102A43; /* primary-dark */
+            background-color: '#102A43'; /* primary-dark */
             padding: 2rem;
             border-radius: 1rem; /* rounded-xl */
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5); /* shadow-2xl */
             text-align: center;
-            border: 1px solid #0077B6; /* accent-blue */
+            border: 1px solid '#0077B6'; /* accent-blue */
             max-width: 90%; /* Responsive width */
             width: 500px;
         }
         .message-box-title {
             font-size: 1.5rem; /* text-2xl */
             font-weight: bold;
-            color: #00A6FB; /* light-blue */
+            color: '#00A6FB'; /* light-blue */
             margin-bottom: 1rem;
         }
         .message-box-message {
             font-size: 1.125rem; /* text-lg */
-            color: #e0e0e0; /* text-light */
+            color: '#e0e0e0'; /* text-light */
             margin-bottom: 1.5rem;
         }
         .message-box-button {
-            background-color: #0077B6; /* accent-blue */
+            background-color: '#0077B6'; /* accent-blue */
             color: white;
             font-weight: bold;
             padding: 0.5rem 1.25rem; /* py-2 px-5 */
@@ -222,7 +222,7 @@
             transform: scale(1);
         }
         .message-box-button:hover {
-            background-color: #005691; /* Darker accent-blue on hover */
+            background-color: '#005691'; /* Darker accent-blue on hover */
             transform: scale(1.05);
         }
     </style>
@@ -312,6 +312,45 @@
             const dynamicGuideContent = document.getElementById('dynamicGuideContent');
             const initialLoadingMessage = document.getElementById('initialLoadingMessage');
             const loadingIndicator = document.getElementById('loadingIndicator');
+
+            // --- Utility Functions (moved to top for early availability) ---
+            /**
+             * Displays the loading indicator with a given message.
+             * @param {string} message - The message to display in the loading indicator.
+             */
+            const showLoading = (message = 'Loading...') => {
+                loadingIndicator.textContent = message;
+                loadingIndicator.style.display = 'block';
+            };
+
+            /**
+             * Hides the loading indicator.
+             */
+            const hideLoading = () => {
+                loadingIndicator.style.display = 'none';
+            };
+
+            /**
+             * Shows a custom message box as a modal, replacing browser alert/confirm.
+             * @param {string} title - The title of the message box.
+             * @param {string} message - The message content.
+             * @param {boolean} isHtml - True if message contains HTML, false otherwise.
+             */
+            const showMessageBox = (title, message, isHtml = false) => {
+                const messageBox = document.createElement('div');
+                messageBox.className = 'message-box-overlay'; // Apply overlay styles
+                messageBox.innerHTML = `
+                    <div class="message-box-content">
+                        <h2 class="message-box-title">${title}</h2>
+                        <p class="message-box-message">${isHtml ? message : message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;')}</p>
+                        <button id="closeMessageBox" class="message-box-button">Understood</button>
+                    </div>
+                `;
+                document.body.appendChild(messageBox);
+                document.getElementById('closeMessageBox').addEventListener('click', () => {
+                    messageBox.remove();
+                });
+            };
 
             // Constants for local storage and confetti colors
             const PROGRESS_STORAGE_KEY = 'camoDupeGuideProgress';
@@ -403,46 +442,6 @@
                 }
             }
 
-
-            // --- Utility Functions (rest of the file as before, moved for context) ---
-
-            /**
-             * Displays the loading indicator with a given message.
-             * @param {string} message - The message to display in the loading indicator.
-             */
-            const showLoading = (message = 'Loading...') => {
-                loadingIndicator.textContent = message;
-                loadingIndicator.style.display = 'block';
-            };
-
-            /**
-             * Hides the loading indicator.
-             */
-            const hideLoading = () => {
-                loadingIndicator.style.display = 'none';
-            };
-
-            /**
-             * Shows a custom message box as a modal, replacing browser alert/confirm.
-             * @param {string} title - The title of the message box.
-             * @param {string} message - The message content.
-             * @param {boolean} isHtml - True if message contains HTML, false otherwise.
-             */
-            const showMessageBox = (title, message, isHtml = false) => {
-                const messageBox = document.createElement('div');
-                messageBox.className = 'message-box-overlay'; // Apply overlay styles
-                messageBox.innerHTML = `
-                    <div class="message-box-content">
-                        <h2 class="message-box-title">${title}</h2>
-                        <p class="message-box-message">${isHtml ? message : message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;')}</p>
-                        <button id="closeMessageBox" class="message-box-button">Understood</button>
-                    </div>
-                `;
-                document.body.appendChild(messageBox);
-                document.getElementById('closeMessageBox').addEventListener('click', () => {
-                    messageBox.remove();
-                });
-            };
 
             /**
              * Saves the current guide progress (phase, sub-step, and checkbox states) to local storage.
@@ -711,7 +710,7 @@
                     for (const id in savedCheckboxStates) {
                         const checkbox = document.getElementById(id);
                         if (checkbox) {
-                            checkbox.checked = savedProgressStates[id];
+                            checkbox.checked = savedCheckboxStates[id]; // Corrected from savedProgressStates
                             handleCheckboxDisplay(checkbox); // Update visual and progress
                         }
                     }
@@ -861,13 +860,13 @@
                         renderGuideContent(guideDataFromFirestore); // Render the fetched content
                         calculateTotalSteps(); // Recalculate total steps based on new data
 
-                        const savedProgressStates = loadProgress(); // Attempt to load user's previous progress
-                        if (savedProgressStates) {
+                        const savedCheckboxStates = loadProgress(); // Attempt to load user's previous progress
+                        if (savedCheckboxStates) {
                             // Reapply checkbox states to the newly rendered elements
-                            for (const id in savedProgressStates) {
+                            for (const id in savedCheckboxStates) {
                                 const checkbox = document.getElementById(id);
                                 if (checkbox) {
-                                    checkbox.checked = savedProgressStates[id];
+                                    checkbox.checked = savedCheckboxStates[id];
                                     handleCheckboxDisplay(checkbox);
                                 }
                             }
