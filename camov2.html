@@ -367,17 +367,17 @@
             // --- Firebase Initialization ---
             // Construct Firebase config from individual environment variables, with fallbacks
             const firebaseConfig = {
-                apiKey: typeof __FIREBASE_API_KEY !== 'undefined' ? __FIREBASE_API_KEY : '',
-                authDomain: typeof __FIREBASE_AUTH_DOMAIN !== 'undefined' ? __FIREBASE_AUTH_DOMAIN : '',
-                projectId: typeof __FIREBASE_PROJECT_ID !== 'undefined' ? __FIREBASE_PROJECT_ID : '',
-                storageBucket: typeof __FIREBASE_STORAGE_BUCKET !== 'undefined' ? __FIREBASE_STORAGE_BUCKET : '',
-                messagingSenderId: typeof __FIREBASE_MESSAGING_SENDER_ID !== 'undefined' ? __FIREBASE_MESSAGING_SENDER_ID : '',
-                appId: typeof __FIREBASE_APP_ID !== 'undefined' ? __FIREBASE_APP_ID : '',
-                measurementId: typeof __FIREBASE_MEASUREMENT_ID !== 'undefined' ? __FIREBASE_MEASUREMENT_ID : ''
+                apiKey: typeof FIREBASE_API_KEY !== 'undefined' ? FIREBASE_API_KEY : '',
+                authDomain: typeof FIREBASE_AUTH_DOMAIN !== 'undefined' ? FIREBASE_AUTH_DOMAIN : '',
+                projectId: typeof FIREBASE_PROJECT_ID !== 'undefined' ? FIREBASE_PROJECT_ID : '',
+                storageBucket: typeof FIREBASE_STORAGE_BUCKET !== 'undefined' ? FIREBASE_STORAGE_BUCKET : '',
+                messagingSenderId: typeof FIREBASE_MESSAGING_SENDER_ID !== 'undefined' ? FIREBASE_MESSAGING_SENDER_ID : '',
+                appId: typeof FIREBASE_APP_ID !== 'undefined' ? FIREBASE_APP_ID : '',
+                measurementId: typeof FIREBASE_MEASUREMENT_ID !== 'undefined' ? FIREBASE_MEASUREMENT_ID : ''
             };
 
-            // Use __FIREBASE_APP_ID for the appId, with a fallback
-            const appId = typeof __FIREBASE_APP_ID !== 'undefined' ? __FIREBASE_APP_ID : 'default-app-id';
+            // Use FIREBASE_APP_ID for the appId, with a fallback
+            const appId = typeof FIREBASE_APP_ID !== 'undefined' ? FIREBASE_APP_ID : 'default-app-id';
 
             // Check if essential Firebase config values are missing before initializing Firebase.
             // This is crucial for avoiding the 'auth/invalid-api-key' and similar initialization errors.
@@ -417,6 +417,7 @@
                     await (async () => {
                         try {
                             // Use __initial_auth_token if available for custom authentication, otherwise sign in anonymously
+                            // Note: The __initial_auth_token is a special variable provided by the Canvas environment for authentication.
                             if (typeof __initial_auth_token !== 'undefined') {
                                 await signInWithCustomToken(auth, __initial_auth_token);
                             } else {
@@ -1023,7 +1024,7 @@
                             log('  - **Invalid Path:** Double-check the Firestore collection and document ID in this script matches your actual Firestore structure.', 'error');
                             log(`Expected path: ${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'error');
                         } else if (error.code === 'auth/invalid-api-key') {
-                            log('  - **Invalid API Key:** The Firebase API Key in your environment variables is incorrect or not properly configured for this project. Please verify `__FIREBASE_API_KEY`.', 'error');
+                            log('  - **Invalid API Key:** The Firebase API Key in your environment variables is incorrect or not properly configured for this project. Please verify `FIREBASE_API_KEY`.', 'error');
                         }
                         console.error("Full Firebase Error:", error);
                         log('Please review the console for detailed error messages.', 'error');
