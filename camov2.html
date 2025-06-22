@@ -296,12 +296,12 @@
     <!-- Loading Indicator for Firebase operations and content loading -->
     <div id="loadingIndicator">Loading guide...</div>
 
-    <!-- Main JavaScript for guide functionality -->
+    <!-- Main JavaScript for guide functionality and Firebase DevTools -->
     <script type="module">
         // Import necessary Firebase SDK functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Wait for the DOM to be fully loaded before running the script
         document.addEventListener('DOMContentLoaded', async () => {
@@ -326,8 +326,7 @@
             let completedGuideSteps = 0;
 
             // --- Firebase Initialization ---
-            // Construct Firebase config from individual environment variables
-            // Check for existence before assigning to prevent 'undefined' issues
+            // Construct Firebase config from individual environment variables, with fallbacks
             const firebaseConfig = {
                 apiKey: typeof __FIREBASE_API_KEY !== 'undefined' ? __FIREBASE_API_KEY : '',
                 authDomain: typeof __FIREBASE_AUTH_DOMAIN !== 'undefined' ? __FIREBASE_AUTH_DOMAIN : '',
@@ -346,7 +345,7 @@
             const db = getFirestore(app);
             const auth = getAuth(app);
 
-            // Expose app and db globally for the devtools script
+            // Expose app and db globally for direct console debugging (for the devtools script)
             window.app = app;
             window.db = db;
 
@@ -886,28 +885,14 @@
                 guideContent.classList.remove('hidden'); // Show the main guide content
                 showPhase(0); // Start the guide from the first phase
             });
-        });
-    </script>
 
-    <!-- Firebase DevTools Console Script for debugging connectivity and config -->
-    <script type="module">
-        // firebase-devtools-console-script.js
-        // This script provides a simple console-based UI to check Firebase connectivity
-        // and configuration status for debugging purposes.
+            // --- Firebase DevTools Console Script (Integrated) ---
+            // This script provides a simple console-based UI to check Firebase connectivity
+            // and configuration status for debugging purposes.
 
-        // Import necessary Firebase functions for DevTools script's own testing
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+            const DEVTOOLS_SCRIPT_VERSION = "1.0.4"; // Updated version for this integrated approach
 
-        const DEVTOOLS_SCRIPT_VERSION = "1.0.3"; // Updated version for this release
-
-        (function() { // Wrap in an IIFE to prevent global variable pollution
-            console.log(
-                '%c Firebase DevTools Console ',
-                'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
-            );
-            console.log('%c Version ' + DEVTOOLS_SCRIPT_VERSION, 'color: #888;');
-
-            // Helper function for styled console output
+            // Helper function for styled console output within the DevTools context
             const log = (message, type = 'info') => {
                 let style = 'color: #f0f0f0; background: #333; padding: 2px 5px; border-radius: 3px;';
                 let prefix = 'ℹ️ INFO';
@@ -937,158 +922,113 @@
                 console.log(`%c ${prefix} %c ${message}`, style, 'color: #f0f0f0;');
             };
 
-            log('Checking Firebase Initialization via `window.app` and `window.db`...');
+            // Define the function to run Firebase checks
+            const runFirebaseChecks = () => {
+                console.log(
+                    '%c Firebase DevTools Console ',
+                    'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
+                );
+                console.log('%c Version ' + DEVTOOLS_SCRIPT_VERSION, 'color: #888;');
 
-            // Access the globally exposed Firebase app and Firestore instance
-            const firebaseApp = window.app || null;
-            const firestoreDb = window.db || null;
+                log('Checking Firebase Initialization via `window.app` and `window.db`...');
 
-            if (!firebaseApp) {
-                log('Firebase App not found on `window.app`. Ensure `initializeApp` is called in main script and assigned to `window.app`.', 'error');
-                return;
-            } else {
-                log('Firebase App found (`window.app`). Initialized successfully.', 'success');
-                // Display config details. Note: apiKey is public for client-side apps.
-                log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
-                log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
-                log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
-                log(`Firebase Config (as seen by window.app.options):`, 'config');
-                console.log(firebaseApp.options); // Log the full config object for inspection
-            }
+                // Access the globally exposed Firebase app and Firestore instance
+                const firebaseApp = window.app || null;
+                const firestoreDb = window.db || null;
 
-            if (!firestoreDb) {
-                log('Firestore Database not found on `window.db`. Ensure `getFirestore` is called and assigned to `window.db`.', 'error');
-                return;
-            } else {
-                log('Firestore Database found (`window.db`). Initialized successfully.', 'success');
-            }
+                if (!firebaseApp) {
+                    log('Firebase App not found on `window.app`. Ensure `initializeApp` is called and assigned to `window.app`.', 'error');
+                    return;
+                } else {
+                    log('Firebase App found (`window.app`). Initialized successfully.', 'success');
+                    // Display config details. Note: apiKey is public for client-side apps.
+                    log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
+                    log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
+                    log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
+                    log(`Firebase Config (as seen by window.app.options):`, 'config');
+                    console.log(firebaseApp.options); // Log the full config object for inspection
+                }
 
-            log('Attempting Firestore Connectivity Test...');
+                if (!firestoreDb) {
+                    log('Firestore Database not found on `window.db`. Ensure `getFirestore` is called and assigned to `window.db`.', 'error');
+                    return;
+                } else {
+                    log('Firestore Database found (`window.db`). Initialized successfully.', 'success');
+                }
 
-            // IMPORTANT: Path to the guide data in Firestore. Must match your Firestore rules.
-            // Using the appId from the initialized firebaseApp
-            const TEST_COLLECTION_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide`;
-            const TEST_DOC_ID = 'mainGuide';
+                log('Attempting Firestore Connectivity Test...');
 
-            // Perform a simple read operation to test connectivity and rules
-            getDoc(doc(firestoreDb, TEST_COLLECTION_PATH, TEST_DOC_ID))
-                .then(docSnap => {
-                    if (docSnap.exists()) {
-                        log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
-                        log('Guide content structure found. First 3 phases (from test read):', 'debug');
-                        const phases = docSnap.data().phases || [];
-                        phases.slice(0, 3).forEach((phase, index) => {
-                            log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
-                        });
-                    } else {
-                        log('Firestore read test: Document does NOT exist at specified path.', 'warn');
-                        log(`Path checked: %c${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'color: #FFD700;', 'warn');
-                        log('This might be expected if no guide content has been saved by the Admin Panel yet.', 'warn');
-                    }
-                    log('Firebase connectivity test completed.', 'success');
-                })
-                .catch(error => {
-                    log(`Firestore read test FAILED: ${error.message}`, 'error');
-                    log('Possible issues:', 'error');
-                    if (error.code === 'permission-denied') {
-                        log('  - **Permission Denied:** Check your Firestore Security Rules (Step 3 in setup guide). Ensure `allow read: if true;` for your public guide data.', 'error');
-                    } else if (error.code === 'unavailable') {
-                        log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
-                    } else if (error.code === 'invalid-argument') {
-                        log('  - **Invalid Path:** Double-check the Firestore collection and document ID in this script matches your actual Firestore structure.', 'error');
-                        log(`Expected path: ${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'error');
-                    } else {
-                         log(`  - **Other Error:** See console for details.`, 'error');
-                    }
-                    console.error("Full Firebase Error:", error);
-                    log('Please review the console for detailed error messages.', 'error');
-                });
+                // IMPORTANT: Path to the guide data in Firestore. Must match your Firestore rules.
+                // Using the appId from the initialized firebaseApp
+                const TEST_COLLECTION_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide`;
+                const TEST_DOC_ID = 'mainGuide';
+
+                // Perform a simple read operation to test connectivity and rules
+                getDoc(doc(firestoreDb, TEST_COLLECTION_PATH, TEST_DOC_ID))
+                    .then(docSnap => {
+                        if (docSnap.exists()) {
+                            log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
+                            log('Guide content structure found. First 3 phases (from test read):', 'debug');
+                            const phases = docSnap.data().phases || [];
+                            phases.slice(0, 3).forEach((phase, index) => {
+                                log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
+                            });
+                        } else {
+                            log('Firestore read test: Document does NOT exist at specified path.', 'warn');
+                            log(`Path checked: %c${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'color: #FFD700;', 'warn');
+                            log('This might be expected if no guide content has been saved by the Admin Panel yet.', 'warn');
+                        }
+                        log('Firebase connectivity test completed.', 'success');
+                    })
+                    .catch(error => {
+                        log(`Firestore read test FAILED: ${error.message}`, 'error');
+                        log('Possible issues:', 'error');
+                        if (error.code === 'permission-denied') {
+                            log('  - **Permission Denied:** Check your Firestore Security Rules (Step 3 in setup guide). Ensure `allow read: if true;` for your public guide data.', 'error');
+                        } else if (error.code === 'unavailable') {
+                            log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
+                        } else if (error.code === 'invalid-argument') {
+                            log('  - **Invalid Path:** Double-check the Firestore collection and document ID in this script matches your actual Firestore structure.', 'error');
+                            log(`Expected path: ${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'error');
+                        } else {
+                             log(`  - **Other Error:** See console for details.`, 'error');
+                        }
+                        console.error("Full Firebase Error:", error);
+                        log('Please review the console for detailed error messages.', 'error');
+                    });
+            };
 
             // Provide quick access functions in the console for convenience
             window.firebaseDevTools = {
                 /**
                  * Clears the console and re-runs the Firebase status check.
-                 * This helps in re-evaluating connectivity after potential changes.
                  */
                 checkStatus: () => {
                     console.clear();
-                    // This re-executes the main DevTools IIFE by creating a new script element
-                    const script = document.createElement('script');
-                    script.type = 'module';
-                    // The innerHTML needs to re-import Firebase modules as it's a new module scope
-                    script.innerHTML = `
-                        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-                        (function() {
-                            // Re-define log function for this new script instance
-                            const log = (message, type = 'info') => {
-                                let style = 'color: #f0f0f0; background: #333; padding: 2px 5px; border-radius: 3px;';
-                                let prefix = 'ℹ️ INFO';
-                                switch (type) {
-                                    case 'success': style = 'color: #1a1a1a; background: #32CD32; padding: 2px 5px; border-radius: 3px; font-weight: bold;'; prefix = '✅ SUCCESS'; break;
-                                    case 'error': style = 'color: #f0f0f0; background: #dc3545; padding: 2px 5px; border-radius: 3px; font-weight: bold;'; prefix = '❌ ERROR'; break;
-                                    case 'warn': style = 'color: #1a1a1a; background: #FFD700; padding: 2px 5px; border-radius: 3px; font-weight: bold;'; prefix = '⚠️ WARNING'; break;
-                                    case 'config': style = 'color: #007bff; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-weight: bold;'; prefix = '⚙️ CONFIG'; break;
-                                    case 'debug': style = 'color: #f0f0f0; background: #555; padding: 2px 5px; border-radius: 3px;'; prefix = '🐞 DEBUG'; break;
-                                }
-                                console.log(\`%c \${prefix} %c \${message}\`, style, 'color: #f0f0f0;');
-                            };
-
-                            const firebaseApp = window.app || null;
-                            const firestoreDb = window.db || null;
-                            const TEST_COLLECTION_PATH = \`artifacts/\${firebaseApp?.options?.appId || 'default-app-id'}/public/data/camoGuide\`;
-                            const TEST_DOC_ID = 'mainGuide';
-
-                            console.log(
-                                '%c Firebase DevTools Console (Re-check) ',
-                                'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
-                            );
-                            log('Re-running status check...');
-
-                            if (!firebaseApp) {
-                                log('Firebase App not found for re-check.', 'error');
-                                return;
-                            }
-                            if (!firestoreDb) {
-                                log('Firestore Database not found for re-check.', 'error');
-                                return;
-                            }
-
-                            log('Attempting Firestore Connectivity Test (Re-check)...');
-                            getDoc(doc(firestoreDb, TEST_COLLECTION_PATH, TEST_DOC_ID))
-                                .then(docSnap => {
-                                    if (docSnap.exists()) {
-                                        log('Firestore read test: Document exists (Re-check).', 'success');
-                                    } else {
-                                        log('Firestore read test: Document does NOT exist (Re-check).', 'warn');
-                                    }
-                                })
-                                .catch(error => {
-                                    log(\`Firestore read test FAILED (Re-check): \${error.message}\`, 'error');
-                                    console.error("Full Firebase Error (Re-check):", error);
-                                });
-                        })();
-                    `;
-                    document.body.appendChild(script);
+                    log('Re-running status check...', 'info');
+                    runFirebaseChecks(); // Call the main check function directly
                 },
                 /**
                  * Logs the current Firebase configuration object available via `window.app.options`.
                  */
                 getFirebaseConfig: () => {
                     console.log('%c Current Firebase Config Object from window.app.options: ', 'background: #007bff; color: #f0f0f0; padding: 2px 5px; border-radius: 3px;');
-                    if (firebaseApp && firebaseApp.options) {
-                        console.log(firebaseApp.options);
+                    if (window.app && window.app.options) {
+                        console.log(window.app.options);
                     } else {
                         log('Firebase App or its options not found on window.app.', 'error');
                     }
                 },
             };
 
+            // Initial run of the Firebase checks once the main app is ready
+            runFirebaseChecks();
+
             // Instructions for using the DevTools in the browser console
             log('Type %cfirebaseDevTools.checkStatus()', 'color: #00A6FB; font-weight: bold;', 'info');
             log('Type %cfirebaseDevTools.getFirebaseConfig()', 'color: #00A6FB; font-weight: bold;', 'info');
             log('in the console for more actions.', 'info');
-
-        })();
+        });
     </script>
 </body>
 </html>
