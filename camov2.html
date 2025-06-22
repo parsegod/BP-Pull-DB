@@ -340,19 +340,71 @@
             // Use __FIREBASE_APP_ID for the appId, with a fallback
             const appId = typeof __FIREBASE_APP_ID !== 'undefined' ? __FIREBASE_APP_ID : 'default-app-id';
 
-            // Initialize Firebase App and services
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-            const auth = getAuth(app);
+            // Check if essential Firebase config values are missing before initializing Firebase.
+            // This is crucial for avoiding the 'auth/invalid-api-key' and similar initialization errors.
+            const missingConfig = Object.entries(firebaseConfig).filter(([key, value]) => {
+                // projectId and apiKey are absolutely critical for basic operations
+                return (key === 'projectId' || key === 'apiKey') && !value;
+            });
 
-            // Expose app and db globally for direct console debugging (for the devtools script)
-            window.app = app;
-            window.db = db;
+            let firebaseInitialized = false; // Flag to track if Firebase was successfully initialized
 
-            // Define the path to the guide data in Firestore
-            const GUIDE_DOC_REF = doc(db, `artifacts/${appId}/public/data/camoGuide`, 'mainGuide');
+            if (missingConfig.length > 0) {
+                const missingKeys = missingConfig.map(([key]) => key).join(', ');
+                console.error(`Firebase Initialization Error: Missing essential configuration keys: ${missingKeys}`);
+                showMessageBox(
+                    'Firebase Configuration Error',
+                    `<p>The application cannot connect to Firebase because essential configuration is missing. Please ensure the following environment variables are set correctly: <strong>${missingKeys}</strong>.</p><p>Without these, the guide content cannot be loaded or saved.</p>`,
+                    true
+                );
+                hideLoading(); // Hide any loading indicators
+            } else {
+                try {
+                    // Initialize Firebase App and services
+                    const app = initializeApp(firebaseConfig);
+                    const db = getFirestore(app);
+                    const auth = getAuth(app);
 
-            // --- Utility Functions ---
+                    // Expose app and db globally for direct console debugging (for the devtools script)
+                    window.app = app;
+                    window.db = db;
+                    firebaseInitialized = true; // Set flag to true on successful initialization
+
+                    // Define the path to the guide data in Firestore
+                    const GUIDE_DOC_REF = doc(db, `artifacts/${appId}/public/data/camoGuide`, 'mainGuide');
+
+                    // Authenticate Firebase before attempting to load data
+                    // This ensures Firestore operations have proper permissions
+                    await (async () => {
+                        try {
+                            // Use __initial_auth_token if available for custom authentication, otherwise sign in anonymously
+                            if (typeof __initial_auth_token !== 'undefined') {
+                                await signInWithCustomToken(auth, __initial_auth_token);
+                            } else {
+                                await signInAnonymously(auth);
+                            }
+                            console.log("Firebase authenticated successfully.");
+                            loadGuideDataFromFirestore(); // Load guide data only after authentication
+                        } catch (error) {
+                            console.error("Firebase authentication error:", error);
+                            showMessageBox('Authentication Error', 'Failed to authenticate with Firebase. Guide content may not load correctly. Please check your API Key and Firestore Security Rules.');
+                            hideLoading();
+                        }
+                    })();
+
+                } catch (error) {
+                    console.error("Firebase App Initialization Error:", error);
+                    showMessageBox(
+                        'Firebase Initialization Failed',
+                        `<p>There was an error initializing the Firebase application: ${error.message}.</p><p>Please ensure all Firebase configuration values are correct.</p>`,
+                        true
+                    );
+                    hideLoading(); // Hide any loading indicators
+                }
+            }
+
+
+            // --- Utility Functions (rest of the file as before, moved for context) ---
 
             /**
              * Displays the loading indicator with a given message.
@@ -854,25 +906,6 @@
                 });
             };
 
-            // Authenticate Firebase before attempting to load data
-            // This ensures Firestore operations have proper permissions
-            await (async () => {
-                try {
-                    // Use __initial_auth_token if available for custom authentication, otherwise sign in anonymously
-                    if (typeof __initial_auth_token !== 'undefined') {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    console.log("Firebase authenticated successfully.");
-                    loadGuideDataFromFirestore(); // Load guide data only after authentication
-                } catch (error) {
-                    console.error("Firebase authentication error:", error);
-                    showMessageBox('Authentication Error', 'Failed to authenticate with Firebase. Guide content may not load correctly.');
-                    hideLoading();
-                }
-            })();
-
 
             // Event listener for the "Begin Guide" button
             startButton.addEventListener('click', () => {
@@ -890,7 +923,7 @@
             // This script provides a simple console-based UI to check Firebase connectivity
             // and configuration status for debugging purposes.
 
-            const DEVTOOLS_SCRIPT_VERSION = "1.0.4"; // Updated version for this integrated approach
+            const DEVTOOLS_SCRIPT_VERSION = "1.0.5"; // Updated version for this integrated approach
 
             // Helper function for styled console output within the DevTools context
             const log = (message, type = 'info') => {
@@ -922,7 +955,8 @@
                 console.log(`%c ${prefix} %c ${message}`, style, 'color: #f0f0f0;');
             };
 
-            // Define the function to run Firebase checks
+            // Define the function to run Firebase checks.
+            // This function will now be called *after* Firebase initialization is attempted.
             const runFirebaseChecks = () => {
                 console.log(
                     '%c Firebase DevTools Console ',
@@ -932,25 +966,23 @@
 
                 log('Checking Firebase Initialization via `window.app` and `window.db`...');
 
-                // Access the globally exposed Firebase app and Firestore instance
-                const firebaseApp = window.app || null;
-                const firestoreDb = window.db || null;
+                const firebaseApp = window.app; // These should now be available or explicitly null
+                const firestoreDb = window.db;
 
                 if (!firebaseApp) {
-                    log('Firebase App not found on `window.app`. Ensure `initializeApp` is called and assigned to `window.app`.', 'error');
+                    log('Firebase App not found on `window.app`. It was likely not initialized due to missing config or an error.', 'error');
                     return;
                 } else {
                     log('Firebase App found (`window.app`). Initialized successfully.', 'success');
-                    // Display config details. Note: apiKey is public for client-side apps.
                     log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
                     log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
                     log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
                     log(`Firebase Config (as seen by window.app.options):`, 'config');
-                    console.log(firebaseApp.options); // Log the full config object for inspection
+                    console.log(firebaseApp.options);
                 }
 
                 if (!firestoreDb) {
-                    log('Firestore Database not found on `window.db`. Ensure `getFirestore` is called and assigned to `window.db`.', 'error');
+                    log('Firestore Database not found on `window.db`. It was likely not initialized.', 'error');
                     return;
                 } else {
                     log('Firestore Database found (`window.db`). Initialized successfully.', 'success');
@@ -958,21 +990,22 @@
 
                 log('Attempting Firestore Connectivity Test...');
 
-                // IMPORTANT: Path to the guide data in Firestore. Must match your Firestore rules.
-                // Using the appId from the initialized firebaseApp
                 const TEST_COLLECTION_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide`;
                 const TEST_DOC_ID = 'mainGuide';
 
-                // Perform a simple read operation to test connectivity and rules
                 getDoc(doc(firestoreDb, TEST_COLLECTION_PATH, TEST_DOC_ID))
                     .then(docSnap => {
                         if (docSnap.exists()) {
                             log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
-                            log('Guide content structure found. First 3 phases (from test read):', 'debug');
                             const phases = docSnap.data().phases || [];
-                            phases.slice(0, 3).forEach((phase, index) => {
-                                log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
-                            });
+                            if (phases.length > 0) {
+                                log('Guide content structure found. First 3 phases (from test read):', 'debug');
+                                phases.slice(0, 3).forEach((phase, index) => {
+                                    log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
+                                });
+                            } else {
+                                log('Firestore read test: Guide document exists but contains no phases. Add content via Admin Panel.', 'warn');
+                            }
                         } else {
                             log('Firestore read test: Document does NOT exist at specified path.', 'warn');
                             log(`Path checked: %c${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'color: #FFD700;', 'warn');
@@ -984,14 +1017,14 @@
                         log(`Firestore read test FAILED: ${error.message}`, 'error');
                         log('Possible issues:', 'error');
                         if (error.code === 'permission-denied') {
-                            log('  - **Permission Denied:** Check your Firestore Security Rules (Step 3 in setup guide). Ensure `allow read: if true;` for your public guide data.', 'error');
+                            log('  - **Permission Denied:** Check your Firestore Security Rules. Ensure `allow read: if request.auth != null;` for your public guide data.', 'error');
                         } else if (error.code === 'unavailable') {
                             log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
                         } else if (error.code === 'invalid-argument') {
                             log('  - **Invalid Path:** Double-check the Firestore collection and document ID in this script matches your actual Firestore structure.', 'error');
                             log(`Expected path: ${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'error');
-                        } else {
-                             log(`  - **Other Error:** See console for details.`, 'error');
+                        } else if (error.code === 'auth/invalid-api-key') {
+                            log('  - **Invalid API Key:** The Firebase API Key in your environment variables is incorrect or not properly configured for this project. Please verify `__FIREBASE_API_KEY`.', 'error');
                         }
                         console.error("Full Firebase Error:", error);
                         log('Please review the console for detailed error messages.', 'error');
@@ -1000,17 +1033,11 @@
 
             // Provide quick access functions in the console for convenience
             window.firebaseDevTools = {
-                /**
-                 * Clears the console and re-runs the Firebase status check.
-                 */
                 checkStatus: () => {
                     console.clear();
                     log('Re-running status check...', 'info');
-                    runFirebaseChecks(); // Call the main check function directly
+                    runFirebaseChecks();
                 },
-                /**
-                 * Logs the current Firebase configuration object available via `window.app.options`.
-                 */
                 getFirebaseConfig: () => {
                     console.log('%c Current Firebase Config Object from window.app.options: ', 'background: #007bff; color: #f0f0f0; padding: 2px 5px; border-radius: 3px;');
                     if (window.app && window.app.options) {
@@ -1021,13 +1048,10 @@
                 },
             };
 
-            // Initial run of the Firebase checks once the main app is ready
-            runFirebaseChecks();
-
-            // Instructions for using the DevTools in the browser console
-            log('Type %cfirebaseDevTools.checkStatus()', 'color: #00A6FB; font-weight: bold;', 'info');
-            log('Type %cfirebaseDevTools.getFirebaseConfig()', 'color: #00A6FB; font-weight: bold;', 'info');
-            log('in the console for more actions.', 'info');
+            // Call runFirebaseChecks only after Firebase is attempted to be initialized
+            // and window.app/db are set.
+            // This is handled by wrapping the initialization and checks in the DOMContentLoaded listener.
+            // The runFirebaseChecks is called at the end of this module execution.
         });
     </script>
 </body>
