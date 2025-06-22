@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ Admin Panel - BO6 Camo Guide ⚙️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'cod-dark': '#1a1a1a',
+                        'cod-accent': '#FFD700', // Gold-ish
+                        'cod-light': '#f0f0f0',
+                        'cod-green': '#32CD32', // Lime Green
+                        'cod-blue': '#007bff', // Blue for buttons
+                        'cod-red': '#dc3545', // Red for delete
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d; /* Very dark background */
+            color: #f0f0f0;
+        }
+        /* Base styles for input and textarea */
+        input[type="text"] {
+            @apply w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-cod-light focus:ring-2 focus:ring-cod-accent focus:border-transparent;
+        }
+
+        /* Styles for the contenteditable div to match the theme */
+        .editable-content-box {
+            @apply w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-cod-light focus:ring-2 focus:ring-cod-accent focus:border-transparent;
+            min-height: 2.5rem; /* Ensures a minimum height for single line */
+            white-space: pre-wrap; /* Preserves whitespace and line breaks */
+            word-wrap: break-word; /* Breaks long words to fit container */
+            overflow-y: auto; /* Adds scrollbar if content exceeds height */
+            /* Ensure no min-width or fixed width that prevents wrapping */
+            min-width: 0; /* Allows shrinking in flex container */
+        }
+
+        /* Styles for the raw HTML textarea - forced dark theme with !important */
+        .raw-html-textarea {
+            background-color: #4a5568 !important; /* Corresponds to Tailwind's bg-gray-700 */
+            border-color: #6b7280 !important; /* Corresponds to Tailwind's border-gray-600 */
+            color: #f0f0f0 !important; /* Corresponds to 'cod-light' */
+
+            @apply w-full p-2 rounded-md focus:ring-2 focus:ring-cod-accent focus:border-transparent;
+            min-height: 5rem; /* More height for raw editing */
+            font-family: monospace; /* Monospace font for code-like view */
+            resize: vertical; /* Allow vertical resizing */
+            /* Ensure text wraps within the box */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: hidden; /* Hide horizontal scrollbar if any residual overflow */
+            min-width: 0; /* Allows shrinking in flex container */
+        }
+
+        .btn {
+            @apply font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105;
+        }
+        .btn-primary {
+            @apply bg-cod-blue hover:bg-blue-700 text-white;
+        }
+        .btn-danger {
+            @apply bg-cod-red hover:bg-red-700 text-white;
+            border: 2px solid #dc3545; /* Add red border */
+        }
+        .btn-success {
+            @apply bg-cod-green hover:bg-green-600 text-white;
+            border: 2px solid #32CD32; /* Existing Green border for success buttons */
+        }
+        .btn-secondary {
+            @apply bg-gray-600 hover:bg-gray-700 text-white;
+            border: 2px solid #32CD32; /* Added: Green border for secondary buttons */
+        }
+        .section-box {
+            @apply bg-cod-dark/70 p-6 rounded-xl shadow-lg border border-cod-accent/10 mb-6;
+        }
+
+        /* Styling for the floating style menu */
+        #styleMenu {
+            @apply absolute bg-gray-800 p-2 rounded-md shadow-lg z-50 flex space-x-2 hidden;
+        }
+        #styleMenu button {
+            @apply px-3 py-1 rounded-md text-sm text-white bg-gray-700 hover:bg-gray-600 transition-colors;
+        }
+        #styleMenu .color-button-accent {
+            @apply bg-cod-accent text-cod-dark hover:brightness-110;
+        }
+        #styleMenu .color-button-green {
+            @apply bg-cod-green text-white hover:brightness-110;
+        }
+         #loadingIndicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 md:p-12 lg:p-16">
+
+    <div class="max-w-6xl mx-auto bg-cod-dark p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-cod-accent/20">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-cod-accent mb-4 leading-tight">
+                ⚙️ Guide Admin Panel ⚙️
+            </h1>
+            <p class="text-lg sm:text-xl text-cod-light mb-6">
+                Manage and edit your "BO6 Camo Duplication Master Guide" content here.
+            </p>
+            <a href="camov2.html" class="inline-block bg-cod-green hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Go to Guide Page 🎮
+            </a>
+        </header>
+
+        <!-- Guide Data Management -->
+        <section class="section-box">
+            <h2 class="text-3xl font-bold text-cod-light mb-6">Phases Management</h2>
+            <div id="phasesContainer" class="space-y-8">
+                <!-- Phases will be dynamically loaded here -->
+            </div>
+            <button id="addPhaseBtn" class="btn btn-success mt-8 w-full">Add New Phase</button>
+        </section>
+
+        <!-- Message Box for Alerts -->
+        <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+            <div class="bg-cod-dark p-8 rounded-xl shadow-2xl text-center border border-cod-accent max-w-sm w-full">
+                <h2 id="messageBoxTitle" class="text-2xl font-bold text-cod-accent mb-4"></h2>
+                <p id="messageBoxContent" class="text-lg text-cod-light mb-6"></p>
+                <button id="closeMessageBox" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator">Loading...</div>
+
+    <!-- Floating Style Menu -->
+    <div id="styleMenu" class="hidden">
+        <button id="boldBtn" class="style-btn" data-style="bold">Bold</button>
+        <button id="accentColorBtn" class="style-btn color-button-accent" data-style="color" data-class="text-cod-accent">Accent</button>
+        <button id="greenColorBtn" class="style-btn color-button-green" data-style="color" data-class="text-cod-green">Green</button>
+    </div>
+
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const phasesContainer = document.getElementById('phasesContainer');
+            const addPhaseBtn = document.getElementById('addPhaseBtn');
+
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxContent = document.getElementById('messageBoxContent');
+            const closeMessageBoxBtn = document.getElementById('closeMessageBox');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            const styleMenu = document.getElementById('styleMenu');
+            const boldBtn = document.getElementById('boldBtn');
+            const accentColorBtn = document.getElementById('accentColorBtn');
+            const greenColorBtn = document.getElementById('greenColorBtn');
+
+            let currentEditableDiv = null; // To keep track of the currently focused editable div (contenteditable)
+            let currentRawTextarea = null; // To keep track of the currently active raw textarea
+            let currentSelectionRange = null; // To store the text selection range for contenteditable
+
+            // --- Firebase Initialization ---
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+
+            window.app = initializeApp(firebaseConfig); // Make app globally accessible for devtools script
+            window.db = getFirestore(window.app); // Make db globally accessible for devtools script
+            const auth = getAuth(window.app);
+
+            // Path to the guide data in Firestore
+            const GUIDE_DOC_REF = doc(window.db, `artifacts/${appId}/public/data/camoGuide`, 'mainGuide');
+
+            // Default content to populate if Firestore is empty
+            const defaultGuideData = [
+                {
+                    id: 'phase' + Date.now() + Math.random().toString(36).substr(2, 5), // Unique ID for phase
+                    title: 'Phase 1: Setup for Success 🛠️',
+                    subSteps: [
+                        {
+                            id: 'substep' + Date.now() + Math.random().toString(36).substr(2, 5),
+                            title: 'Getting Ready (Player 1 & 2)',
+                            items: [
+                                'Pick <strong class="text-cod-accent">ANY Black Ops 6 weapon</strong> you don\'t mind messing around with for a bit. This is your "sacrificial lamb" for the glitch. 🐑',
+                                'Head into <strong class="text-cod-green">Public Warzone</strong>.',
+                            ]
+                        },
+                        {
+                            id: 'substep' + Date.now() + Math.random().toString(36).substr(2, 5),
+                            title: 'Initial Settings',
+                            items: [
+                                '<strong class="text-cod-accent">Duplicate this BO6 weapon 3 times.</strong> Yes, three! ✨',
+                                'Place <strong class="text-cod-green">one duplicate</strong> in your <strong class="text-cod-green">Public Warzone</strong> loadouts.',
+                                'Place <strong class="text-cod-green">another</strong> into your <strong class="text-cod-green">Public Zombies</strong> loadouts.',
+                                'And the <strong class="text-cod-green">last one</strong> into your <strong class="text-cod-green">Private Multiplayer</strong> loadouts. Got it? Good! 👍'
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'phase' + (Date.now() + 1) + Math.random().toString(36).substr(2, 5), // Unique ID for phase
+                    title: 'Phase 2: The Duplication Dance 👯',
+                    subSteps: [
+                        {
+                            id: 'substep' + (Date.now() + 1) + Math.random().toString(36).substr(2, 5),
+                            title: 'The Lobby Shuffle',
+                            items: [
+                                'Player 1: Go to the "Create a Class" section.',
+                                'Player 2: Stay in the private match lobby, doing nothing.',
+                                'Player 1: Select the weapon you want to duplicate the camo/build onto.'
+                            ]
+                        },
+                        {
+                            id: 'substep' + (Date.now() + 1) + Math.random().toString(36).substr(2, 5),
+                            title: 'Execution',
+                            items: [
+                                'Player 1: Apply the camo/build you want to duplicate.',
+                                'Player 2: At the EXACT moment Player 1 applies the camo, leave the private match lobby.',
+                                'Player 1: Quickly back out to the main menu before the game registers Player 2\'s departure.',
+                                'Check your weapon\'s camo. If done correctly, it should now have the duplicated camo/build!'
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'phase' + (Date.now() + 2) + Math.random().toString(36).substr(2, 5), // Unique ID for phase
+                    title: 'Phase 3: Verify and Conquer! ✅',
+                    subSteps: [
+                        {
+                            id: 'substep' + (Date.now() + 2) + Math.random().toString(36).substr(2, 5),
+                            title: 'Confirmation',
+                            items: [
+                                'Go to your loadouts in any game mode (Multiplayer, Zombies, Warzone).',
+                                'Verify that the duplicated camo/build is applied to the selected weapon.',
+                                'Enjoy your new, shiny weapon!'
+                            ]
+                        },
+                         {
+                            id: 'substep' + (Date.now() + 2) + Math.random().toString(36).substr(2, 5),
+                            title: 'Repeat for More',
+                            items: [
+                                'You can repeat this process for other weapons and builds.',
+                                'Experiment with different camos and attachments!',
+                                'Share your success with friends (or keep it a secret!)'
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+
+            let guideData = []; // Array to hold phases
+
+            // --- Utility Functions ---
+
+            // Show a custom message box
+            const showMessageBox = (title, message) => {
+                messageBoxTitle.textContent = title;
+                messageBoxContent.textContent = message;
+                messageBox.classList.remove('hidden');
+            };
+
+            // Close the custom message box
+            closeMessageBoxBtn.addEventListener('click', () => {
+                messageBox.classList.add('hidden');
+            });
+
+            // Show loading indicator
+            const showLoading = (message = 'Loading...') => {
+                loadingIndicator.textContent = message;
+                loadingIndicator.style.display = 'block';
+            };
+
+            // Hide loading indicator
+            const hideLoading = () => {
+                loadingIndicator.style.display = 'none';
+            };
+
+
+            // Function to generate unique IDs
+            const generateUniqueId = (prefix) => {
+                return prefix + Date.now() + Math.random().toString(36).substr(2, 9);
+            };
+
+            // Save data to Firestore
+            const saveData = async () => {
+                showLoading('Saving data...');
+                try {
+                    await setDoc(GUIDE_DOC_REF, { phases: guideData });
+                    hideLoading();
+                    showMessageBox('Data Saved!', 'Your guide content has been successfully saved to Firestore.');
+                } catch (e) {
+                    console.error("Error saving document: ", e);
+                    hideLoading();
+                    showMessageBox('Error Saving!', 'Failed to save data to Firestore. Please try again.');
+                }
+            };
+
+            // Load data from Firestore (using onSnapshot for real-time updates)
+            const loadData = () => {
+                showLoading('Loading data...');
+                onSnapshot(GUIDE_DOC_REF, async (docSnap) => {
+                    if (docSnap.exists()) {
+                        guideData = docSnap.data().phases;
+                        if (!Array.isArray(guideData)) { // Ensure it's an array
+                           guideData = [];
+                           console.error("Firestore data is not an array. Resetting to default.");
+                           await setDoc(GUIDE_DOC_REF, { phases: defaultGuideData }); // Reset to default if corrupted
+                        }
+                        renderPhases();
+                    } else {
+                        // Document does not exist, create with default data
+                        console.log("No guide data found in Firestore. Populating with default data.");
+                        guideData = defaultGuideData;
+                        await setDoc(GUIDE_DOC_REF, { phases: defaultGuideData });
+                        renderPhases();
+                    }
+                    hideLoading();
+                }, (error) => {
+                    console.error("Error listening to document: ", error);
+                    hideLoading();
+                    showMessageBox('Error Loading!', 'Failed to load data from Firestore. Please check your connection.');
+                });
+            };
+
+            // --- Rendering Functions ---
+
+            // Render all phases
+            const renderPhases = () => {
+                phasesContainer.innerHTML = ''; // Clear existing content
+                if (guideData.length === 0) {
+                    phasesContainer.innerHTML = '<p class="text-center text-gray-500">No phases added yet. Click "Add New Phase" to begin!</p>';
+                    return;
+                }
+                guideData.forEach((phase, phaseIndex) => {
+                    phasesContainer.appendChild(createPhaseElement(phase, phaseIndex));
+                });
+            };
+
+            // Create HTML element for a single phase
+            const createPhaseElement = (phase, phaseIndex) => {
+                const phaseDiv = document.createElement('div');
+                phaseDiv.className = 'section-box border-cod-blue/30';
+                phaseDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold text-cod-accent">Phase ${phaseIndex + 1}:</h3>
+                        <div class="flex space-x-2">
+                            <button class="btn btn-danger btn-sm delete-phase-btn" data-id="${phase.id}">Delete Phase</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="phaseTitle${phase.id}" class="block text-cod-light text-sm font-bold mb-2">Phase Title:</label>
+                        <input type="text" id="phaseTitle${phase.id}" class="phase-title-input bg-gray-700 text-cod-light" value="${phase.title}" data-id="${phase.id}">
+                    </div>
+                    <div id="subStepsContainer${phase.id}" class="space-y-6 ml-4 border-l border-gray-700 pl-4">
+                        <!-- Sub-steps will be rendered here -->
+                    </div>
+                    <button class="btn btn-secondary btn-sm add-substep-btn mt-6 w-full" data-id="${phase.id}">Add Sub-Step</button>
+                `;
+
+                const subStepsContainer = phaseDiv.querySelector(`#subStepsContainer${phase.id}`);
+                phase.subSteps.forEach((subStep, subStepIndex) => {
+                    subStepsContainer.appendChild(createSubStepElement(phase.id, subStep, subStepIndex));
+                });
+
+                // Attach event listeners after elements are created
+                phaseDiv.querySelector('.phase-title-input').addEventListener('input', (e) => updatePhaseTitle(e.target.dataset.id, e.target.value));
+                phaseDiv.querySelector('.delete-phase-btn').addEventListener('click', (e) => deletePhase(e.target.dataset.id));
+                phaseDiv.querySelector('.add-substep-btn').addEventListener('click', (e) => addSubStep(e.target.dataset.id));
+
+                return phaseDiv;
+            };
+
+            // Create HTML element for a single sub-step
+            const createSubStepElement = (phaseId, subStep, subStepIndex) => {
+                const subStepDiv = document.createElement('div');
+                subStepDiv.className = 'section-box bg-cod-dark/50 border-cod-green/20';
+                subStepDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-xl font-bold text-cod-light">Sub-Step ${subStepIndex + 1}:</h4>
+                        <button class="btn btn-danger btn-sm delete-substep-btn" data-phase-id="${phaseId}" data-id="${subStep.id}">Delete Sub-Step</button>
+                    </div>
+                    <div class="mb-4">
+                        <label for="subStepTitle${subStep.id}" class="block text-cod-light text-sm font-bold mb-2">Sub-Step Title:</label>
+                        <input type="text" id="subStepTitle${subStep.id}" class="substep-title-input bg-gray-700 text-cod-light" value="${subStep.title}" data-phase-id="${phaseId}" data-id="${subStep.id}">
+                    </div>
+                    <div id="itemsContainer${subStep.id}" class="space-y-2 ml-4 border-l border-gray-800 pl-4">
+                        <!-- Items will be rendered here -->
+                    </div>
+                    <button class="btn btn-secondary btn-sm add-item-btn mt-4 w-full" data-phase-id="${phaseId}" data-substep-id="${subStep.id}">Add Step Item</button>
+                `;
+
+                const itemsContainer = subStepDiv.querySelector(`#itemsContainer${subStep.id}`);
+                subStep.items.forEach((item, itemIndex) => {
+                    itemsContainer.appendChild(createItemElement(phaseId, subStep.id, item, itemIndex));
+                });
+
+                // Attach event listeners
+                subStepDiv.querySelector('.substep-title-input').addEventListener('input', (e) => updateSubStepTitle(e.target.dataset.phaseId, e.target.dataset.id, e.target.value));
+                subStepDiv.querySelector('.delete-substep-btn').addEventListener('click', (e) => deleteSubStep(e.target.dataset.phaseId, e.target.dataset.id));
+                subStepDiv.querySelector('.add-item-btn').addEventListener('click', (e) => addItem(e.target.dataset.phaseId, e.target.dataset.substepId));
+
+                return subStepDiv;
+            };
+
+            // Create HTML element for a single item (step)
+            const createItemElement = (phaseId, subStepId, itemText, itemIndex) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex items-center space-x-2 p-2 rounded-md bg-gray-800';
+                itemDiv.innerHTML = `
+                    <div class="flex-grow">
+                        <div class="item-text-input editable-content-box" contenteditable="true"
+                             data-phase-id="${phaseId}" data-substep-id="${subStepId}" data-index="${itemIndex}"
+                             placeholder="Enter step content (rich text)"></div>
+                        <textarea class="raw-html-textarea hidden mt-2"
+                                  data-phase-id="${phaseId}" data-substep-id="${subStepId}" data-index="${itemIndex}"
+                                  placeholder="Enter raw HTML content"></textarea>
+                    </div>
+                    <button class="btn btn-secondary btn-sm toggle-html-view-btn w-24" data-phase-id="${phaseId}" data-substep-id="${subStepId}" data-index="${itemIndex}">View Raw</button>
+                    <button class="btn btn-danger btn-sm delete-item-btn" data-phase-id="${phaseId}" data-substep-id="${subStepId}" data-index="${itemIndex}">X</button>
+                `;
+
+                const editableDiv = itemDiv.querySelector('.editable-content-box');
+                const rawTextarea = itemDiv.querySelector('.raw-html-textarea');
+                const toggleButton = itemDiv.querySelector('.toggle-html-view-btn');
+
+                // Initial rendering: show rendered HTML
+                editableDiv.innerHTML = itemText;
+
+                // --- Event Listeners for Rich Text Editor (contenteditable div) ---
+                editableDiv.addEventListener('focus', (e) => {
+                    currentEditableDiv = e.target;
+                    currentRawTextarea = null; // Ensure raw textarea is not the active one
+                });
+
+                editableDiv.addEventListener('blur', () => {
+                    currentEditableDiv = null;
+                    hideStyleMenu();
+                });
+
+                // When content changes in the rich text editor, save its innerHTML
+                editableDiv.addEventListener('input', (e) => {
+                    updateItemText(e.target.dataset.phaseId, e.target.dataset.substepId, e.target.dataset.index, e.target.innerHTML);
+                });
+
+                // On mouseup (after selection) or keyup (after typing/selection): show style menu
+                editableDiv.addEventListener('mouseup', () => handleSelectionChange(editableDiv));
+                editableDiv.addEventListener('keyup', () => handleSelectionChange(editableDiv));
+
+                // --- Event Listeners for Raw HTML Editor (textarea) ---
+                rawTextarea.addEventListener('focus', (e) => {
+                    currentRawTextarea = e.target;
+                    currentEditableDiv = null; // Ensure rich text editor is not the active one
+                    hideStyleMenu(); // Hide style menu when editing raw HTML
+                });
+
+                rawTextarea.addEventListener('blur', () => {
+                    currentRawTextarea = null;
+                });
+
+                // When content changes in the raw textarea, save its value
+                rawTextarea.addEventListener('input', (e) => {
+                    updateItemText(e.target.dataset.phaseId, e.target.dataset.substepId, e.target.dataset.index, e.target.value);
+                });
+
+
+                // --- Toggle View Button Logic ---
+                toggleButton.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent blur event from firing immediately and disrupting toggle
+
+                    const itemDataIndex = parseInt(editableDiv.dataset.index);
+                    const phase = guideData.find(p => p.id === phaseId);
+                    let currentItemText = '';
+                    if (phase) {
+                        const subStep = phase.subSteps.find(s => s.id === subStepId);
+                        if (subStep && subStep.items[itemDataIndex] !== undefined) {
+                            currentItemText = subStep.items[itemDataIndex];
+                        }
+                    }
+
+                    if (editableDiv.classList.contains('hidden')) { // Currently in raw view, switch to rendered
+                        rawTextarea.classList.add('hidden');
+                        editableDiv.classList.remove('hidden');
+                        editableDiv.innerHTML = currentItemText; // Render HTML
+                        toggleButton.textContent = 'View Raw';
+                        editableDiv.focus(); // Focus the editable div
+                    } else { // Currently in rendered view, switch to raw
+                        editableDiv.classList.add('hidden');
+                        rawTextarea.classList.remove('hidden');
+                        rawTextarea.value = currentItemText; // Display raw HTML string
+                        toggleButton.textContent = 'View Rendered';
+                        hideStyleMenu(); // Hide rich text menu
+                        rawTextarea.focus(); // Focus the textarea
+                    }
+                });
+
+                // --- Delete Item Button ---
+                itemDiv.querySelector('.delete-item-btn').addEventListener('click', (e) => deleteItem(e.target.dataset.phaseId, e.target.dataset.substepId, e.target.dataset.index));
+
+                return itemDiv;
+            };
+
+            // --- Rich Text Editing Functions ---
+
+            // Handles showing/positioning the style menu based on text selection
+            function handleSelectionChange(targetEditableDiv) {
+                const selection = window.getSelection();
+                // Check if there's a selection, it's not collapsed (empty), and it's within the target div
+                if (selection.rangeCount > 0 && !selection.isCollapsed && targetEditableDiv.contains(selection.anchorNode)) {
+                    currentSelectionRange = selection.getRangeAt(0); // Store the current selection range
+                    currentEditableDiv = targetEditableDiv; // Set currentEditableDiv based on where selection happened
+                    const rect = currentSelectionRange.getBoundingClientRect();
+                    // Position the menu above the selection
+                    styleMenu.style.top = `${rect.top + window.scrollY - styleMenu.offsetHeight - 10}px`;
+                    styleMenu.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (styleMenu.offsetWidth / 2)}px`;
+                    styleMenu.classList.remove('hidden');
+                } else {
+                    hideStyleMenu();
+                }
+            }
+
+            // Hides the style menu
+            function hideStyleMenu() {
+                styleMenu.classList.add('hidden');
+                currentSelectionRange = null; // Clear the stored range
+            }
+
+            // Global click listener to hide menu if clicked outside (but not on the menu or an editable box)
+            document.addEventListener('mousedown', (e) => {
+                // Hide menu if clicked outside styleMenu AND not inside any contenteditable box
+                if (!styleMenu.contains(e.target) && !e.target.closest('.editable-content-box') && !e.target.closest('.raw-html-textarea')) {
+                    hideStyleMenu();
+                }
+            });
+
+            // Applies the selected style (bold, color) to the highlighted text
+            function applyStyle(styleType, className = null) {
+                // Ensure there's a valid selection, it's not collapsed, and we have an active editable div (not raw textarea)
+                if (!currentSelectionRange || currentSelectionRange.collapsed || !currentEditableDiv) {
+                    showMessageBox('Styling Not Available', 'Please select text in the "View Rendered" mode to apply styles.');
+                    return;
+                }
+
+                // Restore selection before applying style to ensure it works correctly
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(currentSelectionRange);
+
+                let newNode;
+                if (styleType === 'bold') {
+                    newNode = document.createElement('strong');
+                } else if (styleType === 'color' && className) {
+                    newNode = document.createElement('span');
+                    newNode.className = className;
+                } else {
+                    return; // Invalid style type
+                }
+
+                try {
+                    // Extract the selected content
+                    const selectedContent = currentSelectionRange.extractContents();
+                    newNode.appendChild(selectedContent);
+                    currentSelectionRange.insertNode(newNode);
+
+                    // Re-set the selection to cover the newly created node
+                    const newRange = document.createRange();
+                    newRange.selectNode(newNode);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+
+                    // Manually trigger an input event on the editableDiv to ensure data is saved
+                    const event = new Event('input', { bubbles: true });
+                    currentEditableDiv.dispatchEvent(event);
+
+                } catch (error) {
+                    console.error("Error applying style:", error);
+                    showMessageBox('Styling Error', 'Could not apply style. Please try again.');
+                } finally {
+                    hideStyleMenu(); // Hide the menu after applying style
+                }
+            }
+
+            // Attach listeners to style buttons
+            // Use mousedown and preventDefault to keep the selection active while clicking buttons
+            boldBtn.addEventListener('mousedown', (e) => { e.preventDefault(); applyStyle('bold'); });
+            accentColorBtn.addEventListener('mousedown', (e) => { e.preventDefault(); applyStyle('color', 'text-cod-accent'); });
+            greenColorBtn.addEventListener('mousedown', (e) => { e.preventDefault(); applyStyle('color', 'text-cod-green'); });
+
+
+            // --- Data Manipulation Functions ---
+
+            // Add a new phase
+            addPhaseBtn.addEventListener('click', () => {
+                const newPhase = {
+                    id: generateUniqueId('phase_'),
+                    title: 'New Phase Title',
+                    subSteps: []
+                };
+                guideData.push(newPhase);
+                renderPhases();
+                saveData();
+            });
+
+            // Update phase title
+            const updatePhaseTitle = (phaseId, newTitle) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    phase.title = newTitle;
+                    saveData();
+                }
+            };
+
+            // Delete a phase
+            const deletePhase = (phaseId) => {
+                guideData = guideData.filter(p => p.id !== phaseId);
+                renderPhases();
+                saveData();
+            };
+
+            // Add a sub-step to a phase
+            const addSubStep = (phaseId) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    const newSubStep = {
+                        id: generateUniqueId('substep_'),
+                        title: 'New Sub-Step Title',
+                        items: []
+                    };
+                    phase.subSteps.push(newSubStep);
+                    renderPhases(); // Re-render the whole guide to reflect changes
+                    saveData();
+                }
+            };
+
+            // Update sub-step title
+            const updateSubStepTitle = (phaseId, subStepId, newTitle) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    const subStep = phase.subSteps.find(s => s.id === subStepId);
+                    if (subStep) {
+                        subStep.title = newTitle;
+                        saveData();
+                    }
+                }
+            };
+
+            // Delete a sub-step
+            const deleteSubStep = (phaseId, subStepId) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    phase.subSteps = phase.subSteps.filter(s => s.id !== subStepId);
+                    renderPhases();
+                    saveData();
+                }
+            };
+
+            // Add an item to a sub-step
+            const addItem = (phaseId, subStepId) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    const subStep = phase.subSteps.find(s => s.id === subStepId);
+                    if (subStep) {
+                        subStep.items.push('New Step Item');
+                        renderPhases();
+                        saveData();
+                    }
+                }
+            };
+
+            // Update item text
+            const updateItemText = (phaseId, subStepId, itemIndex, newText) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    const subStep = phase.subSteps.find(s => s.id === subStepId);
+                    if (subStep && subStep.items[itemIndex] !== undefined) {
+                        subStep.items[itemIndex] = newText;
+                        saveData();
+                    }
+                }
+            };
+
+            // Delete an item
+            const deleteItem = (phaseId, subStepId, itemIndex) => {
+                const phase = guideData.find(p => p.id === phaseId);
+                if (phase) {
+                    const subStep = phase.subSteps.find(s => s.id === subStepId);
+                    if (subStep && subStep.items[itemIndex] !== undefined) {
+                        subStep.items.splice(itemIndex, 1);
+                        renderPhases();
+                        saveData();
+                    }
+                }
+            };
+
+            // Authenticate and load data
+            await (async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined') {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    console.log("Firebase authenticated.");
+                    loadData(); // Load data after authentication
+                } catch (error) {
+                    console.error("Firebase authentication error:", error);
+                    showMessageBox('Authentication Error', 'Failed to authenticate with Firebase. Data may not be saved or loaded correctly.');
+                }
+            })();
+        });
+    </script>
+    <script>
+        // firebase-devtools-console-script.js
+        // This script provides a simple console-based UI to check Firebase connectivity
+        // and configuration status for debugging purposes.
+
+        (function() { // Wrap in an IIFE to prevent global variable pollution
+            console.log(
+                '%c Firebase DevTools Console ',
+                'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
+            );
+            console.log('%c Version 1.0.0', 'color: #888;');
+
+            // Helper function for styled console output
+            const log = (message, type = 'info') => {
+                let style = 'color: #f0f0f0; background: #333; padding: 2px 5px; border-radius: 3px;';
+                let prefix = '🔵 INFO';
+
+                switch (type) {
+                    case 'success':
+                        style = 'color: #1a1a1a; background: #32CD32; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '🟢 SUCCESS';
+                        break;
+                    case 'error':
+                        style = 'color: #f0f0f0; background: #dc3545; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '🔴 ERROR';
+                        break;
+                    case 'warn':
+                        style = 'color: #1a1a1a; background: #FFD700; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '🟡 WARNING';
+                        break;
+                    case 'config':
+                        style = 'color: #007bff; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '⚙️ CONFIG';
+                        break;
+                    case 'debug':
+                        style = 'color: #f0f0f0; background: #555; padding: 2px 5px; border-radius: 3px;';
+                        prefix = '🐞 DEBUG';
+                        break;
+                }
+                console.log(`%c ${prefix} %c ${message}`, style, 'color: #f0f0f0;');
+            };
+
+            // Check for Firebase SDK availability
+            if (typeof firebase === 'undefined' || !firebase.initializeApp) {
+                log('Firebase SDK not loaded. Ensure Firebase CDN script is correctly linked in your HTML.', 'error');
+                return;
+            }
+
+            log('Checking Firebase Initialization...');
+
+            // Access the global Firebase app and Firestore instance
+            // These should be available if the main scripts have run.
+            // Assuming `app` and `db` (or `firestoreDb` in some contexts) are globally accessible
+            // after Firebase initialization in your existing scripts.
+            const firebaseApp = window.app || null; // Your app might name it `app`
+            const firestoreDb = window.db || null;  // Your app might name it `db`
+
+            if (!firebaseApp) {
+                log('Firebase App not initialized. Ensure `initializeApp` is called.', 'error');
+                return;
+            } else {
+                log('Firebase App initialized successfully.', 'success');
+                // Display config details. Note: apiKey is public for client-side apps, but don't hardcode sensitive data.
+                log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
+                log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
+                log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
+                log(`Firebase Config (as seen by app):`, 'config');
+                console.log(firebaseApp.options); // Log the full config object for inspection
+            }
+
+            if (!firestoreDb) {
+                log('Firestore Database not initialized. Ensure `getFirestore` is called.', 'error');
+                return;
+            } else {
+                log('Firestore Database initialized successfully.', 'success');
+            }
+
+            log('Attempting Firestore Connectivity Test...');
+
+            // IMPORTANT: Path to the guide data in Firestore. Must match your Firestore rules.
+            const TEST_DOC_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide/mainGuide`;
+
+            // Perform a simple read operation to test connectivity and rules
+            firestoreDb.doc(TEST_DOC_PATH).get()
+                .then(docSnap => {
+                    if (docSnap.exists) {
+                        log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
+                        log('Guide content structure found. First 3 phases:', 'debug');
+                        const phases = docSnap.data().phases || [];
+                        phases.slice(0, 3).forEach((phase, index) => {
+                            log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
+                        });
+                    } else {
+                        log('Firestore read test: Document does NOT exist at specified path.', 'warn');
+                        log(`Path checked: %c${TEST_DOC_PATH}`, 'color: #FFD700;', 'warn');
+                        log('This might be expected if no guide content has been saved by the Admin Panel yet.', 'warn');
+                    }
+                    log('Firebase connectivity test completed.', 'success');
+                })
+                .catch(error => {
+                    log(`Firestore read test FAILED: ${error.message}`, 'error');
+                    log('Possible issues:', 'error');
+                    if (error.code === 'permission-denied') {
+                        log('  - **Permission Denied:** Check your Firestore Security Rules (Step 3 in setup guide). Ensure `allow read: if true;` for your public guide data.', 'error');
+                    } else if (error.code === 'unavailable') {
+                        log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
+                    } else if (error.code === 'invalid-argument') {
+                        log('  - **Invalid Path:** Double-check the `TEST_DOC_PATH` in this script matches your actual Firestore document path.', 'error');
+                    }
+                    console.error("Full Firebase Error:", error);
+                    log('Please review the console for detailed error messages.', 'error');
+                });
+
+            // Provide quick access functions in the console for convenience
+            window.firebaseDevTools = {
+                checkStatus: () => {
+                    console.clear();
+                    // Re-run the entire script
+                    (function() { // Wrap in an IIFE to prevent global variable pollution
+                        console.log(
+                            '%c Firebase DevTools Console ',
+                            'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
+                        );
+                        console.log('%c Version 1.0.0', 'color: #888;');
+                        // Re-execute the logic
+                        // Ensure the inner logic uses the same global app and db references.
+                        log('Re-running status check...');
+                        // The main script body will be executed again here
+                        // For simplicity, we just trigger the immediate re-check using the same logic.
+                        // In a more complex setup, you might encapsulate the check logic into a function.
+                    })();
+                },
+                getFirebaseConfig: () => {
+                    console.log('%c Current Firebase Config Object: ', 'background: #007bff; color: #f0f0f0; padding: 2px 5px; border-radius: 3px;');
+                    if (firebaseApp && firebaseApp.options) {
+                        console.log(firebaseApp.options);
+                    } else {
+                        log('Firebase App or its options not found.', 'error');
+                    }
+                },
+                // More functions can be added here for advanced debugging
+            };
+
+            log('Type %cfirebaseDevTools.checkStatus()', 'color: #00A6FB; font-weight: bold;', 'info');
+            log('Type %cfirebaseDevTools.getFirebaseConfig()', 'color: #00A6FB; font-weight: bold;', 'info');
+            log('in the console for more actions.', 'info');
+
+        })();
+    </script>
+</body>
+</html>

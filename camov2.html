@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BO6 Camouflage Duplication Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Colors derived from style (1).css
+                        'primary-dark': '#102A43',
+                        'secondary-dark': '#0D3B66',
+                        'accent-blue': '#0077B6',
+                        'light-blue': '#00A6FB',
+                        'text-light': '#e0e0e0',
+                        'text-lighter': '#CCE0F0',
+                        'danger-red': '#EF4444', // Tailwind's red-500
+                        'success-green': '#22C55E', // Tailwind's green-500
+                        'warning-orange': '#F97316', // Tailwind's orange-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            /* Inherit gradient and animation from style (1).css */
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(270deg, #102A43, #0077B6);
+            background-size: 400% 400%;
+            color: #e0e0e0;
+            line-height: 1.6;
+            animation: gradientAnimation 15s ease infinite;
+            overflow-x: hidden; /* Prevent horizontal scroll from confetti */
+        }
+
+        /* Keyframes for gradient animation - copied from style (1).css */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Custom scrollbar for Webkit browsers (Chrome, Safari) - copied from style (1).css */
+        ::-webkit-scrollbar {
+          width: 0;
+          height: 0;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #0D3B66;
+          border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: #0077B6;
+          border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: #00A6FB;
+        }
+
+        .step-checkbox {
+            /* Updated to use new Tailwind colors */
+            @apply mr-3 h-5 w-5 appearance-none rounded-md border-2 border-light-blue bg-transparent
+                   checked:bg-success-green checked:border-transparent checked:after:content-['\2713']
+                   checked:after:text-white checked:after:flex checked:after:justify-center checked:after:items-center;
+        }
+        .step-item.completed label {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+        .section-container, .sub-step-container {
+            display: none; /* Hidden by default */
+        }
+        .section-container.active, .sub-step-container.active {
+            display: block; /* Shown when active */
+        }
+        .progress-bar {
+            height: 8px;
+            background-color: #0D3B66; /* secondary-dark */
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #00A6FB; /* light-blue */
+            transition: width 0.3s ease-in-out;
+            border-radius: 4px;
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #00A6FB; /* light-blue */
+            opacity: 0;
+            animation: confetti-fall 2s forwards;
+            pointer-events: none;
+            border-radius: 50%; /* Make them round */
+        }
+        .confetti.square {
+            border-radius: 0;
+            background-color: #22C55E; /* success-green */
+        }
+        .confetti.triangle {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #0077B6; /* accent-blue */
+            border-radius: 0;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotateZ(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+        #loadingIndicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 md:p-12 lg:p-16">
+
+    <div class="max-w-4xl mx-auto bg-primary-dark p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-accent-blue/20">
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-light-blue mb-4 leading-tight">
+                BO6 Camouflage Duplication Guide
+            </h1>
+            <p class="text-lg sm:text-xl text-text-light mb-6">
+                Welcome! This comprehensive guide provides a step-by-step method to duplicate weapon camouflages and builds in Call of Duty: Black Ops 6. Enhance your in-game arsenal with these techniques.
+            </p>
+            <button id="startButton" class="bg-success-green hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Begin Guide
+            </button>
+            <a href="editorv2.html" class="inline-block mt-4 text-light-blue hover:text-success-green transition-colors duration-300">Admin Panel (Edit Guide)</a>
+        </header>
+
+        <div id="guideContent" class="hidden">
+            <div class="progress-bar">
+                <div id="overallProgressBarFill" class="progress-fill"></div>
+            </div>
+            <p class="text-right text-sm text-gray-400 mb-6" id="overallProgressText"></p>
+
+            <div id="dynamicGuideContent">
+                <p class="text-center text-text-lighter" id="initialLoadingMessage">Loading guide content...</p>
+            </div>
+
+            <section id="troubleshooting" class="bg-secondary-dark/70 p-6 rounded-xl mt-10 border border-danger-red/30">
+                <h2 class="text-3xl sm:text-4xl font-bold text-danger-red mb-6 flex items-center">
+                    <span class="mr-3">Troubleshooting:</span>
+                </h2>
+
+
+                <ul class="space-y-3">
+                    <li class="flex items-start text-lg">
+                        <span class="text-danger-red font-bold mr-3 mt-1"></span>
+                        <p>Access <strong class="text-success-green">Multiplayer Private</strong>, <strong class="text-success-green">Zombies</strong>, and <strong class="text-success-green">Warzone</strong> modes.</p>
+                    </li>
+                    <li class="flex items-start text-lg">
+                        <span class="text-danger-red font-bold mr-3 mt-1"></span>
+                        <p><strong class="text-danger-red">Remove all existing custom classes</strong> within these modes.</p>
+                    </li>
+                    <li class="flex items-start text-lg">
+                        <span class="text-danger-red font-bold mr-3 mt-1"></span>
+                        <p><strong class="text-light-blue">Create 10 new custom classes</strong> to reach the maximum limit.</p>
+                    </li>
+                    <li class="flex items-start text-lg">
+                        <span class="text-danger-red font-bold mr-3 mt-1"></span>
+                        <p>Then, reattempt the duplication steps from Phase 1. Good luck!</p>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="text-center mt-10">
+                <button id="resetButton" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out">
+                    Reset Guide
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator">Loading guide...</div>
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const startButton = document.getElementById('startButton');
+            const guideContent = document.getElementById('guideContent');
+            const resetButton = document.getElementById('resetButton');
+            const dynamicGuideContent = document.getElementById('dynamicGuideContent');
+            const initialLoadingMessage = document.getElementById('initialLoadingMessage');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+
+            // Local Storage Key for user progress (checkbox states) - NOT the guide content itself
+            const PROGRESS_STORAGE_KEY = 'camoDupeGuideProgress';
+
+            let guideDataFromFirestore = {
+                phases: []
+            };
+
+            let phases = []; // This will be populated from guideDataFromFirestore.phases
+            let currentPhaseIndex = 0;
+            let currentSubStepIndex = 0;
+            let totalGuideSteps = 0;
+            let completedGuideSteps = 0;
+
+            // Updated Confetti Colors to match the new theme
+            const CONFETTI_COLORS = ['#00A6FB', '#22C55E', '#0077B6', '#F97316', '#8A2BE2']; // Light Blue, Success Green, Accent Blue, Warning Orange, Purple
+
+            // --- Firebase Initialization ---
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+
+            window.app = initializeApp(firebaseConfig); // Make app globally accessible for devtools script
+            window.db = getFirestore(window.app); // Make db globally accessible for devtools script
+            const auth = getAuth(window.app);
+
+            // Path to the guide data in Firestore (same as editorv2.html)
+            const GUIDE_DOC_REF = doc(window.db, `artifacts/${appId}/public/data/camoGuide`, 'mainGuide');
+
+            // --- Utility Functions ---
+
+            // Show loading indicator
+            const showLoading = (message = 'Loading...') => {
+                loadingIndicator.textContent = message;
+                loadingIndicator.style.display = 'block';
+            };
+
+            // Hide loading indicator
+            const hideLoading = () => {
+                loadingIndicator.style.display = 'none';
+            };
+
+            // Show a custom message box (used for "No Guide Content")
+            const showMessageBox = (title, message, isHtml = false) => {
+                const messageBox = document.createElement('div');
+                messageBox.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
+                messageBox.innerHTML = `
+                    <div class="bg-primary-dark p-8 rounded-xl shadow-2xl text-center border border-accent-blue">
+                        <h2 class="text-2xl font-bold text-light-blue mb-4">${title}</h2>
+                        <p class="text-lg text-text-light mb-6">${isHtml ? message : message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;')}</p>
+                        <button id="closeMessageBox" class="bg-accent-blue hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-full shadow-lg transition duration-300 ease-in-out">Understood</button>
+                    </div>
+                `;
+                document.body.appendChild(messageBox);
+                document.getElementById('closeMessageBox').addEventListener('click', () => {
+                    messageBox.remove();
+                });
+            };
+
+            // Save progress to localStorage
+            const saveProgress = () => {
+                const progress = {
+                    currentPhaseIndex: currentPhaseIndex,
+                    currentSubStepIndex: currentSubStepIndex,
+                    checkboxStates: {},
+                    completedGuideSteps: completedGuideSteps
+                };
+                document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+                    progress.checkboxStates[checkbox.id] = checkbox.checked;
+                });
+                localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
+            };
+
+            // Load progress from localStorage
+            const loadProgress = () => {
+                const savedProgress = localStorage.getItem(PROGRESS_STORAGE_KEY);
+                if (savedProgress) {
+                    const progress = JSON.parse(savedProgress);
+                    currentPhaseIndex = progress.currentPhaseIndex;
+                    currentSubStepIndex = progress.currentSubStepIndex;
+                    completedGuideSteps = progress.completedGuideSteps || 0; // Ensure it's initialized
+
+                    return progress.checkboxStates;
+                }
+                return null;
+            };
+
+            // Calculate total steps (items) in the entire guide from dynamic data
+            const calculateTotalSteps = () => {
+                let count = 0;
+                guideDataFromFirestore.phases.forEach(phase => {
+                    phase.subSteps.forEach(subStep => {
+                        count += subStep.items.length;
+                    });
+                });
+                totalGuideSteps = count;
+            };
+
+            // Update overall guide progress bar and text
+            const updateOverallProgress = () => {
+                completedGuideSteps = Array.from(document.querySelectorAll('.step-checkbox:checked')).length;
+                const percentage = totalGuideSteps > 0 ? (completedGuideSteps / totalGuideSteps) * 100 : 0;
+                document.getElementById('overallProgressBarFill').style.width = `${percentage}%`;
+                document.getElementById('overallProgressText').textContent = `Overall Progress: ${completedGuideSteps}/${totalGuideSteps} steps completed`;
+                saveProgress(); // Save progress after updating
+            };
+
+            // Update individual phase progress bar and text
+            const updatePhaseProgress = (phaseObj) => {
+                const phaseCheckboxes = Array.from(document.querySelectorAll(`#phase-${phaseObj.id} .step-checkbox`));
+                const completedPhaseSteps = phaseCheckboxes.filter(cb => cb.checked).length;
+                const totalPhaseSteps = phaseCheckboxes.length;
+                const percentage = totalPhaseSteps > 0 ? (completedPhaseSteps / totalPhaseSteps) * 100 : 0;
+                const progressBarFill = document.getElementById(`phase-${phaseObj.id}-ProgressBarFill`);
+                const progressText = document.getElementById(`phase-${phaseObj.id}-ProgressText`);
+
+                if (progressBarFill && progressText) {
+                    progressBarFill.style.width = `${percentage}%`;
+                    progressText.textContent = `Phase Progress: ${completedPhaseSteps}/${totalPhaseSteps} steps completed`;
+                }
+            };
+
+            // Handle individual checkbox visual update
+            const handleCheckboxDisplay = (checkbox) => {
+                const listItem = checkbox.closest('.step-item');
+                if (listItem) {
+                    if (checkbox.checked) {
+                        listItem.classList.add('completed');
+                    } else {
+                        listItem.classList.remove('completed');
+                    }
+                }
+                updateOverallProgress();
+                if (guideDataFromFirestore.phases[currentPhaseIndex]) {
+                    updatePhaseProgress(guideDataFromFirestore.phases[currentPhaseIndex]);
+                }
+            };
+
+            // Create a confetti particle
+            const createConfetti = (x, y) => {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${x}px`;
+                confetti.style.top = `${y}px`;
+                confetti.style.backgroundColor = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+
+                const type = Math.random();
+                if (type < 0.33) {
+                    confetti.classList.add('square');
+                } else if (type < 0.66) {
+                    confetti.classList.add('triangle');
+                } else {
+                    // Default is circle
+                }
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 2000); // Remove after animation
+            };
+
+            // Trigger confetti effect
+            const launchConfetti = () => {
+                const count = 100; // Number of confetti particles
+                for (let i = 0; i < count; i++) {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    createConfetti(x, y);
+                }
+            };
+
+            // --- Dynamic Guide Rendering ---
+            const renderGuideContent = (guideData) => {
+                dynamicGuideContent.innerHTML = ''; // Clear existing content
+                initialLoadingMessage.style.display = 'none';
+
+                if (!guideData || !guideData.phases || guideData.phases.length === 0) {
+                    dynamicGuideContent.innerHTML = '<p class="text-center text-text-lighter mt-8">No guide content available. Please use the <a href="editorv2.html" class="text-light-blue hover:underline">Admin Panel</a> to add phases.</p>';
+                    return;
+                }
+
+                guideData.phases.forEach((phase, phaseIdx) => {
+                    const phaseSection = document.createElement('section');
+                    phaseSection.id = `phase-${phase.id}`; // Use actual ID for direct access
+                    phaseSection.className = 'section-container';
+
+                    phaseSection.innerHTML = `
+                        <h2 class="text-3xl sm:text-4xl font-bold text-light-blue mb-6 flex items-center">
+                            <span class="mr-3">${phase.title}</span>
+                        </h2>
+                        <div class="sub-step-progress mb-6">
+                            <div class="progress-bar">
+                                <div id="phase-${phase.id}-ProgressBarFill" class="progress-fill"></div>
+                            </div>
+                            <p class="text-right text-sm text-text-lighter" id="phase-${phase.id}-ProgressText"></p>
+                        </div>
+                        <div id="phase-${phase.id}-StepsContainer">
+                            </div>
+                        <div class="flex justify-between mt-6">
+                            <button id="prevPhase${phaseIdx + 1}SubStep" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-5 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" style="display: none;" data-phase-index="${phaseIdx}">
+                                Previous Step
+                            </button>
+                            <button id="nextPhase${phaseIdx + 1}SubStep" class="bg-accent-blue hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-full shadow-3xl transition duration-300 ease-in-out transform hover:scale-105" data-phase-index="${phaseIdx}">
+                                Next Step
+                            </button>
+                            <button id="completePhase${phaseIdx + 1}" class="bg-success-green hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hidden" data-phase-index="${phaseIdx}">
+                                ${phaseIdx < guideData.phases.length - 1 ? `Complete Phase ${phaseIdx + 1}: Proceed to Next Phase` : `Guide Completed: Camouflage Duplication Mastered`}
+                            </button>
+                        </div>
+                    `;
+                    const subStepsContainer = phaseSection.querySelector(`#phase-${phase.id}-StepsContainer`);
+                    let subStepCount = 0;
+                    phase.subSteps.forEach(subStep => {
+                        subStepCount++;
+                        const subStepDiv = document.createElement('div');
+                        subStepDiv.className = 'sub-step-container bg-secondary-dark/70 p-6 rounded-xl mb-6 border border-accent-blue/10';
+                        subStepDiv.dataset.subStepId = subStep.id; // Use actual ID for direct access
+
+                        subStepDiv.innerHTML = `
+                            <h3 class="text-2xl font-semibold text-text-light mb-4">${subStep.title}</h3>
+                            <ul class="space-y-3">
+                                </ul>
+                        `;
+                        const itemsList = subStepDiv.querySelector('ul');
+                        let itemIndex = 0;
+                        subStep.items.forEach(item => {
+                            itemIndex++;
+                            const listItem = document.createElement('li');
+                            listItem.className = 'flex items-start text-lg step-item';
+                            // Use unique IDs for checkboxes based on phase, sub-step, and item
+                            const checkboxId = `cb_${phase.id}_${subStep.id}_${itemIndex}`;
+                            listItem.innerHTML = `
+                                <input type="checkbox" id="${checkboxId}"
+                                       data-phase-id="${phase.id}"
+                                       data-sub-step-id="${subStep.id}"
+                                       data-item-idx="${itemIndex - 1}"
+                                       class="step-checkbox mt-1">
+                                <label for="${checkboxId}">${item}</label>
+                            `;
+                            itemsList.appendChild(listItem);
+                        });
+                        subStepsContainer.appendChild(subStepDiv);
+                    });
+                    dynamicGuideContent.appendChild(phaseSection);
+                });
+
+                // Re-populate the global `phases` array after dynamic rendering
+                phases = guideData.phases.map(p => ({
+                    id: `phase-${p.id}`,
+                    containerId: `phase-${p.id}-StepsContainer`,
+                    subSteps: Array.from(document.querySelectorAll(`#phase-${p.id}-StepsContainer .sub-step-container`))
+                }));
+
+                // Attach checkbox listeners
+                document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', (event) => {
+                        handleCheckboxDisplay(event.target);
+                    });
+                });
+
+                // Attach navigation button listeners
+                phases.forEach((phase, index) => {
+                    const nextButton = document.getElementById(`nextPhase${index + 1}SubStep`);
+                    const prevButton = document.getElementById(`prevPhase${index + 1}SubStep`);
+                    const completeButton = document.getElementById(`completePhase${index + 1}`);
+
+                    if (nextButton) {
+                        nextButton.addEventListener('click', nextSubStep);
+                    }
+                    if (prevButton) {
+                        prevButton.addEventListener('click', prevSubStep);
+                    }
+                    if (completeButton) {
+                        completeButton.addEventListener('click', () => {
+                            if (index < phases.length - 1) {
+                                showPhase(index + 1); // Go to next phase
+                            } else {
+                                // Last phase completed
+                                launchConfetti();
+                                // Custom alert for completion
+                                showMessageBox(
+                                    'Guide Completed: Camouflage Duplication Mastered!',
+                                    'You have successfully completed the guide. Enjoy your newly customized weapons!',
+                                    false
+                                );
+                                // Optionally reset after completion
+                                // resetGuide(); // Decided against auto-reset for better user experience
+                            }
+                        });
+                    }
+                });
+
+                // Apply saved checkbox states after rendering and calculating total steps
+                const savedCheckboxStates = loadProgress(); // Retrieve progress from local storage
+                if (savedCheckboxStates) {
+                    for (const id in savedCheckboxStates) {
+                        const checkbox = document.getElementById(id);
+                        if (checkbox) {
+                            checkbox.checked = savedCheckboxStates[id];
+                            handleCheckboxDisplay(checkbox);
+                        }
+                    }
+                }
+                updateOverallProgress(); // Ensure progress is updated after applying states
+            };
+
+
+            // --- Step Navigation Functions ---
+
+            // Display the current sub-step within the active phase
+            const showCurrentSubStep = () => {
+                const currentPhase = phases[currentPhaseIndex];
+                if (!currentPhase || !currentPhase.subSteps || currentPhase.subSteps.length === 0) {
+                    console.warn(`Phase or sub-steps not found for index ${currentPhaseIndex}`);
+                    return;
+                }
+
+                const subSteps = currentPhase.subSteps;
+
+                subSteps.forEach((subStep, index) => {
+                    if (index === currentSubStepIndex) {
+                        subStep.classList.add('active');
+                    } else {
+                        subStep.classList.remove('active');
+                    }
+                });
+
+                // Update navigation buttons
+                const prevButton = document.getElementById(`prevPhase${currentPhaseIndex + 1}SubStep`);
+                const nextButton = document.getElementById(`nextPhase${currentPhaseIndex + 1}SubStep`);
+                const completePhaseButton = document.getElementById(`completePhase${currentPhaseIndex + 1}`);
+
+                if (prevButton) {
+                    prevButton.style.display = currentSubStepIndex === 0 ? 'none' : 'inline-block';
+                }
+                if (nextButton) {
+                    nextButton.style.display = currentSubStepIndex < subSteps.length - 1 ? 'inline-block' : 'none';
+                }
+                if (completePhaseButton) {
+                    completePhaseButton.style.display = currentSubStepIndex === subSteps.length - 1 ? 'inline-block' : 'none';
+                }
+
+                // Use guideDataFromFirestore object for consistency
+                if (guideDataFromFirestore.phases[currentPhaseIndex]) {
+                    updatePhaseProgress(guideDataFromFirestore.phases[currentPhaseIndex]);
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                saveProgress(); // Save progress after showing sub-step
+            };
+
+            // Navigate to the next sub-step
+            const nextSubStep = () => {
+                const currentPhase = phases[currentPhaseIndex];
+                if (currentSubStepIndex < currentPhase.subSteps.length - 1) {
+                    currentSubStepIndex++;
+                    showCurrentSubStep();
+                }
+            };
+
+            // Navigate to the previous sub-step
+            const prevSubStep = () => {
+                if (currentSubStepIndex > 0) {
+                    currentSubStepIndex--;
+                    showCurrentSubStep();
+                }
+            };
+
+            // --- Phase Navigation Functions ---
+
+            // Show a specific phase
+            const showPhase = (phaseIndex) => {
+                // Hide all phases
+                document.querySelectorAll('.section-container').forEach(phaseEl => {
+                    phaseEl.classList.remove('active');
+                });
+
+                // Show the target phase
+                // Ensure phaseIndex is valid
+                if (phaseIndex >= 0 && phaseIndex < phases.length) {
+                    const targetPhaseEl = document.getElementById(phases[phaseIndex].id);
+                    if (targetPhaseEl) {
+                        targetPhaseEl.classList.add('active');
+                        currentPhaseIndex = phaseIndex;
+                        currentSubStepIndex = 0; // Reset sub-step when changing phase
+                        showCurrentSubStep(); // Show first sub-step of the new phase
+                        updateOverallProgress();
+                    }
+                } else {
+                    // If no phase to show (e.g., after reset or initial load with no content), hide all
+                    currentPhaseIndex = 0;
+                    currentSubStepIndex = 0;
+                }
+                saveProgress(); // Save progress after showing phase
+            };
+
+            // Reset Guide Function
+            const resetGuide = () => {
+                currentPhaseIndex = 0;
+                currentSubStepIndex = 0;
+                document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                    handleCheckboxDisplay(checkbox); // Update display and save
+                });
+                localStorage.removeItem(PROGRESS_STORAGE_KEY); // Clear saved progress
+                startButton.style.display = 'block'; // Show start button
+                guideContent.classList.add('hidden'); // Hide guide content
+                showPhase(''); // Hide all phases (resets currentPhaseIndex/currentSubStepIndex)
+                updateOverallProgress(); // Recalculate progress to 0
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            resetButton.addEventListener('click', resetGuide);
+
+
+            // --- Initial Setup on Load ---
+
+            // Load guide data from Firestore (using onSnapshot for real-time updates)
+            const loadGuideDataFromFirestore = () => {
+                showLoading('Fetching guide content...');
+                onSnapshot(GUIDE_DOC_REF, (docSnap) => {
+                    hideLoading();
+                    if (docSnap.exists()) {
+                        guideDataFromFirestore.phases = docSnap.data().phases || [];
+                        if (!Array.isArray(guideDataFromFirestore.phases)) {
+                            console.error("Firestore data for guide phases is not an array. Resetting to empty.");
+                            guideDataFromFirestore.phases = [];
+                        }
+                        renderGuideContent(guideDataFromFirestore);
+                        calculateTotalSteps();
+
+                        const savedProgressStates = loadProgress(); // Load user progress
+                        if (savedProgressStates) {
+                            // Reapply checkbox states as they are tied to rendered elements
+                            for (const id in savedProgressStates) {
+                                const checkbox = document.getElementById(id);
+                                if (checkbox) {
+                                    checkbox.checked = savedProgressStates[id];
+                                    handleCheckboxDisplay(checkbox);
+                                }
+                            }
+                            updateOverallProgress(); // Update overall progress after applying states
+
+                            // If saved progress exists, ensure guide is visible and jumped to correct spot
+                            guideContent.classList.remove('hidden');
+                            startButton.style.display = 'none';
+                            showPhase(currentPhaseIndex); // This also calls showCurrentSubStep
+                        } else {
+                             // If no saved progress, set initial display state
+                            startButton.style.display = 'block';
+                            guideContent.classList.add('hidden');
+                            updateOverallProgress(); // Initialize overall progress to 0
+                        }
+
+                    } else {
+                        // Document doesn't exist, meaning no guide content has been saved by admin yet
+                        guideDataFromFirestore.phases = []; // Ensure it's empty
+                        renderGuideContent(guideDataFromFirestore); // Render empty content
+                        calculateTotalSteps(); // Sets total steps to 0
+                        updateOverallProgress(); // Updates progress display to 0/0
+                        startButton.style.display = 'block';
+                        guideContent.classList.add('hidden');
+                        showMessageBox('No Guide Content Available', '<p>Please navigate to the <a href="editorv2.html" class="text-success-green hover:underline">Admin Panel</a> to add phases and steps to the guide.</p>', true);
+                    }
+                }, (error) => {
+                    console.error("Error fetching guide data from Firestore:", error);
+                    hideLoading();
+                    showMessageBox('Error Loading Guide', 'Failed to load guide content. Please check your internet connection.');
+                    guideDataFromFirestore.phases = []; // Clear data on error
+                    renderGuideContent(guideDataFromFirestore);
+                    calculateTotalSteps();
+                    updateOverallProgress();
+                });
+            };
+
+            // Authenticate Firebase and then load data
+            await (async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined') {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    console.log("Firebase authenticated.");
+                    loadGuideDataFromFirestore(); // Load data after authentication
+                } catch (error) {
+                    console.error("Firebase authentication error:", error);
+                    showMessageBox('Authentication Error', 'Failed to authenticate with Firebase. Guide content may not load correctly.');
+                    hideLoading();
+                }
+            })();
+
+
+            // Start Button Click
+            startButton.addEventListener('click', () => {
+                if (guideDataFromFirestore.phases.length === 0) {
+                     showMessageBox('No Guide Content Available', '<p>Please navigate to the <a href="editorv2.html" class="text-success-green hover:underline">Admin Panel</a> to add phases and steps to the guide.</p>', true);
+                     return; // Prevent starting the guide if no content
+                }
+                startButton.style.display = 'none'; // Hide start button
+                guideContent.classList.remove('hidden'); // Show guide content
+                showPhase(0); // Start with Phase 1
+            });
+        });
+    </script>
+    <script>
+        // firebase-devtools-console-script.js
+        // This script provides a simple console-based UI to check Firebase connectivity
+        // and configuration status for debugging purposes.
+
+        (function() { // Wrap in an IIFE to prevent global variable pollution
+            console.log(
+                '%c Firebase DevTools Console ',
+                'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
+            );
+            console.log('%c Version 1.0.0', 'color: #888;');
+
+            // Helper function for styled console output
+            const log = (message, type = 'info') => {
+                let style = 'color: #f0f0f0; background: #333; padding: 2px 5px; border-radius: 3px;';
+                let prefix = '🔵 INFO';
+
+                switch (type) {
+                    case 'success':
+                        style = 'color: #1a1a1a; background: #32CD32; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '🟢 SUCCESS';
+                        break;
+                    case 'error':
+                        style = 'color: #f0f0f0; background: #dc3545; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '🔴 ERROR';
+                        break;
+                    case 'warn':
+                        style = 'color: #1a1a1a; background: #FFD700; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '🟡 WARNING';
+                        break;
+                    case 'config':
+                        style = 'color: #007bff; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
+                        prefix = '⚙️ CONFIG';
+                        break;
+                    case 'debug':
+                        style = 'color: #f0f0f0; background: #555; padding: 2px 5px; border-radius: 3px;';
+                        prefix = '🐞 DEBUG';
+                        break;
+                }
+                console.log(`%c ${prefix} %c ${message}`, style, 'color: #f0f0f0;');
+            };
+
+            // Check for Firebase SDK availability
+            if (typeof firebase === 'undefined' || !firebase.initializeApp) {
+                log('Firebase SDK not loaded. Ensure Firebase CDN script is correctly linked in your HTML.', 'error');
+                return;
+            }
+
+            log('Checking Firebase Initialization...');
+
+            // Access the global Firebase app and Firestore instance
+            // These should be available if the main scripts have run.
+            // Assuming `app` and `db` (or `firestoreDb` in some contexts) are globally accessible
+            // after Firebase initialization in your existing scripts.
+            const firebaseApp = window.app || null; // Your app might name it `app`
+            const firestoreDb = window.db || null;  // Your app might name it `db`
+
+            if (!firebaseApp) {
+                log('Firebase App not initialized. Ensure `initializeApp` is called.', 'error');
+                return;
+            } else {
+                log('Firebase App initialized successfully.', 'success');
+                // Display config details. Note: apiKey is public for client-side apps, but don't hardcode sensitive data.
+                log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
+                log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
+                log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
+                log(`Firebase Config (as seen by app):`, 'config');
+                console.log(firebaseApp.options); // Log the full config object for inspection
+            }
+
+            if (!firestoreDb) {
+                log('Firestore Database not initialized. Ensure `getFirestore` is called.', 'error');
+                return;
+            } else {
+                log('Firestore Database initialized successfully.', 'success');
+            }
+
+            log('Attempting Firestore Connectivity Test...');
+
+            // IMPORTANT: Path to the guide data in Firestore. Must match your Firestore rules.
+            const TEST_DOC_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide/mainGuide`;
+
+            // Perform a simple read operation to test connectivity and rules
+            firestoreDb.doc(TEST_DOC_PATH).get()
+                .then(docSnap => {
+                    if (docSnap.exists) {
+                        log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
+                        log('Guide content structure found. First 3 phases:', 'debug');
+                        const phases = docSnap.data().phases || [];
+                        phases.slice(0, 3).forEach((phase, index) => {
+                            log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
+                        });
+                    } else {
+                        log('Firestore read test: Document does NOT exist at specified path.', 'warn');
+                        log(`Path checked: %c${TEST_DOC_PATH}`, 'color: #FFD700;', 'warn');
+                        log('This might be expected if no guide content has been saved by the Admin Panel yet.', 'warn');
+                    }
+                    log('Firebase connectivity test completed.', 'success');
+                })
+                .catch(error => {
+                    log(`Firestore read test FAILED: ${error.message}`, 'error');
+                    log('Possible issues:', 'error');
+                    if (error.code === 'permission-denied') {
+                        log('  - **Permission Denied:** Check your Firestore Security Rules (Step 3 in setup guide). Ensure `allow read: if true;` for your public guide data.', 'error');
+                    } else if (error.code === 'unavailable') {
+                        log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
+                    } else if (error.code === 'invalid-argument') {
+                        log('  - **Invalid Path:** Double-check the `TEST_DOC_PATH` in this script matches your actual Firestore document path.', 'error');
+                    }
+                    console.error("Full Firebase Error:", error);
+                    log('Please review the console for detailed error messages.', 'error');
+                });
+
+            // Provide quick access functions in the console for convenience
+            window.firebaseDevTools = {
+                checkStatus: () => {
+                    console.clear();
+                    // Re-run the entire script
+                    (function() { // Wrap in an IIFE to prevent global variable pollution
+                        console.log(
+                            '%c Firebase DevTools Console ',
+                            'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
+                        );
+                        console.log('%c Version 1.0.0', 'color: #888;');
+                        // Re-execute the logic
+                        // Ensure the inner logic uses the same global app and db references.
+                        log('Re-running status check...');
+                        // The main script body will be executed again here
+                        // For simplicity, we just trigger the immediate re-check using the same logic.
+                        // In a more complex setup, you might encapsulate the check logic into a function.
+                    })();
+                },
+                getFirebaseConfig: () => {
+                    console.log('%c Current Firebase Config Object: ', 'background: #007bff; color: #f0f0f0; padding: 2px 5px; border-radius: 3px;');
+                    if (firebaseApp && firebaseApp.options) {
+                        console.log(firebaseApp.options);
+                    } else {
+                        log('Firebase App or its options not found.', 'error');
+                    }
+                },
+                // More functions can be added here for advanced debugging
+            };
+
+            log('Type %cfirebaseDevTools.checkStatus()', 'color: #00A6FB; font-weight: bold;', 'info');
+            log('Type %cfirebaseDevTools.getFirebaseConfig()', 'color: #00A6FB; font-weight: bold;', 'info');
+            log('in the console for more actions.', 'info');
+
+        })();
+    </script>
+</body>
+</html>
