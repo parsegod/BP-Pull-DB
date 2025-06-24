@@ -99,19 +99,6 @@
         #styleMenu .color-button-green {
             @apply bg-cod-green text-white hover:brightness-110;
         }
-         #loadingIndicator {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
-            z-index: 1000;
-            display: none;
-            font-size: 1.2rem;
-        }
     </style>
 </head>
 <body class="p-4 sm:p-8 md:p-12 lg:p-16">
@@ -126,9 +113,13 @@
             <p class="text-lg sm:text-xl text-cod-light mb-6">
                 Manage and edit your "BO6 Camo Duplication Master Guide" content here.
             </p>
-            <a href="camov2.html" class="inline-block bg-cod-green hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+            <a href="Camo.html" class="inline-block bg-cod-green hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                 Go to Guide Page 🎮
             </a>
+            <!-- New Download Button -->
+            <button id="downloadJsonBtn" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4 ml-4">
+                Download Guide JSON 📥
+            </button>
         </header>
 
         <!-- Guide Data Management -->
@@ -148,9 +139,8 @@
                 <button id="closeMessageBox" class="btn btn-primary">OK</button>
             </div>
         </div>
+
     </div>
-    <!-- Loading Indicator -->
-    <div id="loadingIndicator">Loading...</div>
 
     <!-- Floating Style Menu -->
     <div id="styleMenu" class="hidden">
@@ -159,21 +149,16 @@
         <button id="greenColorBtn" class="style-btn color-button-green" data-style="color" data-class="text-cod-green">Green</button>
     </div>
 
-    <script type="module">
-        // Import Firebase SDKs
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        document.addEventListener('DOMContentLoaded', async () => {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             const phasesContainer = document.getElementById('phasesContainer');
             const addPhaseBtn = document.getElementById('addPhaseBtn');
+            const downloadJsonBtn = document.getElementById('downloadJsonBtn'); // Get the new button
 
             const messageBox = document.getElementById('messageBox');
             const messageBoxTitle = document.getElementById('messageBoxTitle');
             const messageBoxContent = document.getElementById('messageBoxContent');
             const closeMessageBoxBtn = document.getElementById('closeMessageBox');
-            const loadingIndicator = document.getElementById('loadingIndicator');
 
             const styleMenu = document.getElementById('styleMenu');
             const boldBtn = document.getElementById('boldBtn');
@@ -184,25 +169,17 @@
             let currentRawTextarea = null; // To keep track of the currently active raw textarea
             let currentSelectionRange = null; // To store the text selection range for contenteditable
 
-            // --- Firebase Initialization ---
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+            // Local Storage Key (must match index.html if you implement a public view)
+            const LOCAL_STORAGE_KEY = 'camoDupeAdminGuideData';
 
-            window.app = initializeApp(firebaseConfig); // Make app globally accessible for devtools script
-            window.db = getFirestore(window.app); // Make db globally accessible for devtools script
-            const auth = getAuth(window.app);
-
-            // Path to the guide data in Firestore
-            const GUIDE_DOC_REF = doc(window.db, `artifacts/${appId}/public/data/camoGuide`, 'mainGuide');
-
-            // Default content to populate if Firestore is empty
+            // Default content to populate if local storage is empty
             const defaultGuideData = [
                 {
-                    id: 'phase' + Date.now() + Math.random().toString(36).substr(2, 5), // Unique ID for phase
+                    id: 'phase1',
                     title: 'Phase 1: Setup for Success 🛠️',
                     subSteps: [
                         {
-                            id: 'substep' + Date.now() + Math.random().toString(36).substr(2, 5),
+                            id: 'substep1-1',
                             title: 'Getting Ready (Player 1 & 2)',
                             items: [
                                 'Pick <strong class="text-cod-accent">ANY Black Ops 6 weapon</strong> you don\'t mind messing around with for a bit. This is your "sacrificial lamb" for the glitch. 🐑',
@@ -210,7 +187,7 @@
                             ]
                         },
                         {
-                            id: 'substep' + Date.now() + Math.random().toString(36).substr(2, 5),
+                            id: 'substep1-2',
                             title: 'Initial Settings',
                             items: [
                                 '<strong class="text-cod-accent">Duplicate this BO6 weapon 3 times.</strong> Yes, three! ✨',
@@ -222,11 +199,11 @@
                     ]
                 },
                 {
-                    id: 'phase' + (Date.now() + 1) + Math.random().toString(36).substr(2, 5), // Unique ID for phase
+                    id: 'phase2',
                     title: 'Phase 2: The Duplication Dance 👯',
                     subSteps: [
                         {
-                            id: 'substep' + (Date.now() + 1) + Math.random().toString(36).substr(2, 5),
+                            id: 'substep2-1',
                             title: 'The Lobby Shuffle',
                             items: [
                                 'Player 1: Go to the "Create a Class" section.',
@@ -235,7 +212,7 @@
                             ]
                         },
                         {
-                            id: 'substep' + (Date.now() + 1) + Math.random().toString(36).substr(2, 5),
+                            id: 'substep2-2',
                             title: 'Execution',
                             items: [
                                 'Player 1: Apply the camo/build you want to duplicate.',
@@ -247,11 +224,11 @@
                     ]
                 },
                 {
-                    id: 'phase' + (Date.now() + 2) + Math.random().toString(36).substr(2, 5), // Unique ID for phase
+                    id: 'phase3',
                     title: 'Phase 3: Verify and Conquer! ✅',
                     subSteps: [
                         {
-                            id: 'substep' + (Date.now() + 2) + Math.random().toString(36).substr(2, 5),
+                            id: 'substep3-1',
                             title: 'Confirmation',
                             items: [
                                 'Go to your loadouts in any game mode (Multiplayer, Zombies, Warzone).',
@@ -260,7 +237,7 @@
                             ]
                         },
                          {
-                            id: 'substep' + (Date.now() + 2) + Math.random().toString(36).substr(2, 5),
+                            id: 'substep3-2',
                             title: 'Repeat for More',
                             items: [
                                 'You can repeat this process for other weapons and builds.',
@@ -289,62 +266,28 @@
                 messageBox.classList.add('hidden');
             });
 
-            // Show loading indicator
-            const showLoading = (message = 'Loading...') => {
-                loadingIndicator.textContent = message;
-                loadingIndicator.style.display = 'block';
-            };
-
-            // Hide loading indicator
-            const hideLoading = () => {
-                loadingIndicator.style.display = 'none';
-            };
-
 
             // Function to generate unique IDs
             const generateUniqueId = (prefix) => {
                 return prefix + Date.now() + Math.random().toString(36).substr(2, 9);
             };
 
-            // Save data to Firestore
-            const saveData = async () => {
-                showLoading('Saving data...');
-                try {
-                    await setDoc(GUIDE_DOC_REF, { phases: guideData });
-                    hideLoading();
-                    showMessageBox('Data Saved!', 'Your guide content has been successfully saved to Firestore.');
-                } catch (e) {
-                    console.error("Error saving document: ", e);
-                    hideLoading();
-                    showMessageBox('Error Saving!', 'Failed to save data to Firestore. Please try again.');
-                }
+            // Save data to Local Storage
+            const saveData = () => {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(guideData));
+                showMessageBox('Data Saved!', 'Your guide content has been successfully saved to local storage.');
             };
 
-            // Load data from Firestore (using onSnapshot for real-time updates)
+            // Load data from Local Storage
             const loadData = () => {
-                showLoading('Loading data...');
-                onSnapshot(GUIDE_DOC_REF, async (docSnap) => {
-                    if (docSnap.exists()) {
-                        guideData = docSnap.data().phases;
-                        if (!Array.isArray(guideData)) { // Ensure it's an array
-                           guideData = [];
-                           console.error("Firestore data is not an array. Resetting to default.");
-                           await setDoc(GUIDE_DOC_REF, { phases: defaultGuideData }); // Reset to default if corrupted
-                        }
-                        renderPhases();
-                    } else {
-                        // Document does not exist, create with default data
-                        console.log("No guide data found in Firestore. Populating with default data.");
-                        guideData = defaultGuideData;
-                        await setDoc(GUIDE_DOC_REF, { phases: defaultGuideData });
-                        renderPhases();
-                    }
-                    hideLoading();
-                }, (error) => {
-                    console.error("Error listening to document: ", error);
-                    hideLoading();
-                    showMessageBox('Error Loading!', 'Failed to load data from Firestore. Please check your connection.');
-                });
+                const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (storedData) {
+                    guideData = JSON.parse(storedData);
+                } else {
+                    guideData = defaultGuideData; // Use default data if nothing is stored
+                    saveData(); // Save the default data immediately
+                }
+                renderPhases();
             };
 
             // --- Rendering Functions ---
@@ -430,7 +373,7 @@
             // Create HTML element for a single item (step)
             const createItemElement = (phaseId, subStepId, itemText, itemIndex) => {
                 const itemDiv = document.createElement('div');
-                itemDiv.className = 'flex items-center space-x-2 p-2 rounded-md bg-gray-800';
+                itemDiv.className = 'flex items-center space-x-2 p-2 rounded-md bg-gray-800'; 
                 itemDiv.innerHTML = `
                     <div class="flex-grow">
                         <div class="item-text-input editable-content-box" contenteditable="true"
@@ -493,14 +436,9 @@
                     e.preventDefault(); // Prevent blur event from firing immediately and disrupting toggle
 
                     const itemDataIndex = parseInt(editableDiv.dataset.index);
-                    const phase = guideData.find(p => p.id === phaseId);
-                    let currentItemText = '';
-                    if (phase) {
-                        const subStep = phase.subSteps.find(s => s.id === subStepId);
-                        if (subStep && subStep.items[itemDataIndex] !== undefined) {
-                            currentItemText = subStep.items[itemDataIndex];
-                        }
-                    }
+                    const currentItemText = guideData
+                        .find(p => p.id === phaseId).subSteps
+                        .find(s => s.id === subStepId).items[itemDataIndex];
 
                     if (editableDiv.classList.contains('hidden')) { // Currently in raw view, switch to rendered
                         rawTextarea.classList.add('hidden');
@@ -716,171 +654,29 @@
                 }
             };
 
-            // Authenticate and load data
-            await (async () => {
-                try {
-                    if (typeof __initial_auth_token !== 'undefined') {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    console.log("Firebase authenticated.");
-                    loadData(); // Load data after authentication
-                } catch (error) {
-                    console.error("Firebase authentication error:", error);
-                    showMessageBox('Authentication Error', 'Failed to authenticate with Firebase. Data may not be saved or loaded correctly.');
-                }
-            })();
+            // --- Download JSON Function ---
+            downloadJsonBtn.addEventListener('click', () => {
+                // The guideData array already holds the current state of the guide
+                const jsonData = JSON.stringify(guideData, null, 2); // Pretty print with 2 spaces
+
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'BO6_Camo_Duplication_Guide.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url); // Clean up the URL object
+
+                showMessageBox('Download Complete!', 'The guide content has been downloaded as a JSON file.');
+            });
+
+
+            // Initial load of data when the page loads
+            loadData();
         });
-    </script>
-    <script>
-        // firebase-devtools-console-script.js
-        // This script provides a simple console-based UI to check Firebase connectivity
-        // and configuration status for debugging purposes.
-
-        (function() { // Wrap in an IIFE to prevent global variable pollution
-            console.log(
-                '%c Firebase DevTools Console ',
-                'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
-            );
-            console.log('%c Version 1.0.0', 'color: #888;');
-
-            // Helper function for styled console output
-            const log = (message, type = 'info') => {
-                let style = 'color: #f0f0f0; background: #333; padding: 2px 5px; border-radius: 3px;';
-                let prefix = '🔵 INFO';
-
-                switch (type) {
-                    case 'success':
-                        style = 'color: #1a1a1a; background: #32CD32; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '🟢 SUCCESS';
-                        break;
-                    case 'error':
-                        style = 'color: #f0f0f0; background: #dc3545; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '🔴 ERROR';
-                        break;
-                    case 'warn':
-                        style = 'color: #1a1a1a; background: #FFD700; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '🟡 WARNING';
-                        break;
-                    case 'config':
-                        style = 'color: #007bff; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '⚙️ CONFIG';
-                        break;
-                    case 'debug':
-                        style = 'color: #f0f0f0; background: #555; padding: 2px 5px; border-radius: 3px;';
-                        prefix = '🐞 DEBUG';
-                        break;
-                }
-                console.log(`%c ${prefix} %c ${message}`, style, 'color: #f0f0f0;');
-            };
-
-            // Check for Firebase SDK availability
-            if (typeof firebase === 'undefined' || !firebase.initializeApp) {
-                log('Firebase SDK not loaded. Ensure Firebase CDN script is correctly linked in your HTML.', 'error');
-                return;
-            }
-
-            log('Checking Firebase Initialization...');
-
-            // Access the global Firebase app and Firestore instance
-            // These should be available if the main scripts have run.
-            // Assuming `app` and `db` (or `firestoreDb` in some contexts) are globally accessible
-            // after Firebase initialization in your existing scripts.
-            const firebaseApp = window.app || null; // Your app might name it `app`
-            const firestoreDb = window.db || null;  // Your app might name it `db`
-
-            if (!firebaseApp) {
-                log('Firebase App not initialized. Ensure `initializeApp` is called.', 'error');
-                return;
-            } else {
-                log('Firebase App initialized successfully.', 'success');
-                // Display config details. Note: apiKey is public for client-side apps, but don't hardcode sensitive data.
-                log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
-                log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
-                log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
-                log(`Firebase Config (as seen by app):`, 'config');
-                console.log(firebaseApp.options); // Log the full config object for inspection
-            }
-
-            if (!firestoreDb) {
-                log('Firestore Database not initialized. Ensure `getFirestore` is called.', 'error');
-                return;
-            } else {
-                log('Firestore Database initialized successfully.', 'success');
-            }
-
-            log('Attempting Firestore Connectivity Test...');
-
-            // IMPORTANT: Path to the guide data in Firestore. Must match your Firestore rules.
-            const TEST_DOC_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide/mainGuide`;
-
-            // Perform a simple read operation to test connectivity and rules
-            firestoreDb.doc(TEST_DOC_PATH).get()
-                .then(docSnap => {
-                    if (docSnap.exists) {
-                        log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
-                        log('Guide content structure found. First 3 phases:', 'debug');
-                        const phases = docSnap.data().phases || [];
-                        phases.slice(0, 3).forEach((phase, index) => {
-                            log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
-                        });
-                    } else {
-                        log('Firestore read test: Document does NOT exist at specified path.', 'warn');
-                        log(`Path checked: %c${TEST_DOC_PATH}`, 'color: #FFD700;', 'warn');
-                        log('This might be expected if no guide content has been saved by the Admin Panel yet.', 'warn');
-                    }
-                    log('Firebase connectivity test completed.', 'success');
-                })
-                .catch(error => {
-                    log(`Firestore read test FAILED: ${error.message}`, 'error');
-                    log('Possible issues:', 'error');
-                    if (error.code === 'permission-denied') {
-                        log('  - **Permission Denied:** Check your Firestore Security Rules (Step 3 in setup guide). Ensure `allow read: if true;` for your public guide data.', 'error');
-                    } else if (error.code === 'unavailable') {
-                        log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
-                    } else if (error.code === 'invalid-argument') {
-                        log('  - **Invalid Path:** Double-check the `TEST_DOC_PATH` in this script matches your actual Firestore document path.', 'error');
-                    }
-                    console.error("Full Firebase Error:", error);
-                    log('Please review the console for detailed error messages.', 'error');
-                });
-
-            // Provide quick access functions in the console for convenience
-            window.firebaseDevTools = {
-                checkStatus: () => {
-                    console.clear();
-                    // Re-run the entire script
-                    (function() { // Wrap in an IIFE to prevent global variable pollution
-                        console.log(
-                            '%c Firebase DevTools Console ',
-                            'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
-                        );
-                        console.log('%c Version 1.0.0', 'color: #888;');
-                        // Re-execute the logic
-                        // Ensure the inner logic uses the same global app and db references.
-                        log('Re-running status check...');
-                        // The main script body will be executed again here
-                        // For simplicity, we just trigger the immediate re-check using the same logic.
-                        // In a more complex setup, you might encapsulate the check logic into a function.
-                    })();
-                },
-                getFirebaseConfig: () => {
-                    console.log('%c Current Firebase Config Object: ', 'background: #007bff; color: #f0f0f0; padding: 2px 5px; border-radius: 3px;');
-                    if (firebaseApp && firebaseApp.options) {
-                        console.log(firebaseApp.options);
-                    } else {
-                        log('Firebase App or its options not found.', 'error');
-                    }
-                },
-                // More functions can be added here for advanced debugging
-            };
-
-            log('Type %cfirebaseDevTools.checkStatus()', 'color: #00A6FB; font-weight: bold;', 'info');
-            log('Type %cfirebaseDevTools.getFirebaseConfig()', 'color: #00A6FB; font-weight: bold;', 'info');
-            log('in the console for more actions.', 'info');
-
-        })();
     </script>
 </body>
 </html>

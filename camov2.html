@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BO6 Camouflage Duplication Guide</title>
-    <!-- Tailwind CSS CDN for utility-first styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Tailwind CSS configuration to extend default theme with custom fonts and colors.
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        inter: ['Inter', 'sans-serif'], // Custom font family
+                        inter: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        // Custom color palette for the guide, inspired by the original design
+                        // Colors derived from style (1).css
                         'primary-dark': '#102A43',
                         'secondary-dark': '#0D3B66',
                         'accent-blue': '#0077B6',
@@ -25,135 +23,112 @@
                         'danger-red': '#EF4444', // Tailwind's red-500
                         'success-green': '#22C55E', // Tailwind's green-500
                         'warning-orange': '#F97316', // Tailwind's orange-500
+                        'cod-purple': '#800080', // New: Purple for import/export
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Custom styles for body, scrollbar, and animations to enhance visual appeal */
         body {
+            /* Inherit gradient and animation from style (1).css */
             font-family: 'Inter', sans-serif;
-            /* Gradient background with animation for a dynamic feel */
             background: linear-gradient(270deg, #102A43, #0077B6);
             background-size: 400% 400%;
             color: #e0e0e0;
             line-height: 1.6;
-            animation: gradientAnimation 15s ease infinite; /* Smooth, looping background animation */
-            overflow-x: hidden; /* Prevents horizontal scroll from confetti effect */
+            animation: gradientAnimation 15s ease infinite;
+            overflow-x: hidden; /* Prevent horizontal scroll from confetti */
         }
 
-        /* Keyframes for the gradient background animation */
+        /* Keyframes for gradient animation - copied from style (1).css */
         @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        /* Custom scrollbar styles for Webkit browsers (Chrome, Safari) */
+        /* Custom scrollbar for Webkit browsers (Chrome, Safari) - copied from style (1).css */
         ::-webkit-scrollbar {
-          width: 0; /* Hides the scrollbar but keeps scrolling functionality */
+          width: 0;
           height: 0;
         }
 
         ::-webkit-scrollbar-track {
-          background: #0D3B66; /* Dark track color */
+          background: #0D3B66;
           border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
-          background: #0077B6; /* Blue thumb color */
+          background: #0077B6;
           border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: #00A6FB; /* Lighter blue on hover */
+          background: #00A6FB;
         }
 
-        /* Styling for custom checkboxes, making them visually distinct */
         .step-checkbox {
-            margin-right: 0.75rem; /* Equivalent to Tailwind's mr-3 */
-            height: 1.25rem; /* h-5 */
-            width: 1.25rem; /* w-5 */
-            -webkit-appearance: none; /* Removes default browser styling */
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0.375rem; /* rounded-md */
-            border-width: 2px; /* border-2 */
-            border-color: #00A6FB; /* border-light-blue */
-            background-color: transparent; /* bg-transparent */
-            cursor: pointer;
+            /* Updated to use new Tailwind colors */
+            @apply mr-3 h-5 w-5 appearance-none rounded-md border-2 border-light-blue bg-transparent
+                   checked:bg-success-green checked:border-transparent checked:after:content-['\2713']
+                   checked:after:text-white checked:after:flex checked:after:justify-center checked:after:items-center;
         }
-
-        /* Checked state for the custom checkbox, showing a checkmark and green background */
-        .step-checkbox:checked {
-            background-color: #22C55E; /* checked:bg-success-green */
-            border-color: transparent; /* checked:border-transparent */
-            /* SVG as background image for the checkmark to ensure consistency */
-            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex; /* Ensures the SVG is centered */
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Styles for completed steps, applying a line-through and faded color */
         .step-item.completed label {
             text-decoration: line-through;
             color: #aaa;
         }
-
-        /* Section and sub-step containers are hidden by default and activated dynamically */
         .section-container, .sub-step-container {
-            display: none;
+            display: none; /* Hidden by default */
         }
         .section-container.active, .sub-step-container.active {
-            display: block; /* Makes them visible when active */
+            display: block; /* Shown when active */
         }
-
-        /* Progress bar styling */
         .progress-bar {
             height: 8px;
-            background-color: '#0D3B66'; /* secondary-dark */
+            background-color: #0D3B66; /* secondary-dark */
             border-radius: 4px;
             margin-bottom: 1.5rem;
-            overflow: hidden; /* Ensures the fill stays within bounds */
+            overflow: hidden;
         }
         .progress-fill {
             height: 100%;
-            width: 0%; /* Initial width is 0, animated to show progress */
-            background-color: '#00A6FB'; /* light-blue */
-            transition: width 0.3s ease-in-out; /* Smooth width transition */
+            width: 0%;
+            background-color: #00A6FB; /* light-blue */
+            transition: width 0.3s ease-in-out;
             border-radius: 4px;
         }
 
-        /* Confetti particle styles for celebratory effects */
+        /* Confetti styles */
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
-            background-color: '#00A6FB'; /* light-blue */
-            opacity: 0; /* Starts invisible */
-            animation: confetti-fall 2s forwards; /* Animation to fall and fade */
-            pointer-events: none; /* Allows clicks to pass through */
-            border-radius: 50%; /* Default to round shape */
+            background-color: #00A6FB; /* light-blue */
+            opacity: 0;
+            animation: confetti-fall 2s forwards;
+            pointer-events: none;
+            border-radius: 50%; /* Make them round */
         }
         .confetti.square {
             border-radius: 0;
-            background-color: '#22C55E'; /* success-green */
+            background-color: #22C55E; /* success-green */
         }
         .confetti.triangle {
             width: 0;
             height: 0;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-bottom: 10px solid '#0077B6'; /* accent-blue */
+            border-bottom: 10px solid #0077B6; /* accent-blue */
             border-radius: 0;
         }
 
-        /* Keyframes for confetti falling animation */
         @keyframes confetti-fall {
             0% {
                 transform: translateY(0) rotateZ(0deg) scale(1);
@@ -164,75 +139,61 @@
                 opacity: 0;
             }
         }
-
-        /* Loading indicator styling */
-        #loadingIndicator {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
-            z-index: 1000; /* Ensures it's on top of other content */
-            display: none; /* Hidden by default */
-            font-size: 1.2rem;
+        .json-textarea {
+            @apply w-full p-4 rounded-md bg-gray-800 border border-cod-purple text-text-light font-mono text-sm;
+            min-height: 150px;
+            resize: vertical;
         }
-
-        /* Styling for the custom message box (replaces alert/confirm) */
-        .message-box-overlay {
+        /* Style for message box */
+        .message-box {
             position: fixed;
             inset: 0;
             background-color: rgba(0, 0, 0, 0.75);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 5000;
+            z-index: 50;
         }
         .message-box-content {
-            background-color: '#102A43'; /* primary-dark */
+            background-color: #102A43; /* primary-dark */
             padding: 2rem;
-            border-radius: 1rem; /* rounded-xl */
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5); /* shadow-2xl */
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             text-align: center;
-            border: 1px solid '#0077B6'; /* accent-blue */
-            max-width: 90%; /* Responsive width */
-            width: 500px;
+            border: 1px solid #0077B6; /* accent-blue */
+            max-width: 24rem;
+            width: 100%;
         }
-        .message-box-title {
-            font-size: 1.5rem; /* text-2xl */
+        .message-box h2 {
+            font-size: 1.5rem;
             font-weight: bold;
-            color: '#00A6FB'; /* light-blue */
+            color: #00A6FB; /* light-blue */
             margin-bottom: 1rem;
         }
-        .message-box-message {
-            font-size: 1.125rem; /* text-lg */
-            color: '#e0e0e0'; /* text-light */
+        .message-box p {
+            font-size: 1.125rem;
+            color: #e0e0e0; /* text-light */
             margin-bottom: 1.5rem;
         }
-        .message-box-button {
-            background-color: '#0077B6'; /* accent-blue */
+        .message-box button {
+            background-color: #0077B6; /* accent-blue */
             color: white;
             font-weight: bold;
-            padding: 0.5rem 1.25rem; /* py-2 px-5 */
-            border-radius: 9999px; /* rounded-full */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease-in-out;
-            transform: scale(1);
         }
-        .message-box-button:hover {
-            background-color: '#005691'; /* Darker accent-blue on hover */
+        .message-box button:hover {
+            background-color: #005f93;
             transform: scale(1.05);
         }
     </style>
 </head>
 <body class="p-4 sm:p-8 md:p-12 lg:p-16">
 
-    <!-- Main container for the guide content, centered and styled -->
     <div class="max-w-4xl mx-auto bg-primary-dark p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-accent-blue/20">
 
-        <!-- Header section with title, description, and action buttons -->
         <header class="text-center mb-10">
             <h1 class="text-4xl sm:text-5xl font-extrabold text-light-blue mb-4 leading-tight">
                 BO6 Camouflage Duplication Guide
@@ -243,28 +204,36 @@
             <button id="startButton" class="bg-success-green hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                 Begin Guide
             </button>
-            <!-- Link to Admin Panel for guide editing -->
-            <a href="editorv2.html" class="inline-block mt-4 text-light-blue hover:text-success-green transition-colors duration-300">Admin Panel (Edit Guide)</a>
+            <a href="editor.html" class="inline-block mt-4 text-light-blue hover:text-success-green transition-colors duration-300">Admin Panel (Edit Guide)</a>
         </header>
 
-        <!-- Guide content section, hidden initially -->
+        <!-- JSON Import/Export Section -->
+        <section id="jsonManagementSection" class="bg-secondary-dark/70 p-6 rounded-xl mt-10 mb-6 border border-cod-purple/30">
+            <h2 class="text-2xl font-bold text-cod-purple mb-4">Manage Guide Data (Advanced)</h2>
+            <p class="text-text-light mb-4">
+                You can import guide content by pasting JSON below, or generate a new `Camo.html` file with the current guide data "baked in" as default.
+            </p>
+            <textarea id="jsonInputCamo" class="json-textarea" placeholder='Paste JSON content here, e.g., [{"id": "phase_...", "title": "My Phase", "subSteps": [...]}]'></textarea>
+            <button id="loadJsonBtnCamo" class="bg-cod-purple hover:bg-purple-700 text-white font-bold py-2 px-5 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4 w-full sm:w-auto">Load Guide from JSON</button>
+            <button id="saveHtmlDefaultBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4 ml-0 sm:ml-4 w-full sm:w-auto">Save Current Guide as HTML Default</button>
+        </section>
+
         <div id="guideContent" class="hidden">
-            <!-- Overall progress bar for the entire guide -->
             <div class="progress-bar">
                 <div id="overallProgressBarFill" class="progress-fill"></div>
             </div>
             <p class="text-right text-sm text-gray-400 mb-6" id="overallProgressText"></p>
 
-            <!-- Dynamic content area where phases and steps will be rendered -->
             <div id="dynamicGuideContent">
                 <p class="text-center text-text-lighter" id="initialLoadingMessage">Loading guide content...</p>
             </div>
 
-            <!-- Troubleshooting section, always visible -->
             <section id="troubleshooting" class="bg-secondary-dark/70 p-6 rounded-xl mt-10 border border-danger-red/30">
                 <h2 class="text-3xl sm:text-4xl font-bold text-danger-red mb-6 flex items-center">
                     <span class="mr-3">Troubleshooting:</span>
                 </h2>
+
+
                 <ul class="space-y-3">
                     <li class="flex items-start text-lg">
                         <span class="text-danger-red font-bold mr-3 mt-1"></span>
@@ -275,7 +244,8 @@
                         <p><strong class="text-danger-red">Remove all existing custom classes</strong> within these modes.</p>
                     </li>
                     <li class="flex items-start text-lg">
-                        <span class="text-light-blue">Create 10 new custom classes</strong> to reach the maximum limit.</p>
+                        <span class="text-light-blue"></span>
+                        <p><strong class="text-light-blue">Create 10 new custom classes</strong> to reach the maximum limit.</p>
                     </li>
                     <li class="flex items-start text-lg">
                         <span class="text-danger-red font-bold mr-3 mt-1"></span>
@@ -284,169 +254,181 @@
                 </ul>
             </section>
 
-            <!-- Reset button for the guide progress -->
             <div class="text-center mt-10">
                 <button id="resetButton" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out">
                     Reset Guide
                 </button>
             </div>
         </div>
+
+        <!-- Custom Message Box for Alerts and Code Output -->
+        <div id="customMessageBox" class="message-box hidden">
+            <div class="message-box-content">
+                <h2 id="messageBoxTitle"></h2>
+                <p id="messageBoxContent"></p>
+                <textarea id="codeOutputTextarea" class="json-textarea hidden" readonly></textarea>
+                <button id="closeMessageBoxBtn">OK</button>
+                <button id="copyCodeBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-5 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4 hidden">Copy Code</button>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Loading Indicator for Firebase operations and content loading -->
-    <div id="loadingIndicator">Loading guide...</div>
-
-    <!-- Main JavaScript for guide functionality and Firebase DevTools -->
-    <script type="module">
-        // Import necessary Firebase SDK functions
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Wait for the DOM to be fully loaded before running the script
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Get references to key HTML elements
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             const startButton = document.getElementById('startButton');
             const guideContent = document.getElementById('guideContent');
             const resetButton = document.getElementById('resetButton');
             const dynamicGuideContent = document.getElementById('dynamicGuideContent');
             const initialLoadingMessage = document.getElementById('initialLoadingMessage');
-            const loadingIndicator = document.getElementById('loadingIndicator');
 
-            // --- Utility Functions (moved to top for early availability) ---
-            /**
-             * Displays the loading indicator with a given message.
-             * @param {string} message - The message to display in the loading indicator.
-             */
-            const showLoading = (message = 'Loading...') => {
-                loadingIndicator.textContent = message;
-                loadingIndicator.style.display = 'block';
+            // New JSON import/export elements
+            const jsonInputCamo = document.getElementById('jsonInputCamo');
+            const loadJsonBtnCamo = document.getElementById('loadJsonBtnCamo');
+            const saveHtmlDefaultBtn = document.getElementById('saveHtmlDefaultBtn');
+
+            // Custom Message Box elements
+            const customMessageBox = document.getElementById('customMessageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxContent = document.getElementById('messageBoxContent');
+            const closeMessageBoxBtn = document.getElementById('closeMessageBoxBtn');
+            const codeOutputTextarea = document.getElementById('codeOutputTextarea');
+            const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+
+            // Local Storage Key (must match admin.html)
+            const LOCAL_STORAGE_KEY = 'camoDupeAdminGuideData';
+            const PROGRESS_STORAGE_KEY = 'camoDupeGuideProgress'; // Separate key for user progress
+
+            // IMPORTANT: This defaultGuideData is what gets "baked" into the HTML file.
+            // When you click "Save Current Guide as HTML Default", this array will be updated
+            // in the generated HTML output.
+            let defaultGuideData = [
+                {
+                    id: 'phase1',
+                    title: 'Phase 1: Setup for Success 🛠️',
+                    subSteps: [
+                        {
+                            id: 'substep1-1',
+                            title: 'Getting Ready (Player 1 & 2)',
+                            items: [
+                                'Pick <strong class="text-cod-accent">ANY Black Ops 6 weapon</strong> you don\'t mind messing around with for a bit. This is your "sacrificial lamb" for the glitch. 🐑',
+                                'Head into <strong class="text-cod-green">Public Warzone</strong>.',
+                            ]
+                        },
+                        {
+                            id: 'substep1-2',
+                            title: 'Initial Settings',
+                            items: [
+                                '<strong class="text-cod-accent">Duplicate this BO6 weapon 3 times.</strong> Yes, three! ✨',
+                                'Place <strong class="text-cod-green">one duplicate</strong> in your <strong class="text-cod-green">Public Warzone</strong> loadouts.',
+                                'Place <strong class="text-cod-green">another</strong> into your <strong class="text-cod-green">Public Zombies</strong> loadouts.',
+                                'And the <strong class="text-cod-green">last one</strong> into your <strong class="text-cod-green">Private Multiplayer</strong> loadouts. Got it? Good! 👍'
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'phase2',
+                    title: 'Phase 2: The Duplication Dance 👯',
+                    subSteps: [
+                        {
+                            id: 'substep2-1',
+                            title: 'The Lobby Shuffle',
+                            items: [
+                                'Player 1: Go to the "Create a Class" section.',
+                                'Player 2: Stay in the private match lobby, doing nothing.',
+                                'Player 1: Select the weapon you want to duplicate the camo/build onto.'
+                            ]
+                        },
+                        {
+                            id: 'substep2-2',
+                            title: 'Execution',
+                            items: [
+                                'Player 1: Apply the camo/build you want to duplicate.',
+                                'Player 2: At the EXACT moment Player 1 applies the camo, leave the private match lobby.',
+                                'Player 1: Quickly back out to the main menu before the game registers Player 2\'s departure.',
+                                'Check your weapon\'s camo. If done correctly, it should now have the duplicated camo/build!'
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'phase3',
+                    title: 'Phase 3: Verify and Conquer! ✅',
+                    subSteps: [
+                        {
+                            id: 'substep3-1',
+                            title: 'Confirmation',
+                            items: [
+                                'Go to your loadouts in any game mode (Multiplayer, Zombies, Warzone).',
+                                'Verify that the duplicated camo/build is applied to the selected weapon.',
+                                'Enjoy your new, shiny weapon!'
+                            ]
+                        },
+                         {
+                            id: 'substep3-2',
+                            title: 'Repeat for More',
+                            items: [
+                                'You can repeat this process for other weapons and builds.',
+                                'Experiment with different camos and attachments!',
+                                'Share your success with friends (or keep it a secret!)'
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+
+            let guideData = {
+                phases: []
             };
 
-            /**
-             * Hides the loading indicator.
-             */
-            const hideLoading = () => {
-                loadingIndicator.style.display = 'none';
-            };
-
-            /**
-             * Shows a custom message box as a modal, replacing browser alert/confirm.
-             * @param {string} title - The title of the message box.
-             * @param {string} message - The message content.
-             * @param {boolean} isHtml - True if message contains HTML, false otherwise.
-             */
-            const showMessageBox = (title, message, isHtml = false) => {
-                const messageBox = document.createElement('div');
-                messageBox.className = 'message-box-overlay'; // Apply overlay styles
-                messageBox.innerHTML = `
-                    <div class="message-box-content">
-                        <h2 class="message-box-title">${title}</h2>
-                        <p class="message-box-message">${isHtml ? message : message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;')}</p>
-                        <button id="closeMessageBox" class="message-box-button">Understood</button>
-                    </div>
-                `;
-                document.body.appendChild(messageBox);
-                document.getElementById('closeMessageBox').addEventListener('click', () => {
-                    messageBox.remove();
-                });
-            };
-
-            // Constants for local storage and confetti colors
-            const PROGRESS_STORAGE_KEY = 'camoDupeGuideProgress';
-            const CONFETTI_COLORS = ['#00A6FB', '#22C55E', '#0077B6', '#F97316', '#8A2BE2']; // Matching theme colors
-
-            // Global variables to store guide data and current state
-            let guideDataFromFirestore = { phases: [] };
-            let phases = []; // Populated from guideDataFromFirestore.phases for navigation
+            let phases = []; // This will be populated from guideData.phases
             let currentPhaseIndex = 0;
             let currentSubStepIndex = 0;
             let totalGuideSteps = 0;
             let completedGuideSteps = 0;
 
-            // --- Firebase Initialization ---
-            // Construct Firebase config from individual environment variables, with fallbacks
-            const firebaseConfig = {
-                apiKey: typeof FIREBASE_API_KEY !== 'undefined' ? FIREBASE_API_KEY : '',
-                authDomain: typeof FIREBASE_AUTH_DOMAIN !== 'undefined' ? FIREBASE_AUTH_DOMAIN : '',
-                projectId: typeof FIREBASE_PROJECT_ID !== 'undefined' ? FIREBASE_PROJECT_ID : '',
-                storageBucket: typeof FIREBASE_STORAGE_BUCKET !== 'undefined' ? FIREBASE_STORAGE_BUCKET : '',
-                messagingSenderId: typeof FIREBASE_MESSAGING_SENDER_ID !== 'undefined' ? FIREBASE_MESSAGING_SENDER_ID : '',
-                appId: typeof FIREBASE_APP_ID !== 'undefined' ? FIREBASE_APP_ID : '',
-                measurementId: typeof FIREBASE_MEASUREMENT_ID !== 'undefined' ? FIREBASE_MEASUREMENT_ID : ''
+            // Updated Confetti Colors to match the new theme
+            const CONFETTI_COLORS = ['#00A6FB', '#22C55E', '#0077B6', '#F97316', '#8A2BE2']; // Light Blue, Success Green, Accent Blue, Warning Orange, Purple
+
+            // --- Utility Functions ---
+
+            // Show a custom message box
+            const showMessageBox = (title, message, codeContent = null) => {
+                messageBoxTitle.textContent = title;
+                messageBoxContent.textContent = message;
+                if (codeContent) {
+                    codeOutputTextarea.value = codeContent;
+                    codeOutputTextarea.classList.remove('hidden');
+                    copyCodeBtn.classList.remove('hidden');
+                } else {
+                    codeOutputTextarea.classList.add('hidden');
+                    copyCodeBtn.classList.add('hidden');
+                    codeOutputTextarea.value = '';
+                }
+                customMessageBox.classList.remove('hidden');
             };
 
-            // Use FIREBASE_APP_ID for the appId, with a fallback
-            const appId = typeof FIREBASE_APP_ID !== 'undefined' ? FIREBASE_APP_ID : 'default-app-id';
-
-            // Check if essential Firebase config values are missing before initializing Firebase.
-            // This is crucial for avoiding the 'auth/invalid-api-key' and similar initialization errors.
-            const missingConfig = Object.entries(firebaseConfig).filter(([key, value]) => {
-                // projectId and apiKey are absolutely critical for basic operations
-                return (key === 'projectId' || key === 'apiKey') && !value;
+            // Close the custom message box
+            closeMessageBoxBtn.addEventListener('click', () => {
+                customMessageBox.classList.add('hidden');
             });
 
-            let firebaseInitialized = false; // Flag to track if Firebase was successfully initialized
-
-            if (missingConfig.length > 0) {
-                const missingKeys = missingConfig.map(([key]) => key).join(', ');
-                console.error(`Firebase Initialization Error: Missing essential configuration keys: ${missingKeys}`);
-                showMessageBox(
-                    'Firebase Configuration Error',
-                    `<p>The application cannot connect to Firebase because essential configuration is missing. Please ensure the following environment variables are set correctly: <strong>${missingKeys}</strong>.</p><p>Without these, the guide content cannot be loaded or saved.</p>`,
-                    true
-                );
-                hideLoading(); // Hide any loading indicators
-            } else {
-                try {
-                    // Initialize Firebase App and services
-                    const app = initializeApp(firebaseConfig);
-                    const db = getFirestore(app);
-                    const auth = getAuth(app);
-
-                    // Expose app and db globally for direct console debugging (for the devtools script)
-                    window.app = app;
-                    window.db = db;
-                    firebaseInitialized = true; // Set flag to true on successful initialization
-
-                    // Define the path to the guide data in Firestore
-                    const GUIDE_DOC_REF = doc(db, `artifacts/${appId}/public/data/camoGuide`, 'mainGuide');
-
-                    // Authenticate Firebase before attempting to load data
-                    // This ensures Firestore operations have proper permissions
-                    await (async () => {
-                        try {
-                            // Use __initial_auth_token if available for custom authentication, otherwise sign in anonymously
-                            // Note: The __initial_auth_token is a special variable provided by the Canvas environment for authentication.
-                            if (typeof __initial_auth_token !== 'undefined') {
-                                await signInWithCustomToken(auth, __initial_auth_token);
-                            } else {
-                                await signInAnonymously(auth);
-                            }
-                            console.log("Firebase authenticated successfully.");
-                            loadGuideDataFromFirestore(); // Load guide data only after authentication
-                        } catch (error) {
-                            console.error("Firebase authentication error:", error);
-                            showMessageBox('Authentication Error', 'Failed to authenticate with Firebase. Guide content may not load correctly. Please check your API Key and Firestore Security Rules.');
-                            hideLoading();
-                        }
-                    })();
-
-                } catch (error) {
-                    console.error("Firebase App Initialization Error:", error);
-                    showMessageBox(
-                        'Firebase Initialization Failed',
-                        `<p>There was an error initializing the Firebase application: ${error.message}.</p><p>Please ensure all Firebase configuration values are correct.</p>`,
-                        true
-                    );
-                    hideLoading(); // Hide any loading indicators
-                }
-            }
+            // Copy code to clipboard
+            copyCodeBtn.addEventListener('click', () => {
+                codeOutputTextarea.select();
+                document.execCommand('copy');
+                showMessageBox('Copied!', 'The code has been copied to your clipboard. You can now paste it into your `Camo.html` file.');
+                // Re-hide the code area after copying success message, or adjust to show only "copied"
+                setTimeout(() => {
+                    customMessageBox.classList.add('hidden');
+                }, 1500); // Hide message box after 1.5 seconds
+            });
 
 
-            /**
-             * Saves the current guide progress (phase, sub-step, and checkbox states) to local storage.
-             */
+            // Save progress to localStorage
             const saveProgress = () => {
                 const progress = {
                     currentPhaseIndex: currentPhaseIndex,
@@ -454,35 +436,32 @@
                     checkboxStates: {},
                     completedGuideSteps: completedGuideSteps
                 };
-                // Store the checked state of each checkbox by its ID
                 document.querySelectorAll('.step-checkbox').forEach(checkbox => {
                     progress.checkboxStates[checkbox.id] = checkbox.checked;
                 });
                 localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
             };
 
-            /**
-             * Loads the saved progress from local storage.
-             * @returns {object|null} The saved progress object or null if none exists.
-             */
+            // Load progress from localStorage
             const loadProgress = () => {
                 const savedProgress = localStorage.getItem(PROGRESS_STORAGE_KEY);
                 if (savedProgress) {
                     const progress = JSON.parse(savedProgress);
                     currentPhaseIndex = progress.currentPhaseIndex;
                     currentSubStepIndex = progress.currentSubStepIndex;
-                    completedGuideSteps = progress.completedGuideSteps || 0;
-                    return progress.checkboxStates; // Return just the checkbox states for application
+                    completedGuideSteps = progress.completedGuideSteps || 0; // Ensure it's initialized
+
+                    // Apply checkbox states after content is rendered
+                    // This will be called after renderGuideContent and calculateTotalSteps
+                    return progress.checkboxStates;
                 }
                 return null;
             };
 
-            /**
-             * Calculates the total number of individual steps (checkbox items) in the entire guide.
-             */
+            // Calculate total steps (items) in the entire guide from dynamic data
             const calculateTotalSteps = () => {
                 let count = 0;
-                guideDataFromFirestore.phases.forEach(phase => {
+                guideData.phases.forEach(phase => {
                     phase.subSteps.forEach(subStep => {
                         count += subStep.items.length;
                     });
@@ -490,21 +469,16 @@
                 totalGuideSteps = count;
             };
 
-            /**
-             * Updates the overall progress bar and text displayed at the top of the guide.
-             */
+            // Update overall guide progress bar and text
             const updateOverallProgress = () => {
                 completedGuideSteps = Array.from(document.querySelectorAll('.step-checkbox:checked')).length;
                 const percentage = totalGuideSteps > 0 ? (completedGuideSteps / totalGuideSteps) * 100 : 0;
                 document.getElementById('overallProgressBarFill').style.width = `${percentage}%`;
                 document.getElementById('overallProgressText').textContent = `Overall Progress: ${completedGuideSteps}/${totalGuideSteps} steps completed`;
-                saveProgress(); // Always save progress after an update
+                saveProgress(); // Save progress after updating
             };
 
-            /**
-             * Updates the progress bar and text for a specific phase.
-             * @param {object} phaseObj - The phase object containing its ID and structure.
-             */
+            // Update individual phase progress bar and text
             const updatePhaseProgress = (phaseObj) => {
                 const phaseCheckboxes = Array.from(document.querySelectorAll(`#phase-${phaseObj.id} .step-checkbox`));
                 const completedPhaseSteps = phaseCheckboxes.filter(cb => cb.checked).length;
@@ -519,10 +493,7 @@
                 }
             };
 
-            /**
-             * Handles the visual update of a checkbox and triggers progress updates.
-             * @param {HTMLInputElement} checkbox - The checkbox element that changed.
-             */
+            // Handle individual checkbox visual update
             const handleCheckboxDisplay = (checkbox) => {
                 const listItem = checkbox.closest('.step-item');
                 if (listItem) {
@@ -532,17 +503,13 @@
                         listItem.classList.remove('completed');
                     }
                 }
-                updateOverallProgress(); // Update overall progress
-                if (guideDataFromFirestore.phases[currentPhaseIndex]) {
-                    updatePhaseProgress(guideDataFromFirestore.phases[currentPhaseIndex]); // Update current phase progress
+                updateOverallProgress();
+                if (phases[currentPhaseIndex]) {
+                    updatePhaseProgress(phases[currentPhaseIndex]);
                 }
             };
 
-            /**
-             * Creates a single confetti particle at a given position.
-             * @param {number} x - X coordinate for the confetti.
-             * @param {number} y - Y coordinate for the confetti.
-             */
+            // Create a confetti particle
             const createConfetti = (x, y) => {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
@@ -550,26 +517,23 @@
                 confetti.style.top = `${y}px`;
                 confetti.style.backgroundColor = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
 
-                // Randomly assign shape (circle, square, or triangle)
                 const type = Math.random();
                 if (type < 0.33) {
                     confetti.classList.add('square');
                 } else if (type < 0.66) {
                     confetti.classList.add('triangle');
+                } else {
+                    // Default is circle
                 }
-                // Default is circle
 
                 document.body.appendChild(confetti);
 
-                // Remove confetti after its animation completes
                 setTimeout(() => {
                     confetti.remove();
-                }, 2000);
+                }, 2000); // Remove after animation
             };
 
-            /**
-             * Triggers a burst of confetti across the screen.
-             */
+            // Trigger confetti effect
             const launchConfetti = () => {
                 const count = 100; // Number of confetti particles
                 for (let i = 0; i < count; i++) {
@@ -580,24 +544,18 @@
             };
 
             // --- Dynamic Guide Rendering ---
-            /**
-             * Renders the entire guide content based on the provided guide data.
-             * @param {object} guideData - The guide data object fetched from Firestore.
-             */
-            const renderGuideContent = (guideData) => {
+            const renderGuideContent = () => {
                 dynamicGuideContent.innerHTML = ''; // Clear existing content
-                initialLoadingMessage.style.display = 'none'; // Hide initial loading message
+                initialLoadingMessage.style.display = 'none';
 
-                // If no guide content is available, display a message
-                if (!guideData || !guideData.phases || guideData.phases.length === 0) {
-                    dynamicGuideContent.innerHTML = '<p class="text-center text-text-lighter mt-8">No guide content available. Please use the <a href="editorv2.html" class="text-light-blue hover:underline">Admin Panel</a> to add phases.</p>';
+                if (guideData.phases.length === 0) {
+                    dynamicGuideContent.innerHTML = '<p class="text-center text-text-lighter mt-8">No guide content available. Please use the <a href="editor.html" class="text-light-blue hover:underline">Admin Panel</a> or import JSON to add phases.</p>';
                     return;
                 }
 
-                // Iterate through each phase to build its HTML structure
                 guideData.phases.forEach((phase, phaseIdx) => {
                     const phaseSection = document.createElement('section');
-                    phaseSection.id = `phase-${phase.id}`; // Unique ID for the phase section
+                    phaseSection.id = `phase-${phase.id}`; // Use actual ID for direct access
                     phaseSection.className = 'section-container';
 
                     phaseSection.innerHTML = `
@@ -625,26 +583,25 @@
                         </div>
                     `;
                     const subStepsContainer = phaseSection.querySelector(`#phase-${phase.id}-StepsContainer`);
-
-                    // Iterate through each sub-step within the current phase
+                    let subStepCount = 0;
                     phase.subSteps.forEach(subStep => {
+                        subStepCount++;
                         const subStepDiv = document.createElement('div');
                         subStepDiv.className = 'sub-step-container bg-secondary-dark/70 p-6 rounded-xl mb-6 border border-accent-blue/10';
-                        subStepDiv.dataset.subStepId = subStep.id; // Unique ID for the sub-step div
+                        subStepDiv.dataset.subStepId = subStep.id; // Use actual ID for direct access
 
                         subStepDiv.innerHTML = `
                             <h3 class="text-2xl font-semibold text-text-light mb-4">${subStep.title}</h3>
-                            <ul class="space-y-3"></ul>
+                            <ul class="space-y-3">
+                                </ul>
                         `;
                         const itemsList = subStepDiv.querySelector('ul');
-
-                        // Iterate through each item (checkbox) within the current sub-step
                         let itemIndex = 0;
                         subStep.items.forEach(item => {
                             itemIndex++;
                             const listItem = document.createElement('li');
                             listItem.className = 'flex items-start text-lg step-item';
-                            // Generate a unique ID for each checkbox based on phase, sub-step, and item
+                            // Use unique IDs for checkboxes based on phase, sub-step, and item
                             const checkboxId = `cb_${phase.id}_${subStep.id}_${itemIndex}`;
                             listItem.innerHTML = `
                                 <input type="checkbox" id="${checkboxId}"
@@ -661,21 +618,21 @@
                     dynamicGuideContent.appendChild(phaseSection);
                 });
 
-                // After rendering, re-populate the global `phases` array with references to the new DOM elements
+                // Re-populate the global `phases` array after dynamic rendering
                 phases = guideData.phases.map(p => ({
                     id: `phase-${p.id}`,
                     containerId: `phase-${p.id}-StepsContainer`,
                     subSteps: Array.from(document.querySelectorAll(`#phase-${p.id}-StepsContainer .sub-step-container`))
                 }));
 
-                // Attach change listeners to all checkboxes
+                // Attach checkbox listeners
                 document.querySelectorAll('.step-checkbox').forEach(checkbox => {
                     checkbox.addEventListener('change', (event) => {
                         handleCheckboxDisplay(event.target);
                     });
                 });
 
-                // Attach event listeners to navigation buttons for each phase
+                // Attach navigation button listeners
                 phases.forEach((phase, index) => {
                     const nextButton = document.getElementById(`nextPhase${index + 1}SubStep`);
                     const prevButton = document.getElementById(`prevPhase${index + 1}SubStep`);
@@ -689,43 +646,26 @@
                     }
                     if (completeButton) {
                         completeButton.addEventListener('click', () => {
-                            // If not the last phase, proceed to the next phase
                             if (index < phases.length - 1) {
-                                showPhase(index + 1);
+                                showPhase(index + 1); // Go to next phase
                             } else {
-                                // If it's the last phase and completed, launch confetti and show completion message
+                                // Last phase completed
                                 launchConfetti();
+                                // Custom alert for completion
                                 showMessageBox(
                                     'Guide Completed: Camouflage Duplication Mastered!',
-                                    'You have successfully completed the guide. Enjoy your newly customized weapons!',
-                                    false
+                                    'You have successfully completed the guide. Enjoy your newly customized weapons!'
                                 );
                             }
                         });
                     }
                 });
-
-                // Apply saved checkbox states after the guide content has been rendered
-                const savedCheckboxStates = loadProgress();
-                if (savedCheckboxStates) {
-                    for (const id in savedCheckboxStates) {
-                        const checkbox = document.getElementById(id);
-                        if (checkbox) {
-                            checkbox.checked = savedCheckboxStates[id]; // Corrected from savedProgressStates
-                            handleCheckboxDisplay(checkbox); // Update visual and progress
-                        }
-                    }
-                }
-                updateOverallProgress(); // Ensure overall progress is correct after applying states
             };
 
 
             // --- Step Navigation Functions ---
 
-            /**
-             * Displays the currently active sub-step within the current phase.
-             * Hides all other sub-steps in the same phase.
-             */
+            // Display the current sub-step within the active phase
             const showCurrentSubStep = () => {
                 const currentPhase = phases[currentPhaseIndex];
                 if (!currentPhase || !currentPhase.subSteps || currentPhase.subSteps.length === 0) {
@@ -735,7 +675,6 @@
 
                 const subSteps = currentPhase.subSteps;
 
-                // Hide all sub-steps and show only the current one
                 subSteps.forEach((subStep, index) => {
                     if (index === currentSubStepIndex) {
                         subStep.classList.add('active');
@@ -744,7 +683,7 @@
                     }
                 });
 
-                // Update the visibility of navigation buttons (Previous, Next, Complete Phase)
+                // Update navigation buttons
                 const prevButton = document.getElementById(`prevPhase${currentPhaseIndex + 1}SubStep`);
                 const nextButton = document.getElementById(`nextPhase${currentPhaseIndex + 1}SubStep`);
                 const completePhaseButton = document.getElementById(`completePhase${currentPhaseIndex + 1}`);
@@ -759,17 +698,12 @@
                     completePhaseButton.style.display = currentSubStepIndex === subSteps.length - 1 ? 'inline-block' : 'none';
                 }
 
-                // Update the progress bar for the current phase
-                if (guideDataFromFirestore.phases[currentPhaseIndex]) {
-                    updatePhaseProgress(guideDataFromFirestore.phases[currentPhaseIndex]);
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top for better UX
-                saveProgress(); // Save progress after navigating to a new sub-step
+                updatePhaseProgress(guideData.phases[currentPhaseIndex]); // Use guideData object for consistency
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                saveProgress();
             };
 
-            /**
-             * Navigates to the next sub-step within the current phase.
-             */
+            // Navigate to the next sub-step
             const nextSubStep = () => {
                 const currentPhase = phases[currentPhaseIndex];
                 if (currentSubStepIndex < currentPhase.subSteps.length - 1) {
@@ -778,9 +712,7 @@
                 }
             };
 
-            /**
-             * Navigates to the previous sub-step within the current phase.
-             */
+            // Navigate to the previous sub-step
             const prevSubStep = () => {
                 if (currentSubStepIndex > 0) {
                     currentSubStepIndex--;
@@ -790,268 +722,184 @@
 
             // --- Phase Navigation Functions ---
 
-            /**
-             * Shows a specific phase of the guide, hiding all others.
-             * Resets the sub-step index to 0 when changing phases.
-             * @param {number} phaseIndex - The index of the phase to show.
-             */
+            // Show a specific phase
             const showPhase = (phaseIndex) => {
-                // Hide all phase sections
+                // Hide all phases
                 document.querySelectorAll('.section-container').forEach(phaseEl => {
                     phaseEl.classList.remove('active');
                 });
 
-                // Only show the target phase if the index is valid
+                // Show the target phase
+                // Ensure phaseIndex is valid
                 if (phaseIndex >= 0 && phaseIndex < phases.length) {
                     const targetPhaseEl = document.getElementById(phases[phaseIndex].id);
                     if (targetPhaseEl) {
                         targetPhaseEl.classList.add('active');
                         currentPhaseIndex = phaseIndex;
                         currentSubStepIndex = 0; // Reset sub-step when changing phase
-                        showCurrentSubStep(); // Show the first sub-step of the new phase
-                        updateOverallProgress(); // Update overall progress
+                        showCurrentSubStep(); // Show first sub-step of the new phase
+                        updateOverallProgress();
                     }
                 } else {
-                    // If an invalid phaseIndex (e.g., after reset), ensure all are hidden
+                    // If no phase to show (e.g., after reset), hide all
                     currentPhaseIndex = 0;
                     currentSubStepIndex = 0;
                 }
-                saveProgress(); // Save progress after phase change
+                saveProgress(); // Save progress after showing phase
             };
 
-            /**
-             * Resets the entire guide progress, clearing local storage and UI.
-             */
+            // Reset Guide Function
             const resetGuide = () => {
                 currentPhaseIndex = 0;
                 currentSubStepIndex = 0;
-                // Uncheck all checkboxes and update their display
                 document.querySelectorAll('.step-checkbox').forEach(checkbox => {
                     checkbox.checked = false;
-                    handleCheckboxDisplay(checkbox);
+                    handleCheckboxDisplay(checkbox); // Update display and save
                 });
-                localStorage.removeItem(PROGRESS_STORAGE_KEY); // Clear saved progress from browser storage
-                startButton.style.display = 'block'; // Show the start button again
-                guideContent.classList.add('hidden'); // Hide the guide content
-                showPhase(''); // Hide all phases
-                updateOverallProgress(); // Recalculate and display 0 progress
-                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+                localStorage.removeItem(PROGRESS_STORAGE_KEY); // Clear saved progress
+                startButton.style.display = 'block'; // Show start button
+                guideContent.classList.add('hidden'); // Hide guide content
+                showPhase(''); // Hide all phases (resets currentPhaseIndex/currentSubStepIndex)
+                updateOverallProgress(); // Recalculate progress to 0
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             };
-            // Attach reset button event listener
             resetButton.addEventListener('click', resetGuide);
 
 
             // --- Initial Setup on Load ---
 
-            /**
-             * Loads guide data from Firestore using a real-time listener (onSnapshot).
-             */
-            const loadGuideDataFromFirestore = () => {
-                showLoading('Fetching guide content...');
-                onSnapshot(GUIDE_DOC_REF, (docSnap) => {
-                    hideLoading(); // Hide loading indicator once data is received
-
-                    if (docSnap.exists()) {
-                        guideDataFromFirestore.phases = docSnap.data().phases || [];
-                        // Ensure phases is always an array
-                        if (!Array.isArray(guideDataFromFirestore.phases)) {
-                            console.error("Firestore data for guide phases is not an array. Resetting to empty.");
-                            guideDataFromFirestore.phases = [];
-                        }
-                        renderGuideContent(guideDataFromFirestore); // Render the fetched content
-                        calculateTotalSteps(); // Recalculate total steps based on new data
-
-                        const savedCheckboxStates = loadProgress(); // Attempt to load user's previous progress
-                        if (savedCheckboxStates) {
-                            // Reapply checkbox states to the newly rendered elements
-                            for (const id in savedCheckboxStates) {
-                                const checkbox = document.getElementById(id);
-                                if (checkbox) {
-                                    checkbox.checked = savedCheckboxStates[id];
-                                    handleCheckboxDisplay(checkbox);
-                                }
-                            }
-                            updateOverallProgress(); // Update overall progress after applying states
-
-                            // If progress was found, show the guide and jump to the last saved position
-                            guideContent.classList.remove('hidden');
-                            startButton.style.display = 'none';
-                            showPhase(currentPhaseIndex); // This also calls showCurrentSubStep
-                        } else {
-                            // If no saved progress, set initial display state (start button visible, guide hidden)
-                            startButton.style.display = 'block';
-                            guideContent.classList.add('hidden');
-                            updateOverallProgress(); // Initialize overall progress to 0
-                        }
-
-                    } else {
-                        // If the document doesn't exist, there's no guide content yet
-                        guideDataFromFirestore.phases = []; // Ensure data is empty
-                        renderGuideContent(guideDataFromFirestore); // Render empty content message
-                        calculateTotalSteps(); // Sets total steps to 0
-                        updateOverallProgress(); // Updates progress display to 0/0
-                        startButton.style.display = 'block';
-                        guideContent.classList.add('hidden');
-                        showMessageBox('No Guide Content Available', '<p>Please navigate to the <a href="editorv2.html" class="text-success-green hover:underline">Admin Panel</a> to add phases and steps to the guide.</p>', true);
-                    }
-                }, (error) => {
-                    // Handle errors during Firestore data fetching
-                    console.error("Error fetching guide data from Firestore:", error);
-                    hideLoading();
-                    showMessageBox('Error Loading Guide', 'Failed to load guide content. Please check your internet connection.');
-                    guideDataFromFirestore.phases = []; // Clear data on error to prevent broken display
-                    renderGuideContent(guideDataFromFirestore); // Render empty content
-                    calculateTotalSteps();
-                    updateOverallProgress();
-                });
+            // Load guide data from admin panel's localStorage or default
+            const loadGuideData = () => {
+                const storedAdminData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (storedAdminData) {
+                    guideData.phases = JSON.parse(storedAdminData);
+                } else if (defaultGuideData.length > 0) {
+                    // If no local storage data, use the default data baked into the HTML
+                    guideData.phases = defaultGuideData;
+                } else {
+                    // Custom alert if no content is available, suggesting admin panel
+                    showMessageBox(
+                        'No Guide Content Available',
+                        'Please navigate to the Admin Panel or import JSON here to add phases and steps to the guide.',
+                        null // No code content for this message
+                    );
+                    guideData.phases = []; // Ensure phases array is empty
+                }
             };
 
-
-            // Event listener for the "Begin Guide" button
-            startButton.addEventListener('click', () => {
-                // Prevent starting if no guide content is available
-                if (guideDataFromFirestore.phases.length === 0) {
-                     showMessageBox('No Guide Content Available', '<p>Please navigate to the <a href="editorv2.html" class="text-success-green hover:underline">Admin Panel</a> to add phases and steps to the guide.</p>', true);
-                     return;
+            // --- Load JSON into Guide (triggered by button) ---
+            loadJsonBtnCamo.addEventListener('click', () => {
+                const jsonString = jsonInputCamo.value;
+                if (!jsonString.trim()) {
+                    showMessageBox('No JSON Provided', 'Please paste JSON content into the textarea before loading.');
+                    return;
                 }
-                startButton.style.display = 'none'; // Hide start button
-                guideContent.classList.remove('hidden'); // Show the main guide content
-                showPhase(0); // Start the guide from the first phase
+
+                try {
+                    const parsedData = JSON.parse(jsonString);
+
+                    // Basic validation to ensure it's an array of phases with expected structure
+                    if (!Array.isArray(parsedData) || !parsedData.every(p => typeof p === 'object' && p.id && p.title && Array.isArray(p.subSteps))) {
+                        showMessageBox('Invalid JSON Format', 'The provided JSON does not match the expected guide data structure (array of phases, each with id, title, and subSteps array).');
+                        return;
+                    }
+
+                    guideData.phases = parsedData; // Overwrite current guideData with the parsed JSON
+                    renderGuideContent(); // Re-render the UI with the new data
+                    calculateTotalSteps();
+                    // Reset progress since we're loading new data
+                    currentPhaseIndex = 0;
+                    currentSubStepIndex = 0;
+                    completedGuideSteps = 0;
+                    localStorage.removeItem(PROGRESS_STORAGE_KEY); // Clear old progress
+                    updateOverallProgress(); // Update progress bar for new data
+                    showPhase(0); // Display the first phase of the newly loaded guide
+                    startButton.style.display = 'none'; // Hide start button as guide is now visible
+                    guideContent.classList.remove('hidden'); // Show guide content
+                    showMessageBox('Guide Loaded!', 'Guide content has been successfully loaded from JSON.');
+                    jsonInputCamo.value = ''; // Clear the textarea after successful load
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
+                    showMessageBox('JSON Error', 'Failed to parse JSON. Please check for syntax errors. Error: ' + error.message);
+                }
             });
 
-            // --- Firebase DevTools Console Script (Integrated) ---
-            // This script provides a simple console-based UI to check Firebase connectivity
-            // and configuration status for debugging purposes.
+            // --- Generate HTML with Baked-in JSON (triggered by button) ---
+            saveHtmlDefaultBtn.addEventListener('click', () => {
+                const currentGuideJson = JSON.stringify(guideData.phases, null, 4); // Pretty print JSON
 
-            const DEVTOOLS_SCRIPT_VERSION = "1.0.5"; // Updated version for this integrated approach
+                // Read the current HTML content of this page dynamically
+                // This is a simplified approach; in a real build process, you'd use templating.
+                // For this scenario, we'll construct the string to replace the defaultGuideData.
+                let currentHtmlContent = document.documentElement.outerHTML;
 
-            // Helper function for styled console output within the DevTools context
-            const log = (message, type = 'info') => {
-                let style = 'color: #f0f0f0; background: #333; padding: 2px 5px; border-radius: 3px;';
-                let prefix = 'ℹ️ INFO';
+                // Escape backticks within the JSON string for JavaScript template literals
+                const escapedJson = currentGuideJson.replace(/`/g, '\\`');
 
-                switch (type) {
-                    case 'success':
-                        style = 'color: #1a1a1a; background: #32CD32; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '✅ SUCCESS';
-                        break;
-                    case 'error':
-                        style = 'color: #f0f0f0; background: #dc3545; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '❌ ERROR';
-                        break;
-                    case 'warn':
-                        style = 'color: #1a1a1a; background: #FFD700; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '⚠️ WARNING';
-                        break;
-                    case 'config':
-                        style = 'color: #007bff; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-weight: bold;';
-                        prefix = '⚙️ CONFIG';
-                        break;
-                    case 'debug':
-                        style = 'color: #f0f0f0; background: #555; padding: 2px 5px; border-radius: 3px;';
-                        prefix = '🐞 DEBUG';
-                        break;
+                // Find the defaultGuideData array declaration and replace its content
+                // This is a regex-based replacement, which is fragile but works for this context.
+                const regex = /(let defaultGuideData = )\[[^\]]*?\];/s; // The 's' flag for dotall
+                if (currentHtmlContent.match(regex)) {
+                    currentHtmlContent = currentHtmlContent.replace(regex, `$1\`${escapedJson}\`;`); // Replace with template literal for multi-line JSON
+                } else {
+                    // Fallback if regex doesn't match exactly (e.g., if array structure changes)
+                    // This might need manual adjustment if the defaultGuideData declaration changes significantly.
+                    showMessageBox('Error Generating HTML', 'Could not locate `defaultGuideData` in the current HTML. Please ensure its structure is `let defaultGuideData = [...]` for this feature to work.');
+                    return;
                 }
-                console.log(`%c ${prefix} %c ${message}`, style, 'color: #f0f0f0;');
-            };
 
-            // Define the function to run Firebase checks.
-            // This function will now be called *after* Firebase initialization is attempted.
-            const runFirebaseChecks = () => {
-                console.log(
-                    '%c Firebase DevTools Console ',
-                    'background: #FFD700; color: #1a1a1a; padding: 5px 10px; border-radius: 5px; font-weight: bold;'
+                showMessageBox(
+                    'Updated `Camo.html` Code Generated!',
+                    'Copy the code below and paste it into your `Camo.html` file to make the current guide content the default when the page loads.',
+                    currentHtmlContent
                 );
-                console.log('%c Version ' + DEVTOOLS_SCRIPT_VERSION, 'color: #888;');
+            });
 
-                log('Checking Firebase Initialization via `window.app` and `window.db`...');
 
-                const firebaseApp = window.app; // These should now be available or explicitly null
-                const firestoreDb = window.db;
+            loadGuideData(); // Load the content first (from local storage or default)
+            renderGuideContent(); // Render the content based on loaded data
+            calculateTotalSteps(); // Calculate total steps from rendered content
 
-                if (!firebaseApp) {
-                    log('Firebase App not found on `window.app`. It was likely not initialized due to missing config or an error.', 'error');
-                    return;
-                } else {
-                    log('Firebase App found (`window.app`). Initialized successfully.', 'success');
-                    log(`Project ID: %c${firebaseApp.options.projectId}`, 'color: #32CD32;', 'config');
-                    log(`Auth Domain: %c${firebaseApp.options.authDomain}`, 'color: #32CD32;', 'config');
-                    log(`App ID: %c${firebaseApp.options.appId}`, 'color: #32CD32;', 'config');
-                    log(`Firebase Config (as seen by window.app.options):`, 'config');
-                    console.log(firebaseApp.options);
-                }
+            const savedCheckboxStates = loadProgress(); // Load user progress after content is rendered
 
-                if (!firestoreDb) {
-                    log('Firestore Database not found on `window.db`. It was likely not initialized.', 'error');
-                    return;
-                } else {
-                    log('Firestore Database found (`window.db`). Initialized successfully.', 'success');
-                }
-
-                log('Attempting Firestore Connectivity Test...');
-
-                const TEST_COLLECTION_PATH = `artifacts/${firebaseApp.options.appId}/public/data/camoGuide`;
-                const TEST_DOC_ID = 'mainGuide';
-
-                getDoc(doc(firestoreDb, TEST_COLLECTION_PATH, TEST_DOC_ID))
-                    .then(docSnap => {
-                        if (docSnap.exists()) {
-                            log('Firestore read test: Document exists. Connectivity and read rules appear OK.', 'success');
-                            const phases = docSnap.data().phases || [];
-                            if (phases.length > 0) {
-                                log('Guide content structure found. First 3 phases (from test read):', 'debug');
-                                phases.slice(0, 3).forEach((phase, index) => {
-                                    log(`  Phase ${index + 1}: ${phase.title}`, 'debug');
-                                });
-                            } else {
-                                log('Firestore read test: Guide document exists but contains no phases. Add content via Admin Panel.', 'warn');
-                            }
-                        } else {
-                            log('Firestore read test: Document does NOT exist at specified path.', 'warn');
-                            log(`Path checked: %c${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'color: #FFD700;', 'warn');
-                            log('This might be expected if no guide content has been saved by the Admin Panel yet.', 'warn');
-                        }
-                        log('Firebase connectivity test completed.', 'success');
-                    })
-                    .catch(error => {
-                        log(`Firestore read test FAILED: ${error.message}`, 'error');
-                        log('Possible issues:', 'error');
-                        if (error.code === 'permission-denied') {
-                            log('  - **Permission Denied:** Check your Firestore Security Rules. Ensure `allow read: if request.auth != null;` for your public guide data.', 'error');
-                        } else if (error.code === 'unavailable') {
-                            log('  - **Network Unavailable:** Check your internet connection or Firebase service status.', 'error');
-                        } else if (error.code === 'invalid-argument') {
-                            log('  - **Invalid Path:** Double-check the Firestore collection and document ID in this script matches your actual Firestore structure.', 'error');
-                            log(`Expected path: ${TEST_COLLECTION_PATH}/${TEST_DOC_ID}`, 'error');
-                        } else if (error.code === 'auth/invalid-api-key') {
-                            log('  - **Invalid API Key:** The Firebase API Key in your environment variables is incorrect or not properly configured for this project. Please verify `FIREBASE_API_KEY`.', 'error');
-                        }
-                        console.error("Full Firebase Error:", error);
-                        log('Please review the console for detailed error messages.', 'error');
-                    });
-            };
-
-            // Provide quick access functions in the console for convenience
-            window.firebaseDevTools = {
-                checkStatus: () => {
-                    console.clear();
-                    log('Re-running status check...', 'info');
-                    runFirebaseChecks();
-                },
-                getFirebaseConfig: () => {
-                    console.log('%c Current Firebase Config Object from window.app.options: ', 'background: #007bff; color: #f0f0f0; padding: 2px 5px; border-radius: 3px;');
-                    if (window.app && window.app.options) {
-                        console.log(window.app.options);
-                    } else {
-                        log('Firebase App or its options not found on window.app.', 'error');
+            if (savedCheckboxStates) {
+                // Apply checkbox states after the dynamic content has been rendered
+                for (const id in savedCheckboxStates) {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = savedCheckboxStates[id];
+                        handleCheckboxDisplay(checkbox); // Ensure visual update and recalculate progress
                     }
-                },
-            };
+                }
+                // Now that all checkboxes are set and total steps are calculated, update overall progress
+                updateOverallProgress();
 
-            // Call runFirebaseChecks only after Firebase is attempted to be initialized
-            // and window.app/db are set.
-            // This is handled by wrapping the initialization and checks in the DOMContentLoaded listener.
-            // The runFirebaseChecks is called at the end of this module execution.
+                // If progress loaded, show the guide content immediately and jump to saved phase/step
+                guideContent.classList.remove('hidden');
+                startButton.style.display = 'none';
+                showPhase(currentPhaseIndex); // This also calls showCurrentSubStep
+            } else {
+                // No saved progress, start fresh
+                startButton.style.display = 'block';
+                guideContent.classList.add('hidden');
+                updateOverallProgress(); // Initialize progress display for a fresh start
+            }
+
+            // Start Button Click
+            startButton.addEventListener('click', () => {
+                if (guideData.phases.length === 0) {
+                     // Custom alert if no content is available
+                     showMessageBox(
+                         'No Guide Content Available',
+                         'Please navigate to the Admin Panel or import JSON here to add phases and steps to the guide.',
+                         null // No code content for this message
+                     );
+                     return; // Prevent starting the guide if no content
+                }
+                startButton.style.display = 'none'; // Hide start button
+                guideContent.classList.remove('hidden'); // Show guide content
+                showPhase(0); // Start with Phase 1
+            });
         });
     </script>
 </body>
