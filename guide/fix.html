@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call of Duty 0/0 Bug Unstuck Guide (Xbox)</title>
+
+    <!-- META DATA FOR SEO AND SOCIAL SHARING -->
+    <meta name="description" content="A comprehensive guide for Call of Duty players on Xbox to get unstuck from the annoying 0/0 bug.">
+    <meta name="keywords" content="Call of Duty, CoD, 0/0 bug, Xbox, unstuck, workaround, bypass, gaming guide, modern warfare, black ops">
+    <meta name="author" content="Call of Duty Community">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://parsed.top/0-0-unstuck-guide"> <!-- Replace with actual URL if deployed -->
+    <meta property="og:title" content="Call of Duty 0/0 Bug Unstuck Guide (Xbox)">
+    <meta property="og:description" content="A comprehensive guide for Call of Duty players on Xbox to get unstuck from the annoying 0/0 bug.">
+    <meta property="og:image" content="https://images.vexels.com/media/users/3/330261/isolated/preview/cdb51f862c9d2e6e33819893214d29c4-bug-on-a-computer-screen-coding.png"> <!-- Placeholder Image -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://parsed.top/0-0-unstuck-guide"> <!-- Replace with actual URL if deployed -->
+    <meta property="twitter:title" content="Call of Duty 0/0 Bug Unstuck Guide (Xbox)">
+    <meta property="twitter:description" content="A comprehensive guide for Call of Duty players on Xbox to get unstuck from the annoying 0/0 bug.">
+    <meta property="twitter:image" content="https://images.vexels.com/media/users/3/330261/isolated/preview/cdb51f862c9d2e6e33819893214d29c4-bug-on-a-computer-screen-coding.png"> <!-- Placeholder Image -->
+
+    <!-- Theme Color for browser UI -->
+    <meta name="theme-color" content="#0d0d0d">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Oswald, Open Sans, and Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2q4jV+y8+w8/W2xX/j1h0p+vBvU5J5z/JzM/u0z7z2+g7z7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif; /* Primary font for body */
+            background-color: #1A6AF2; /* Dominant blue background from the latest screenshot */
+            color: #e0e0e0; /* Light text */
+            line-height: 1.7;
+        }
+        h1, h2, h3 {
+            font-family: 'Oswald', sans-serif; /* Headings with Oswald */
+        }
+        .container {
+            max-width: 1000px;
+        }
+        .section-card {
+            background-color: #0D3D8F; /* Darker blue background for cards */
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease-out, transform 0.5s ease-out;
+            opacity: 0; /* Hidden by default for scroll animation */
+            transform: translateY(20px); /* Slightly lower for scroll animation */
+        }
+        .section-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn {
+            background-color: #3b82f6; /* Primary blue button color */
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+        }
+        .btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.6);
+        }
+        .step-icon {
+            background-color: #3b82f6; /* Primary blue accent for icons */
+            color: #fff;
+            border-radius: 9999px;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Hero Section Particle Animation */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        .particle {
+            position: absolute;
+            background-color: #60a5fa; /* Lighter blue for particles */
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0;
+        }
+        .particle:nth-child(2n) { background-color: #3b82f6; animation-duration: 12s; }
+        .particle:nth-child(3n) { background-color: #e0e0e0; animation-duration: 8s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; }
+        }
+
+        /* Accordion styles (not used in this guide, but included for consistency if added later) */
+        .accordion-header {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #0D3D8F;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover {
+            background-color: #0a357f;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 1.5rem;
+            background-color: #0D3D8F;
+            border-bottom-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+        }
+        .accordion-content.open {
+            max-height: 500px;
+            padding-bottom: 1.5rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Sticky Nav Active State */
+        .nav-link.active {
+            color: #87CEFA; /* Lighter blue for active link */
+            font-weight: 700;
+        }
+
+        /* Back to Top button */
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.6);
+            transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+            z-index: 1000;
+        }
+        #back-to-top:hover {
+            background-color: #2563eb;
+            transform: translateY(-3px);
+        }
+        #back-to-top.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Navigation bar background to match the main theme blue */
+        #navbar {
+            background-color: #1A6AF2; /* Matches the body background for a seamless top bar */
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            opacity: 1;
+        }
+        .nav-link {
+            color: #D3D3D3; /* Light gray for inactive links */
+        }
+        .nav-link:hover {
+            color: #FFFFFF; /* White on hover for better visibility */
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-500 selection:text-white">
+    <!-- Hero Background Particles -->
+    <div class="hero-background">
+        <div class="particle" style="width: 10px; height: 10px; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 8px; height: 8px; left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 12px; height: 12px; left: 70%; animation-delay: 6s;"></div>
+        <div class="particle" style="width: 18px; height: 18px; left: 90%; animation-delay: 8s;"></div>
+        <div class="particle" style="width: 11px; height: 11px; left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="width: 16px; height: 16px; left: 45%; animation-delay: 3s;"></div>
+        <div class="particle" style="width: 9px; height: 9px; left: 65%; animation-delay: 5s;"></div>
+        <div class="particle" style="width: 14px; height: 14px; left: 85%; animation-delay: 7s;"></div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 py-4 transition-all duration-300 ease-in-out" id="navbar">
+        <div class="container mx-auto flex justify-center space-x-8 text-lg font-medium">
+            <!-- Link back to the main guide, updated text -->
+            <a href="quide.html" class="nav-link hover:text-white transition-colors duration-200">Bypass Guide</a>
+            <a href="#hero" class="nav-link hover:text-white transition-colors duration-200">Home</a>
+        </div>
+    </nav>
+
+    <div class="min-h-screen flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="container mx-auto">
+            <!-- Hero Section -->
+            <header id="hero" class="text-center mb-16 relative py-20">
+                <img src="https://files.catbox.moe/bsxp1x.png" alt="Blu Base Logo" class="w-24 h-24 mx-auto mb-4">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 gradient-text leading-tight">
+                    Get Unstuck from "<span class="text-white">0/0</span>"
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-400 max-w-3xl mx-auto">
+                    A Quick Guide for Call of Duty (Xbox)
+                </p>
+                <div class="mt-12">
+                    <a href="#unstuck-guide" class="btn text-xl px-6 py-3">
+                        <i class="fas fa-play-circle mr-2"></i> Start Guide
+                    </a>
+                </div>
+            </header>
+
+            <!-- Unstuck Guide Section -->
+            <section id="unstuck-guide" class="section-card mb-12">
+                <h2 class="text-3xl font-bold mb-8 text-white flex items-center">
+                    <i class="fas fa-wrench mr-3 text-blue-400"></i> How to Get Unstuck from 0/0
+                </h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-8">
+                    If you're currently facing the 0/0 bug and need to get back into the game, follow these steps carefully.
+                </p>
+                <ol class="space-y-8">
+                    <li class="flex items-start">
+                        <div class="step-icon">1</div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">Back to "Press A to Start" Screen</h3>
+                            <p class="text-gray-300">
+                                You need to back out all the way to the <strong class="text-white">"Press A to Start screen"</strong>. Even if you still have the 0/0 glitch showing, do this.
+                                You'll notice that when you have the 0/0 bug, this "Press A to Start" screen often doesn't render in properly (90% of the time).
+                                However, when you back out from being loaded into the game, it renders in at the beginning no matter what. This difference is irrelevant for this guide.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="step-icon">2</div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">Close Your Game Normally</h3>
+                            <p class="text-gray-300">
+                                Once you're on the "Press A to Start" screen, close your game normally.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="step-icon">3</div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">Remove from Quick Resume</h3>
+                            <p class="text-gray-300">
+                                After closing the game, make sure to remove it from Quick Resume on your Xbox.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="step-icon">4</div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">Turn Console Off (DO NOT RESTART)</h3>
+                            <p class="text-gray-300">
+                                Turn your console completely off. <strong class="text-red-400">DO NOT RESTART</strong> your console.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="step-icon">5</div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">Wait 10 Minutes</h3>
+                            <p class="text-gray-300">
+                                Wait for 10 minutes with your console turned off.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="step-icon">6</div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">Turn On and Log In with a Different Account</h3>
+                            <p class="text-gray-300">
+                                After 10 minutes, turn your console back on and login with a <strong class="text-blue-400">different account</strong>. This should be an account that was *not* experiencing the 0/0 bug.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth Scroll for Navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Check if the href is an internal anchor or an external page
+                    const targetId = this.getAttribute('href').startsWith('#') ? this.getAttribute('href') : null;
+                    if (targetId) {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // For external links, allow default navigation
+                        window.location.href = this.getAttribute('href');
+                    }
+                });
+            });
+
+            // Section Scroll Animation (Intersection Observer)
+            const sectionCards = document.querySelectorAll('.section-card');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% of the section is visible
+                rootMargin: '0px 0px -50px 0px' // Adjust for better trigger point
+            });
+
+            sectionCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Accordion Functionality (Not used in this simpler guide, but kept for consistency if needed later)
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const contentId = header.dataset.accordion + '-content';
+                    const content = document.getElementById(contentId);
+                    const icon = header.querySelector('.accordion-icon');
+
+                    if (content.classList.contains('open')) {
+                        content.classList.remove('open');
+                        icon.classList.remove('rotated');
+                    } else {
+                        // Close all other open accordions
+                        document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                            openContent.classList.remove('open');
+                            openContent.previousElementSibling.querySelector('.accordion-icon').classList.remove('rotated');
+                        });
+                        content.classList.add('open');
+                        icon.classList.add('rotated');
+                    }
+                });
+            });
+
+            // Back to Top Button Functionality
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) { // Show button after scrolling 300px
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Sticky Nav Active State
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section, header#hero'); // Include hero for home link
+
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        // Handle links to external pages
+                        const currentNavLinkHref = entry.target.id ? `#${entry.target.id}` : window.location.pathname.split('/').pop();
+                        const currentNavLink = document.querySelector(`.nav-link[href="${currentNavLinkHref}"]`);
+                        if (currentNavLink) {
+                            currentNavLink.classList.add('active');
+                        } else if (!entry.target.id && window.location.pathname.endsWith('0-0-bug-guide.html')) { // Special handling for unstuck page
+                            document.querySelector('.nav-link[href="#hero"]').classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '-50% 0px -49% 0px', // When section is in middle of viewport
+                threshold: 0 // No threshold needed, just looking for intersection
+            });
+
+            sections.forEach(section => {
+                navObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
