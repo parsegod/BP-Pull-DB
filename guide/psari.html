@@ -7,24 +7,24 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="https://files.catbox.moe/bsxp1x.png">
-    <!-- Google Fonts for Oswald, Open Sans, and Dancing Script (matching bypass.html) -->
+    <!-- Google Fonts for Oswald, Open Sans, and Dancing Script (matching guide/bypass.html) -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons (matching bypass.html) -->
+    <!-- Font Awesome for icons (matching guide/bypass.html) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2q4jV+y8+w8/W2xX/j1h0p+vBvU5J5z/JzM/u0z7z2+g7z7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
-            font-family: 'Open Sans', sans-serif; /* Primary font for body, matching bypass.html */
-            background-color: #094D77; /* Dominant blue background from bypass.html */
-            color: #e0e0e0; /* Light text, consistent with bypass.html */
+            font-family: 'Open Sans', sans-serif; /* Primary font for body, matching guide/bypass.html */
+            background-color: #094D77; /* Dominant blue background from guide/bypass.html */
+            color: #e0e0e0; /* Light text, consistent with guide/bypass.html */
             line-height: 1.7;
             overflow-x: hidden;
         }
         h1, h2, h3 {
-            font-family: 'Oswald', sans-serif; /* Headings with Oswald, matching bypass.html */
+            font-family: 'Oswald', sans-serif; /* Headings with Oswald, matching guide/bypass.html */
             font-weight: 700;
             color: white; /* White for headings */
         }
-        /* Overriding h1 font for specific cursive style, if needed (matching bypass.html) */
+        /* Overriding h1 font for specific cursive style, if needed (matching guide/bypass.html) */
         h1.cursive-title {
             font-family: 'Dancing Script', cursive;
             font-weight: 700;
@@ -39,7 +39,7 @@
             backdrop-filter: none; /* Ensure no blur */
             -webkit-backdrop-filter: none;
             opacity: 1; /* Ensure full opacity */
-            max-width: 1000px; /* Consistent content width with bypass.html */
+            max-width: 1000px; /* Consistent content width with guide/bypass.html */
             margin: 0 auto;
             border-radius: 1rem;
             padding: 8px; 
@@ -48,10 +48,10 @@
          }
         /* Custom styles for section cards */
         .info-card {
-            background-color: #0F2D48; /* Match bypass.html card background */
+            background-color: #0F2D48; /* Match guide/bypass.html card background */
             border-radius: 1rem;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Match bypass.html card shadow */
-            padding: 2.5rem; /* Match bypass.html card padding */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Match guide/bypass.html card shadow */
+            padding: 2.5rem; /* Match guide/bypass.html card padding */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
             border: none; /* No border, rely on shadow for depth */
@@ -66,13 +66,13 @@
             max-height: 100px;
             transition: max-height 0.6s ease-in-out;
             overflow: hidden;
-            /* text-align: center; removed, align text left as in bypass.html */
+            /* text-align: center; removed, align text left as in guide/bypass.html */
         }
         .info-card.expanded .info-card-content {
             max-height: 600px; /* Adjust based on expected content height */
         }
         .read-more-btn {
-            color: #87CEFA; /* Lighter blue for active link, matching bypass.html */
+            color: #87CEFA; /* Lighter blue for active link, matching guide/bypass.html */
             font-weight: 600;
             cursor: pointer;
             display: inline-block;
@@ -87,46 +87,46 @@
 
         .cta-button {
             display: inline-block;
-            background-color: #3b82f6; /* Primary blue button color, matching bypass.html */
+            background-color: #3b82f6; /* Primary blue button color, matching guide/bypass.html */
             color: #ffffff;
-            padding: 0.75rem 1.5rem; /* Match bypass.html button padding */
-            border-radius: 0.75rem; /* Match bypass.html button border-radius */
+            padding: 0.75rem 1.5rem; /* Match guide/bypass.html button padding */
+            border-radius: 0.75rem; /* Match guide/bypass.html button border-radius */
             font-weight: 600;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.1s ease; /* Match bypass.html button transition */
-            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4); /* Match bypass.html button shadow */
+            transition: background-color 0.3s ease, transform 0.1s ease; /* Match guide/bypass.html button transition */
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4); /* Match guide/bypass.html button shadow */
             letter-spacing: normal; /* Reset letter-spacing */
         }
         .cta-button:hover {
-            background-color: #2563eb; /* Darker blue on hover, matching bypass.html */
-            transform: translateY(-2px); /* Match bypass.html button hover transform */
-            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.6); /* Match bypass.html button active shadow */
+            background-color: #2563eb; /* Darker blue on hover, matching guide/bypass.html */
+            transform: translateY(-2px); /* Match guide/bypass.html button hover transform */
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.6); /* Match guide/bypass.html button active shadow */
         }
 
         #scrollToTopBtn {
             display: none;
             position: fixed;
-            bottom: 2rem; /* Match bypass.html */
-            right: 2rem; /* Match bypass.html */
+            bottom: 2rem; /* Match guide/bypass.html */
+            right: 2rem; /* Match guide/bypass.html */
             z-index: 1000; /* Ensure it's above other content */
             border: none;
             outline: none;
-            background-color: #3b82f6; /* Primary blue back to top button, matching bypass.html */
+            background-color: #3b82f6; /* Primary blue back to top button, matching guide/bypass.html */
             color: white;
             cursor: pointer;
-            width: 3.5rem; /* Match bypass.html */
-            height: 3.5rem; /* Match bypass.html */
+            width: 3.5rem; /* Match guide/bypass.html */
+            height: 3.5rem; /* Match guide/bypass.html */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem; /* Match bypass.html */
+            font-size: 1.5rem; /* Match guide/bypass.html */
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.6); /* Match bypass.html */
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.6); /* Match guide/bypass.html */
             transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
         }
         #scrollToTopBtn:hover {
-            background-color: #2563eb; /* Darker blue on hover, matching bypass.html */
-            transform: translateY(-3px); /* Match bypass.html */
+            background-color: #2563eb; /* Darker blue on hover, matching guide/bypass.html */
+            transform: translateY(-3px); /* Match guide/bypass.html */
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
         }
         #scrollToTopBtn.show { /* Added show class for visibility toggle */
@@ -184,7 +184,7 @@
             margin: 0 auto 2rem;
         }
         .gradient-text {
-            /* Blue gradient matching bypass.html */
+            /* Blue gradient matching guide/bypass.html */
             background: linear-gradient(90deg, #3b82f6, #60a5fa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -210,7 +210,7 @@
             background-color: #3b82f6; /* Primary blue accent for underline */
             border-radius: 2px;
         }
-        /* Specific accent colors for underlines, matching bypass.html's spirit of varied icons */
+        /* Specific accent colors for underlines, matching guide/bypass.html's spirit of varied icons */
         section#full-shutdown h2::after {
              background-color: #60a5fa; /* Lighter blue */
         }
@@ -249,7 +249,7 @@
         footer .inline-flex svg {
             color: #87CEFA; /* Lighter blue accent for icons */
         }
-        /* Adjusted specific icon colors to match bypass.html's blue theme */
+        /* Adjusted specific icon colors to match guide/bypass.html's blue theme */
         .text-red-500 { color: #87CEFA; }
         .text-green-500 { color: #87CEFA; }
         .text-purple-500 { color: #87CEFA; }
@@ -260,7 +260,7 @@
         .text-gray-700 { color: #87CEFA; }
         .text-red-600 { color: #87CEFA; }
 
-        /* Hero Background Particles (adapted from bypass.html) */
+        /* Hero Background Particles (adapted from guide/bypass.html) */
         .hero-background {
             position: fixed; /* Use fixed to cover entire viewport */
             top: 0;
@@ -307,13 +307,13 @@
                 font-size: 0.9rem;
             }
         }
-        /* Sticky Nav Active State - Copied from bypass.html */
+        /* Sticky Nav Active State - Copied from guide/bypass.html */
         .nav-link.active {
             color: #87CEFA; /* Lighter blue for active link, matching screenshot */
             font-weight: 700;
         }
 
-        /* Navigation bar background to match screenshot - Copied from bypass.html */
+        /* Navigation bar background to match screenshot - Copied from guide/bypass.html */
         #navbar {
             background-color: #00A6FB; /* Solid blue background from the top bar of the screenshot */
             box-shadow: none; /* No shadow as per the screenshot's top bar */
@@ -343,12 +343,12 @@
         <div class="particle" style="width: 14px; height: 14px; left: 85%; animation-delay: 7s;"></div>
     </div>
 
-    <!-- Sticky Navigation - Copied from bypass.html -->
+    <!-- Sticky Navigation - Copied from guide/bypass.html -->
     <nav class="sticky top-0 z-50 py-4 transition-all duration-300 ease-in-out" id="navbar">
         <div class="container mx-auto flex justify-center space-x-8 text-lg font-medium">
-            <a href="bypass.html#hero" class="nav-link hover:text-white transition-colors duration-200">Home</a>
-            <a href="fix.html" class="nav-link hover:text-white transition-colors duration-200">0/0 Fix</a>
-            <a href="bypass.html" class="nav-link hover:text-white transition-colors duration-200">Bypass</a>
+            <a href="guide/bypass.html#hero" class="nav-link hover:text-white transition-colors duration-200">Home</a>
+            <a href="guide/fix.html" class="nav-link hover:text-white transition-colors duration-200">0/0 Fix</a>
+            <a href="guide/bypass.html" class="nav-link hover:text-white transition-colors duration-200">Bypass</a>
             <!-- New link to the Unstuck Guide -->
             <a href="guide/psari.html" class="nav-link hover:text-white transition-colors duration-200">Power Supply & Restart Info</a>
             <a href="https://parsed.top/" class="nav-link hover:text-white transition-colors duration-200">Parsed.top </a>
@@ -687,7 +687,7 @@
             }
         }
 
-        // Sticky Nav Active State - Adapted from bypass.html
+        // Sticky Nav Active State - Adapted from guide/bypass.html
         document.addEventListener('DOMContentLoaded', () => {
             const navLinks = document.querySelectorAll('#navbar .nav-link');
             const sections = document.querySelectorAll('header#hero, section[id]'); // Select all sections with an ID
@@ -702,8 +702,8 @@
                         if (currentPath === 'guide/psari.html') {
                             document.querySelector('#navbar .nav-link[href="guide/psari.html"]').classList.add('active');
                         } else {
-                            // Handle internal links for other pages (like bypass.html)
-                            const currentNavLink = document.querySelector(`#navbar .nav-link[href="bypass.html#${entry.target.id}"]`);
+                            // Handle internal links for other pages (like guide/bypass.html)
+                            const currentNavLink = document.querySelector(`#navbar .nav-link[href="guide/bypass.html#${entry.target.id}"]`);
                             if (currentNavLink) {
                                 currentNavLink.classList.add('active');
                             }
