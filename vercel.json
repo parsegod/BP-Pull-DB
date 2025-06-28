@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/quide",
-      "destination": "/quide/quide.html"
+      "source": "/guide",
+      "destination": "/guide/guide.html"
     }
   ]
 }
