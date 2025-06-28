@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/quide",
+      "destination": "/quide/quide.html"
+    }
+  ]
+}
