@@ -6,7 +6,7 @@
     <title>0/0 Bypass Guide</title>
 
     <!-- META DATA FOR SEO AND SOCIAL SHARING -->
-    <meta name="description" content="A comprehensive guide for Call of Duty players on Xbox to prevent and bypass the annoying '0/0' bug, especially useful for glitchers and account switchers.">
+    <meta name="description" content="A comprehensive guide for Call of Duty players on Xbox to prevent and bypass the annoying 0/0 bug, especially useful for glitchers and account switchers.">
     <meta name="keywords" content="Call of Duty, CoD, 0/0 bug, Xbox, glitch, workaround, bypass, account switch, gaming guide, modern warfare, black ops">
     <meta name="author" content="Call of Duty Community">
     <link rel="icon" type="image/png" href="https://files.catbox.moe/bsxp1x.png">
@@ -14,15 +14,15 @@
     <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parsed.top/"> <!-- Replace with actual URL if deployed -->
-    <meta property="og:title" content="Call of Duty '0/0' Bug Bypass Guide (Xbox)">
-    <meta property="og:description" content="A comprehensive guide for Call of Duty players on Xbox to prevent and bypass the annoying '0/0' bug, especially useful for glitchers and account switchers.">
+    <meta property="og:title" content="Call of Duty 0/0 Bug Bypass Guide (Xbox)">
+    <meta property="og:description" content="A comprehensive guide for Call of Duty players on Xbox to prevent and bypass the annoying 0/0 bug, especially useful for glitchers and account switchers.">
     <meta property="og:image" content="https://images.vexels.com/media/users/3/330261/isolated/preview/cdb51f862c9d2e6e33819893214d29c4-bug-on-a-computer-screen-coding.png"> <!-- Placeholder Image: Replace with a relevant image URL -->
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://parsed.top/"> <!-- Replace with actual URL if deployed -->
-    <meta property="twitter:title" content="Call of Duty '0/0' Bug Bypass Guide (Xbox)">
-    <meta property="twitter:description" content="A comprehensive guide for Call of Duty players on Xbox to prevent and bypass the annoying '0/0' bug, especially useful for glitchers and account switchers.">
+    <meta property="twitter:title" content="Call of Duty 0/0 Bug Bypass Guide (Xbox)">
+    <meta property="twitter:description" content="A comprehensive guide for Call of Duty players on Xbox to prevent and bypass the annoying 0/0 bug, especially useful for glitchers and account switchers.">
     <meta property="twitter:image" content="https://images.vexels.com/media/users/3/330261/isolated/preview/cdb51f862c9d2e6e33819893214d29c4-bug-on-a-computer-screen-coding.png"> <!-- Placeholder Image: Replace with a relevant image URL -->
 
     <!-- Theme Color for browser UI -->
@@ -239,11 +239,11 @@
     <!-- Sticky Navigation -->
     <nav class="sticky top-0 z-50 py-4 transition-all duration-300 ease-in-out" id="navbar">
         <div class="container mx-auto flex justify-center space-x-8 text-lg font-medium">
-            <a href="quide.html#hero" class="nav-link hover:text-white transition-colors duration-200">Home</a>
-            <a href="0-0-break-guide.html" class="nav-link hover:text-white transition-colors duration-200">0/0 Fix</a>
-            <a href="quide.html" class="nav-link hover:text-white transition-colors duration-200">Bypass</a>
+            <a href="bypass.html#hero" class="nav-link hover:text-white transition-colors duration-200">Home</a>
+            <a href="fix.html" class="nav-link hover:text-white transition-colors duration-200">0/0 Fix</a>
+            <a href="bypass.html" class="nav-link hover:text-white transition-colors duration-200">Bypass</a>
             <!-- New link to the Unstuck Guide -->
-            <a href="psari.html" class="nav-link hover:text-white transition-colors duration-200">Power Supply & Restart Info</a>
+            <a href="guide/psari.html" class="nav-link hover:text-white transition-colors duration-200">Power Supply & Restart Info</a>
             <a href="https://parsed.top/" class="nav-link hover:text-white transition-colors duration-200">Parsed.top </a>
         </div>
     </nav>
@@ -491,7 +491,7 @@
                         const currentNavLink = document.querySelector(`.nav-link[href="${currentNavLinkHref}"]`);
                         if (currentNavLink) {
                             currentNavLink.classList.add('active');
-                        } else if (!entry.target.id && window.location.pathname.endsWith('quide.html')) { // Special handling for home page
+                        } else if (!entry.target.id && window.location.pathname.endsWith('bypass.html')) { // Special handling for home page
                             document.querySelector('.nav-link[href="#hero"]').classList.add('active');
                         }
                     }
