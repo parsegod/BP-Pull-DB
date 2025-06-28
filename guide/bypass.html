@@ -219,7 +219,21 @@
         .nav-link:hover {
             color: #FFFFFF; /* White on hover for better visibility */
         }
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent; /* make scrollbar transparent */
+}
 
+/* For Firefox */
+html {
+    scrollbar-width: none; /* remove scrollbar space */
+}
+
+/* For Internet Explorer and Edge */
+body {
+    -ms-overflow-style: none; /* remove scrollbar space */
+}
     </style>
 </head>
 <body class="selection:bg-blue-500 selection:text-white">
