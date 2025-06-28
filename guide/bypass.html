@@ -491,7 +491,7 @@
                         const currentNavLink = document.querySelector(`.nav-link[href="${currentNavLinkHref}"]`);
                         if (currentNavLink) {
                             currentNavLink.classList.add('active');
-                        } else if (!entry.target.id && window.location.pathname.endsWith('guide/bypass.html')) { // Special handling for home page
+                        } else if (!entry.target.id && window.location.pathname.endsWith('bypass.html')) { // Special handling for home page
                             document.querySelector('.nav-link[href="#hero"]').classList.add('active');
                         }
                     }
