@@ -1544,7 +1544,7 @@
       "Name": "BO STAFF",
       "Category": "9",
       "Blueprints": [
-        { "Name": "SPLINTERSS CANE", "Pool": "1" },
+        { "Name": "SPLINTERS CANE", "Pool": "1" },
         { "Name": "NOTHING", "Pool": "2" },
         { "Name": "NOTHING", "Pool": "3" },
         { "Name": "NOTHING", "Pool": "4" },
