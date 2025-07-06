@@ -1255,7 +1255,86 @@
         { "Name": "NOTHING", "Pool": "8" },
         { "Name": "FLOW PIERCER", "Pool": "9" },
         { "Name": "NOTHING", "Pool": "10" },
-        { "Name": "", "Pool": "11" }
+        { "Name": "NOTHING", "Pool": "11" }
+        
+      ]
+    },
+    {
+      "Name": "OLYMPIA",
+      "Category": "8",
+      "Blueprints": [
+        { "Name": "NOTHING", "Pool": "1" },
+        { "Name": "NOTHING", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "3" },
+        { "Name": "NOTHING", "Pool": "4" },
+        { "Name": "NOTHING", "Pool": "5" },
+        { "Name": "NOTHING", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "8" },
+        { "Name": "NOTHING", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
+        { "Name": "NOTHING", "Pool": "19" },
+        { "Name": "NOTHING", "Pool": "20" }
+      ]
+    },
+    {
+      "Name": "KNIFE",
+      "Category": "9",
+      "Blueprints": [
+        { "Name": "UNRELEASED", "Pool": "1" },
+        { "Name": "LADLE", "Pool": "2" },
+        { "Name": "MINDS EYE", "Pool": "3" },
+        { "Name": "CASE CRACKER", "Pool": "4" },
+        { "Name": "NOTHING", "Pool": "5" },
+        { "Name": "NOTHING", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "8" },
+        { "Name": "NOTHING", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
+        { "Name": "NOTHING", "Pool": "19" },
+        { "Name": "NOTHING", "Pool": "20" }
+      ]
+    },
+    {
+      "Name": "BASEBALL BAT",
+      "Category": "9",
+      "Blueprints": [
+        { "Name": "NOTHING", "Pool": "1" },
+        { "Name": "NOTHING", "Pool": "2" },
+        { "Name": "NOTHING", "Pool": "3" },
+        { "Name": "NOTHING", "Pool": "4" },
+        { "Name": "NOTHING", "Pool": "5" },
+        { "Name": "NOTHING", "Pool": "6" },
+        { "Name": "NOTHING", "Pool": "7" },
+        { "Name": "NOTHING", "Pool": "8" },
+        { "Name": "NOTHING", "Pool": "9" },
+        { "Name": "NOTHING", "Pool": "10" },
+        { "Name": "NOTHING", "Pool": "11" },
+        { "Name": "NOTHING", "Pool": "12" },
+        { "Name": "NOTHING", "Pool": "13" },
+        { "Name": "NOTHING", "Pool": "14" },
+        { "Name": "NOTHING", "Pool": "15" },
+        { "Name": "NOTHING", "Pool": "16" },
+        { "Name": "NOTHING", "Pool": "17" },
+        { "Name": "NOTHING", "Pool": "18" },
+        { "Name": "NOTHING", "Pool": "19" },
+        { "Name": "NOTHING", "Pool": "20" }
       ]
     }
   ]
