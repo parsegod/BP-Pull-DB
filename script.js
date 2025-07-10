@@ -1,5 +1,3 @@
-// No Firebase imports or related global variables (db, auth, firestore, currentUserId) needed in this version.
-
 const tableBody = document.querySelector('#pullsTable tbody');
 const searchInput = document.getElementById('search');
 const categoryFilterContainer = document.getElementById('categoryCheckboxes');
@@ -25,15 +23,10 @@ const closeChangelogModalBtn = document.getElementById('closeChangelogModal');
 const changelogButton = document.getElementById('changelogButton');
 const changelogContentDiv = document.getElementById('changelogContent');
 
-// New elements for How To Use modal
 const howToUseModal = document.getElementById('howToUseModal');
 const closeHowToUseModalBtn = document = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
-const howToUseContentDiv = document.getElementById('howToUseContent'); // This is the main container for how-to sections
-
-
-// Removed reference to addChangelogEntryButton as it's no longer in HTML
-// Removed reference to userIdDisplay as it's no longer in HTML
+const howToUseContentDiv = document.getElementById('howToUseContent'); 
 
 const categoryMap = {
   "0": "ASSAULT RIFLES",
@@ -55,12 +48,11 @@ const categoryMapReverse = Object.fromEntries(
 let Weapons = [];
 let currentData = [];
 
-// Define changelog entries
 const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 𝗛𝗼𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 𝘄 𝗧𝗼 �𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝘀𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -178,7 +170,6 @@ const changelogEntries = [
   }
 ];
 
-// Function to load application data (weapon.json)
 function loadAppData() {
   fetch('assets/weapon.json')
     .then(res => res.json())
@@ -190,13 +181,12 @@ function loadAppData() {
       populateStatusFilter();
       applyFilters();
       searchView.classList.remove('hidden');
-      // Show changelog every time the page loads
+
       showChangelogModal();
     })
     .catch(err => console.error("Error on load:", err));
 }
 
-// Initial load of application data when DOM is ready
 document.addEventListener('DOMContentLoaded', loadAppData);
 
 function renderTable(data) {
@@ -208,13 +198,13 @@ function renderTable(data) {
   data.forEach(weapon => {
     weapon.Blueprints.forEach(blueprint => {
       totalCount++;
-      // Check for the new 'status' field, default to 'Normal' if not present
+
       const status = blueprint.status || 'Normal';
-      if (status === "UNRELEASED") { // Count UNRELEASED separately
+      if (status === "UNRELEASED") { 
         unreleasedCount++;
       } else if (status === "NOTHING") {
         nothingCount++;
-      } else { // 'Normal', 'RELEASED', or 'NOTEXTURE'
+      } else { 
         normalCount++;
       }
     });
@@ -231,9 +221,8 @@ function renderTable(data) {
     weapon.Blueprints.forEach(blueprint => {
       if (blueprint.Name === "") return;
 
-      // Use the new 'status' field, default to 'Normal' if not present
       const blueprintStatus = blueprint.status || 'Normal';
-      // An image can be displayed if the status is NOT "NOTHING" and NOT "NOTEXTURE"
+
       const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
 
       const row = document.createElement('tr');
@@ -255,13 +244,11 @@ function renderTable(data) {
       arrow.style.display = 'inline-block';
       arrow.style.width = '1.2em';
       arrow.style.textAlign = 'center';
-      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden'; // Visibility based on whether image can be displayed
+      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden'; 
 
-      // Create a span for the blueprint name to apply color
       const blueprintNameSpan = document.createElement('span');
       blueprintNameSpan.textContent = blueprint.Name;
 
-      // Apply color based on status
       if (blueprintStatus === "RELEASED") {
         blueprintNameSpan.classList.add('status-released');
       } else if (blueprintStatus === "UNRELEASED") {
@@ -269,13 +256,11 @@ function renderTable(data) {
       } else if (blueprintStatus === "NOTHING") {
         blueprintNameSpan.classList.add('status-nothing');
       } else if (blueprintStatus === "NOTEXTURE") {
-        blueprintNameSpan.classList.add('status-no-texture'); // Apply the correct class for NO-TEXTURE
+        blueprintNameSpan.classList.add('status-no-texture'); 
       }
-      // If blueprintStatus is "Normal" (default), no specific color class is added,
-      // so it will inherit the default text color.
 
       blueprintCell.appendChild(arrow);
-      blueprintCell.appendChild(blueprintNameSpan); // Append the colored span
+      blueprintCell.appendChild(blueprintNameSpan); 
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
@@ -284,7 +269,7 @@ function renderTable(data) {
 
       tableBody.appendChild(row);
 
-      if (canDisplayImage) { // Accordion row created only if image can be displayed
+      if (canDisplayImage) { 
         const accordionRow = document.createElement('tr');
         const accordionCell = document.createElement('td');
         accordionCell.colSpan = 4;
@@ -506,7 +491,6 @@ function populateStatusFilter() {
     buttonContainer.appendChild(deselectAllBtn);
     statusFilterContainer.appendChild(buttonContainer);
 
-    // Now include 'RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE' as status options
     const statusOptions = ['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE'];
 
     statusOptions.forEach(status => {
@@ -516,7 +500,7 @@ function populateStatusFilter() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.value = status;
-        // Default to showing RELEASED and UNRELEASED
+
         checkbox.checked = (status === 'RELEASED' || status === 'UNRELEASED');
         checkbox.addEventListener('change', applyFilters);
 
@@ -545,7 +529,7 @@ function applyFilters() {
         const inPool = activePools.includes(bp.Pool);
 
         let inStatus = false;
-        // Check blueprint's status field, default to 'Normal' if not present
+
         const blueprintStatus = bp.status || 'Normal';
 
         if (activeStatuses.includes('RELEASED') && blueprintStatus === "RELEASED") {
@@ -560,7 +544,7 @@ function applyFilters() {
         if (activeStatuses.includes('NOTEXTURE') && blueprintStatus === "NOTEXTURE") {
             inStatus = true;
         }
-        // If 'Normal' is selected, include blueprints that don't have specific statuses
+
         if (activeStatuses.includes('Normal') &&
             blueprintStatus !== "NOTHING" &&
             blueprintStatus !== "NOTEXTURE" &&
@@ -586,7 +570,6 @@ function applyFilters() {
   renderTable(filtered);
 }
 
-
 searchInput.addEventListener('input', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
@@ -603,8 +586,6 @@ function applyImageToggle() {
     const blueprintNameSpan = blueprintNameCell?.querySelector('span:last-child');
     const blueprintName = blueprintNameSpan ? blueprintNameSpan.textContent.trim() : '';
 
-    // Determine if the blueprint should display an image based on its class
-    // We need to check the class list of the blueprintNameSpan to determine its status
     const hasImageClass = blueprintNameSpan && (
         blueprintNameSpan.classList.contains('status-released') ||
         blueprintNameSpan.classList.contains('status-unreleased')
@@ -653,9 +634,21 @@ function applyImageToggle() {
   });
 }
 
+function closeAllDropdowns() {
+  const dropdowns = [categoryFilterContainer, poolFilterContainer, statusFilterContainer];
+  const arrows = [categoryArrow, poolArrow, statusArrow];
+
+  dropdowns.forEach((dropdown, index) => {
+    if (!dropdown.classList.contains('hidden')) {
+      dropdown.classList.add('hidden');
+      arrows[index].textContent = '▼';
+    }
+  });
+}
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
+  closeAllDropdowns(); 
   const isHidden = categoryFilterContainer.classList.toggle('hidden');
   categoryArrow.textContent = isHidden ? '▼' : '▲';
 });
@@ -672,6 +665,7 @@ document.addEventListener('click', (e) => {
 
 togglePoolDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
+  closeAllDropdowns(); 
   const isHidden = poolFilterContainer.classList.toggle('hidden');
   poolArrow.textContent = isHidden ? '▼' : '▲';
 });
@@ -687,6 +681,7 @@ document.addEventListener('click', (e) => {
 
 toggleStatusDropdown.addEventListener('click', (e) => {
     e.stopPropagation();
+    closeAllDropdowns(); 
     const isHidden = statusFilterContainer.classList.toggle('hidden');
     statusArrow.textContent = isHidden ? '▼' : '▲';
 });
@@ -740,10 +735,9 @@ changelogModal.addEventListener('click', (e) => {
   }
 });
 
-// Functions for How To Use modal
 function showHowToUseModal() {
   howToUseModal.classList.add('visible');
-  // Initialize the first tab as active when the modal opens
+
   showHowToTab('explanation');
 }
 
@@ -761,17 +755,14 @@ howToUseModal.addEventListener('click', (e) => {
   }
 });
 
-// Function to handle tab switching within How To Use modal
 function showHowToTab(tabId) {
-  // Get all tab buttons and content sections
+
   const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
   const tabContents = document.querySelectorAll('.how-to-sections .tab-content');
 
-  // Deactivate all tab buttons and hide all tab content
   tabButtons.forEach(button => button.classList.remove('active'));
   tabContents.forEach(content => content.classList.add('hidden'));
 
-  // Activate the clicked tab button and show its corresponding content
   const selectedButton = document.querySelector(`.how-to-tabs button[data-tab="${tabId}"]`);
   const selectedContent = document.getElementById(`${tabId}-content`);
 
@@ -783,7 +774,6 @@ function showHowToTab(tabId) {
   }
 }
 
-// Attach event listeners to tab buttons
 document.addEventListener('DOMContentLoaded', () => {
     const howToUseTabs = document.querySelector('.how-to-tabs');
     if (howToUseTabs) {
@@ -796,11 +786,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-// This function will now simply show the changelog every time the page loads
 function showChangelogOnPageLoad() {
   showChangelogModal();
 }
 
-// Call this function when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
