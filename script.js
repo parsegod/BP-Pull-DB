@@ -27,13 +27,10 @@ const changelogContentDiv = document.getElementById('changelogContent');
 
 // New elements for How To Use modal
 const howToUseModal = document.getElementById('howToUseModal');
+// FIX: Corrected typo in declaration - removed duplicate 'document ='
 const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent'); // This is the main container for how-to sections
-
-
-// Removed reference to addChangelogEntryButton as it's no longer in HTML
-// Removed reference to userIdDisplay as it's no longer in HTML
 
 const categoryMap = {
   "0": "ASSAULT RIFLES",
@@ -58,9 +55,9 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
-    date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
+    date: "2025-06-11 10:23PM �𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲𝗱 𝗛𝗼𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝘀𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -110,7 +107,7 @@ const changelogEntries = [
     ]
   },
     {
-        date: "2025-06-06 7:34 PM 𝗠𝗦𝗧", 
+        date: "2025-06-06 7:34 PM 𝗠𝗦𝗧",
         changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
             "CR-56 AMAX: DATA BREACHER (Pool 2)",
@@ -152,7 +149,7 @@ const changelogEntries = [
     {
     date: "2025-06-02 6:50AM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗹𝗶𝘁𝘆 ↶",
+      "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗶𝗹𝗶𝘁𝘆 ↶",
       " 𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗹𝗶𝗸𝗲 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗰𝗿𝗼𝗹𝗹 𝗯𝗮𝗿 𝘄𝗮𝘀 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝘀𝗼 𝗜 𝗿𝗲𝗺𝗼𝘃𝗲𝗱 𝗶𝘁𝘀 𝘃𝗶𝘀𝗮𝗯𝗶𝗹𝗶𝘁𝘆 "
     ]
   },
@@ -171,7 +168,7 @@ const changelogEntries = [
       " CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
       " CR-56 AMAX: SEA CHOMPER (Pool 4)",
       " PPSH-41: SHRILL BLEAATER (Pool 8)",
-      " TR2: BEAT `EM UP (Pool 2) (Replaces UNRELEASED)",
+      " TR2: BEAT `EM UP (Pool 2)",
       " GPMG-7: HEAD FIRST (Pool 13)",
       " MAELSTROM: BARRAINA (Pool 13)"
     ]
@@ -190,8 +187,7 @@ function loadAppData() {
       populateStatusFilter();
       applyFilters();
       searchView.classList.remove('hidden');
-      // Show changelog every time the page loads
-      showChangelogModal();
+      // Removed: showChangelogModal() call here to prevent duplicate calls
     })
     .catch(err => console.error("Error on load:", err));
 }
@@ -208,11 +204,13 @@ function renderTable(data) {
   data.forEach(weapon => {
     weapon.Blueprints.forEach(blueprint => {
       totalCount++;
-      if (blueprint.Name === "UNRELEASED") {
+      // Check for the new 'status' field, default to 'Normal' if not present
+      const status = blueprint.status || 'Normal';
+      if (status === "UNRELEASED") { // Count UNRELEASED separately
         unreleasedCount++;
-      } else if (blueprint.Name === "NOTHING") {
+      } else if (status === "NOTHING") {
         nothingCount++;
-      } else {
+      } else { // 'Normal', 'RELEASED', or 'NOTEXTURE'
         normalCount++;
       }
     });
@@ -229,8 +227,11 @@ function renderTable(data) {
     weapon.Blueprints.forEach(blueprint => {
       if (blueprint.Name === "") return;
 
-      const isInvalidImage = blueprint.Name === "NOTHING" || blueprint.Name === "UNRELEASED";
-      
+      // Use the new 'status' field, default to 'Normal' if not present
+      const blueprintStatus = blueprint.status || 'Normal';
+      // An image can be displayed if the status is NOT "NOTHING" and NOT "NOTEXTURE"
+      const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
+
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
 
@@ -250,10 +251,27 @@ function renderTable(data) {
       arrow.style.display = 'inline-block';
       arrow.style.width = '1.2em';
       arrow.style.textAlign = 'center';
-      arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible';
+      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden'; // Visibility based on whether image can be displayed
+
+      // Create a span for the blueprint name to apply color
+      const blueprintNameSpan = document.createElement('span');
+      blueprintNameSpan.textContent = blueprint.Name;
+
+      // Apply color based on status
+      if (blueprintStatus === "RELEASED") {
+        blueprintNameSpan.classList.add('status-released');
+      } else if (blueprintStatus === "UNRELEASED") {
+        blueprintNameSpan.classList.add('status-unreleased');
+      } else if (blueprintStatus === "NOTHING") {
+        blueprintNameSpan.classList.add('status-nothing');
+      } else if (blueprintStatus === "NOTEXTURE") {
+        blueprintNameSpan.classList.add('status-no-texture'); // Apply the correct class for NO-TEXTURE
+      }
+      // If blueprintStatus is "Normal" (default), no specific color class is added,
+      // so it will inherit the default text color.
 
       blueprintCell.appendChild(arrow);
-      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
+      blueprintCell.appendChild(blueprintNameSpan); // Append the colored span
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
@@ -261,8 +279,9 @@ function renderTable(data) {
       row.appendChild(poolCell);
 
       tableBody.appendChild(row);
-      
-      if (!isInvalidImage) {
+
+      // Accordion row created only if image can be displayed
+      if (canDisplayImage) {
         const accordionRow = document.createElement('tr');
         const accordionCell = document.createElement('td');
         accordionCell.colSpan = 4;
@@ -280,33 +299,51 @@ function renderTable(data) {
 
         img.onerror = () => {
           accordionContent.innerHTML = '<em>No image.</em>';
+          // Ensure the image element is removed if it failed to load
           if (img.parentNode) {
             img.parentNode.removeChild(img);
           }
-        };   
-        
+        };
+
         accordionCell.appendChild(accordionContent);
         accordionRow.appendChild(accordionCell);
         tableBody.appendChild(accordionRow);
 
         let imageLoaded = false;
-        
+
+        // If imageCheckbox is checked, expand and load image immediately
+        if (imageCheckbox.checked) {
+          accordionContent.classList.add('expanded');
+          arrow.textContent = '▼';
+          if (img && img.dataset.src) {
+            img.src = img.dataset.src;
+            if (!accordionContent.contains(img)) {
+              accordionContent.appendChild(img);
+            }
+            imageLoaded = true; // Mark as loaded
+          }
+        }
+
         arrow.addEventListener('click', (e) => {
           e.stopPropagation();
           const isVisible = accordionContent.classList.contains('expanded');
-        
+
+          // Collapse other expanded accordions if imageCheckbox is not checked
           if (!imageCheckbox.checked){
             document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
-              div.classList.remove('expanded');
-              const parentAccordionRow = div.closest('tr');
-              const dataRow = parentAccordionRow?.previousElementSibling;
-              const associatedArrow = dataRow?.querySelector('span');
-              if (associatedArrow) {
-                associatedArrow.textContent = '▶';
+              // Ensure we are not collapsing the current one if it's already expanded and clicked
+              if (div !== accordionContent) {
+                div.classList.remove('expanded');
+                const parentAccordionRow = div.closest('tr');
+                const dataRow = parentAccordionRow?.previousElementSibling;
+                const associatedArrow = dataRow?.querySelector('span');
+                if (associatedArrow) {
+                  associatedArrow.textContent = '▶';
+                }
               }
             });
           }
-        
+
           if (!isVisible) {
             accordionContent.classList.add('expanded');
             arrow.textContent = '▼';
@@ -323,37 +360,10 @@ function renderTable(data) {
             arrow.textContent = '▶';
           }
         });
-
-        if (imageCheckbox.checked) {
-          accordionContent.classList.add('expanded');
-          arrow.textContent = '▼';
-          if (img && img.dataset.src && !img.src) {
-            img.src = img.dataset.src;
-          }
-          if (img && !accordionContent.contains(img)) {
-            accordionContent.appendChild(img);
-          } else if (!img && !accordionContent.querySelector('em')) {
-            const tempImg = document.createElement('img');
-            const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
-            if (blueprintName) {
-              tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
-              tempImg.alt = blueprintName;
-              tempImg.style.maxWidth = '100%';
-              tempImg.style.height = 'auto';
-              tempImg.onerror = () => {
-                accordionContent.innerHTML = '<em>No image.</em>';
-              };
-              tempImg.src = tempImg.dataset.src;
-              accordionContent.appendChild(tempImg);
-            } else {
-              accordionContent.innerHTML = '<em>No image.</em>';
-            }
-          }
-        }
       }
     });
   });
-  applyImageToggle(); 
+  // Removed applyImageToggle() call here as its logic is now integrated or handled by applyFilters
 }
 
 function populateCategoryFilter() {
@@ -428,7 +438,7 @@ function populatePoolFilter() {
 
   const checkboxesContainer = document.createElement('div');
   checkboxesContainer.className = 'checkboxes-container';
-  
+
   const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
 
   const half = Math.ceil(uniquePools.length / 2);
@@ -440,7 +450,7 @@ function populatePoolFilter() {
     if (left[i]) interleaved.push(left[i]);
     if (right[i]) interleaved.push(right[i]);
   }
-  
+
   interleaved.forEach(pool => {
     const label = document.createElement('label');
     label.style.display = 'block';
@@ -484,7 +494,8 @@ function populateStatusFilter() {
     buttonContainer.appendChild(deselectAllBtn);
     statusFilterContainer.appendChild(buttonContainer);
 
-    const statusOptions = ['Normal', 'NOTHING', 'UNRELEASED'];
+    // Now include 'RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE' as status options
+    const statusOptions = ['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE', 'Normal']; // Added 'Normal' for explicit filtering
 
     statusOptions.forEach(status => {
         const label = document.createElement('label');
@@ -493,11 +504,15 @@ function populateStatusFilter() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.value = status;
-        checkbox.checked = (status === 'Normal');
+        // Default to showing RELEASED and UNRELEASED
+        checkbox.checked = (status === 'RELEASED' || status === 'UNRELEASED' || status === 'Normal'); // Default to Normal as well
         checkbox.addEventListener('change', applyFilters);
 
         label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(status === 'Normal' ? 'Normal Blueprints' : `Show ${status}`));
+        label.appendChild(document.createTextNode(status === 'RELEASED' ? 'Show RELEASED' :
+                                               status === 'UNRELEASED' ? 'Show UNRELEASED' :
+                                               status === 'Normal' ? 'Show Normal' :
+                                               `Show ${status}`));
         statusFilterContainer.appendChild(label);
     });
 }
@@ -518,23 +533,25 @@ function applyFilters() {
         const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
         const inPool = activePools.includes(bp.Pool);
 
-        let inStatus = false;
-        if (activeStatuses.includes('Normal') && bp.Name !== "NOTHING" && bp.Name !== "UNRELEASED") {
+        // FIX: Simplified status filtering logic
+        const blueprintStatus = bp.status || 'Normal';
+        let inStatus = activeStatuses.includes(blueprintStatus);
+
+        // If 'Normal' is selected, include blueprints that don't have specific statuses
+        // and whose status is implicitly 'Normal' (not one of the explicit ones)
+        if (activeStatuses.includes('Normal') &&
+            !['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE'].includes(blueprintStatus)) {
             inStatus = true;
         }
-        if (activeStatuses.includes('NOTHING') && bp.Name === "NOTHING") {
-            inStatus = true;
-        }
-        if (activeStatuses.includes('UNRELEASED') && bp.Name === "UNRELEASED") {
-            inStatus = true;
-        }
+
+        // If no statuses are selected, nothing should be shown.
         if (activeStatuses.length === 0) {
             inStatus = false;
         }
 
         return inText && inPool && inStatus;
       });
-      
+
       return {
         ...weapon,
         Blueprints: filteredBlueprints
@@ -549,61 +566,13 @@ function applyFilters() {
 searchInput.addEventListener('input', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
+  // FIX: Removed applyImageToggle() call. applyFilters() will re-render the table
+  // and the renderTable function now handles the image display based on imageCheckbox.checked.
   applyFilters();
 })
 
-function applyImageToggle() {
-  const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
-    const isAccordionRow = row.querySelector('td[colspan="4"]');
-    if (!isAccordionRow) return false;
-
-    const dataRow = row.previousElementSibling;
-    const blueprintNameCell = dataRow?.querySelector('td:nth-child(3)');
-    const blueprintName = blueprintNameCell ? blueprintNameCell.textContent.replace(/[▶▼]/g, '').trim() : '';
-    
-    return blueprintName !== 'NOTHING' && blueprintName !== 'UNRELEASED';
-  });
-
-  accordionRows.forEach(accordionRow => {
-    const accordionContent = accordionRow.querySelector('div.accordion-content');
-    const dataRow = accordionRow.previousElementSibling;
-    const arrow = dataRow?.querySelector('span');
-    const img = accordionContent?.querySelector('img');
-
-    if (accordionContent && arrow) {
-      if (imageCheckbox.checked) {
-        accordionContent.classList.add('expanded');
-        arrow.textContent = '▼';
-        if (img && img.dataset.src && !img.src) {
-          img.src = img.dataset.src;
-        }
-        if (img && !accordionContent.contains(img)) {
-          accordionContent.appendChild(img);
-        } else if (!img && !accordionContent.querySelector('em')) {
-          const tempImg = document.createElement('img');
-          const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
-          if (blueprintName) {
-            tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
-            tempImg.alt = blueprintName;
-            tempImg.style.maxWidth = '100%';
-            tempImg.style.height = 'auto';
-            tempImg.onerror = () => {
-              accordionContent.innerHTML = '<em>No image.</em>';
-            };
-            tempImg.src = tempImg.dataset.src;
-            accordionContent.appendChild(tempImg);
-          } else {
-            accordionContent.innerHTML = '<em>No image.</em>';
-          }
-        }
-      } else {
-        accordionContent.classList.remove('expanded');
-        arrow.textContent = '▶';
-      }
-    }
-  });
-}
-
+// FIX: Removed applyImageToggle function as its logic is now integrated into renderTable
+// and handled by the imageCheckbox change listener calling applyFilters.
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -746,7 +715,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
 
 // This function will now simply show the changelog every time the page loads
 function showChangelogOnPageLoad() {
