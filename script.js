@@ -26,7 +26,8 @@ const changelogContentDiv = document.getElementById('changelogContent');
 const howToUseModal = document.getElementById('howToUseModal');
 const closeHowToUseModalBtn = document = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
-const howToUseContentDiv = document.getElementById('howToUseContent'); 
+const howToUseContentDiv = document.getElementById('howToUseContent');
+
 
 const categoryMap = {
   "0": "ASSAULT RIFLES",
@@ -52,8 +53,8 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 𝘄 𝗧𝗼 �𝘂𝗶𝗱𝗲 ↶",
-      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝘀𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
+      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 �𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
     {
@@ -181,7 +182,6 @@ function loadAppData() {
       populateStatusFilter();
       applyFilters();
       searchView.classList.remove('hidden');
-
       showChangelogModal();
     })
     .catch(err => console.error("Error on load:", err));
@@ -198,13 +198,12 @@ function renderTable(data) {
   data.forEach(weapon => {
     weapon.Blueprints.forEach(blueprint => {
       totalCount++;
-
       const status = blueprint.status || 'Normal';
-      if (status === "UNRELEASED") { 
+      if (status === "UNRELEASED") {
         unreleasedCount++;
       } else if (status === "NOTHING") {
         nothingCount++;
-      } else { 
+      } else {
         normalCount++;
       }
     });
@@ -222,7 +221,6 @@ function renderTable(data) {
       if (blueprint.Name === "") return;
 
       const blueprintStatus = blueprint.status || 'Normal';
-
       const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
 
       const row = document.createElement('tr');
@@ -244,7 +242,7 @@ function renderTable(data) {
       arrow.style.display = 'inline-block';
       arrow.style.width = '1.2em';
       arrow.style.textAlign = 'center';
-      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden'; 
+      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden';
 
       const blueprintNameSpan = document.createElement('span');
       blueprintNameSpan.textContent = blueprint.Name;
@@ -256,11 +254,11 @@ function renderTable(data) {
       } else if (blueprintStatus === "NOTHING") {
         blueprintNameSpan.classList.add('status-nothing');
       } else if (blueprintStatus === "NOTEXTURE") {
-        blueprintNameSpan.classList.add('status-no-texture'); 
+        blueprintNameSpan.classList.add('status-no-texture');
       }
 
       blueprintCell.appendChild(arrow);
-      blueprintCell.appendChild(blueprintNameSpan); 
+      blueprintCell.appendChild(blueprintNameSpan);
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
@@ -269,7 +267,7 @@ function renderTable(data) {
 
       tableBody.appendChild(row);
 
-      if (canDisplayImage) { 
+      if (canDisplayImage) {
         const accordionRow = document.createElement('tr');
         const accordionCell = document.createElement('td');
         accordionCell.colSpan = 4;
@@ -500,7 +498,6 @@ function populateStatusFilter() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.value = status;
-
         checkbox.checked = (status === 'RELEASED' || status === 'UNRELEASED');
         checkbox.addEventListener('change', applyFilters);
 
@@ -529,7 +526,6 @@ function applyFilters() {
         const inPool = activePools.includes(bp.Pool);
 
         let inStatus = false;
-
         const blueprintStatus = bp.status || 'Normal';
 
         if (activeStatuses.includes('RELEASED') && blueprintStatus === "RELEASED") {
@@ -544,7 +540,6 @@ function applyFilters() {
         if (activeStatuses.includes('NOTEXTURE') && blueprintStatus === "NOTEXTURE") {
             inStatus = true;
         }
-
         if (activeStatuses.includes('Normal') &&
             blueprintStatus !== "NOTHING" &&
             blueprintStatus !== "NOTEXTURE" &&
@@ -569,6 +564,7 @@ function applyFilters() {
 
   renderTable(filtered);
 }
+
 
 searchInput.addEventListener('input', applyFilters);
 
@@ -648,9 +644,15 @@ function closeAllDropdowns() {
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
-  closeAllDropdowns(); 
-  const isHidden = categoryFilterContainer.classList.toggle('hidden');
-  categoryArrow.textContent = isHidden ? '▼' : '▲';
+  const isHidden = categoryFilterContainer.classList.contains('hidden');
+  if (isHidden) {
+    closeAllDropdowns();
+    categoryFilterContainer.classList.remove('hidden');
+    categoryArrow.textContent = '▲';
+  } else {
+    categoryFilterContainer.classList.add('hidden');
+    categoryArrow.textContent = '▼';
+  }
 });
 
 document.addEventListener('click', (e) => {
@@ -665,9 +667,15 @@ document.addEventListener('click', (e) => {
 
 togglePoolDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
-  closeAllDropdowns(); 
-  const isHidden = poolFilterContainer.classList.toggle('hidden');
-  poolArrow.textContent = isHidden ? '▼' : '▲';
+  const isHidden = poolFilterContainer.classList.contains('hidden');
+  if (isHidden) {
+    closeAllDropdowns();
+    poolFilterContainer.classList.remove('hidden');
+    poolArrow.textContent = '▲';
+  } else {
+    poolFilterContainer.classList.add('hidden');
+    poolArrow.textContent = '▼';
+  }
 });
 
 document.addEventListener('click', (e) => {
@@ -681,9 +689,15 @@ document.addEventListener('click', (e) => {
 
 toggleStatusDropdown.addEventListener('click', (e) => {
     e.stopPropagation();
-    closeAllDropdowns(); 
-    const isHidden = statusFilterContainer.classList.toggle('hidden');
-    statusArrow.textContent = isHidden ? '▼' : '▲';
+    const isHidden = statusFilterContainer.classList.contains('hidden');
+    if (isHidden) {
+      closeAllDropdowns();
+      statusFilterContainer.classList.remove('hidden');
+      statusArrow.textContent = '▲';
+    } else {
+      statusFilterContainer.classList.add('hidden');
+      statusArrow.textContent = '▼';
+    }
 });
 
 document.addEventListener('click', (e) => {
@@ -737,7 +751,6 @@ changelogModal.addEventListener('click', (e) => {
 
 function showHowToUseModal() {
   howToUseModal.classList.add('visible');
-
   showHowToTab('explanation');
 }
 
@@ -756,7 +769,6 @@ howToUseModal.addEventListener('click', (e) => {
 });
 
 function showHowToTab(tabId) {
-
   const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
   const tabContents = document.querySelectorAll('.how-to-sections .tab-content');
 
