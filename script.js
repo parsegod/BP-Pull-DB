@@ -27,7 +27,7 @@ const changelogContentDiv = document.getElementById('changelogContent');
 
 // New elements for How To Use modal
 const howToUseModal = document.getElementById('howToUseModal');
-const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
+const closeHowToUseModalBtn = document = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent'); // This is the main container for how-to sections
 
@@ -60,7 +60,7 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲𝗱 𝗛𝗼𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 �𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝘀𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -110,7 +110,7 @@ const changelogEntries = [
     ]
   },
     {
-        date: "2025-06-06 7:34 PM 𝗠𝗦𝗧", 
+        date: "2025-06-06 7:34 PM 𝗠𝗦𝗧",
         changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
             "CR-56 AMAX: DATA BREACHER (Pool 2)",
@@ -171,7 +171,7 @@ const changelogEntries = [
       " CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
       " CR-56 AMAX: SEA CHOMPER (Pool 4)",
       " PPSH-41: SHRILL BLEAATER (Pool 8)",
-      " TR2: BEAT `EM UP (Pool 2) (Replaces UNRELEASED)",
+      " TR2: BEAT `EM UP (Pool 2)",
       " GPMG-7: HEAD FIRST (Pool 13)",
       " MAELSTROM: BARRAINA (Pool 13)"
     ]
@@ -208,11 +208,13 @@ function renderTable(data) {
   data.forEach(weapon => {
     weapon.Blueprints.forEach(blueprint => {
       totalCount++;
-      if (blueprint.Name === "UNRELEASED") {
+      // Check for the new 'status' field, default to 'Normal' if not present
+      const status = blueprint.status || 'Normal';
+      if (status === "UNRELEASED") { // Count UNRELEASED separately
         unreleasedCount++;
-      } else if (blueprint.Name === "NOTHING") {
+      } else if (status === "NOTHING") {
         nothingCount++;
-      } else {
+      } else { // 'Normal', 'RELEASED', or 'NOTEXTURE'
         normalCount++;
       }
     });
@@ -229,8 +231,11 @@ function renderTable(data) {
     weapon.Blueprints.forEach(blueprint => {
       if (blueprint.Name === "") return;
 
-      const isInvalidImage = blueprint.Name === "NOTHING" || blueprint.Name === "UNRELEASED";
-      
+      // Use the new 'status' field, default to 'Normal' if not present
+      const blueprintStatus = blueprint.status || 'Normal';
+      // An image can be displayed if the status is NOT "NOTHING" and NOT "NOTEXTURE"
+      const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
+
       const row = document.createElement('tr');
       row.className = i % 2 === 0 ? 'even' : 'odd';
 
@@ -250,10 +255,27 @@ function renderTable(data) {
       arrow.style.display = 'inline-block';
       arrow.style.width = '1.2em';
       arrow.style.textAlign = 'center';
-      arrow.style.visibility = isInvalidImage ? 'hidden' : 'visible';
+      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden'; // Visibility based on whether image can be displayed
+
+      // Create a span for the blueprint name to apply color
+      const blueprintNameSpan = document.createElement('span');
+      blueprintNameSpan.textContent = blueprint.Name;
+
+      // Apply color based on status
+      if (blueprintStatus === "RELEASED") {
+        blueprintNameSpan.classList.add('status-released');
+      } else if (blueprintStatus === "UNRELEASED") {
+        blueprintNameSpan.classList.add('status-unreleased');
+      } else if (blueprintStatus === "NOTHING") {
+        blueprintNameSpan.classList.add('status-nothing');
+      } else if (blueprintStatus === "NOTEXTURE") {
+        blueprintNameSpan.classList.add('status-no-texture'); // Apply the correct class for NO-TEXTURE
+      }
+      // If blueprintStatus is "Normal" (default), no specific color class is added,
+      // so it will inherit the default text color.
 
       blueprintCell.appendChild(arrow);
-      blueprintCell.appendChild(document.createTextNode(blueprint.Name));
+      blueprintCell.appendChild(blueprintNameSpan); // Append the colored span
       row.appendChild(blueprintCell);
 
       const poolCell = document.createElement('td');
@@ -261,8 +283,8 @@ function renderTable(data) {
       row.appendChild(poolCell);
 
       tableBody.appendChild(row);
-      
-      if (!isInvalidImage) {
+
+      if (canDisplayImage) { // Accordion row created only if image can be displayed
         const accordionRow = document.createElement('tr');
         const accordionCell = document.createElement('td');
         accordionCell.colSpan = 4;
@@ -283,18 +305,18 @@ function renderTable(data) {
           if (img.parentNode) {
             img.parentNode.removeChild(img);
           }
-        };   
-        
+        };
+
         accordionCell.appendChild(accordionContent);
         accordionRow.appendChild(accordionCell);
         tableBody.appendChild(accordionRow);
 
         let imageLoaded = false;
-        
+
         arrow.addEventListener('click', (e) => {
           e.stopPropagation();
           const isVisible = accordionContent.classList.contains('expanded');
-        
+
           if (!imageCheckbox.checked){
             document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
               div.classList.remove('expanded');
@@ -306,7 +328,7 @@ function renderTable(data) {
               }
             });
           }
-        
+
           if (!isVisible) {
             accordionContent.classList.add('expanded');
             arrow.textContent = '▼';
@@ -353,7 +375,7 @@ function renderTable(data) {
       }
     });
   });
-  applyImageToggle(); 
+  applyImageToggle();
 }
 
 function populateCategoryFilter() {
@@ -428,7 +450,7 @@ function populatePoolFilter() {
 
   const checkboxesContainer = document.createElement('div');
   checkboxesContainer.className = 'checkboxes-container';
-  
+
   const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
 
   const half = Math.ceil(uniquePools.length / 2);
@@ -440,7 +462,7 @@ function populatePoolFilter() {
     if (left[i]) interleaved.push(left[i]);
     if (right[i]) interleaved.push(right[i]);
   }
-  
+
   interleaved.forEach(pool => {
     const label = document.createElement('label');
     label.style.display = 'block';
@@ -484,7 +506,8 @@ function populateStatusFilter() {
     buttonContainer.appendChild(deselectAllBtn);
     statusFilterContainer.appendChild(buttonContainer);
 
-    const statusOptions = ['Normal', 'NOTHING', 'UNRELEASED'];
+    // Now include 'RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE' as status options
+    const statusOptions = ['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE'];
 
     statusOptions.forEach(status => {
         const label = document.createElement('label');
@@ -493,11 +516,14 @@ function populateStatusFilter() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.value = status;
-        checkbox.checked = (status === 'Normal');
+        // Default to showing RELEASED and UNRELEASED
+        checkbox.checked = (status === 'RELEASED' || status === 'UNRELEASED');
         checkbox.addEventListener('change', applyFilters);
 
         label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(status === 'Normal' ? 'Normal Blueprints' : `Show ${status}`));
+        label.appendChild(document.createTextNode(status === 'RELEASED' ? 'Show RELEASED' :
+                                               status === 'UNRELEASED' ? 'Show UNRELEASED' :
+                                               `Show ${status}`));
         statusFilterContainer.appendChild(label);
     });
 }
@@ -519,22 +545,37 @@ function applyFilters() {
         const inPool = activePools.includes(bp.Pool);
 
         let inStatus = false;
-        if (activeStatuses.includes('Normal') && bp.Name !== "NOTHING" && bp.Name !== "UNRELEASED") {
+        // Check blueprint's status field, default to 'Normal' if not present
+        const blueprintStatus = bp.status || 'Normal';
+
+        if (activeStatuses.includes('RELEASED') && blueprintStatus === "RELEASED") {
             inStatus = true;
         }
-        if (activeStatuses.includes('NOTHING') && bp.Name === "NOTHING") {
+        if (activeStatuses.includes('UNRELEASED') && blueprintStatus === "UNRELEASED") {
             inStatus = true;
         }
-        if (activeStatuses.includes('UNRELEASED') && bp.Name === "UNRELEASED") {
+        if (activeStatuses.includes('NOTHING') && blueprintStatus === "NOTHING") {
             inStatus = true;
         }
+        if (activeStatuses.includes('NOTEXTURE') && blueprintStatus === "NOTEXTURE") {
+            inStatus = true;
+        }
+        // If 'Normal' is selected, include blueprints that don't have specific statuses
+        if (activeStatuses.includes('Normal') &&
+            blueprintStatus !== "NOTHING" &&
+            blueprintStatus !== "NOTEXTURE" &&
+            blueprintStatus !== "RELEASED" &&
+            blueprintStatus !== "UNRELEASED") {
+            inStatus = true;
+        }
+
         if (activeStatuses.length === 0) {
             inStatus = false;
         }
 
         return inText && inPool && inStatus;
       });
-      
+
       return {
         ...weapon,
         Blueprints: filteredBlueprints
@@ -559,9 +600,17 @@ function applyImageToggle() {
 
     const dataRow = row.previousElementSibling;
     const blueprintNameCell = dataRow?.querySelector('td:nth-child(3)');
-    const blueprintName = blueprintNameCell ? blueprintNameCell.textContent.replace(/[▶▼]/g, '').trim() : '';
-    
-    return blueprintName !== 'NOTHING' && blueprintName !== 'UNRELEASED';
+    const blueprintNameSpan = blueprintNameCell?.querySelector('span:last-child');
+    const blueprintName = blueprintNameSpan ? blueprintNameSpan.textContent.trim() : '';
+
+    // Determine if the blueprint should display an image based on its class
+    // We need to check the class list of the blueprintNameSpan to determine its status
+    const hasImageClass = blueprintNameSpan && (
+        blueprintNameSpan.classList.contains('status-released') ||
+        blueprintNameSpan.classList.contains('status-unreleased')
+    );
+
+    return hasImageClass;
   });
 
   accordionRows.forEach(accordionRow => {
