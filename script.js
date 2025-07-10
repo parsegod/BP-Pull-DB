@@ -27,10 +27,13 @@ const changelogContentDiv = document.getElementById('changelogContent');
 
 // New elements for How To Use modal
 const howToUseModal = document.getElementById('howToUseModal');
-// FIX: Corrected typo in declaration - removed duplicate 'document ='
-const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
+const closeHowToUseModalBtn = document = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent'); // This is the main container for how-to sections
+
+
+// Removed reference to addChangelogEntryButton as it's no longer in HTML
+// Removed reference to userIdDisplay as it's no longer in HTML
 
 const categoryMap = {
   "0": "ASSAULT RIFLES",
@@ -55,9 +58,9 @@ let currentData = [];
 // Define changelog entries
 const changelogEntries = [
     {
-    date: "2025-06-11 10:23PM �𝗦𝗧",
+    date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨𝗽𝗮𝘁𝗲𝗱 �𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝘀𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -149,7 +152,7 @@ const changelogEntries = [
     {
     date: "2025-06-02 6:50AM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗶𝗹𝗶𝘁𝘆 ↶",
+      "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗹𝗶𝘁𝘆 ↶",
       " 𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗹𝗶𝗸𝗲 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗰𝗿𝗼𝗹𝗹 𝗯𝗮𝗿 𝘄𝗮𝘀 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝘀𝗼 𝗜 𝗿𝗲𝗺𝗼𝘃𝗲𝗱 𝗶𝘁𝘀 𝘃𝗶𝘀𝗮𝗯𝗶𝗹𝗶𝘁𝘆 "
     ]
   },
@@ -187,7 +190,8 @@ function loadAppData() {
       populateStatusFilter();
       applyFilters();
       searchView.classList.remove('hidden');
-      // Removed: showChangelogModal() call here to prevent duplicate calls
+      // Show changelog every time the page loads
+      showChangelogModal();
     })
     .catch(err => console.error("Error on load:", err));
 }
@@ -280,8 +284,7 @@ function renderTable(data) {
 
       tableBody.appendChild(row);
 
-      // Accordion row created only if image can be displayed
-      if (canDisplayImage) {
+      if (canDisplayImage) { // Accordion row created only if image can be displayed
         const accordionRow = document.createElement('tr');
         const accordionCell = document.createElement('td');
         accordionCell.colSpan = 4;
@@ -299,7 +302,6 @@ function renderTable(data) {
 
         img.onerror = () => {
           accordionContent.innerHTML = '<em>No image.</em>';
-          // Ensure the image element is removed if it failed to load
           if (img.parentNode) {
             img.parentNode.removeChild(img);
           }
@@ -311,35 +313,18 @@ function renderTable(data) {
 
         let imageLoaded = false;
 
-        // If imageCheckbox is checked, expand and load image immediately
-        if (imageCheckbox.checked) {
-          accordionContent.classList.add('expanded');
-          arrow.textContent = '▼';
-          if (img && img.dataset.src) {
-            img.src = img.dataset.src;
-            if (!accordionContent.contains(img)) {
-              accordionContent.appendChild(img);
-            }
-            imageLoaded = true; // Mark as loaded
-          }
-        }
-
         arrow.addEventListener('click', (e) => {
           e.stopPropagation();
           const isVisible = accordionContent.classList.contains('expanded');
 
-          // Collapse other expanded accordions if imageCheckbox is not checked
           if (!imageCheckbox.checked){
             document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
-              // Ensure we are not collapsing the current one if it's already expanded and clicked
-              if (div !== accordionContent) {
-                div.classList.remove('expanded');
-                const parentAccordionRow = div.closest('tr');
-                const dataRow = parentAccordionRow?.previousElementSibling;
-                const associatedArrow = dataRow?.querySelector('span');
-                if (associatedArrow) {
-                  associatedArrow.textContent = '▶';
-                }
+              div.classList.remove('expanded');
+              const parentAccordionRow = div.closest('tr');
+              const dataRow = parentAccordionRow?.previousElementSibling;
+              const associatedArrow = dataRow?.querySelector('span');
+              if (associatedArrow) {
+                associatedArrow.textContent = '▶';
               }
             });
           }
@@ -360,10 +345,37 @@ function renderTable(data) {
             arrow.textContent = '▶';
           }
         });
+
+        if (imageCheckbox.checked) {
+          accordionContent.classList.add('expanded');
+          arrow.textContent = '▼';
+          if (img && img.dataset.src && !img.src) {
+            img.src = img.dataset.src;
+          }
+          if (img && !accordionContent.contains(img)) {
+            accordionContent.appendChild(img);
+          } else if (!img && !accordionContent.querySelector('em')) {
+            const tempImg = document.createElement('img');
+            const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
+            if (blueprintName) {
+              tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
+              tempImg.alt = blueprintName;
+              tempImg.style.maxWidth = '100%';
+              tempImg.style.height = 'auto';
+              tempImg.onerror = () => {
+                accordionContent.innerHTML = '<em>No image.</em>';
+              };
+              tempImg.src = tempImg.dataset.src;
+              accordionContent.appendChild(tempImg);
+            } else {
+              accordionContent.innerHTML = '<em>No image.</em>';
+            }
+          }
+        }
       }
     });
   });
-  // Removed applyImageToggle() call here as its logic is now integrated or handled by applyFilters
+  applyImageToggle();
 }
 
 function populateCategoryFilter() {
@@ -495,7 +507,7 @@ function populateStatusFilter() {
     statusFilterContainer.appendChild(buttonContainer);
 
     // Now include 'RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE' as status options
-    const statusOptions = ['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE', 'Normal']; // Added 'Normal' for explicit filtering
+    const statusOptions = ['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE'];
 
     statusOptions.forEach(status => {
         const label = document.createElement('label');
@@ -505,13 +517,12 @@ function populateStatusFilter() {
         checkbox.type = 'checkbox';
         checkbox.value = status;
         // Default to showing RELEASED and UNRELEASED
-        checkbox.checked = (status === 'RELEASED' || status === 'UNRELEASED' || status === 'Normal'); // Default to Normal as well
+        checkbox.checked = (status === 'RELEASED' || status === 'UNRELEASED');
         checkbox.addEventListener('change', applyFilters);
 
         label.appendChild(checkbox);
         label.appendChild(document.createTextNode(status === 'RELEASED' ? 'Show RELEASED' :
                                                status === 'UNRELEASED' ? 'Show UNRELEASED' :
-                                               status === 'Normal' ? 'Show Normal' :
                                                `Show ${status}`));
         statusFilterContainer.appendChild(label);
     });
@@ -533,18 +544,31 @@ function applyFilters() {
         const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
         const inPool = activePools.includes(bp.Pool);
 
-        // FIX: Simplified status filtering logic
+        let inStatus = false;
+        // Check blueprint's status field, default to 'Normal' if not present
         const blueprintStatus = bp.status || 'Normal';
-        let inStatus = activeStatuses.includes(blueprintStatus);
 
+        if (activeStatuses.includes('RELEASED') && blueprintStatus === "RELEASED") {
+            inStatus = true;
+        }
+        if (activeStatuses.includes('UNRELEASED') && blueprintStatus === "UNRELEASED") {
+            inStatus = true;
+        }
+        if (activeStatuses.includes('NOTHING') && blueprintStatus === "NOTHING") {
+            inStatus = true;
+        }
+        if (activeStatuses.includes('NOTEXTURE') && blueprintStatus === "NOTEXTURE") {
+            inStatus = true;
+        }
         // If 'Normal' is selected, include blueprints that don't have specific statuses
-        // and whose status is implicitly 'Normal' (not one of the explicit ones)
         if (activeStatuses.includes('Normal') &&
-            !['RELEASED', 'UNRELEASED', 'NOTHING', 'NOTEXTURE'].includes(blueprintStatus)) {
+            blueprintStatus !== "NOTHING" &&
+            blueprintStatus !== "NOTEXTURE" &&
+            blueprintStatus !== "RELEASED" &&
+            blueprintStatus !== "UNRELEASED") {
             inStatus = true;
         }
 
-        // If no statuses are selected, nothing should be shown.
         if (activeStatuses.length === 0) {
             inStatus = false;
         }
@@ -566,13 +590,69 @@ function applyFilters() {
 searchInput.addEventListener('input', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
-  // FIX: Removed applyImageToggle() call. applyFilters() will re-render the table
-  // and the renderTable function now handles the image display based on imageCheckbox.checked.
   applyFilters();
 })
 
-// FIX: Removed applyImageToggle function as its logic is now integrated into renderTable
-// and handled by the imageCheckbox change listener calling applyFilters.
+function applyImageToggle() {
+  const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
+    const isAccordionRow = row.querySelector('td[colspan="4"]');
+    if (!isAccordionRow) return false;
+
+    const dataRow = row.previousElementSibling;
+    const blueprintNameCell = dataRow?.querySelector('td:nth-child(3)');
+    const blueprintNameSpan = blueprintNameCell?.querySelector('span:last-child');
+    const blueprintName = blueprintNameSpan ? blueprintNameSpan.textContent.trim() : '';
+
+    // Determine if the blueprint should display an image based on its class
+    // We need to check the class list of the blueprintNameSpan to determine its status
+    const hasImageClass = blueprintNameSpan && (
+        blueprintNameSpan.classList.contains('status-released') ||
+        blueprintNameSpan.classList.contains('status-unreleased')
+    );
+
+    return hasImageClass;
+  });
+
+  accordionRows.forEach(accordionRow => {
+    const accordionContent = accordionRow.querySelector('div.accordion-content');
+    const dataRow = accordionRow.previousElementSibling;
+    const arrow = dataRow?.querySelector('span');
+    const img = accordionContent?.querySelector('img');
+
+    if (accordionContent && arrow) {
+      if (imageCheckbox.checked) {
+        accordionContent.classList.add('expanded');
+        arrow.textContent = '▼';
+        if (img && img.dataset.src && !img.src) {
+          img.src = img.dataset.src;
+        }
+        if (img && !accordionContent.contains(img)) {
+          accordionContent.appendChild(img);
+        } else if (!img && !accordionContent.querySelector('em')) {
+          const tempImg = document.createElement('img');
+          const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
+          if (blueprintName) {
+            tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
+            tempImg.alt = blueprintName;
+            tempImg.style.maxWidth = '100%';
+            tempImg.style.height = 'auto';
+            tempImg.onerror = () => {
+              accordionContent.innerHTML = '<em>No image.</em>';
+            };
+            tempImg.src = tempImg.dataset.src;
+            accordionContent.appendChild(tempImg);
+          } else {
+            accordionContent.innerHTML = '<em>No image.</em>';
+          }
+        }
+      } else {
+        accordionContent.classList.remove('expanded');
+        arrow.textContent = '▶';
+      }
+    }
+  });
+}
+
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -715,6 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
 
 // This function will now simply show the changelog every time the page loads
 function showChangelogOnPageLoad() {
