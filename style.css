@@ -16,7 +16,8 @@ body {
   font-family: 'Inter', sans-serif;
   background: linear-gradient(270deg, #102A43, #0077B6);
   background-size: 400% 400%;
-  color: #e0e0e0;
+  color: #e0e0e0; /* Default text color, now bold */
+  font-weight: bold; /* Make body text bold */
   line-height: 1.6;
   animation: gradientAnimation 15s ease infinite;
   list-style: none; /* Ensure no default list styling on body if accidentally inherited */
@@ -92,6 +93,7 @@ body {
 
 .announcement-banner a:hover {
   color: #e0e0e0; /* Light text on hover */
+  font-weight: bold; /* Make hover link text bold */
 }
 
 
@@ -134,6 +136,7 @@ body {
   white-space: nowrap;
   z-index: 10;
   width: 100%;
+  font-weight: bold; /* Make motto bold */
 }
 
 /* Input and button styling */
@@ -146,6 +149,7 @@ input[type="search"],
   border-radius: 6px;
   font-size: 0.85em;
   transition: all 0.3s ease;
+  font-weight: bold; /* Make input and button text bold */
 }
 
 input[type="search"]:focus,
@@ -192,6 +196,7 @@ input[type="checkbox"]:checked::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-weight: bold; /* Make checkmark bold */
 }
 
 label {
@@ -272,9 +277,10 @@ label {
   transition: all 0.2s ease;
   width: calc(50% - 6px);
   box-sizing: border-box;
+  font-weight: bold; /* Make filter button text bold */
 }
 
-#categoryArrow, #poolArrow, #statusArrow {
+#categoryArrow, #poolArrow, #statusArrow, #imageStatusArrow {
   font-size: 0.6em;
   transition: transform 0.3s ease;
   pointer-events: none; /* Ensure arrow doesn't interfere with button click */
@@ -282,7 +288,8 @@ label {
 
 .filter-dropdown button[aria-expanded="true"] #categoryArrow,
 .filter-dropdown button[aria-expanded="true"] #poolArrow,
-.filter-dropdown button[aria-expanded="true"] #statusArrow {
+.filter-dropdown button[aria-expanded="true"] #statusArrow,
+.filter-dropdown button[aria-expanded="true"] #imageStatusArrow {
   transform: rotate(180deg);
 }
 
@@ -454,6 +461,7 @@ th.sorted-desc::after {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     font-size: 0.85em;
     color: #e0e0e0;
+    font-weight: bold; /* Make blueprint counter text bold */
 }
 
 .blueprint-counters p {
@@ -465,6 +473,45 @@ th.sorted-desc::after {
     font-weight: bold;
     color: #00A6FB;
 }
+
+/* New styles for blueprint status colors */
+.status-released {
+  font-weight: bold;
+  color: #00FF00; /* Bold Green */
+  -webkit-text-fill-color: #00FF00;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+}
+
+.status-unreleased {
+  font-weight: bold;
+  color: #FF0000; /* Bold Red */
+  -webkit-text-fill-color: #FF0000;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+}
+
+.status-no-texture {
+  font-weight: bold;
+  /* Updated to a solid bright gunpowder grey */
+  color: #c2c4c7; /* Bright Gunpowder Grey */
+  -webkit-text-fill-color: #c2c4c7;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+}
+
+.status-nothing {
+  font-weight: bold;
+  color: #000000; /* Pitch Black */
+  -webkit-text-fill-color: #000000;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+}
+
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
@@ -571,8 +618,8 @@ th.sorted-desc::after {
     text-align: center;
     text-transform: uppercase;
     background: none; /* Remove any gradient background */
-    -webkit-background-clip: unset;
     -webkit-text-fill-color: unset;
+    font-weight: bold; /* Make modal heading bold */
 }
 
 .modal-close-button {
@@ -587,6 +634,7 @@ th.sorted-desc::after {
     position: absolute;
     z-index: 10;
     transform: none; /* Ensure no lingering transforms */
+    font-weight: bold; /* Make close button text bold */
 }
 
 .modal-close-button:hover {
@@ -615,6 +663,7 @@ th.sorted-desc::after {
     position: relative;
     perspective: none; /* Remove any 3D effects */
     list-style: none;
+    font-weight: bold; /* Make changelog list item text bold */
 
     &::before { /* Remove any pseudo-element from previous interactions */
         content: none;
@@ -668,6 +717,7 @@ th.sorted-desc::after {
     padding-left: 20px;
     transition: color 0.2s ease;
     z-index: 1;
+    font-weight: bold; /* Make changelog sub-list item text bold */
 }
 
 .changelog-entries li ul li:last-child {
@@ -703,6 +753,7 @@ th.sorted-desc::after {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: bold; /* Make changelog button text bold */
 }
 
 .changelog-button:hover {
@@ -739,6 +790,7 @@ th.sorted-desc::after {
   box-shadow: 0 -4px 12px rgba(0,0,0,0.3); /* Stronger shadow */
   position: relative; /* For z-index and potential pseudo-elements */
   top: 1px; /* Align with bottom border of how-to-tabs */
+  font-weight: bold; /* Make tab button text bold */
 }
 
 .how-to-tabs .tab-button:hover {
@@ -802,41 +854,43 @@ th.sorted-desc::after {
   border: 1px solid rgba(0, 119, 182, 0.4); /* Subtle border for list items */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Small shadow for list items */
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  font-weight: bold; /* Make tab content list item text bold */
 }
 
 .tab-content li:last-child {
-    margin-bottom: 0; /* No bottom margin for the last list item */
+    margin-bottom: 0;
 }
 
 .tab-content li:hover {
-    background-color: rgba(0, 80, 140, 0.6); /* Darker background on hover */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Larger shadow on hover */
+    background-color: rgba(0, 80, 140, 0.6);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .tab-content li strong {
-  color: #00A6FB; /* Bright blue for strong text */
-  font-size: 1.1em; /* Larger font for strong text */
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Text shadow for strong text */
+  color: #00A6FB;
+  font-size: 1.1em;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 .tab-content li::before {
-  content: '✦'; /* More engaging bullet point */
-  color: #00A6FB; /* Bright blue bullet */
+  content: '✦';
+  color: #00A6FB;
   position: absolute;
-  left: 5px; /* Adjust position */
+  left: 5px;
   font-weight: bold;
-  font-size: 1.5em; /* Larger bullet point */
+  font-size: 1.5em;
   line-height: 1;
-  transform: translateY(-2px); /* Adjust vertical alignment */
+  transform: translateY(-2px);
 }
 
 .tab-content p {
   text-align: center;
   font-style: italic;
   color: #CCE0F0;
-  margin-top: 25px; /* More space above paragraph */
+  margin-top: 25px;
   font-size: 0.95em;
   padding: 10px;
-  background-color: rgba(13, 59, 102, 0.2); /* Light background for paragraphs */
+  background-color: rgba(13, 59, 102, 0.2);
   border-radius: 8px;
+  font-weight: bold; /* Make tab content paragraph text bold */
 }
