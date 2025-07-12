@@ -84,7 +84,7 @@
                         "red-400",
                         "purple-400"
                     ],
-                    "avatarDecorationUrl": "",
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true",
                     "dotsCount": 8,
                     "cardBgColor": "",
                     "cardRounded": "rounded-lg",
@@ -223,15 +223,13 @@
                                         <circle cx="54" cy="48" r="40" fill="white"></circle>
                                     </mask>
                                 </defs>
-                                <!-- foreignObject x, y, width, height adjusted to center the 80x80 PFP within 108x96 SVG: -->
-                                <!-- x = (108 - 80) / 2 = 14 -->
-                                <!-- y = (96 - 80) / 2 = 8 -->
+                                <!-- foreignObject comes FIRST so the PFP is the base layer -->
                                 <foreignObject x="14" y="8" width="80" height="80" mask="url(#${maskId})">
                                     <div class="avatarStack__44b0c">
                                         ${profileImageOrInitials}
                                     </div>
                                 </foreignObject>
-                                <!-- The decoration image is placed over the foreignObject and is NOT masked -->
+                                <!-- The decoration image is placed AFTER the foreignObject so it renders ON TOP of the PFP -->
                                 <image class="decoration-image" href="${contributor.avatarDecorationUrl}"
                                     x="0" y="0" width="108" height="96" />
                             </svg>
