@@ -193,7 +193,7 @@
                 // Determine if an image URL is provided, otherwise use initials
                 // The profile image/initials div itself should always be 80x80 (w-20 h-20)
                 const profileImageOrInitials = contributor.imageUrl
-                    ? `<img src="${contributor.imageUrl}" alt="${contributor.name}" class="w-20 h-20 rounded-full profile-img object-cover" onerror="this.onerror=null; this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png'">`
+                    ? `<img src="${contributor.imageUrl}" alt="${contributor.name}" class="w-20 h-20 rounded-full profile-img object-cover" onerror="this.onerror=null; this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png || '?'}'">`
                     : `<div class="w-20 h-20 ${contributor.initialsBgColor || 'bg-gray-500'} rounded-full flex items-center justify-content-center text-3xl font-bold">${contributor.initials || '??'}</div>`;
 
                 let profileContentHtml;
