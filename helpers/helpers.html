@@ -6,470 +6,25 @@
     <title>Hall Of Helpers</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Removed: <link rel="stylesheet" href="style.css" /> -->
-    <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-    <meta property="og:title" content="Blu Base" />
-    <meta property="og:description" content="Welcome to the hall of helpers!" />
-    <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
-    <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Blu Base" />
+  <meta property="og:title" content="Blu Base" />
+  <meta property="og:description" content="Welcome to the hall of helpers!" />
+  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Blu Base">
-    <meta name="twitter:description" content="your no.1 bp pull db!">
-    <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blu Base">
+  <meta name="twitter:description" content="your no.1 bp pull db!">
+  <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
     <!-- Preload the video for faster loading (logo will be visible immediately) -->
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
-
-    <!-- EMBEDDED TEXT EFFECT STYLES -->
-    <style>
-        /* Custom font for a cleaner look */
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: #0B1738; /* Matches main theme background */
-            margin: 0; /* Remove default body margin */
-            overflow: hidden; /* Prevent scrollbars during loading */
-        }
-        /* Ensure image covers the div without distortion */
-        .profile-img {
-            object-fit: cover;
-        }
-        /* Styles for the SVG avatar decoration container */
-        .avatar-decoration-svg {
-            position: relative;
-            width: 108px; /* Overall container for the decorated avatar, matches SVG width */
-            height: 96px; /* Overall container for the decorated avatar, matches SVG height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 16px; /* Added margin for consistency with profile-img */
-        }
-        /* The foreignObject itself will be explicitly sized and positioned in the SVG.
-           Its internal content (avatarStack and avatar) should fill it. */
-        .avatar-decoration-svg foreignObject {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* No explicit width/height here, it's set in the SVG tag */
-        }
-        .avatar-decoration-svg .avatarStack__44b0c {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%; /* Make avatarStack fill its foreignObject container */
-            height: 100%; /* Make avatarStack fill its foreignObject container */
-        }
-        /* The actual avatar image/initials div within the foreignObject */
-        .avatar-decoration-svg .avatar__44b0c {
-            width: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            height: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            border-radius: 50%; /* Ensure the image itself is round */
-            object-fit: cover; /* Ensure the image covers the circular area without distortion */
-        }
-        .avatar-decoration-svg .decoration-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Allow clicks to pass through to the underlying avatar */
-        }
-        /* Base styles for text effects */
-        .contributor-name {
-            transition: all 0.3s ease-in-out; /* Smooth transitions for effects */
-            display: inline-block; /* Required for some text effects */
-            white-space: nowrap; /* Prevent wrapping for some effects */
-        }
-
-        /* Text Effect Styles */
-        /* Glowing Text */
-        .glowing-text {
-            color: var(--glowing-color, #fff);
-            text-shadow: 0 0 5px var(--glowing-color, #fff),
-                         0 0 10px var(--glowing-color, #fff),
-                         0 0 15px var(--glowing-color, #fff),
-                         0 0 20px var(--glowing-color, #fff);
-        }
-
-        /* Rainbow Text */
-        .rainbow-text {
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
-            -webkit-text-fill-color: transparent;
-            animation: rainbow-glow 5s linear infinite;
-        }
-        .rainbow-text.with-glow {
-            text-shadow: 0 0 5px var(--rainbow-glow-color, #fff),
-                         0 0 10px var(--rainbow-glow-color, #fff);
-        }
-        @keyframes rainbow-glow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        /* Glitter Text */
-        .glitter-text {
-            background-color: var(--glitter-color-1, #ccc);
-            background-image: radial-gradient(circle, transparent 1px, var(--glitter-color-2, #eee) 1px),
-                              radial-gradient(circle, transparent 1px, var(--glitter-color-3, #fff) 1px);
-            background-size: 5px 5px, 15px 15px;
-            background-position: 0 0, 7px 7px;
-            -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Confetti Text */
-        .confetti-text {
-            background-image:
-                radial-gradient(circle at 10% 20%, var(--confetti-color-1, #ff0000) 1px, transparent 1px),
-                radial-gradient(circle at 30% 80%, var(--confetti-color-2, #00ff00) 1px, transparent 1px),
-                radial-gradient(circle at 60% 40%, var(--confetti-color-3, #0000ff) 1px, transparent 1px),
-                radial-gradient(circle at 80% 90%, var(--confetti-color-4, #ffff00) 1px, transparent 1px),
-                radial-gradient(circle at 50% 10%, var(--confetti-color-5, #ff00ff) 1px, transparent 1px),
-                radial-gradient(circle at 20% 60%, var(--confetti-color-6, #00ffff) 1px, transparent 1px);
-            background-size: 15px 15px;
-            -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
-            -webkit-text-fill-color: transparent;
-            animation: confetti-sparkle 1s infinite alternate;
-        }
-        @keyframes confetti-sparkle {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.05); opacity: 0.8; }
-        }
-
-        /* Fire Text */
-        .fire-text {
-            color: var(--fire-base-color, #FFA500); /* Base orange */
-            text-shadow:
-                0 0 5px var(--fire-shadow-1, #FF4500), /* Orange-red */
-                0 0 10px var(--fire-shadow-2, #FF8C00), /* Dark orange */
-                0 0 15px var(--fire-shadow-3, #FFD700), /* Gold */
-                0 0 20px var(--fire-shadow-4, #FFFF00), /* Yellow */
-                0 0 25px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)),
-                0 0 30px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)),
-                0 0 35px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)),
-                0 0 40px var(--fire-shadow-dark4, rgba(255, 255, 0, 0.5));
-            animation: fire-flicker 2s infinite alternate;
-        }
-        @keyframes fire-flicker {
-            0%, 100% { text-shadow: 0 0 5px var(--fire-shadow-1), 0 0 10px var(--fire-shadow-2); }
-            25% { text-shadow: 0 0 7px var(--fire-shadow-3), 0 0 12px var(--fire-shadow-4); }
-            50% { text-shadow: 0 0 6px var(--fire-shadow-dark1), 0 0 11px var(--fire-shadow-dark2); }
-            75% { text-shadow: 0 0 8px var(--fire-shadow-dark3), 0 0 13px var(--fire-shadow-dark4); }
-        }
-
-        /* Water Text */
-        .water-text {
-            color: var(--water-base-color, #ADD8E6); /* Light blue */
-            text-shadow:
-                0 0 5px var(--water-shadow-1, rgba(173, 216, 230, 0.7)),
-                0 0 10px var(--water-shadow-2, rgba(173, 216, 230, 0.5)),
-                0 0 15px var(--water-shadow-3, rgba(173, 216, 230, 0.3));
-            animation: water-ripple 3s infinite ease-in-out;
-        }
-        @keyframes water-ripple {
-            0%, 100% { transform: translateY(0); text-shadow: 0 0 5px var(--water-shadow-1); }
-            50% { transform: translateY(-3px); text-shadow: 0 5px 10px var(--water-shadow-2); }
-        }
-
-        /* Digital Glitch Text */
-        .digital-glitch-text {
-            color: var(--glitch-color, #0f0); /* Default bright green, customizable */
-            text-shadow:
-                0 0 7px var(--glitch-color, #0f0),
-                0 0 10px var(--glitch-color, #0f0),
-                0 0 21px var(--glitch-color, #0f0);
-            animation: glitch 0.5s infinite alternate;
-        }
-        @keyframes glitch {
-            0% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 2px 2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), -2px -2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
-            25% { text-shadow: 0 0 7px var(--glitch-color, #0f0), -2px 2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), 2px -2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
-            50% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 2px -2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), -2px 2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
-            75% { text-shadow: 0 0 7px var(--glitch-color, #0f0), -2px -2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), 2px 2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
-            100% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 0 0 0px rgba(255, 0, 0, 0), 0 0 0px rgba(0, 0, 255, 0); }
-        }
-
-        /* Metallic Text */
-        .metallic-text {
-            background: linear-gradient(180deg, var(--metallic-color-1, #BFBFBF) 0%, var(--metallic-color-2, #E6E6E6) 100%);
-            -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
-            -webkit-text-fill-color: transparent;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        .metallic-text.custom-metallic {
-            background: linear-gradient(180deg, var(--metallic-color-1), var(--metallic-color-2));
-            -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* 3D Text */
-        .text-3d {
-            color: var(--text-3d-color, #fff);
-            text-shadow:
-                1px 1px var(--text-3d-shadow-color, #000),
-                2px 2px var(--text-3d-shadow-color, #000),
-                3px 3px var(--text-3d-shadow-color, #000),
-                4px 4px var(--text-3d-shadow-color, #000),
-                5px 5px var(--text-3d-shadow-color, #000),
-                6px 6px var(--text-3d-shadow-color, #000);
-        }
-
-        /* Holographic Text */
-        .holographic-text {
-            color: var(--holographic-color, #AAFFFF);
-            text-shadow:
-                0 0 5px var(--holographic-shadow-1, rgba(170, 255, 255, 0.7)),
-                0 0 10px var(--holographic-shadow-2, rgba(170, 255, 255, 0.5)),
-                0 0 15px var(--holographic-shadow-3, rgba(170, 255, 255, 0.3));
-            animation: holographic-flicker 1s infinite alternate;
-        }
-        @keyframes holographic-flicker {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.01); }
-        }
-
-        /* Outline Text */
-        .outline-text {
-            -webkit-text-stroke-width: var(--outline-width, 1px);
-            -webkit-text-stroke-color: var(--outline-color, #4ade80);
-            -webkit-text-fill-color: var(--outline-fill-color, #fff);
-            color: var(--outline-fill-color, #fff); /* Fallback for non-webkit */
-        }
-
-        /* Neon Text */
-        .neon-text {
-            color: var(--neon-color, #fff);
-            text-shadow:
-                0 0 7px var(--neon-color, #fff),
-                0 0 10px var(--neon-color, #fff),
-                0 0 21px var(--neon-color, #fff),
-                0 0 42px var(--neon-glow-color, #0fa),
-                0 0 82px var(--neon-glow-color, #0fa),
-                0 0 92px var(--neon-glow-color, #0fa),
-                0 0 102px var(--neon-glow-color, #0fa),
-                0 0 151px var(--neon-glow-color, #0fa);
-        }
-
-        /* Shadow Text */
-        .shadow-text {
-            color: var(--shadow-text-color, #fff);
-            text-shadow: var(--shadow-x-offset, 2px) var(--shadow-y-offset, 2px) var(--shadow-blur, 4px) var(--shadow-color, rgba(0, 0, 0, 0.5));
-        }
-
-        /* Liquid Text */
-        .liquid-text {
-            color: var(--liquid-base-color, #ADD8E6);
-            text-shadow:
-                0 0 5px var(--liquid-shadow-1, rgba(173, 216, 230, 0.7)),
-                0 0 10px var(--liquid-shadow-2, rgba(173, 216, 230, 0.5)),
-                0 0 15px var(--liquid-shadow-3, rgba(173, 216, 230, 0.3));
-            animation: liquid-flow 3s infinite ease-in-out;
-        }
-        @keyframes liquid-flow {
-            0%, 100% { transform: translateY(0) scaleY(1); }
-            50% { transform: translateY(-2px) scaleY(1.05); }
-        }
-
-        /* Firefly Text */
-        .firefly-text {
-            position: relative;
-            color: var(--firefly-text-color, #fff);
-            text-shadow: 0 0 5px var(--firefly-glow-color, #FFD700),
-                         0 0 10px var(--firefly-glow-color, #FFD700),
-                         0 0 15px var(--firefly-glow-color, #FFD700);
-            animation: firefly-flicker 2s infinite alternate;
-        }
-        @keyframes firefly-flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Arcade Glitch Text */
-        .arcade-glitch-text {
-            position: relative;
-            color: var(--glitch-base-color, #0f0);
-            text-shadow:
-                var(--glitch-x-offset-red, 2px) var(--glitch-y-offset-red, 2px) 0 var(--glitch-red-color, rgba(255, 0, 0, 0.7)),
-                var(--glitch-x-offset-blue, -2px) var(--glitch-y-offset-blue, -2px) 0 var(--glitch-blue-color, rgba(0, 0, 255, 0.7));
-            animation: arcade-glitch 0.1s infinite alternate;
-        }
-        @keyframes arcade-glitch {
-            0% { text-shadow: var(--glitch-x-offset-red, 2px) var(--glitch-y-offset-red, 2px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, -2px) var(--glitch-y-offset-blue, -2px) 0 var(--glitch-blue-color); }
-            25% { text-shadow: var(--glitch-x-offset-red, -2px) var(--glitch-y-offset-red, -2px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, 2px) var(--glitch-y-offset-blue, 2px) 0 var(--glitch-blue-color); }
-            50% { text-shadow: var(--glitch-x-offset-red, 3px) var(--glitch-y-offset-red, 0px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, -3px) var(--glitch-y-offset-blue, 0px) 0 var(--glitch-blue-color); }
-            75% { text-shadow: var(--glitch-x-offset-red, 0px) var(--glitch-y-offset-red, 3px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, 0px) var(--glitch-y-offset-blue, -3px) 0 var(--glitch-blue-color); }
-            100% { text-shadow: var(--glitch-x-offset-red, 2px) var(--glitch-y-offset-red, 2px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, -2px) var(--glitch-y-offset-blue, -2px) 0 var(--glitch-blue-color); }
-        }
-
-        /* Wavy Text (requires span wrapping for each character) */
-        .wavy-text span {
-            display: inline-block;
-            animation: wavy-motion 1.5s infinite ease-in-out;
-            animation-delay: calc(var(--char-index) * 0.05s); /* Delay based on character index */
-        }
-        @keyframes wavy-motion {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* Video Background Styles */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: -1; /* Ensures the video stays behind all other content */
-            opacity: 1; /* Start visible */
-            visibility: visible; /* Ensure it's interactive */
-            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
-        }
-
-        .video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover; /* Ensures the video covers the entire container */
-            filter: brightness(0.6); /* Slightly darkens the video for better text readability */
-        }
-
-        /* New style for the main content container */
-        .main-content-bg {
-            width: calc(100% - 20px);
-            margin: 20px auto 20px auto; /* Existing margin-top is preserved */
-            padding: 15px;
-            background: rgba(11, 23, 56, 0.9); /* Transparency added previously */
-            border-radius: 0; /* Set to 0 to remove default rounding from all corners */
-            border-top-left-radius: 30px; /* Cut top-left corner */
-            border-top-right-radius: 30px; /* Cut top-right corner */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 2;
-            zoom:0.83;
-            padding-top: 200px; /* Adjusted to make space for logo and motto */
-        }
-
-        /* Initially show the main content */
-        #mainContent {
-          display: block;
-          opacity: 1; /* Start visible */
-          transition: opacity 1s ease-in-out; /* Smooth fade-in for main content */
-        }
-
-        /* Styles for the announcement banner */
-        .announcement-banner {
-          color: #ffffff;
-          text-align: center;
-          padding: 10px 0;
-          font-family: 'Oswald', sans-serif;
-          font-size: 1.1em;
-          font-weight: bold;
-          letter-spacing: 0.5px;
-          position: relative;
-          z-index: 1000;
-          /* Removed margin-bottom to match index.html */
-        }
-
-        .announcement-banner p {
-          margin: 0;
-        }
-
-        .announcement-banner a {
-          color: #059695;
-          text-decoration: underline;
-          font-weight: bold;
-          transition: color 0.2s ease;
-        }
-
-        .announcement-banner a:hover {
-          color: #D0D8E8;
-          text-decoration: underline;
-        }
-
-        .gradient-heart {
-          background: linear-gradient(to right, #059695, #0B1738);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          font-size: 1.2em;
-          display: inline-block;
-          line-height: 1;
-          vertical-align: middle;
-        }
-
-        /* Style for the logo */
-        .logo {
-          width: 200px;
-          height: auto;
-          margin-left: auto;
-          margin-right: auto;
-          display: block;
-          margin-bottom: 0px;
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .logo:hover {
-          transform: scale(1.05);
-        }
-
-        /* Style for the motto */
-        .motto {
-          background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          color: transparent;
-          font-family: 'Dancing Script', cursive;
-          font-size: 1.8em;
-          text-align: center;
-          white-space: nowrap;
-          width: 100%;
-          font-weight: bold;
-          text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-          margin-top: 0;
-          margin-bottom: 30px;
-        }
-
-        /* Media queries for responsiveness */
-        @media (max-width: 768px) {
-            .logo {
-                width: 180px;
-            }
-
-            .motto {
-                font-size: 1.5em;
-            }
-            .main-content-bg {
-                padding-top: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                width: 100px;
-            }
-
-            .motto {
-                font-size: 1.5em;
-            }
-        }
-    </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center">
     <!-- Video Background -->
@@ -501,100 +56,7 @@
             <!-- Contributors Grid Section - Dynamic Content -->
             <!-- Added justify-center to center the grid items when there are fewer than max columns -->
             <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
-                <!-- Contributor 1: @retrodaz -->
-                <div class="bg-gray-700 rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #4ade80 0%, #3b82f6 100%); background-size: cover;">
-                    <div class="profile-picture-container">
-                        <div class="profile-picture-container">
-                            <div class="w-20 h-20 rounded-full profile-img mb-4 object-cover">
-                                <img src="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024" alt="@retrodaz" class="w-20 h-20 rounded-full profile-img object-cover">
-                            </div>
-                        </div>
-                    </div>
-                    <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" data-text="@retrodaz" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
-                    </a>
-                    <p class="text-gray-200 text-sm mb-4">Led the discovery of the majority of unreleased pools from Season 4R, as well as various other seasons. Additionally, was responsible for identifying the BO6 Melee pools.</p>
-                    <div class="flex gap-2 mb-4">
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                    </div>
-                </div>
-
-                <!-- Contributor 2: @realcorndog999 -->
-                <div class="bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #49007a 0%, #1b4383 100%); background-size: cover;">
-                    <div class="profile-picture-container">
-                        <div class="avatar-decoration-svg">
-                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
-                                <defs>
-                                    <mask id="svg-mask-avatar-decoration-status-round-as">
-                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
-                                    </mask>
-                                </defs>
-                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#svg-mask-avatar-decoration-status-round-as)">
-                                    <div class="avatarStack__44b0c">
-                                        <img src="https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=4096" alt="@realcorndog999" class="w-20 h-20 rounded-full profile-img object-cover">
-                                    </div>
-                                </foreignObject>
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true" x="0" y="0" width="108" height="96"></image>
-                            </svg>
-                        </div>
-                    </div>
-                    <a href="https://discordlookup.com/user/703365791122456707" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name liquid-text" data-effect="liquid" style="--liquid-base-color: #3d54ff; --liquid-shadow-1: #3d54ffB3; --liquid-shadow-2: #3d54ff80; --liquid-shadow-3: #3d54ff4D;">@realcorndog999</h3>
-                    </a>
-                    <p class="text-gray-200 text-sm mb-4">Responsible for designating the majority of MW3 Melee Pools. Also a lead helper in designating Unreleased Season 4R pools.</p>
-                    <div class="flex gap-2 mb-4">
-                        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-pink-400"></span>
-                    </div>
-                </div>
-
-                <!-- Contributor 3: @junglewut -->
-                <div class="bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #ded94a 2%, #000000 80%); background-size: cover;">
-                    <div class="profile-picture-container">
-                        <div class="avatar-decoration-svg">
-                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
-                                <defs>
-                                    <mask id="svg-mask-avatar-decoration-status-round-mb">
-                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
-                                    </mask>
-                                </defs>
-                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#svg-mask-avatar-decoration-status-round-mb)">
-                                    <div class="avatarStack__44b0c">
-                                        <img src="https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=4096" alt="@junglewut" class="w-20 h-20 rounded-full profile-img object-cover">
-                                    </div>
-                                </foreignObject>
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true" x="0" y="0" width="108" height="96"></image>
-                            </svg>
-                        </div>
-                    </div>
-                    <a href="https://discordlookup.com/user/690926649122456701" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name firefly-text" data-effect="firefly" style="--firefly-text-color: #ffffff; --firefly-glow-color: #ffd700;">@junglewut</h3>
-                    </a>
-                    <p class="text-gray-200 text-sm mb-4">The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.</p>
-                    <div class="flex gap-2 mb-4">
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-pink-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-cyan-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-orange-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-teal-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-indigo-400"></span>
-                    </div>
-                </div>
+                <!-- Contributor cards will be rendered here by JavaScript -->
             </div>
 
             <!-- Footer Section -->
@@ -606,8 +68,102 @@
 
     <script>
         (function() { // IIFE for scope isolation
-            // No need for contributors data here anymore as it's directly in HTML
-            // const contributors = []; // This array is now empty or removed
+            // Directly embed contributor data from contributors.json
+            const contributors = [
+                {
+                    "id": "jd",
+                    "initials": "JD",
+                    "name": "@retrodaz",
+                    "description": "Led the discovery of the majority of unreleased pools from Season 4R, as well as various other seasons. Additionally, was responsible for identifying the BO6 Melee pools.",
+                    "bgColor": "bg-blue-700",
+                    "initialsBgColor": "bg-blue-500",
+                    "imageUrl": "https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024",
+                    "dots": [
+                        "green-400",
+                        "yellow-400",
+                        "red-400",
+                        "purple-400"
+                    ],
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true",
+                    "dotsCount": 8,
+                    "cardBgColor": "",
+                    "cardRounded": "rounded-lg",
+                    "textEffect": "digital-glitch",
+                    "textEffectProps": {
+                        "--glitch-color": "#00ff00",
+                        "--glitch-red-offset": "hsla(0, 100%, 50%, 0.5)",
+                        "--glitch-blue-offset": "hsla(240, 100%, 50%, 0.5)"
+                    },
+                    "useGradient": true,
+                    "cardGradient": "linear-gradient(90deg, #4ade80 0%, #3b82f6 100%)",
+                    "gradientType": "linear",
+                    "gradientAngle": 90,
+                    "radialGradientShape": "circle",
+                    "radialGradientExtent": "farthest-corner",
+                    "nameLinkUrl": "https://discordlookup.com/user/848647666425528371"
+                },
+                {
+                    "id": "as",
+                    "initials": "R",
+                    "name": "@realcorndog999",
+                    "description": "Responsible for designating the majority of MW3 Melee Pools. Also a lead helper in designating Unreleased Season 4R pools.",
+                    "bgColor": "bg-green-700",
+                    "initialsBgColor": "bg-green-500",
+                    "imageUrl": "https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=4096",
+                    "dots": [
+                        "blue-400",
+                        "green-400",
+                        "yellow-400"
+                    ],
+                    "textEffect": "liquid",
+                    "textEffectProps": {
+                        "--liquid-base-color": "#3d54ff",
+                        "--liquid-shadow-1": "#3d54ffB3",
+                        "--liquid-shadow-2": "#3d54ff80",
+                        "--liquid-shadow-3": "#3d54ff4D"
+                    },
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true",
+                    "dotsCount": 6,
+                    "cardBgColor": "",
+                    "cardRounded": "rounded-xl",
+                    "useGradient": true,
+                    "cardGradient": "linear-gradient(90deg, #49007a 0%, #1b4383 100%)",
+                    "gradientType": "linear",
+                    "gradientAngle": 90,
+                    "radialGradientShape": "circle",
+                    "radialGradientExtent": "farthest-corner",
+                    "nameLinkUrl": "https://discordlookup.com/user/703365791122456707"
+                },
+                {
+                    "id": "mb",
+                    "initials": "@",
+                    "name": "@junglewut",
+                    "description": "The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.",
+                    "bgColor": "bg-orange-700",
+                    "initialsBgColor": "bg-orange-500",
+                    "imageUrl": "https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=4096",
+                    "dots": [
+                        "red-400",
+                        "purple-400"
+                    ],
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true",
+                    "dotsCount": 10,
+                    "useGradient": true,
+                    "cardBgColor": "",
+                    "cardGradient": "linear-gradient(90deg, #ded94a 2%, #000000 80%)",
+                    "gradientType": "linear",
+                    "gradientAngle": 90,
+                    "radialGradientShape": "circle",
+                    "radialGradientExtent": "farthest-corner",
+                    "cardRounded": "rounded-xl",
+                    "textEffect": "firefly",
+                    "textEffectProps": {
+                        "--firefly-text-color": "#ffffff",
+                        "--firefly-glow-color": "#ffd700"
+                    },
+                    "nameLinkUrl": "https://discordlookup.com/user/690926649318834201"
+                },
+            ];
 
             // DOM Elements
             const contributorsGrid = document.getElementById('contributors-grid');
@@ -617,27 +173,158 @@
                 return '_' + Math.random().toString(36).substr(2, 9);
             };
 
-            // Function to render a single contributor card - This function is now mostly for reference
-            // as cards are pre-rendered in HTML
+            // Function to render a single contributor card
             const createContributorCard = (contributor) => {
-                // This function is largely irrelevant now as the HTML is static.
-                // It's kept here as a placeholder in case dynamic rendering is re-introduced.
-                console.warn("createContributorCard is called but cards are now static in HTML.");
-                return document.createElement('div'); // Return dummy div
+                // Use dynamic background and roundedness classes
+                // Added max-w-sm and mx-auto to center and limit the width of each card
+                const cardClasses = `bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto
+                                     ${contributor.cardRounded || 'rounded-xl'}`;
+
+                const card = document.createElement('div');
+                card.className = cardClasses;
+                card.dataset.id = contributor.id; // Store ID on the card element
+
+                // Apply background color or gradient
+                if (contributor.useGradient && contributor.cardGradient) {
+                    card.style.backgroundImage = contributor.cardGradient;
+                    card.style.backgroundColor = ''; // Clear solid background if gradient is used
+                    card.style.backgroundSize = 'cover';
+                } else if (contributor.cardBgColor) {
+                    const match = contributor.cardBgColor.match(/bg-\[(#[0-9a-fA-F]{3,6})\]/);
+                    if (match) {
+                        card.style.backgroundColor = match[1];
+                        card.style.backgroundImage = ''; // Clear gradient if solid color is used
+                    } else {
+                        card.classList.add(contributor.cardBgColor); // Fallback to Tailwind class if not hex
+                        card.style.backgroundImage = ''; // Clear gradient
+                    }
+                }
+
+
+                // Determine if an image URL is provided, otherwise use initials
+                // The profile image/initials div itself should always be 80x80 (w-20 h-20)
+                const profileImageOrInitials = contributor.imageUrl
+                    ? `<img src="${contributor.imageUrl}" alt="${contributor.name}" class="w-20 h-20 rounded-full profile-img object-cover" onerror="this.onerror=null; this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png'">`
+                    : `<div class="w-20 h-20 ${contributor.initialsBgColor || 'bg-gray-500'} rounded-full flex items-center justify-content-center text-3xl font-bold">${contributor.initials || '??'}</div>`;
+
+                let profileContentHtml;
+                // If an avatar decoration URL is provided, use the new SVG structure
+                if (contributor.avatarDecorationUrl) {
+                    // Generate a unique ID for the clipPath for each avatar
+                    const clipPathId = `svg-clip-path-avatar-${contributor.id || generateUniqueId()}`;
+                    profileContentHtml = `
+                        <div class="avatar-decoration-svg">
+                            <!-- SVG dimensions and viewBox adjusted to match the user's example (108x96) -->
+                            <svg width="108" height="96" viewBox="0 0 108 96" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
+                                <defs>
+                                    <!-- Define a circular clipPath for the profile picture -->
+                                    <clipPath id="${clipPathId}">
+                                        <!-- This circle defines the visible area for the avatar (80px diameter) -->
+                                        <!-- Centered within the 108x96 SVG, considering the PFP is 80x80 and offset by x=14, y=8 -->
+                                        <circle cx="54" cy="48" r="40"></circle>
+                                    </clipPath>
+                                </defs>
+
+                                <!-- The profile picture as a native SVG image, clipped by the circle -->
+                                <!-- x, y, width, height adjusted to center the 80x80 PFP within 108x96 SVG: -->
+                                <!-- x = (108 - 80) / 2 = 14 -->
+                                <!-- y = (96 - 80) / 2 = 8 -->
+                                <image href="${contributor.imageUrl}" x="14" y="8" width="80" height="80"
+                                    clip-path="url(#${clipPathId})" preserveAspectRatio="xMidYMid slice"
+                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+
+                                <!-- The decoration image is placed AFTER the profile picture so it renders ON TOP -->
+                                <image class="decoration-image" href="${contributor.avatarDecorationUrl}"
+                                    x="0" y="0" width="108" height="96" preserveAspectRatio="xMidYMid slice" />
+                            </svg>
+                        </div>
+                    `;
+                } else {
+                    // Otherwise, just use the profile image/initials directly
+                    // Retaining mb-4 for consistency when no decoration is present
+                    // Adjusted to w-20 h-20 to match the 80x80px size
+                    profileContentHtml = `<div class="profile-picture-container">
+                                            <div class="w-20 h-20 rounded-full profile-img mb-4 object-cover">
+                                                ${profileImageOrInitials}
+                                            </div>
+                                          </div>`;
+                }
+
+                // Generate dots based on dotsCount
+                const dotColors = ['blue-400', 'green-400', 'red-400', 'purple-400', 'yellow-400', 'pink-400', 'cyan-400', 'orange-400', 'teal-400', 'indigo-400']; // More predefined colors
+                let generatedDotsHtml = '';
+                const numDots = contributor.dotsCount || 0;
+                for (let i = 0; i < numDots; i++) {
+                    const color = dotColors[i % dotColors.length]; // Cycle through colors
+                    generatedDotsHtml += `<span class="w-4 h-4 rounded-full bg-${color}"></span>`;
+                }
+
+                // Apply existing text effect if any
+                const currentEffectClass = contributor.textEffect ? `${contributor.textEffect}-text` : '';
+                const currentEffectDataset = contributor.textEffect || 'none';
+
+                // Special handling for effects that need `data-text` or span wrapping
+                let nameContent = contributor.name;
+                let dataTextAttribute = '';
+                if (currentEffectDataset === 'digital-glitch' || currentEffectDataset === 'arcade-glitch') {
+                    dataTextAttribute = `data-text="${contributor.name}"`;
+                } else if (currentEffectDataset === 'wavy') {
+                    nameContent = contributor.name.split('').map((char, index) => `<span style="--char-index: ${index};">${char}</span>`).join('');
+                }
+
+
+                let nameHtml = `<h3 class="text-xl font-semibold mb-1 contributor-name ${currentEffectClass}" data-effect="${currentEffectDataset}" ${dataTextAttribute}>${nameContent}</h3>`;
+
+                // Wrap name in an anchor tag if nameLinkUrl is provided
+                if (contributor.nameLinkUrl) {
+                    nameHtml = `<a href="${contributor.nameLinkUrl}" target="_blank" class="hover:underline">${nameHtml}</a>`;
+                }
+
+
+                card.innerHTML = `
+                    <div class="profile-picture-container">
+                        ${profileContentHtml}
+                    </div>
+                    ${nameHtml}
+                    <p class="text-gray-200 text-sm mb-4">${contributor.description}</p>
+                    <div class="flex gap-2 mb-4">
+                        ${generatedDotsHtml}
+                    </div>
+                `;
+
+                // Apply stored custom CSS variables for the effect
+                if (contributor.textEffectProps) {
+                    for (const key in contributor.textEffectProps) {
+                        const nameElement = card.querySelector('.contributor-name');
+                        if (nameElement) {
+                            nameElement.style.setProperty(key, contributor.textEffectProps[key]);
+                        }
+                    }
+                }
+
+                return card;
             };
 
-            // Function to render all contributors - This function now just logs a message
+            // Function to render all contributors
             const renderContributors = (data) => {
-                console.log('[Client] Contributors are pre-rendered in HTML. No dynamic rendering needed.');
-                // contributorsGrid.innerHTML = ''; // No need to clear or re-render
+                console.log('[Client] Rendering contributors...');
+                contributorsGrid.innerHTML = ''; // Clear existing cards
+                if (data.length === 0) {
+                    contributorsGrid.innerHTML = '<p class="col-span-full text-center text-gray-400">No contributors found.</p>';
+                    return;
+                }
+                data.forEach(contributor => {
+                    contributorsGrid.appendChild(createContributorCard(contributor));
+                });
+                console.log('Contributors rendered successfully.');
             };
 
             // Initial rendering of contributors when the page loads
             document.addEventListener('DOMContentLoaded', () => {
-                console.log('[Client] DOMContentLoaded event fired.');
-                // No need to call renderContributors(contributors) as HTML is static
+                console.log('[Client] DOMContentLoaded event fired. Rendering contributors from embedded JSON.');
+                renderContributors(contributors);
 
-                // Autoplay video on DOMContentLoaded
+                // Autoplay video on DOMContentLoaded since there's no loading screen
                 const videoElement = document.getElementById('backgroundVideo');
                 if (videoElement) {
                     videoElement.play().catch(error => {
