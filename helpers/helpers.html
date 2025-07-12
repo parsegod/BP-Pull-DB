@@ -25,74 +25,264 @@
     <!-- Preload the video for faster loading (logo will be visible immediately) -->
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
-    <!-- EMBEDDED TEXT EFFECT STYLES AND NEW CUSTOM CARD EFFECTS -->
+    <!-- Consolidated CSS from index.html and style.css -->
     <style>
-        /* Custom font for a cleaner look */
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: #0B1738; /* Matches main theme background */
-            margin: 0; /* Remove default body margin */
-            overflow-x: hidden; /* Prevent horizontal scrolling */
-            overflow-y: auto; /* Allow vertical scrolling */
+        /* General Body and HTML styles from style.css */
+        html {
+            box-sizing: border-box;
         }
-        /* Ensure image covers the div without distortion */
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-size: 400% 400%;
+            color: #D0D8E8;
+            font-weight: bold;
+            line-height: 1.6;
+            animation: gradientAnimation 15s ease infinite;
+            list-style: none; /* Ensure no default list styles */
+            background-color: #0B1738; /* From index.html body style */
+        }
+
+        /* Scrollbar styles from style.css */
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1A2B4D;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2C487C;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7CA0E0;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: #1A2B4D;
+        }
+
+        ::-webkit-scrollbar-button {
+            background: #1A2B4D;
+            height: 0;
+            width: 0;
+        }
+
+        /* Gradient Animation from style.css */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Video Background styles from style.css and index.html */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 1; /* Always visible for helpers.html */
+            visibility: visible; /* Always visible for helpers.html */
+            transition: opacity 1s ease-in-out;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        /* Announcement Banner from style.css */
+        .announcement-banner {
+            background: rgba(11, 23, 56, 0.7);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            position: relative; /* Changed to relative for flow, fixed for index.html */
+            z-index: 1000;
+        }
+
+        .announcement-banner p {
+            margin: 0;
+        }
+
+        .gradient-heart {
+            background: linear-gradient(to right, #059695, #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.2em;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .announcement-banner a {
+            color: #059695;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .announcement-banner a:hover {
+            color: #059695;
+            font-weight: bold;
+        }
+
+        /* Main Content Container - Replicating .container from index.html/style.css */
+        .container {
+            width: calc(100% - 20px);
+            max-width: 900px;
+            min-width: 320px;
+            margin: 20px auto 20px auto;
+            padding: 25px;
+            background: rgba(11, 23, 56, 0.95);
+            border-radius: 0;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(44, 72, 124, 0.6);
+            position: relative;
+            z-index: 2;
+            zoom: 0.85; /* Kept for exact replication, though generally avoided */
+            min-height: calc(100vh - 40px);
+            padding-top: 250px; /* Space for logo and motto */
+        }
+
+        /* Logo from style.css */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: auto;
+            z-index: 10;
+            margin-bottom: 0px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .logo:hover {
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        /* Motto from style.css */
+        .motto {
+            position: absolute;
+            top: 180px; /* Adjusted to be below the logo */
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
+            text-align: center;
+            white-space: nowrap;
+            width: 100%;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+            margin-top: 0;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+
+        /* #mainContent - Always visible for helpers.html */
+        #mainContent {
+            display: block;
+            opacity: 1;
+            margin-top: 0; /* No extra margin needed here as container handles spacing */
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Profile image object-fit */
         .profile-img {
             object-fit: cover;
         }
-        /* Styles for the SVG avatar decoration container */
+
+        /* Avatar decoration SVG styles */
         .avatar-decoration-svg {
             position: relative;
-            /* Adjusted dimensions to bring decoration closer to avatar */
-            width: 100px; /* Reduced from 120px */
-            height: 100px; /* Reduced from 120px */
+            width: 100px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 16px; /* Added margin for consistency with profile-img */
-            /* Performance optimizations */
+            margin-bottom: 16px;
             will-change: transform, opacity;
-            transform: translateZ(0); /* Forces hardware acceleration */
+            transform: translateZ(0);
         }
-        /* The foreignObject itself will be explicitly sized and positioned in the SVG.
-           Its internal content (avatarStack and avatar) should fill it. */
         .avatar-decoration-svg foreignObject {
             display: flex;
             justify-content: center;
             align-items: center;
-            /* No explicit width/height here, it's set in the SVG tag */
         }
         .avatar-decoration-svg .avatarStack__44b0c {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%; /* Make avatarStack fill its foreignObject container */
-            height: 100%; /* Make avatarStack fill its foreignObject container */
+            width: 100%;
+            height: 100%;
         }
-        /* The actual avatar image/initials div within the foreignObject */
         .avatar-decoration-svg .avatar__44b0c {
-            width: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            height: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            border-radius: 50%; /* Ensure the image itself is round */
-            object-fit: cover; /* Ensure the image covers the circular area without distortion */
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .avatar-decoration-svg .decoration-image {
             position: absolute;
             top: 0;
             left: 0;
-            pointer-events: none; /* Allow clicks to pass through to the underlying avatar */
-            /* Performance optimizations */
+            pointer-events: none;
             will-change: transform, opacity;
-            transform: translateZ(0); /* Forces hardware acceleration */
-        }
-        /* Base styles for text effects */
-        .contributor-name {
-            transition: all 0.3s ease-in-out; /* Smooth transitions for effects */
-            display: inline-block; /* Required for some text effects */
-            white-space: nowrap; /* Prevent wrapping for some effects */
+            transform: translateZ(0);
         }
 
-        /* Text Effect Styles */
-        /* Glowing Text */
+        /* Contributor name text effects base style */
+        .contributor-name {
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        /* Text Effect Styles (copied directly) */
         .glowing-text {
             color: var(--glowing-color, #fff);
             text-shadow: 0 0 5px var(--glowing-color, #fff),
@@ -100,12 +290,10 @@
                          0 0 15px var(--glowing-color, #fff),
                          0 0 20px var(--glowing-color, #fff);
         }
-
-        /* Rainbow Text */
         .rainbow-text {
             background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: rainbow-glow 5s linear infinite;
         }
@@ -117,8 +305,6 @@
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
         }
-
-        /* Glitter Text */
         .glitter-text {
             background-color: var(--glitter-color-1, #ccc);
             background-image: radial-gradient(circle, transparent 1px, var(--glitter-color-2, #eee) 1px),
@@ -126,11 +312,9 @@
             background-size: 5px 5px, 15px 15px;
             background-position: 0 0, 7px 7px;
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        /* Confetti Text */
         .confetti-text {
             background-image:
                 radial-gradient(circle at 10% 20%, var(--confetti-color-1, #ff0000) 1px, transparent 1px),
@@ -141,7 +325,7 @@
                 radial-gradient(circle at 20% 60%, var(--confetti-color-6, #00ffff) 1px, transparent 1px);
             background-size: 15px 15px;
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: confetti-sparkle 1s infinite alternate;
         }
@@ -149,15 +333,13 @@
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.05); opacity: 0.8; }
         }
-
-        /* Fire Text */
         .fire-text {
-            color: var(--fire-base-color, #FFA500); /* Base orange */
+            color: var(--fire-base-color, #FFA500);
             text-shadow:
-                0 0 5px var(--fire-shadow-1, #FF4500), /* Orange-red */
-                0 0 10px var(--fire-shadow-2, #FF8C00), /* Dark orange */
-                0 0 15px var(--fire-shadow-3, #FFD700), /* Gold */
-                0 0 20px var(--fire-shadow-4, #FFFF00), /* Yellow */
+                0 0 5px var(--fire-shadow-1, #FF4500),
+                0 0 10px var(--fire-shadow-2, #FF8C00),
+                0 0 15px var(--fire-shadow-3, #FFD700),
+                0 0 20px var(--fire-shadow-4, #FFFF00),
                 0 0 25px rgba(255, 69, 0, 0.8),
                 0 0 30px rgba(255, 140, 0, 0.7),
                 0 0 35px rgba(255, 215, 0, 0.6),
@@ -171,10 +353,8 @@
             75% { text-shadow: 0 0 8px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)), 0 0 13px var(--fire-shadow-dark4, rgba(255, 255, 0, 0.5)); }
             100% { text-shadow: 0 0 7px var(--fire-shadow-1), 0 0 10px var(--fire-shadow-2); }
         }
-
-        /* Water Text */
         .water-text {
-            color: var(--water-base-color, #ADD8E6); /* Light blue */
+            color: var(--water-base-color, #ADD8E6);
             text-shadow:
                 0 0 5px var(--water-shadow-1, rgba(173, 216, 230, 0.7)),
                 0 0 10px var(--water-shadow-2, rgba(173, 216, 230, 0.5)),
@@ -185,10 +365,8 @@
             0%, 100% { transform: translateY(0); text-shadow: 0 0 5px var(--water-shadow-1); }
             50% { transform: translateY(-3px); text-shadow: 0 5px 10px var(--water-shadow-2); }
         }
-
-        /* Digital Glitch Text */
         .digital-glitch-text {
-            color: var(--glitch-color, #0f0); /* Default bright green, customizable */
+            color: var(--glitch-color, #0f0);
             text-shadow:
                 0 0 7px var(--glitch-color, #0f0),
                 0 0 10px var(--glitch-color, #0f0),
@@ -202,23 +380,19 @@
             75% { text-shadow: 0 0 7px var(--glitch-color, #0f0), -2px -2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), 2px 2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
             100% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 0 0 0px rgba(255, 0, 0, 0), 0 0 0px rgba(0, 0, 255, 0); }
         }
-
-        /* Metallic Text */
         .metallic-text {
             background: linear-gradient(180deg, var(--metallic-color-1, #BFBFBF) 0%, var(--metallic-color-2, #E6E6E6) 100%);
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         .metallic-text.custom-metallic {
             background: linear-gradient(180deg, var(--metallic-color-1), var(--metallic-color-2));
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        /* 3D Text */
         .text-3d {
             color: var(--text-3d-color, #fff);
             text-shadow:
@@ -229,8 +403,6 @@
                 5px 5px var(--text-3d-shadow-color, #000),
                 6px 6px var(--text-3d-shadow-color, #000);
         }
-
-        /* Holographic Text */
         .holographic-text {
             color: var(--holographic-color, #AAFFFF);
             text-shadow:
@@ -243,16 +415,12 @@
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.01); }
         }
-
-        /* Outline Text */
         .outline-text {
             -webkit-text-stroke-width: var(--outline-width, 1px);
             -webkit-text-stroke-color: var(--outline-color, #4ade80);
             -webkit-text-fill-color: var(--outline-fill-color, #fff);
-            color: var(--outline-fill-color, #fff); /* Fallback for non-webkit */
+            color: var(--outline-fill-color, #fff);
         }
-
-        /* Neon Text */
         .neon-text {
             color: var(--neon-color, #fff);
             text-shadow:
@@ -265,14 +433,10 @@
                 0 0 102px var(--neon-glow-color, #0fa),
                 0 0 151px var(--neon-glow-color, #0fa);
         }
-
-        /* Shadow Text */
         .shadow-text {
             color: var(--shadow-text-color, #fff);
             text-shadow: var(--shadow-x-offset, 2px) var(--shadow-y-offset, 2px) var(--shadow-blur, 4px) var(--shadow-color, rgba(0, 0, 0, 0.5));
         }
-
-        /* Liquid Text */
         .liquid-text {
             color: var(--liquid-base-color, #ADD8E6);
             text-shadow:
@@ -283,13 +447,11 @@
         }
         @keyframes liquid-flow {
             0% { transform: translateY(0) scaleY(1); }
-            25% { transform: translateY(-3px) scaleY(1.08) skewX(2deg); } /* Added skewX for wave effect */
+            25% { transform: translateY(-3px) scaleY(1.08) skewX(2deg); }
             50% { transform: translateY(0) scaleY(1) skewX(0deg); }
-            75% { transform: translateY(-3px) scaleY(1.08) skewX(-2deg); } /* Added skewX for wave effect */
+            75% { transform: translateY(-3px) scaleY(1.08) skewX(-2deg); }
             100% { transform: translateY(0) scaleY(1); }
         }
-
-        /* Firefly Text */
         .firefly-text {
             position: relative;
             color: var(--firefly-text-color, #fff);
@@ -302,8 +464,6 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.8; }
         }
-
-        /* Arcade Glitch Text */
         .arcade-glitch-text {
             position: relative;
             color: var(--glitch-base-color, #0f0);
@@ -319,196 +479,17 @@
             75% { text-shadow: 0 0 7px var(--glitch-color, #0f0), -2px -2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), 2px 2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
             100% { text-shadow: var(--glitch-x-offset-red, 2px) var(--glitch-y-offset-red, 2px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, -2px) var(--glitch-y-offset-blue, -2px) 0 var(--glitch-blue-color); }
         }
-
-        /* Wavy Text (requires span wrapping for each character) */
         .wavy-text span {
             display: inline-block;
             animation: wavy-motion 1.5s infinite ease-in-out;
-            animation-delay: calc(var(--char-index) * 0.05s); /* Delay based on character index */
+            animation-delay: calc(var(--char-index) * 0.05s);
         }
         @keyframes wavy-motion {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
 
-        /* Video Background Styles */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: -1; /* Ensures the video stays behind all other content */
-            opacity: 1; /* Always visible */
-            visibility: visible; /* Always visible */
-            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
-        }
-
-        .video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover; /* Ensures the video covers the entire container */
-            filter: brightness(0.6); /* Slightly darkens the video for better text readability */
-        }
-
-        /* Main Content Container - Replicating .container from index.html */
-        .main-content-bg {
-            width: 96%; /* Consistent with index.html's mobile media query for .container */
-            max-width: 900px; /* From index.html */
-            min-width: 320px; /* From index.html */
-            margin: 10px auto; /* From index.html's mobile media query for .container */
-            padding: 25px; /* From index.html */
-            background: rgba(11, 23, 56, 0.95); /* From index.html */
-            border-radius: 0;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* From index.html */
-            border: 1px solid rgba(44, 72, 124, 0.6); /* From index.html */
-            position: relative;
-            z-index: 2;
-            min-height: calc(100vh - 40px); /* From index.html */
-            padding-top: 180px; /* Adjusted to match index.html's visual top spacing for content below logo/motto */
-        }
-
-        /* #mainContent - Adjusted for non-loading page */
-        #mainContent {
-          display: block; /* Always visible */
-          opacity: 1; /* Always visible */
-          margin-top: 40px; /* Added margin-top to create space below the fixed banner */
-          transition: opacity 1s ease-in-out; /* Smooth fade-in for main content */
-        }
-
-        /* Announcement Banner - Copied from index.html/style.css */
-        .announcement-banner {
-          background: rgba(11, 23, 56, 0.7);
-          color: #ffffff;
-          text-align: center;
-          padding: 10px 0;
-          font-family: 'Oswald', sans-serif;
-          font-size: 1.1em;
-          font-weight: bold;
-          letter-spacing: 0.5px;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 1000;
-        }
-
-        .announcement-banner p {
-          margin: 0;
-        }
-
-        .announcement-banner a {
-          color: #059695;
-          text-decoration: underline;
-          font-weight: bold;
-          transition: color 0.2s ease;
-        }
-
-        .announcement-banner a:hover {
-          color: #D0D8E8;
-          text-decoration: underline;
-        }
-
-        .gradient-heart {
-          background: linear-gradient(to right, #059695, #0B1738);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          font-size: 1.2em;
-          display: inline-block;
-          line-height: 1;
-          vertical-align: middle;
-        }
-
-        /* Logo - Copied from index.html/style.css, with absolute positioning */
-        .logo {
-          position: absolute;
-          top: 30px; /* Relative to .main-content-bg */
-          left: 50%;
-          transform: translateX(-50%);
-          width: 180px; /* Default width */
-          height: auto;
-          z-index: 10;
-          margin-bottom: 0px;
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .logo:hover {
-          transform: translateX(-50%) scale(1.05);
-        }
-
-        /* Motto - Copied from index.html/style.css, with absolute positioning */
-        .motto {
-          position: absolute;
-          top: 120px; /* Adjusted to be below the logo */
-          left: 50%;
-          transform: translateX(-50%);
-          background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          color: transparent;
-          font-family: 'Dancing Script', cursive;
-          font-size: 1.8em;
-          text-align: center;
-          white-space: nowrap;
-          width: 100%;
-          font-weight: bold;
-          text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-          margin-top: 0;
-          margin-bottom: 30px;
-          z-index: 10;
-        }
-
-        /* Media queries for responsiveness - Combined and refined */
-        @media (max-width: 768px) {
-            .main-content-bg {
-                width: 96%;
-                padding: 10px;
-                padding-top: 180px; /* Ensure enough space for logo/motto on smaller screens */
-                margin: 10px auto;
-            }
-            .logo {
-                width: 120px;
-                top: 15px;
-            }
-
-            .motto {
-                font-size: 1.2em;
-                top: 120px;
-                white-space: normal; /* Allow text to wrap */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-content-bg {
-                width: 96%;
-                padding: 10px;
-                padding-top: 180px;
-                margin: 10px auto;
-            }
-            .logo {
-                width: 120px;
-                top: 15px;
-            }
-
-            .motto {
-                font-size: 1.2em;
-                top: 120px;
-                white-space: normal;
-            }
-        }
-
-        /* --- NEW CUSTOM CARD BACKGROUND EFFECTS --- (Keeping as is, seem fine) */
+        /* Card specific styles */
         .contributor-card {
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
             border-radius: 1rem;
@@ -588,11 +569,361 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* Adjusted gap to the grid for closer spacing between cards */
         #contributors-grid {
-            gap: 1rem; /* Reduced from 1.5rem for closer spacing */
+            gap: 1rem;
         }
 
+        /* Media Queries - Consolidated and matched to index.html/style.css */
+        @media (max-width: 768px) {
+            .container {
+                width: 96%;
+                padding: 10px;
+                padding-top: 180px;
+                margin: 10px auto;
+            }
+
+            .logo {
+                width: 120px;
+                top: 15px;
+            }
+
+            .motto {
+                font-size: 1.2em;
+                top: 120px;
+                white-space: normal; /* Allow text to wrap on mobile */
+            }
+
+            /* Styles specific to index.html components not present in helpers.html, but kept for completeness */
+            .loadingLogo {
+                width: 150px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                z-index: 9999;
+            }
+            .search-filter-section {
+                padding: 15px 10px;
+            }
+            .search-bar-row {
+                flex-direction: column;
+                gap: 8px;
+                max-width: none;
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                align-items: flex-start;
+            }
+            .search-bar-row input[type="search"] {
+                width: 100%;
+                max-width: none;
+                font-size: 0.8em;
+                padding: 8px 10px;
+            }
+            .filter-dropdown {
+                width: 100%;
+                max-width: none;
+            }
+            .checkbox-controls {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+                justify-content: center;
+                padding: 5px 0;
+                width: 100%;
+            }
+            .checkbox-controls label {
+                width: 100%;
+                margin: 0;
+                text-align: left;
+                padding-left: 12px;
+            }
+            .contributions-button-container {
+                margin-bottom: 10px;
+            }
+            #contributionsButton {
+                width: calc(100% - 20px);
+                margin: 0 10px;
+            }
+            .blueprint-counters {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+                font-size: 0.8em;
+            }
+            table {
+                border: 0;
+            }
+            table thead {
+                display: none;
+            }
+            table tr {
+                display: block;
+                margin-bottom: 0.625em;
+                border: 1px solid #1A2B4D;
+                border-radius: 8px;
+                background-color: rgba(11, 23, 56, 0.9);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            table td {
+                border-bottom: 1px solid #1A2B4D;
+                display: block;
+                font-size: 0.8em;
+                text-align: center;
+                padding: 0.625em 0.825em;
+                position: relative;
+                white-space: normal;
+                text-overflow: clip;
+            }
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #7CA0E0;
+                margin-right: 1em;
+            }
+            table td:last-child {
+                border-bottom: 0;
+            }
+            th:nth-child(1), td:nth-child(1),
+            th:nth-child(2), td:nth-child(2),
+            th:nth-child(3), td:nth-child(3),
+            th:nth-child(4), td:nth-child(4) {
+                width: auto;
+                flex: none;
+            }
+            tr td:nth-child(3), tr th:nth-child(3),
+            tr td:nth-child(4), tr th:nth-child(4) {
+                flex: none;
+            }
+            th:first-child { border-top-left-radius: 0; }
+            th:last-child { border-top-right-radius: 0; }
+            .modal-content {
+                width: 96%;
+                padding: 15px;
+                max-width: none;
+                border-radius: 12px;
+            }
+            .tab-content {
+                padding: 15px;
+            }
+            .changelog-entries li {
+                padding: 10px 15px;
+            }
+            .how-to-tabs {
+                flex-wrap: wrap;
+                flex-direction: row;
+                justify-content: center;
+                gap: 5px;
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                margin-top: -25px;
+            }
+            .how-to-tabs .tab-button {
+                flex: 1 1 auto;
+                min-width: 90px;
+                max-width: 150px;
+                padding: 8px 10px;
+                font-size: 0.8em;
+                margin: 5px;
+                border-radius: 8px;
+                border-bottom: 1px solid #1A2B4D;
+                top: 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                text-align: center;
+            }
+            .how-to-tabs .tab-button.active {
+                transform: none;
+                border-width: 1px;
+                border-bottom: 1px solid #2C487C;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            }
+            .tab-content li {
+                padding: 10px 12px;
+                padding-left: 20px;
+                font-size: 0.9em;
+            }
+            .tab-content li::before {
+                left: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loadingLogo {
+                width: 150px;
+                position: fixed;
+                top: 50%;
+                left: 70%;
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                z-index: 9999;
+                border: 2px solid #7CA0E0;
+            }
+            .container {
+                width: 96%;
+                padding: 10px;
+                padding-top: 180px;
+                margin: 10px auto;
+            }
+            .logo {
+                width: 120px;
+                top: 15px;
+            }
+            .motto {
+                font-size: 1.2em;
+                top: 120px;
+                white-space: normal;
+            }
+            .search-filter-section {
+                padding: 15px 10px;
+            }
+            .search-bar-row {
+                flex-direction: column;
+                gap: 8px;
+                max-width: none;
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                align-items: flex-start;
+            }
+            .search-bar-row input[type="search"] {
+                width: 100%;
+                max-width: none;
+                font-size: 0.8em;
+                padding: 8px 10px;
+            }
+            .filter-dropdown {
+                width: 100%;
+                max-width: none;
+            }
+            .checkbox-controls {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+                justify-content: center;
+                padding: 5px 0;
+                width: 100%;
+            }
+            .checkbox-controls label {
+                width: 100%;
+                margin: 0;
+                text-align: left;
+                padding-left: 12px;
+            }
+            .changelog-button,
+            .how-to-use-button {
+                width: calc(100% - 20px);
+                display: block;
+                margin-left: 10px;
+                margin-right: auto;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .blueprint-counters {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+                font-size: 0.8em;
+            }
+            table {
+                border: 0;
+            }
+            table thead {
+                display: none;
+            }
+            table tr {
+                display: block;
+                margin-bottom: 0.625em;
+                border: 1px solid #1A2B4D;
+                border-radius: 8px;
+                background-color: rgba(11, 23, 56, 0.9);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            table td {
+                border-bottom: 1px solid #1A2B4D;
+                display: block;
+                font-size: 0.8em;
+                text-align: center;
+                padding: 0.625em 0.825em;
+                position: relative;
+                white-space: normal;
+                text-overflow: clip;
+            }
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #7CA0E0;
+                margin-right: 1em;
+            }
+            table td:last-child {
+                border-bottom: 0;
+            }
+            th:nth-child(1), td:nth-child(1),
+            th:nth-child(2), td:nth-child(2),
+            th:nth-child(3), td:nth-child(3),
+            th:nth-child(4), td:nth-child(4) {
+                width: auto;
+                flex: none;
+            }
+            tr td:nth-child(3), tr th:nth-child(3),
+            tr td:nth-child(4), tr th:nth-child(4) {
+                flex: none;
+            }
+            th:first-child { border-top-left-radius: 0; }
+            th:last-child { border-top-right-radius: 0; }
+            .modal-content {
+                width: 96%;
+                padding: 15px;
+                max-width: none;
+                border-radius: 12px;
+            }
+            .tab-content {
+                padding: 15px;
+            }
+            .changelog-entries li {
+                padding: 10px 15px;
+            }
+            .how-to-tabs {
+                flex-wrap: wrap;
+                flex-direction: row;
+                justify-content: center;
+                gap: 5px;
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                margin-top: -25px;
+            }
+            .how-to-tabs .tab-button {
+                flex: 1 1 auto;
+                min-width: 90px;
+                max-width: 150px;
+                padding: 8px 10px;
+                font-size: 0.8em;
+                margin: 5px;
+                border-radius: 8px;
+                border-bottom: 1px solid #1A2B4D;
+                top: 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                text-align: center;
+            }
+            .how-to-tabs .tab-button.active {
+                transform: none;
+                border-width: 1px;
+                border-bottom: 1px solid #2C487C;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            }
+            .tab-content li {
+                padding: 10px 12px;
+                padding-left: 20px;
+                font-size: 0.9em;
+            }
+            .tab-content li::before {
+                left: 5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -610,8 +941,9 @@
     </div>
 
     <!-- Main Content (now always visible) -->
-    <div id="mainContent" class="w-full flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl w-full rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 mx-auto relative z-10 main-content-bg">
+    <!-- Changed id to 'mainContent' and class to 'container' to match index.html -->
+    <div id="mainContent">
+        <div class="container">
             <!-- Logo and Motto -->
             <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
             <h1 class="motto">your no.1 bp pull db</h1>
