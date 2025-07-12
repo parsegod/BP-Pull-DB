@@ -63,7 +63,7 @@
       function updateProgressBar() {
         const progress = (explicitResourcesLoadedCount / totalExplicitResources) * 100;
         loadingBar.style.width = progress + '%';
-        loadingText.textContent = `.. Fetching ${Math.round(progress)}%`;
+        loadingText.textContent = `Fetching ${Math.round(progress)}%`;
         console.log(`Progress: ${Math.round(progress)}%, Current Loaded count: ${explicitResourcesLoadedCount}`);
       }
 
