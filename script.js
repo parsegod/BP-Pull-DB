@@ -24,11 +24,30 @@ const changelogButton = document.getElementById('changelogButton');
 const changelogContentDiv = document.getElementById('changelogContent');
 
 const howToUseModal = document.getElementById('howToUseModal');
-const closeHowToUseModalBtn = document = document.getElementById('closeHowToUseModal');
+const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search');
 
+    if (searchInput) {
+
+        const originalPlaceholder = searchInput.placeholder;
+
+        searchInput.addEventListener('focus', function() {
+            this.value = ''; 
+            this.placeholder = ''; 
+        });
+
+        searchInput.addEventListener('blur', function() {
+
+            if (this.value.trim() === '') {
+                this.placeholder = originalPlaceholder;
+            }
+        });
+    }
+});
 const categoryMap = {
   "0": "ASSAULT RIFLES",
   "1": "SUBMACHINE GUNS",
@@ -50,10 +69,23 @@ let Weapons = [];
 let currentData = [];
 
 const changelogEntries = [
+      {
+    date: "2025-07-12 1:05AM 𝗠𝗦𝗧",
+    changes: [
+      "↷ Update To UI ↶",
+      " - Added PageLoader",
+      " - Added Contributions Page",
+      " - Revamped Search-Filter-Section",
+      " - Revamped Main Container",
+      " - Added Mobile Responsive Browsing",
+      " - Added Contributions Page",
+      " - Minor CSS Adjustments"
+    ]
+  },
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -61,7 +93,7 @@ const changelogEntries = [
     date: "2025-06-11 6:13AM 𝗠𝗦𝗧",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "ASG-89: PERSONAL DETECTIVE (Pool 22)"
+            "𝗔𝗦𝗚-𝟴𝟵: 𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟 𝗗𝗘𝗧𝗘𝗖𝗧𝗜𝗩𝗘 (𝗣𝗼𝗼𝗹 𝟮𝟮)"
     ]
   },
     {
@@ -183,6 +215,7 @@ function loadAppData() {
       applyFilters();
       searchView.classList.remove('hidden');
       showChangelogModal();
+      adjustTableContainerHeight(); 
     })
     .catch(err => console.error("Error on load:", err));
 }
@@ -565,12 +598,11 @@ function applyFilters() {
   renderTable(filtered);
 }
 
-
 searchInput.addEventListener('input', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
   applyFilters();
-})
+});
 
 function applyImageToggle() {
   const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
@@ -803,3 +835,26 @@ function showChangelogOnPageLoad() {
 }
 
 document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
+
+function adjustTableContainerHeight() {
+  const fixedTopHeader = document.querySelector('.announcement-banner'); 
+  const tableContainer = document.querySelector('.table-container');
+  const mainContainer = document.querySelector('.container'); 
+
+  if (fixedTopHeader && tableContainer && mainContainer) {
+    const fixedHeaderHeight = fixedTopHeader.offsetHeight;
+    const mainContainerPaddingTop = parseFloat(getComputedStyle(mainContainer).paddingTop);
+    const mainContainerPaddingBottom = parseFloat(getComputedStyle(mainContainer).paddingBottom);
+    const mainContainerMarginBottom = parseFloat(getComputedStyle(mainContainer).marginBottom);
+
+    const elementsAboveTableHeight = document.getElementById('searchView').offsetHeight +
+                                    document.querySelector('.checkbox-controls').offsetHeight +
+                                    document.querySelector('.blueprint-counters').offsetHeight;
+
+    const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
+
+    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; 
+  }
+}
+
+window.addEventListener('resize', adjustTableContainerHeight);
