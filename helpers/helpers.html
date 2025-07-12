@@ -28,48 +28,47 @@
 
     <!-- EMBEDDED TEXT EFFECT STYLES -->
     <style>
-        /* Custom font for a cleaner look */
+
         body {
             font-family: "Inter", sans-serif;
-            background-color: #0B1738; /* Matches main theme background */
-            margin: 0; /* Remove default body margin */
-            overflow: hidden; /* Prevent scrollbars during loading */
+            background-color: #0B1738; 
+            margin: 0; 
+            overflow: auto; 
         }
-        /* Ensure image covers the div without distortion */
+
         .profile-img {
             object-fit: cover;
         }
-        /* Styles for the SVG avatar decoration container */
+
         .avatar-decoration-svg {
             position: relative;
-            width: 108px; /* Overall container for the decorated avatar, matches SVG width */
-            height: 96px; /* Overall container for the decorated avatar, matches SVG height */
+            width: 108px; 
+            height: 96px; 
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 16px; /* Added margin for consistency with profile-img */
+            margin-bottom: 16px; 
         }
-        /* The foreignObject itself will be explicitly sized and positioned in the SVG.
-           Its internal content (avatarStack and avatar) should fill it. */
+
         .avatar-decoration-svg foreignObject {
             display: flex;
             justify-content: center;
             align-items: center;
-            /* No explicit width/height here, it's set in the SVG tag */
+
         }
         .avatar-decoration-svg .avatarStack__44b0c {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%; /* Make avatarStack fill its foreignObject container */
-            height: 100%; /* Make avatarStack fill its foreignObject container */
+            width: 100%; 
+            height: 100%; 
         }
-        /* The actual avatar image/initials div within the foreignObject */
+
         .avatar-decoration-svg .avatar__44b0c {
-            width: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            height: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            border-radius: 50%; /* Ensure the image itself is round */
-            object-fit: cover; /* Ensure the image covers the circular area without distortion */
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            object-fit: cover; 
         }
         .avatar-decoration-svg .decoration-image {
             position: absolute;
@@ -77,17 +76,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allow clicks to pass through to the underlying avatar */
-        }
-        /* Base styles for text effects */
-        .contributor-name {
-            transition: all 0.3s ease-in-out; /* Smooth transitions for effects */
-            display: inline-block; /* Required for some text effects */
-            white-space: nowrap; /* Prevent wrapping for some effects */
+            pointer-events: none; 
         }
 
-        /* Text Effect Styles */
-        /* Glowing Text */
+        .contributor-name {
+            transition: all 0.3s ease-in-out; 
+            display: inline-block; 
+            white-space: nowrap; 
+        }
+
         .glowing-text {
             color: var(--glowing-color, #fff);
             text-shadow: 0 0 5px var(--glowing-color, #fff),
@@ -96,11 +93,10 @@
                          0 0 20px var(--glowing-color, #fff);
         }
 
-        /* Rainbow Text */
         .rainbow-text {
             background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text; 
             -webkit-text-fill-color: transparent;
             animation: rainbow-glow 5s linear infinite;
         }
@@ -113,7 +109,6 @@
             100% { filter: hue-rotate(360deg); }
         }
 
-        /* Glitter Text */
         .glitter-text {
             background-color: var(--glitter-color-1, #ccc);
             background-image: radial-gradient(circle, transparent 1px, var(--glitter-color-2, #eee) 1px),
@@ -121,11 +116,10 @@
             background-size: 5px 5px, 15px 15px;
             background-position: 0 0, 7px 7px;
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text; 
             -webkit-text-fill-color: transparent;
         }
 
-        /* Confetti Text */
         .confetti-text {
             background-image:
                 radial-gradient(circle at 10% 20%, var(--confetti-color-1, #ff0000) 1px, transparent 1px),
@@ -136,7 +130,7 @@
                 radial-gradient(circle at 20% 60%, var(--confetti-color-6, #00ffff) 1px, transparent 1px);
             background-size: 15px 15px;
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text; 
             -webkit-text-fill-color: transparent;
             animation: confetti-sparkle 1s infinite alternate;
         }
@@ -145,14 +139,13 @@
             100% { transform: scale(1.05); opacity: 0.8; }
         }
 
-        /* Fire Text */
         .fire-text {
-            color: var(--fire-base-color, #FFA500); /* Base orange */
+            color: var(--fire-base-color, #FFA500); 
             text-shadow:
-                0 0 5px var(--fire-shadow-1, #FF4500), /* Orange-red */
-                0 0 10px var(--fire-shadow-2, #FF8C00), /* Dark orange */
-                0 0 15px var(--fire-shadow-3, #FFD700), /* Gold */
-                0 0 20px var(--fire-shadow-4, #FFFF00), /* Yellow */
+                0 0 5px var(--fire-shadow-1, #FF4500), 
+                0 0 10px var(--fire-shadow-2, #FF8C00), 
+                0 0 15px var(--fire-shadow-3, #FFD700), 
+                0 0 20px var(--fire-shadow-4, #FFFF00), 
                 0 0 25px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)),
                 0 0 30px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)),
                 0 0 35px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)),
@@ -166,9 +159,8 @@
             75% { text-shadow: 0 0 8px var(--fire-shadow-dark3), 0 0 13px var(--fire-shadow-dark4); }
         }
 
-        /* Water Text */
         .water-text {
-            color: var(--water-base-color, #ADD8E6); /* Light blue */
+            color: var(--water-base-color, #ADD8E6); 
             text-shadow:
                 0 0 5px var(--water-shadow-1, rgba(173, 216, 230, 0.7)),
                 0 0 10px var(--water-shadow-2, rgba(173, 216, 230, 0.5)),
@@ -180,9 +172,8 @@
             50% { transform: translateY(-3px); text-shadow: 0 5px 10px var(--water-shadow-2); }
         }
 
-        /* Digital Glitch Text */
         .digital-glitch-text {
-            color: var(--glitch-color, #0f0); /* Default bright green, customizable */
+            color: var(--glitch-color, #0f0); 
             text-shadow:
                 0 0 7px var(--glitch-color, #0f0),
                 0 0 10px var(--glitch-color, #0f0),
@@ -197,22 +188,20 @@
             100% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 0 0 0px rgba(255, 0, 0, 0), 0 0 0px rgba(0, 0, 255, 0); }
         }
 
-        /* Metallic Text */
         .metallic-text {
             background: linear-gradient(180deg, var(--metallic-color-1, #BFBFBF) 0%, var(--metallic-color-2, #E6E6E6) 100%);
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text; 
             -webkit-text-fill-color: transparent;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         .metallic-text.custom-metallic {
             background: linear-gradient(180deg, var(--metallic-color-1), var(--metallic-color-2));
             -webkit-background-clip: text;
-            background-clip: text; /* Added for compatibility */
+            background-clip: text; 
             -webkit-text-fill-color: transparent;
         }
 
-        /* 3D Text */
         .text-3d {
             color: var(--text-3d-color, #fff);
             text-shadow:
@@ -224,7 +213,6 @@
                 6px 6px var(--text-3d-shadow-color, #000);
         }
 
-        /* Holographic Text */
         .holographic-text {
             color: var(--holographic-color, #AAFFFF);
             text-shadow:
@@ -238,15 +226,13 @@
             50% { opacity: 0.8; transform: scale(1.01); }
         }
 
-        /* Outline Text */
         .outline-text {
             -webkit-text-stroke-width: var(--outline-width, 1px);
             -webkit-text-stroke-color: var(--outline-color, #4ade80);
             -webkit-text-fill-color: var(--outline-fill-color, #fff);
-            color: var(--outline-fill-color, #fff); /* Fallback for non-webkit */
+            color: var(--outline-fill-color, #fff); 
         }
 
-        /* Neon Text */
         .neon-text {
             color: var(--neon-color, #fff);
             text-shadow:
@@ -260,13 +246,11 @@
                 0 0 151px var(--neon-glow-color, #0fa);
         }
 
-        /* Shadow Text */
         .shadow-text {
             color: var(--shadow-text-color, #fff);
             text-shadow: var(--shadow-x-offset, 2px) var(--shadow-y-offset, 2px) var(--shadow-blur, 4px) var(--shadow-color, rgba(0, 0, 0, 0.5));
         }
 
-        /* Liquid Text */
         .liquid-text {
             color: var(--liquid-base-color, #ADD8E6);
             text-shadow:
@@ -280,7 +264,6 @@
             50% { transform: translateY(-2px) scaleY(1.05); }
         }
 
-        /* Firefly Text */
         .firefly-text {
             position: relative;
             color: var(--firefly-text-color, #fff);
@@ -294,7 +277,6 @@
             50% { opacity: 0.8; }
         }
 
-        /* Arcade Glitch Text */
         .arcade-glitch-text {
             position: relative;
             color: var(--glitch-base-color, #0f0);
@@ -311,18 +293,16 @@
             100% { text-shadow: var(--glitch-x-offset-red, 2px) var(--glitch-y-offset-red, 2px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, -2px) var(--glitch-y-offset-blue, -2px) 0 var(--glitch-blue-color); }
         }
 
-        /* Wavy Text (requires span wrapping for each character) */
         .wavy-text span {
             display: inline-block;
             animation: wavy-motion 1.5s infinite ease-in-out;
-            animation-delay: calc(var(--char-index) * 0.05s); /* Delay based on character index */
+            animation-delay: calc(var(--char-index) * 0.05s); 
         }
         @keyframes wavy-motion {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
 
-        /* Video Background Styles */
         .video-background {
             position: fixed;
             top: 0;
@@ -330,10 +310,10 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            z-index: -1; /* Ensures the video stays behind all other content */
-            opacity: 1; /* Start visible */
-            visibility: visible; /* Ensure it's interactive */
-            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
+            z-index: -1; 
+            opacity: 1; 
+            visibility: visible; 
+            transition: opacity 1s ease-in-out; 
         }
 
         .video-background video {
@@ -345,34 +325,31 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            object-fit: cover; /* Ensures the video covers the entire container */
-            filter: brightness(0.6); /* Slightly darkens the video for better text readability */
+            object-fit: cover; 
+            filter: brightness(0.6); 
         }
 
-        /* New style for the main content container */
         .main-content-bg {
             width: calc(100% - 20px);
-            margin: 20px auto 20px auto; /* Existing margin-top is preserved */
+            margin: 20px auto 20px auto; 
             padding: 15px;
-            background: rgba(11, 23, 56, 0.9); /* Transparency added previously */
-            border-radius: 0; /* Set to 0 to remove default rounding from all corners */
-            border-top-left-radius: 30px; /* Cut top-left corner */
-            border-top-right-radius: 30px; /* Cut top-right corner */
+            background: rgba(11, 23, 56, 0.9); 
+            border-radius: 0; 
+            border-top-left-radius: 30px; 
+            border-top-right-radius: 30px; 
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 2;
             zoom:0.83;
-            padding-top: 200px; /* Adjusted to make space for logo and motto */
+            padding-top: 200px; 
         }
 
-        /* Initially show the main content */
         #mainContent {
           display: block;
-          opacity: 1; /* Start visible */
-          transition: opacity 1s ease-in-out; /* Smooth fade-in for main content */
+          opacity: 1; 
+          transition: opacity 1s ease-in-out; 
         }
 
-        /* Styles for the announcement banner */
         .announcement-banner {
           color: #ffffff;
           text-align: center;
@@ -383,7 +360,7 @@
           letter-spacing: 0.5px;
           position: relative;
           z-index: 1000;
-          /* Removed margin-bottom to match index.html */
+
         }
 
         .announcement-banner p {
@@ -413,7 +390,6 @@
           vertical-align: middle;
         }
 
-        /* Style for the logo */
         .logo {
           width: 200px;
           height: auto;
@@ -428,7 +404,6 @@
           transform: scale(1.05);
         }
 
-        /* Style for the motto */
         .motto {
           background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
           -webkit-background-clip: text;
@@ -446,7 +421,6 @@
           margin-bottom: 30px;
         }
 
-        /* Media queries for responsiveness */
         @media (max-width: 768px) {
             .logo {
                 width: 180px;
@@ -504,10 +478,20 @@
                 <!-- Contributor 1: @retrodaz -->
                 <div class="bg-gray-700 rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #4ade80 0%, #3b82f6 100%); background-size: cover;">
                     <div class="profile-picture-container">
-                        <div class="profile-picture-container">
-                            <div class="w-20 h-20 rounded-full profile-img mb-4 object-cover">
-                                <img src="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024" alt="@retrodaz" class="w-20 h-20 rounded-full profile-img object-cover">
-                            </div>
+                        <div class="avatar-decoration-svg">
+                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
+                                <defs>
+                                    <mask id="svg-mask-avatar-decoration-status-round-retrodaz">
+                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
+                                    </mask>
+                                </defs>
+                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#svg-mask-avatar-decoration-status-round-retrodaz)">
+                                    <div class="avatarStack__44b0c">
+                                        <img src="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024" alt="@retrodaz" class="w-20 h-20 rounded-full profile-img object-cover">
+                                    </div>
+                                </foreignObject>
+                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true" x="0" y="0" width="108" height="96"></image>
+                            </svg>
                         </div>
                     </div>
                     <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
@@ -605,39 +589,28 @@
     </div>
 
     <script>
-        (function() { // IIFE for scope isolation
-            // No need for contributors data here anymore as it's directly in HTML
-            // const contributors = []; // This array is now empty or removed
+        (function() { 
 
-            // DOM Elements
             const contributorsGrid = document.getElementById('contributors-grid');
 
-            // Function to generate a unique ID (simple for client-side, though not strictly needed for static display)
             const generateUniqueId = () => {
                 return '_' + Math.random().toString(36).substr(2, 9);
             };
 
-            // Function to render a single contributor card - This function is now mostly for reference
-            // as cards are pre-rendered in HTML
             const createContributorCard = (contributor) => {
-                // This function is largely irrelevant now as the HTML is static.
-                // It's kept here as a placeholder in case dynamic rendering is re-introduced.
+
                 console.warn("createContributorCard is called but cards are now static in HTML.");
-                return document.createElement('div'); // Return dummy div
+                return document.createElement('div'); 
             };
 
-            // Function to render all contributors - This function now just logs a message
             const renderContributors = (data) => {
                 console.log('[Client] Contributors are pre-rendered in HTML. No dynamic rendering needed.');
-                // contributorsGrid.innerHTML = ''; // No need to clear or re-render
+
             };
 
-            // Initial rendering of contributors when the page loads
             document.addEventListener('DOMContentLoaded', () => {
                 console.log('[Client] DOMContentLoaded event fired.');
-                // No need to call renderContributors(contributors) as HTML is static
 
-                // Autoplay video on DOMContentLoaded
                 const videoElement = document.getElementById('backgroundVideo');
                 if (videoElement) {
                     videoElement.play().catch(error => {
@@ -645,7 +618,7 @@
                     });
                 }
             });
-        })(); // End of IIFE
+        })(); 
     </script>
 </body>
 </html>
