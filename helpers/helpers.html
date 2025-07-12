@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hall Of Helpers</title>
-    <!-- Tailwind CSS CDN -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
@@ -22,10 +22,8 @@
     <meta name="twitter:description" content="your no.1 bp pull db!">
     <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
-    <!-- Preload the video for faster loading (logo will be visible immediately) -->
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
-    <!-- Consolidated CSS from index.html and style.css -->
     <style>
         /* General Body and HTML styles from style.css */
         html {
@@ -178,7 +176,7 @@
             border: 1px solid rgba(44, 72, 124, 0.6);
             position: relative;
             z-index: 2;
-            zoom: 0.85; /* Kept for exact replication, though generally avoided */
+            zoom: 0.85; /* Added back to match style.css */
             min-height: calc(100vh - 40px);
             padding-top: 250px; /* Space for logo and motto */
         }
@@ -378,7 +376,7 @@
             25% { text-shadow: 0 0 7px var(--glitch-color, #0f0), -2px 2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), 2px -2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
             50% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 2px -2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), -2px 2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
             75% { text-shadow: 0 0 7px var(--glitch-color, #0f0), -2px -2px 0px var(--glitch-red-offset, rgba(255, 0, 0, 0.5)), 2px 2px 0px var(--glitch-blue-offset, rgba(0, 0, 255, 0.5)); }
-            100% { text-shadow: 0 0 7px var(--glitch-color, #0f0), 0 0 0px rgba(255, 0, 0, 0), 0 0 0px rgba(0, 0, 255, 0); }
+            100% { text-shadow: var(--glitch-x-offset-red, 2px) var(--glitch-y-offset-red, 2px) 0 var(--glitch-red-color), var(--glitch-x-offset-blue, -2px) var(--glitch-y-offset-blue, -2px) 0 var(--glitch-blue-color); }
         }
         .metallic-text {
             background: linear-gradient(180deg, var(--metallic-color-1, #BFBFBF) 0%, var(--metallic-color-2, #E6E6E6) 100%);
@@ -576,10 +574,11 @@
         /* Media Queries - Consolidated and matched to index.html/style.css */
         @media (max-width: 768px) {
             .container {
-                width: calc(100% - 30px); /* Adjusted for "zoom out" */
+                width: 96%;
                 padding: 10px;
                 padding-top: 180px;
-                margin: 10px 15px; /* Adjusted for "zoom out" */
+                margin: 10px auto; /* Centered with auto margins */
+                /* Removed border-radius overrides to inherit base styles */
             }
 
             .logo {
@@ -753,7 +752,6 @@
         @media (max-width: 480px) {
             .loadingLogo {
                 width: 150px;
-                position: fixed;
                 top: 50%;
                 left: 70%;
                 transform: translate(-50%, -50%);
@@ -762,10 +760,11 @@
                 border: 2px solid #7CA0E0;
             }
             .container {
-                width: calc(100% - 30px); /* Adjusted for "zoom out" */
+                width: 96%;
                 padding: 10px;
                 padding-top: 180px;
-                margin: 10px 15px; /* Adjusted for "zoom out" */
+                margin: 10px auto; /* Centered with auto margins */
+                /* Removed border-radius overrides to inherit base styles */
             }
             .logo {
                 width: 120px;
@@ -909,7 +908,7 @@
                 box-shadow: 0 2px 5px rgba(0,0,0,0.2);
                 text-align: center;
             }
-            .how-to-tabs .tab-button.active {
+            .tab-to-tabs .tab-button.active {
                 transform: none;
                 border-width: 1px;
                 border-bottom: 1px solid #2C487C;
@@ -927,7 +926,7 @@
     </style>
 </head>
 <body>
-    <!-- Video Background -->
+
     <div class="video-background">
         <video id="backgroundVideo" autoplay loop muted playsinline>
             <source src="assets/wallpaper.mp4" type="video/mp4">
@@ -935,58 +934,45 @@
         </video>
     </div>
 
-    <!-- Announcement Banner (placed directly in body for full width, fixed at top) -->
     <div class="announcement-banner">
         <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
-    <!-- Main Content (now always visible) -->
-    <!-- Changed id to 'mainContent' and class to 'container' to match index.html -->
     <div id="mainContent">
         <div class="container">
-            <!-- Logo and Motto -->
+
             <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
             <h1 class="motto">your no.1 bp pull db</h1>
 
-            <!-- Header Section -->
             <header class="text-center mb-12">
                 <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-400 mb-2">Blueprint Pool Expeditions</h1>
                 <p class="text-lg sm:text-xl text-gray-300">Celebrating the incredible individuals who unearthed the hidden blueprint pools.</p>
             </header>
 
-            <!-- Contributors Grid Section - Dynamic Content -->
-            <!-- Added justify-center to center the grid items when there are fewer than max columns -->
             <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
-                <!-- Contributor 1: @retrodaz -->
+
                 <div class="contributor-card rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto emerald-matrix-glitch-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
                             <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
                                 <defs>
-                                    <!-- Define a circular clipPath for the profile picture -->
+
                                     <clipPath id="svg-clip-path-avatar-jd">
-                                        <!-- This circle defines the visible area for the avatar (80px diameter) -->
-                                        <!-- Centered within the 100x100 SVG: cx=50, cy=50, r=40 -->
+
                                         <circle cx="50" cy="50" r="40"></circle>
                                     </clipPath>
                                 </defs>
 
-                                <!-- The profile picture as a native SVG image, clipped by the circle -->
-                                <!-- x, y, width, height adjusted to center the 80x80 PFP within 100x100 SVG: -->
-                                <!-- x = (100 - 80) / 2 = 10 -->
-                                <!-- y = (100 - 80) / 2 = 10 -->
                                 <image href="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=128" x="10" y="10" width="80" height="80"
                                     clip-path="url(#svg-clip-path-avatar-jd)" preserveAspectRatio="xMidYMid slice"
                                     onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
 
-                                <!-- The decoration image is placed AFTER the profile picture so it renders ON TOP -->
-                                <!-- Adjusted x, y, width, and height to bring it closer -->
                                 <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true"
                                     x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
                             </svg>
                         </div>
                     </div>
-                    <!-- Content directly within the card, with glitch effects applied to the card itself and overlay -->
+
                     <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
                         <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
                     </a>
@@ -1003,7 +989,6 @@
                     </div>
                 </div>
 
-                <!-- Contributor 2: @realcorndog999 -->
                 <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto deep-ocean-current-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
@@ -1035,7 +1020,6 @@
                     </div>
                 </div>
 
-                <!-- Contributor 3: @junglewut -->
                 <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" id="junglewut-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
@@ -1072,7 +1056,6 @@
                 </div>
             </div>
 
-            <!-- Footer Section -->
             <footer class="text-center mt-12 text-gray-400 text-sm">
                     made by parse 🖤
             </footer>
@@ -1080,33 +1063,30 @@
     </div>
 
     <script>
-        (function() { // IIFE for scope isolation
-            // DOM Elements (only those still needed)
+        (function() { 
+
             const mainContent = document.getElementById('mainContent');
             const videoBackground = document.querySelector('.video-background');
             const videoElement = document.getElementById('backgroundVideo');
 
-            // Initial setup on DOMContentLoaded
             document.addEventListener('DOMContentLoaded', () => {
                 console.log('[Client] DOMContentLoaded event fired.');
 
-                // Autoplay and loop video on DOMContentLoaded
                 if (videoElement) {
                     videoElement.play().catch(error => {
                         console.warn('Video autoplay prevented:', error);
                     });
-                    // Ensure video loops even if 'loop' attribute is somehow overridden or fails
+
                     videoElement.addEventListener('ended', () => {
-                        videoElement.currentTime = 0; // Reset to start
+                        videoElement.currentTime = 0; 
                         videoElement.play().catch(error => {
                             console.warn('Video replay prevented after ending:', error);
                         });
                     });
                 }
 
-                // Removed firefly creation logic as per user request
             });
-        })(); // End of IIFE
+        })(); 
     </script>
 </body>
 </html>
