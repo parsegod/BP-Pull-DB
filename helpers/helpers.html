@@ -7,7 +7,6 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Removed: <link rel="stylesheet" href="style.css" /> -->
     <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
@@ -26,14 +25,15 @@
     <!-- Preload the video for faster loading (logo will be visible immediately) -->
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
-    <!-- EMBEDDED TEXT EFFECT STYLES -->
+    <!-- EMBEDDED TEXT EFFECT STYLES AND NEW CUSTOM CARD EFFECTS -->
     <style>
 
         body {
             font-family: "Inter", sans-serif;
             background-color: #0B1738; 
             margin: 0; 
-            overflow: auto; 
+            overflow-x: hidden; 
+            overflow-y: auto; 
         }
 
         .profile-img {
@@ -42,8 +42,9 @@
 
         .avatar-decoration-svg {
             position: relative;
-            width: 108px; 
-            height: 96px; 
+
+            width: 120px; 
+            height: 120px; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -146,17 +147,17 @@
                 0 0 10px var(--fire-shadow-2, #FF8C00), 
                 0 0 15px var(--fire-shadow-3, #FFD700), 
                 0 0 20px var(--fire-shadow-4, #FFFF00), 
-                0 0 25px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)),
-                0 0 30px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)),
-                0 0 35px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)),
-                0 0 40px var(--fire-shadow-dark4, rgba(255, 255, 0, 0.5));
+                0 0 25px rgba(255, 69, 0, 0.8),
+                0 0 30px rgba(255, 140, 0, 0.7),
+                0 0 35px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 255, 0, 0.5);
             animation: fire-flicker 2s infinite alternate;
         }
         @keyframes fire-flicker {
             0%, 100% { text-shadow: 0 0 5px var(--fire-shadow-1), 0 0 10px var(--fire-shadow-2); }
             25% { text-shadow: 0 0 7px var(--fire-shadow-3), 0 0 12px var(--fire-shadow-4); }
-            50% { text-shadow: 0 0 6px var(--fire-shadow-dark1), 0 0 11px var(--fire-shadow-dark2); }
-            75% { text-shadow: 0 0 8px var(--fire-shadow-dark3), 0 0 13px var(--fire-shadow-dark4); }
+            50% { text-shadow: 0 0 6px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)), 0 0 11px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)); }
+            75% { text-shadow: 0 0 8px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)), 0 0 13px var(--fire-shadow-dark4, rgba(255, 255, 0, 0.5)); }
         }
 
         .water-text {
@@ -260,8 +261,11 @@
             animation: liquid-flow 3s infinite ease-in-out;
         }
         @keyframes liquid-flow {
-            0%, 100% { transform: translateY(0) scaleY(1); }
-            50% { transform: translateY(-2px) scaleY(1.05); }
+            0% { transform: translateY(0) scaleY(1); }
+            25% { transform: translateY(-3px) scaleY(1.08) skewX(2deg); } 
+            50% { transform: translateY(0) scaleY(1) skewX(0deg); }
+            75% { transform: translateY(-3px) scaleY(1.08) skewX(-2deg); } 
+            100% { transform: translateY(0) scaleY(1); }
         }
 
         .firefly-text {
@@ -313,7 +317,7 @@
             z-index: -1; 
             opacity: 1; 
             visibility: visible; 
-            transition: opacity 1s ease-in-out; 
+
         }
 
         .video-background video {
@@ -340,14 +344,14 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 2;
-            zoom:0.83;
+
             padding-top: 200px; 
         }
 
         #mainContent {
           display: block;
           opacity: 1; 
-          transition: opacity 1s ease-in-out; 
+
         }
 
         .announcement-banner {
@@ -443,6 +447,149 @@
                 font-size: 1.5em;
             }
         }
+
+        .contributor-card {
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            border-radius: 1rem; 
+            background-color: #1a202c; 
+            position: relative;
+            overflow: hidden; 
+            z-index: 1; 
+            padding: 1.5rem; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contributor-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .emerald-matrix-glitch-card {
+
+            background: linear-gradient(135deg, #004d00 0%, #000000 100%);
+
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 255, 0, 0.5);
+
+            animation: basic-green-lighting 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes basic-green-lighting {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.6), 0 0 25px rgba(0, 255, 0, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 0, 0.9), 0 0 50px rgba(0, 255, 0, 0.7); }
+        }
+
+        .deep-ocean-current-card {
+
+            background: linear-gradient(160deg, #000020, #000005);
+
+            box-shadow: 0 0 35px rgba(61, 84, 255, 0.7), inset 0 0 18px rgba(0, 100, 200, 0.4);
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .deep-ocean-current-card::before,
+        .deep-ocean-current-card::after {
+            content: '';
+            position: absolute;
+
+            top: -50%;
+            left: -50%;
+            width: 200%; 
+            height: 200%;
+            background-repeat: no-repeat;
+            mix-blend-mode: screen; 
+            pointer-events: none;
+            z-index: 0;
+
+            filter: blur(50px) brightness(1.1);
+            opacity: 0.6; 
+        }
+
+        .deep-ocean-current-card::before {
+            background: radial-gradient(circle at 20% 80%, rgba(61, 84, 255, 0.4) 0%, transparent 70%), 
+                        radial-gradient(circle at 80% 20%, rgba(0, 191, 255, 0.3) 0%, transparent 70%); 
+            background-size: 60% 60%; 
+            animation: ocean-current-wave-primary 25s ease-in-out infinite alternate; 
+        }
+
+        .deep-ocean-current-card::after {
+            background: radial-gradient(circle at 50% 10%, rgba(0, 100, 200, 0.2) 0%, transparent 80%), 
+                        radial-gradient(circle at 10% 90%, rgba(70, 130, 180, 0.15) 0%, transparent 80%); 
+            background-size: 70% 70%; 
+            animation: ocean-current-wave-secondary 30s ease-in-out infinite reverse; 
+        }
+
+        @keyframes ocean-current-wave-primary {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        @keyframes ocean-current-wave-secondary {
+            0% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .firefly-swarm-card {
+            background: radial-gradient(ellipse at center, #1a0f00 0%, #000000 100%); 
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), inset 0 0 20px rgba(255, 165, 0, 0.5); 
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .firefly-swarm-card::before,
+        .firefly-swarm-card::after {
+            content: none; 
+        }
+
+        .firefly-swarm-card .firefly-particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--firefly-color);
+            width: var(--size);
+            height: var(--size);
+            box-shadow: 0 0 5px var(--firefly-color), 0 0 10px var(--firefly-color), 0 0 15px var(--firefly-color);
+
+            animation: firefly-gentle-drift var(--duration) infinite ease-in-out alternate,
+                       firefly-flicker-glow var(--flicker-duration) infinite alternate var(--flicker-delay);
+            opacity: 0; 
+            z-index: 1;
+        }
+
+        @keyframes firefly-gentle-drift {
+            0% {
+                transform: translate(var(--start-x), var(--start-y));
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8; 
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--end-x), var(--end-y));
+                opacity: 0; 
+            }
+        }
+
+        @keyframes firefly-flicker-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--firefly-color), 0 0 10px var(--firefly-color), 0 0 15px var(--firefly-color); }
+            50% { box-shadow: 0 0 2px var(--firefly-color), 0 0 5px var(--firefly-color), 0 0 8px var(--firefly-color); }
+        }
+
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center">
@@ -476,16 +623,37 @@
             <!-- Added justify-center to center the grid items when there are fewer than max columns -->
             <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
                 <!-- Contributor 1: @retrodaz -->
-                <div class="bg-gray-700 rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #4ade80 0%, #3b82f6 100%); background-size: cover;">
+                <div class="contributor-card rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto mb-4 emerald-matrix-glitch-card">
                     <div class="profile-picture-container">
-                        <div class="profile-picture-container">
-                            <div class="w-20 h-20 rounded-full profile-img mb-4 object-cover">
-                                <img src="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024" alt="@retrodaz" class="w-20 h-20 rounded-full profile-img object-cover">
-                            </div>
+                        <div class="avatar-decoration-svg">
+                            <svg width="120" height="120" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
+                                <defs>
+                                    <!-- Define a circular clipPath for the profile picture -->
+                                    <clipPath id="svg-clip-path-avatar-jd">
+                                        <!-- This circle defines the visible area for the avatar (80px diameter) -->
+                                        <!-- Centered within the 120x120 SVG: cx=60, cy=60, r=40 -->
+                                        <circle cx="60" cy="60" r="40"></circle>
+                                    </clipPath>
+                                </defs>
+
+                                <!-- The profile picture as a native SVG image, clipped by the circle -->
+                                <!-- x, y, width, height adjusted to center the 80x80 PFP within 120x120 SVG: -->
+                                <!-- x = (120 - 80) / 2 = 20 -->
+                                <!-- y = (120 - 80) / 2 = 20 -->
+                                <image href="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024" x="20" y="20" width="80" height="80"
+                                    clip-path="url(#svg-clip-path-avatar-jd)" preserveAspectRatio="xMidYMid slice"
+                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+
+                                <!-- The decoration image is placed AFTER the profile picture so it renders ON TOP -->
+                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true"
+                                    x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid slice" />
+                            </svg>
                         </div>
                     </div>
+                    <!-- Content directly within the card, with glitch effects applied to the card itself and overlay -->
+                    <!-- Removed .glitch-overlay as it's no longer needed for the simplified animation -->
                     <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" data-text="@retrodaz" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
+                        <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
                     </a>
                     <p class="text-gray-200 text-sm mb-4">Led the discovery of the majority of unreleased pools from Season 4R, as well as various other seasons. Additionally, was responsible for identifying the BO6 Melee pools.</p>
                     <div class="flex gap-2 mb-4">
@@ -501,21 +669,20 @@
                 </div>
 
                 <!-- Contributor 2: @realcorndog999 -->
-                <div class="bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #49007a 0%, #1b4383 100%); background-size: cover;">
+                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto mb-4 deep-ocean-current-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
-                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
+                            <svg width="120" height="120" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
                                 <defs>
-                                    <mask id="svg-mask-avatar-decoration-status-round-as">
-                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
-                                    </mask>
+                                    <clipPath id="svg-clip-path-avatar-as">
+                                        <circle cx="60" cy="60" r="40"></circle>
+                                    </clipPath>
                                 </defs>
-                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#svg-mask-avatar-decoration-status-round-as)">
-                                    <div class="avatarStack__44b0c">
-                                        <img src="https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=4096" alt="@realcorndog999" class="w-20 h-20 rounded-full profile-img object-cover">
-                                    </div>
-                                </foreignObject>
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true" x="0" y="0" width="108" height="96"></image>
+                                <image href="https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=4096" x="20" y="20" width="80" height="80"
+                                    clip-path="url(#svg-clip-path-avatar-as)" preserveAspectRatio="xMidYMid slice"
+                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true"
+                                    x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid slice" />
                             </svg>
                         </div>
                     </div>
@@ -534,21 +701,20 @@
                 </div>
 
                 <!-- Contributor 3: @junglewut -->
-                <div class="bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #ded94a 2%, #000000 80%); background-size: cover;">
+                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto mb-4 firefly-swarm-card" id="junglewut-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
-                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
+                            <svg width="120" height="120" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
                                 <defs>
-                                    <mask id="svg-mask-avatar-decoration-status-round-mb">
-                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
-                                    </mask>
+                                    <clipPath id="svg-clip-path-avatar-mb">
+                                        <circle cx="60" cy="60" r="40"></circle>
+                                    </clipPath>
                                 </defs>
-                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#svg-mask-avatar-decoration-status-round-mb)">
-                                    <div class="avatarStack__44b0c">
-                                        <img src="https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=4096" alt="@junglewut" class="w-20 h-20 rounded-full profile-img object-cover">
-                                    </div>
-                                </foreignObject>
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true" x="0" y="0" width="108" height="96"></image>
+                                <image href="https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=4096" x="20" y="20" width="80" height="80"
+                                    clip-path="url(#svg-clip-path-avatar-mb)" preserveAspectRatio="xMidYMid slice"
+                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true"
+                                    x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid slice" />
                             </svg>
                         </div>
                     </div>
@@ -587,15 +753,44 @@
                 return '_' + Math.random().toString(36).substr(2, 9);
             };
 
-            const createContributorCard = (contributor) => {
+            const createFireflyParticle = (cardElement) => {
+                const firefly = document.createElement('div');
+                firefly.classList.add('firefly-particle');
 
-                console.warn("createContributorCard is called but cards are now static in HTML.");
-                return document.createElement('div'); 
-            };
+                const size = Math.random() * 5 + 3; 
+                const color = ['#FFD700', '#FFA500', '#FFFF00', '#FFC107'][Math.floor(Math.random() * 4)]; 
+                const duration = Math.random() * 6 + 4; 
+                const flickerDuration = Math.random() * 1 + 0.5; 
+                const flickerDelay = Math.random() * 2; 
 
-            const renderContributors = (data) => {
-                console.log('[Client] Contributors are pre-rendered in HTML. No dynamic rendering needed.');
+                const startX = Math.random() * 100 + '%';
+                const startY = Math.random() * 100 + '%';
+                const mid1X = Math.random() * 100 + '%';
+                const mid1Y = Math.random() * 100 + '%';
+                const mid2X = Math.random() * 100 + '%';
+                const mid2Y = Math.random() * 100 + '%';
+                const mid3X = Math.random() * 100 + '%';
+                const mid3Y = Math.random() * 100 + '%';
+                const endX = Math.random() * 100 + '%';
+                const endY = Math.random() * 100 + '%';
 
+                firefly.style.setProperty('--size', `${size}px`);
+                firefly.style.setProperty('--firefly-color', color);
+                firefly.style.setProperty('--duration', `${duration}s`);
+                firefly.style.setProperty('--flicker-duration', `${flickerDuration}s`);
+                firefly.style.setProperty('--flicker-delay', `${flickerDelay}s`);
+                firefly.style.setProperty('--start-x', startX);
+                firefly.style.setProperty('--start-y', startY);
+                firefly.style.setProperty('--mid1-x', mid1X);
+                firefly.style.setProperty('--mid1-y', mid1Y);
+                firefly.style.setProperty('--mid2-x', mid2X);
+                firefly.style.setProperty('--mid2-y', mid2Y);
+                firefly.style.setProperty('--mid3-x', mid3X);
+                firefly.style.setProperty('--mid3-y', mid3Y);
+                firefly.style.setProperty('--end-x', endX);
+                firefly.style.setProperty('--end-y', endY);
+
+                cardElement.appendChild(firefly);
             };
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -606,6 +801,24 @@
                     videoElement.play().catch(error => {
                         console.warn('Video autoplay prevented:', error);
                     });
+
+                    videoElement.addEventListener('ended', () => {
+                        videoElement.currentTime = 0; 
+                        videoElement.play().catch(error => {
+                            console.warn('Video replay prevented after ending:', error);
+                        });
+                    });
+                }
+
+                const junglewutCard = document.getElementById('junglewut-card');
+                if (junglewutCard) {
+
+                    junglewutCard.querySelectorAll('.firefly-particle').forEach(p => p.remove());
+
+                    const numberOfFireflies = 45; 
+                    for (let i = 0; i < numberOfFireflies; i++) {
+                        createFireflyParticle(junglewutCard);
+                    }
                 }
             });
         })(); 
