@@ -576,10 +576,10 @@
         /* Media Queries - Consolidated and matched to index.html/style.css */
         @media (max-width: 768px) {
             .container {
-                width: 96%;
+                width: calc(100% - 30px); /* Adjusted for "zoom out" */
                 padding: 10px;
                 padding-top: 180px;
-                margin: 10px auto;
+                margin: 10px 15px; /* Adjusted for "zoom out" */
             }
 
             .logo {
@@ -762,10 +762,10 @@
                 border: 2px solid #7CA0E0;
             }
             .container {
-                width: 96%;
+                width: calc(100% - 30px); /* Adjusted for "zoom out" */
                 padding: 10px;
                 padding-top: 180px;
-                margin: 10px auto;
+                margin: 10px 15px; /* Adjusted for "zoom out" */
             }
             .logo {
                 width: 120px;
