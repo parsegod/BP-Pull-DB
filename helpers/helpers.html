@@ -273,19 +273,6 @@
             100% { transform: translateY(0) scaleY(1); }
         }
 
-        .firefly-text {
-            position: relative;
-            color: var(--firefly-text-color, #fff);
-            text-shadow: 0 0 5px var(--firefly-glow-color, #FFD700),
-                         0 0 10px var(--firefly-glow-color, #FFD700),
-                         0 0 15px var(--firefly-glow-color, #FFD700);
-            animation: firefly-flicker 2s infinite alternate;
-        }
-        @keyframes firefly-flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
         .arcade-glitch-text {
             position: relative;
             color: var(--glitch-base-color, #0f0);
@@ -537,58 +524,6 @@
             100% { background-position: 0% 0%; }
         }
 
-        .firefly-swarm-card {
-            background: radial-gradient(ellipse at center, #1a0f00 0%, #000000 100%);
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), inset 0 0 20px rgba(255, 165, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .firefly-swarm-card::before,
-        .firefly-swarm-card::after {
-            content: none;
-        }
-
-        .firefly-swarm-card .firefly-particle {
-            position: absolute;
-            border-radius: 50%;
-            background-color: var(--firefly-color);
-            width: var(--size);
-            height: var(--size);
-            box-shadow: 0 0 5px var(--firefly-color), 0 0 10px var(--firefly-color), 0 0 15px var(--firefly-color);
-            animation: firefly-gentle-drift var(--duration) infinite ease-in-out alternate,
-                       firefly-flicker-glow var(--flicker-duration) infinite alternate var(--flicker-delay);
-            opacity: 0;
-            z-index: 1;
-        }
-
-        @keyframes firefly-gentle-drift {
-            0% {
-                transform: translate(var(--start-x), var(--start-y));
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.8;
-            }
-            80% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(var(--end-x), var(--end-y));
-                opacity: 0;
-            }
-        }
-
-        @keyframes firefly-flicker-glow {
-            0%, 100% { box-shadow: 0 0 5px var(--firefly-color), 0 0 10px var(--firefly-color), 0 0 15px var(--firefly-color); }
-            50% { box-shadow: 0 0 2px var(--firefly-color), 0 0 5px var(--firefly-color), 0 0 8px var(--firefly-color); }
-        }
-
         #contributors-grid {
             gap: 1rem; 
         }
@@ -704,7 +639,7 @@
                 </div>
 
                 <!-- Contributor 3: @junglewut -->
-                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto firefly-swarm-card" id="junglewut-card">
+                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" id="junglewut-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
                             <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
@@ -722,7 +657,7 @@
                         </div>
                     </div>
                     <a href="https://discordlookup.com/user/690926649122456701" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name firefly-text" data-effect="firefly" style="--firefly-text-color: #ffffff; --firefly-glow-color: #ffd700;">@junglewut</h3>
+                        <h3 class="text-xl font-semibold mb-1 contributor-name" data-effect="none">@junglewut</h3>
                     </a>
                     <p class="text-gray-200 text-sm mb-4">The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.</p>
                     <div class="flex gap-2 mb-4">
@@ -754,46 +689,6 @@
             const videoBackground = document.querySelector('.video-background');
             const videoElement = document.getElementById('backgroundVideo');
 
-            const createFireflyParticle = (cardElement) => {
-                const firefly = document.createElement('div');
-                firefly.classList.add('firefly-particle');
-
-                const size = Math.random() * 5 + 3; 
-                const color = ['#FFD700', '#FFA500', '#FFFF00', '#FFC107'][Math.floor(Math.random() * 4)]; 
-                const duration = Math.random() * 6 + 4; 
-                const flickerDuration = Math.random() * 1 + 0.5; 
-                const flickerDelay = Math.random() * 2; 
-
-                const startX = Math.random() * 100 + '%';
-                const startY = Math.random() * 100 + '%';
-                const mid1X = Math.random() * 100 + '%';
-                const mid1Y = Math.random() * 100 + '%';
-                const mid2X = Math.random() * 100 + '%';
-                const mid2Y = Math.random() * 100 + '%';
-                const mid3X = Math.random() * 100 + '%';
-                const mid3Y = Math.random() * 100 + '%';
-                const endX = Math.random() * 100 + '%';
-                const endY = Math.random() * 100 + '%';
-
-                firefly.style.setProperty('--size', `${size}px`);
-                firefly.style.setProperty('--firefly-color', color);
-                firefly.style.setProperty('--duration', `${duration}s`);
-                firefly.style.setProperty('--flicker-duration', `${flickerDuration}s`);
-                firefly.style.setProperty('--flicker-delay', `${flickerDelay}s`);
-                firefly.style.setProperty('--start-x', startX);
-                firefly.style.setProperty('--start-y', startY);
-                firefly.style.setProperty('--mid1-x', mid1X);
-                firefly.style.setProperty('--mid1-y', mid1Y);
-                firefly.style.setProperty('--mid2-x', mid2X);
-                firefly.style.setProperty('--mid2-y', mid2Y);
-                firefly.style.setProperty('--mid3-x', mid3X);
-                firefly.style.setProperty('--mid3-y', mid3Y);
-                firefly.style.setProperty('--end-x', endX);
-                firefly.style.setProperty('--end-y', endY);
-
-                cardElement.appendChild(firefly);
-            };
-
             document.addEventListener('DOMContentLoaded', () => {
                 console.log('[Client] DOMContentLoaded event fired.');
 
@@ -810,16 +705,6 @@
                     });
                 }
 
-                const junglewutCard = document.getElementById('junglewut-card');
-                if (junglewutCard) {
-
-                    junglewutCard.querySelectorAll('.firefly-particle').forEach(p => p.remove());
-
-                    const numberOfFireflies = 45; 
-                    for (let i = 0; i < numberOfFireflies; i++) {
-                        createFireflyParticle(junglewutCard);
-                    }
-                }
             });
         })(); 
     </script>
