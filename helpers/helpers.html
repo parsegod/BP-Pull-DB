@@ -7,7 +7,6 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Removed: <link rel="stylesheet" href="style.css" /> -->
     <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
@@ -26,14 +25,15 @@
     <!-- Preload the video for faster loading (logo will be visible immediately) -->
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
-    <!-- EMBEDDED TEXT EFFECT STYLES -->
+    <!-- EMBEDDED TEXT EFFECT STYLES AND NEW CUSTOM CARD EFFECTS -->
     <style>
 
         body {
             font-family: "Inter", sans-serif;
             background-color: #0B1738; 
             margin: 0; 
-            overflow: auto; 
+            overflow-x: hidden; 
+            overflow-y: auto; 
         }
 
         .profile-img {
@@ -146,17 +146,17 @@
                 0 0 10px var(--fire-shadow-2, #FF8C00), 
                 0 0 15px var(--fire-shadow-3, #FFD700), 
                 0 0 20px var(--fire-shadow-4, #FFFF00), 
-                0 0 25px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)),
-                0 0 30px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)),
-                0 0 35px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)),
-                0 0 40px var(--fire-shadow-dark4, rgba(255, 255, 0, 0.5));
+                0 0 25px rgba(255, 69, 0, 0.8),
+                0 0 30px rgba(255, 140, 0, 0.7),
+                0 0 35px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 255, 0, 0.5);
             animation: fire-flicker 2s infinite alternate;
         }
         @keyframes fire-flicker {
             0%, 100% { text-shadow: 0 0 5px var(--fire-shadow-1), 0 0 10px var(--fire-shadow-2); }
             25% { text-shadow: 0 0 7px var(--fire-shadow-3), 0 0 12px var(--fire-shadow-4); }
-            50% { text-shadow: 0 0 6px var(--fire-shadow-dark1), 0 0 11px var(--fire-shadow-dark2); }
-            75% { text-shadow: 0 0 8px var(--fire-shadow-dark3), 0 0 13px var(--fire-shadow-dark4); }
+            50% { text-shadow: 0 0 6px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)), 0 0 11px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)); }
+            75% { text-shadow: 0 0 8px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)), 0 0 13px var(--fire-shadow-dark4, rgba(255, 255, 0, 0.5)); }
         }
 
         .water-text {
@@ -443,6 +443,261 @@
                 font-size: 1.5em;
             }
         }
+
+        .contributor-card {
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            border-radius: 1rem; 
+            background-color: #1a202c; 
+            position: relative;
+            overflow: hidden; 
+            z-index: 1; 
+        }
+
+        .contributor-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .emerald-matrix-glitch-card {
+            background: linear-gradient(145deg, #051a05, #000000); 
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.8), inset 0 0 15px rgba(0, 150, 0, 0.5); 
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .emerald-matrix-glitch-card::before,
+        .emerald-matrix-glitch-card::after,
+        .emerald-matrix-glitch-card .glitch-overlay {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0; 
+        }
+
+        .emerald-matrix-glitch-card::before {
+            background:
+                linear-gradient(to right, transparent 1px, rgba(0, 255, 0, 0.1) 1px, rgba(0, 255, 0, 0.1) 2px, transparent 2px),
+                linear-gradient(to bottom, transparent 1px, rgba(0, 255, 0, 0.1) 1px, rgba(0, 255, 0, 0.1) 2px, transparent 2px);
+            background-size: 25px 25px;
+            animation: matrix-scan 8s linear infinite, matrix-flicker 0.2s infinite alternate;
+            opacity: 0.7;
+        }
+
+        .emerald-matrix-glitch-card::after {
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(0, 255, 0, 0.05),
+                rgba(0, 200, 0, 0.05) 1px,
+                rgba(0, 150, 0, 0.05) 2px,
+                transparent 3px,
+                transparent 10px
+            );
+            background-size: 100% 100%;
+            opacity: 0;
+            animation: glitch-flicker 0.5s infinite alternate steps(1);
+        }
+
+        .emerald-matrix-glitch-card .glitch-overlay {
+            background: rgba(0, 255, 0, 0.05); 
+            opacity: 0;
+            animation: strong-glitch 1s infinite steps(1) alternate;
+            transform: translateZ(1px); 
+            z-index: 1; 
+        }
+
+        @keyframes matrix-scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        @keyframes matrix-flicker {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes glitch-flicker {
+            0%, 100% { opacity: 0; }
+            20% { opacity: 0.1; }
+            40% { opacity: 0; }
+            60% { opacity: 0.15; }
+            80% { opacity: 0; }
+        }
+
+        @keyframes strong-glitch {
+            0% { opacity: 0; transform: translateX(0); }
+            10% { opacity: 0.2; transform: translateX(5px) skewX(10deg); }
+            11% { opacity: 0; transform: translateX(0); }
+            20% { opacity: 0.1; transform: translateX(-3px) skewX(-5deg); }
+            21% { opacity: 0; transform: translateX(0); }
+            30% { opacity: 0.3; transform: translateX(8px) skewX(15deg); }
+            31% { opacity: 0; transform: translateX(0); }
+            100% { opacity: 0; transform: translateX(0); }
+        }
+
+        .deep-ocean-current-card {
+            background: linear-gradient(160deg, #000020, #000005); 
+            box-shadow: 0 0 35px rgba(61, 84, 255, 0.7), inset 0 0 18px rgba(0, 100, 200, 0.4); 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deep-ocean-current-card::before,
+        .deep-ocean-current-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-repeat: no-repeat;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .deep-ocean-current-card::before {
+            background: radial-gradient(circle at 20% 80%, rgba(61, 84, 255, 0.5) 0%, transparent 60%), 
+                        radial-gradient(circle at 80% 20%, rgba(0, 191, 255, 0.4) 0%, transparent 60%); 
+            background-size: 70% 70%;
+            animation: ocean-wave-primary 25s ease-in-out infinite alternate;
+            filter: blur(65px) brightness(1.3);
+        }
+
+        .deep-ocean-current-card::after {
+            background: radial-gradient(circle at 50% 10%, rgba(0, 100, 200, 0.3) 0%, transparent 70%), 
+                        radial-gradient(circle at 10% 90%, rgba(70, 130, 180, 0.2) 0%, transparent 70%); 
+            background-size: 80% 80%;
+            animation: ocean-wave-secondary 30s ease-in-out infinite reverse;
+            filter: blur(55px) brightness(1.1);
+        }
+
+        @keyframes ocean-wave-primary {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.8; }
+            25% { transform: translate(60px, -80px) scale(1.05) rotate(10deg); opacity: 0.9; }
+            50% { transform: translate(-100px, 120px) scale(0.95) rotate(-10deg); opacity: 0.7; }
+            75% { transform: translate(80px, -60px) scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.8; }
+        }
+
+        @keyframes ocean-wave-secondary {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.7; }
+            25% { transform: translate(-70px, 90px) scale(0.9) rotate(-15deg); opacity: 0.8; }
+            50% { transform: translate(110px, -110px) scale(1.1) rotate(15deg); opacity: 0.6; }
+            75% { transform: translate(-90px, 50px) scale(0.98) rotate(-5deg); opacity: 0.9; }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.7; }
+        }
+
+        .firefly-swarm-card {
+            background: radial-gradient(ellipse at center, #1a0f00 0%, #000000 100%); 
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), inset 0 0 20px rgba(255, 165, 0, 0.5); 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .firefly-swarm-card::before,
+        .firefly-swarm-card::after {
+            content: '';
+            position: absolute;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .firefly-swarm-card::before {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.3) 1px, transparent 2px),
+                radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.4) 1px, transparent 2px),
+                radial-gradient(circle at 40% 90%, rgba(255, 255, 255, 0.2) 1px, transparent 2px),
+                radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.5) 1px, transparent 2px);
+            background-size: 15px 15px; 
+            animation: star-twinkle 10s infinite linear;
+            filter: blur(0.5px);
+            opacity: 0.7;
+        }
+
+        .firefly-swarm-card::after {
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 30% 70%, rgba(255, 140, 0, 0.1) 0%, transparent 50%), 
+                radial-gradient(circle at 70% 30%, rgba(255, 255, 0, 0.08) 0%, transparent 50%); 
+            background-size: 80% 80%;
+            animation: nebula-drift 40s ease-in-out infinite alternate;
+            filter: blur(60px) brightness(1.1);
+            opacity: 0.6;
+            mix-blend-mode: lighten;
+        }
+
+        .firefly-swarm-card .firefly-particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--firefly-color);
+            width: var(--size);
+            height: var(--size);
+            box-shadow: 0 0 5px var(--firefly-color), 0 0 10px var(--firefly-color), 0 0 15px var(--firefly-color);
+            animation: firefly-dance var(--duration) infinite ease-in-out alternate,
+                       firefly-flicker-glow var(--flicker-duration) infinite alternate var(--flicker-delay);
+            opacity: 0; 
+            z-index: 1;
+        }
+
+        @keyframes star-twinkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.4; }
+        }
+
+        @keyframes nebula-drift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5%, -10%) rotate(5deg); }
+            50% { transform: translate(-10%, 15%) rotate(-5deg); }
+            75% { transform: translate(15%, -5%) rotate(10deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes firefly-dance {
+            0% {
+                transform: translate(var(--start-x), var(--start-y)) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1; 
+            }
+            25% {
+                transform: translate(var(--mid1-x), var(--mid1-y)) scale(0.8);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(var(--mid2-x), var(--mid2-y)) scale(1);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translate(var(--mid3-x), var(--mid3-y)) scale(0.7);
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.2; 
+            }
+            100% {
+                transform: translate(var(--end-x), var(--end-y)) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes firefly-flicker-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--firefly-color), 0 0 10px var(--firefly-color), 0 0 15px var(--firefly-color); }
+            50% { box-shadow: 0 0 2px var(--firefly-color), 0 0 5px var(--firefly-color), 0 0 8px var(--firefly-color); }
+        }
+
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center">
@@ -476,7 +731,8 @@
             <!-- Added justify-center to center the grid items when there are fewer than max columns -->
             <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
                 <!-- Contributor 1: @retrodaz -->
-                <div class="bg-gray-700 rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #4ade80 0%, #3b82f6 100%); background-size: cover;">
+                <div class="contributor-card rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto mb-4 emerald-matrix-glitch-card">
+                    <div class="glitch-overlay"></div> <!-- Added for more pronounced glitch -->
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
                             <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
@@ -511,7 +767,7 @@
                 </div>
 
                 <!-- Contributor 2: @realcorndog999 -->
-                <div class="bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #49007a 0%, #1b4383 100%); background-size: cover;">
+                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto mb-4 deep-ocean-current-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
                             <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
@@ -544,7 +800,7 @@
                 </div>
 
                 <!-- Contributor 3: @junglewut -->
-                <div class="bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" style="background-image: linear-gradient(90deg, #ded94a 2%, #000000 80%); background-size: cover;">
+                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto mb-4 firefly-swarm-card" id="junglewut-card">
                     <div class="profile-picture-container">
                         <div class="avatar-decoration-svg">
                             <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
@@ -608,6 +864,46 @@
 
             };
 
+            const createFireflyParticle = (cardElement) => {
+                const firefly = document.createElement('div');
+                firefly.classList.add('firefly-particle');
+
+                const size = Math.random() * 5 + 3; 
+                const color = ['#FFD700', '#FFA500', '#FFFF00', '#FFC107'][Math.floor(Math.random() * 4)]; 
+                const duration = Math.random() * 6 + 4; 
+                const flickerDuration = Math.random() * 1 + 0.5; 
+                const flickerDelay = Math.random() * 2; 
+
+                const startX = Math.random() * 100 + '%';
+                const startY = Math.random() * 100 + '%';
+                const mid1X = Math.random() * 100 + '%';
+                const mid1Y = Math.random() * 100 + '%';
+                const mid2X = Math.random() * 100 + '%';
+                const mid2Y = Math.random() * 100 + '%';
+                const mid3X = Math.random() * 100 + '%';
+                const mid3Y = Math.random() * 100 + '%';
+                const endX = Math.random() * 100 + '%';
+                const endY = Math.random() * 100 + '%';
+
+                firefly.style.setProperty('--size', `${size}px`);
+                firefly.style.setProperty('--firefly-color', color);
+                firefly.style.setProperty('--duration', `${duration}s`);
+                firefly.style.setProperty('--flicker-duration', `${flickerDuration}s`);
+                firefly.style.setProperty('--flicker-delay', `${flickerDelay}s`);
+                firefly.style.setProperty('--start-x', startX);
+                firefly.style.setProperty('--start-y', startY);
+                firefly.style.setProperty('--mid1-x', mid1X);
+                firefly.style.setProperty('--mid1-y', mid1Y);
+                firefly.style.setProperty('--mid2-x', mid2X);
+                firefly.style.setProperty('--mid2-y', mid2Y);
+                firefly.style.setProperty('--mid3-x', mid3X);
+                firefly.style.setProperty('--mid3-y', mid3Y);
+                firefly.style.setProperty('--end-x', endX);
+                firefly.style.setProperty('--end-y', endY);
+
+                cardElement.appendChild(firefly);
+            };
+
             document.addEventListener('DOMContentLoaded', () => {
                 console.log('[Client] DOMContentLoaded event fired.');
 
@@ -616,6 +912,17 @@
                     videoElement.play().catch(error => {
                         console.warn('Video autoplay prevented:', error);
                     });
+                }
+
+                const junglewutCard = document.getElementById('junglewut-card');
+                if (junglewutCard) {
+
+                    junglewutCard.querySelectorAll('.firefly-particle').forEach(p => p.remove());
+
+                    const numberOfFireflies = 45; 
+                    for (let i = 0; i < numberOfFireflies; i++) {
+                        createFireflyParticle(junglewutCard);
+                    }
                 }
             });
         })(); 
