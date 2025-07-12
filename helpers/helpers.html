@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hall Of Helpers</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
@@ -23,22 +22,9 @@
   <meta name="twitter:description" content="your no.1 bp pull db!">
   <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
-    <!-- Preload the logo image and video for faster loading -->
-    <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center">
-    <!-- Loading Screen -->
-    <div id="loadingScreen">
-        <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
-        <div id="loadingBarContainer">
-            <div id="loadingBar"></div>
-        </div>
-        <div id="loadingText">Loading... 0%</div>
-        <div id="loadingAssetText"></div> <!-- Element for detailed asset loading text -->
-    </div>
-
-    <!-- Video Background -->
     <div class="video-background">
         <video id="backgroundVideo" autoplay loop muted playsinline>
             <source src="assets/wallpaper.mp4" type="video/mp4">
@@ -46,31 +32,23 @@
         </video>
     </div>
 
-    <!-- Announcement Banner (placed directly in body for full width) -->
     <div class="announcement-banner">
         <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
-    <!-- Main Content (initially hidden) -->
     <div id="mainContent" class="w-full flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl w-full rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 mx-auto relative z-10 main-content-bg">
-            <!-- Logo and Motto -->
             <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
             <h1 class="motto">your no.1 bp pull db</h1>
 
-            <!-- Header Section -->
             <header class="text-center mb-12">
                 <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-400 mb-2">Blueprint Pool Expeditions</h1>
                 <p class="text-lg sm:text-xl text-gray-300">Celebrating the incredible individuals who unearthed the hidden blueprint pools.</p>
             </header>
 
-            <!-- Contributors Grid Section - Dynamic Content -->
-            <!-- Added justify-center to center the grid items when there are fewer than max columns -->
             <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
-                <!-- Contributor cards will be rendered here by JavaScript -->
-            </div>
+                </div>
 
-            <!-- Footer Section -->
             <footer class="text-center mt-12 text-gray-400 text-sm">
                     made by parse 🖤
             </footer>
@@ -225,24 +203,17 @@
                     const maskId = `svg-mask-avatar-decoration-status-round-${contributor.id || generateUniqueId()}`;
                     profileContentHtml = `
                         <div class="avatar-decoration-svg">
-                            <!-- SVG dimensions and viewBox adjusted to match the user's example (108x96) -->
                             <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
                                 <defs>
                                     <mask id="${maskId}">
-                                        <!-- This circle defines the visible area for the avatar (80px diameter) -->
-                                        <!-- Centered within the 108x96 SVG, considering the PFP is 80x80 and offset by x=14, y=8 -->
                                         <circle cx="54" cy="48" r="40" fill="white"></circle>
                                     </mask>
                                 </defs>
-                                <!-- foreignObject x, y, width, height adjusted to center the 80x80 PFP within 108x96 SVG: -->
-                                <!-- x = (108 - 80) / 2 = 14 -->
-                                <!-- y = (96 - 80) / 2 = 8 -->
                                 <foreignObject x="14" y="8" width="80" height="80" mask="url(#${maskId})">
                                     <div class="avatarStack__44b0c">
                                         ${profileImageOrInitials}
                                     </div>
                                 </foreignObject>
-                                <!-- The decoration image is placed over the foreignObject and is NOT masked -->
                                 <image class="decoration-image" href="${contributor.avatarDecorationUrl}"
                                     x="0" y="0" width="108" height="96" />
                             </svg>
@@ -332,9 +303,16 @@
             document.addEventListener('DOMContentLoaded', () => {
                 console.log('[Client] DOMContentLoaded event fired. Rendering contributors from embedded JSON.');
                 renderContributors(contributors);
+
+                // Autoplay video on DOMContentLoaded since there's no loading screen
+                const videoElement = document.getElementById('backgroundVideo');
+                if (videoElement) {
+                    videoElement.play().catch(error => {
+                        console.warn('Video autoplay prevented:', error);
+                    });
+                }
             });
         })(); // End of IIFE
     </script>
-    <script src="helpers/load.js"></script>
 </body>
 </html>

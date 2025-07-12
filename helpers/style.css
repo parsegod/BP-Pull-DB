@@ -301,8 +301,8 @@
             height: 100vh;
             overflow: hidden;
             z-index: -1; /* Ensures the video stays behind all other content */
-            opacity: 0; /* Start hidden */
-            visibility: hidden; /* Ensure it's not interactive */
+            opacity: 1; /* Start visible */
+            visibility: visible; /* Ensure it's interactive */
             transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
         }
 
@@ -335,73 +335,10 @@
             padding-top: 200px; /* Adjusted to make space for logo and motto */
         }
 
-        /* Styles for the loading screen */
-        #loadingScreen {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(11, 23, 56, 0.9); /* Dark blue background with slight transparency */
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          z-index: 9999; /* Ensure it's on top of everything */
-          color: #D0D8E8; /* Light text color */
-          font-family: 'Oswald', sans-serif;
-          font-size: 1.2em;
-          transition: opacity 1s ease-out; /* Smooth fade-out for the loading screen */
-        }
-
-        /* Style for the loading screen logo */
-        #loadingLogo {
-          width: 150px;
-          height: auto;
-          margin-bottom: 20px;
-          opacity: 0; /* Start hidden */
-          transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
-        }
-
-        #loadingBarContainer {
-          width: 80%;
-          max-width: 400px;
-          height: 20px;
-          background-color: #1A2B4D; /* Darker shade */
-          border-radius: 10px;
-          overflow: hidden;
-          margin-top: 20px;
-          box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        #loadingBar {
-          height: 100%;
-          width: 0%;
-          background-color: #7CA0E0; /* Lighter shade loading bar */
-          border-radius: 10px;
-          transition: width 0.3s ease-out; /* Smooth transition for bar filling */
-        }
-
-        #loadingText {
-          margin-top: 10px;
-          font-weight: bold;
-        }
-
-        /* Styles for the detailed asset loading text */
-        #loadingAssetText {
-          font-size: 0.9em;
-          margin-top: 5px;
-          text-align: center;
-          line-height: 1.4;
-          min-height: 2.8em; /* Ensure enough space for two lines of text */
-          width: 90%; /* Limit width for better readability */
-          max-width: 500px;
-        }
-
-        /* Initially hide the main content */
+        /* Initially show the main content */
         #mainContent {
-          display: none;
-          opacity: 0; /* Start hidden for fade-in */
+          display: block;
+          opacity: 1; /* Start visible */
           transition: opacity 1s ease-in-out; /* Smooth fade-in for main content */
         }
 
