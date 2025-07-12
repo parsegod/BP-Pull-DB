@@ -3,6 +3,10 @@
     {
       "source": "/guide",
       "destination": "/guide/bypass.html"
+    },
+    {
+      "source": "/HAH",
+      "destination": "/helpers/helpers.html"
     }
   ]
 }
