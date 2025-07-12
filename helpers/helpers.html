@@ -208,30 +208,34 @@
                     : `<div class="w-20 h-20 ${contributor.initialsBgColor || 'bg-gray-500'} rounded-full flex items-center justify-content-center text-3xl font-bold">${contributor.initials || '??'}</div>`;
 
                 let profileContentHtml;
-                // If an avatar decoration URL is provided, wrap the profile image/initials in the SVG structure
+                // If an avatar decoration URL is provided, use the new SVG structure
                 if (contributor.avatarDecorationUrl) {
-                    // Generate a unique ID for the mask for each avatar
-                    const maskId = `svg-mask-avatar-decoration-status-round-${contributor.id || generateUniqueId()}`;
+                    // Generate a unique ID for the clipPath for each avatar
+                    const clipPathId = `svg-clip-path-avatar-${contributor.id || generateUniqueId()}`;
                     profileContentHtml = `
                         <div class="avatar-decoration-svg">
                             <!-- SVG dimensions and viewBox adjusted to match the user's example (108x96) -->
-                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
+                            <svg width="108" height="96" viewBox="0 0 108 96" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
                                 <defs>
-                                    <mask id="${maskId}">
+                                    <!-- Define a circular clipPath for the profile picture -->
+                                    <clipPath id="${clipPathId}">
                                         <!-- This circle defines the visible area for the avatar (80px diameter) -->
                                         <!-- Centered within the 108x96 SVG, considering the PFP is 80x80 and offset by x=14, y=8 -->
-                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
-                                    </mask>
+                                        <circle cx="54" cy="48" r="40"></circle>
+                                    </clipPath>
                                 </defs>
-                                <!-- foreignObject comes FIRST so the PFP is the base layer -->
-                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#${maskId})">
-                                    <div class="avatarStack__44b0c">
-                                        ${profileImageOrInitials}
-                                    </div>
-                                </foreignObject>
-                                <!-- The decoration image is placed AFTER the foreignObject so it renders ON TOP of the PFP -->
+
+                                <!-- The profile picture as a native SVG image, clipped by the circle -->
+                                <!-- x, y, width, height adjusted to center the 80x80 PFP within 108x96 SVG: -->
+                                <!-- x = (108 - 80) / 2 = 14 -->
+                                <!-- y = (96 - 80) / 2 = 8 -->
+                                <image href="${contributor.imageUrl}" x="14" y="8" width="80" height="80"
+                                    clip-path="url(#${clipPathId})" preserveAspectRatio="xMidYMid slice"
+                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+
+                                <!-- The decoration image is placed AFTER the profile picture so it renders ON TOP -->
                                 <image class="decoration-image" href="${contributor.avatarDecorationUrl}"
-                                    x="0" y="0" width="108" height="96" />
+                                    x="0" y="0" width="108" height="96" preserveAspectRatio="xMidYMid slice" />
                             </svg>
                         </div>
                     `;
