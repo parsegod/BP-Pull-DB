@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Of Helpers</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:title" content="Blu Base" />
+  <meta property="og:description" content="Welcome to the hall of helpers!" />
+  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blu Base">
+  <meta name="twitter:description" content="your no.1 bp pull db!">
+  <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
+
+    <!-- Preload the logo image and video for faster loading -->
+    <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
+    <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center">
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
+        <div id="loadingBarContainer">
+            <div id="loadingBar"></div>
+        </div>
+        <div id="loadingText">Loading... 0%</div>
+        <div id="loadingAssetText"></div> <!-- Element for detailed asset loading text -->
+    </div>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay loop muted playsinline>
+            <source src="assets/wallpaper.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Announcement Banner (placed directly in body for full width) -->
+    <div class="announcement-banner">
+        <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+    </div>
+
+    <!-- Main Content (initially hidden) -->
+    <div id="mainContent" class="w-full flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl w-full rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 mx-auto relative z-10 main-content-bg">
+            <!-- Logo and Motto -->
+            <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
+            <h1 class="motto">your no.1 bp pull db</h1>
+
+            <!-- Header Section -->
+            <header class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-400 mb-2">Blueprint Pool Expeditions</h1>
+                <p class="text-lg sm:text-xl text-gray-300">Celebrating the incredible individuals who unearthed the hidden blueprint pools.</p>
+            </header>
+
+            <!-- Contributors Grid Section - Dynamic Content -->
+            <!-- Added justify-center to center the grid items when there are fewer than max columns -->
+            <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
+                <!-- Contributor cards will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Footer Section -->
+            <footer class="text-center mt-12 text-gray-400 text-sm">
+                    made by parse 🖤
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        (function() { // IIFE for scope isolation
+            // Directly embed contributor data from contributors.json
+            const contributors = [
+                {
+                    "id": "jd",
+                    "initials": "JD",
+                    "name": "@retrodaz",
+                    "description": "Led the discovery of the majority of unreleased pools from Season 4R, as well as various other seasons. Additionally, was responsible for identifying the BO6 Melee pools.",
+                    "bgColor": "bg-blue-700",
+                    "initialsBgColor": "bg-blue-500",
+                    "imageUrl": "https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=1024",
+                    "dots": [
+                        "green-400",
+                        "yellow-400",
+                        "red-400",
+                        "purple-400"
+                    ],
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true",
+                    "dotsCount": 8,
+                    "cardBgColor": "",
+                    "cardRounded": "rounded-lg",
+                    "textEffect": "digital-glitch",
+                    "textEffectProps": {
+                        "--glitch-color": "#00ff00",
+                        "--glitch-red-offset": "hsla(0, 100%, 50%, 0.5)",
+                        "--glitch-blue-offset": "hsla(240, 100%, 50%, 0.5)"
+                    },
+                    "useGradient": true,
+                    "cardGradient": "linear-gradient(90deg, #4ade80 0%, #3b82f6 100%)",
+                    "gradientType": "linear",
+                    "gradientAngle": 90,
+                    "radialGradientShape": "circle",
+                    "radialGradientExtent": "farthest-corner",
+                    "nameLinkUrl": "https://discordlookup.com/user/848647666425528371"
+                },
+                {
+                    "id": "as",
+                    "initials": "R",
+                    "name": "@realcorndog999",
+                    "description": "Responsible for designating the majority of MW3 Melee Pools. Also a lead helper in designating Unreleased Season 4R pools.",
+                    "bgColor": "bg-green-700",
+                    "initialsBgColor": "bg-green-500",
+                    "imageUrl": "https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=4096",
+                    "dots": [
+                        "blue-400",
+                        "green-400",
+                        "yellow-400"
+                    ],
+                    "textEffect": "liquid",
+                    "textEffectProps": {
+                        "--liquid-base-color": "#3d54ff",
+                        "--liquid-shadow-1": "#3d54ffB3",
+                        "--liquid-shadow-2": "#3d54ff80",
+                        "--liquid-shadow-3": "#3d54ff4D"
+                    },
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true",
+                    "dotsCount": 6,
+                    "cardBgColor": "",
+                    "cardRounded": "rounded-xl",
+                    "useGradient": true,
+                    "cardGradient": "linear-gradient(90deg, #49007a 0%, #1b4383 100%)",
+                    "gradientType": "linear",
+                    "gradientAngle": 90,
+                    "radialGradientShape": "circle",
+                    "radialGradientExtent": "farthest-corner",
+                    "nameLinkUrl": "https://discordlookup.com/user/703365791122456707"
+                },
+                {
+                    "id": "mb",
+                    "initials": "@",
+                    "name": "@junglewut",
+                    "description": "The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.",
+                    "bgColor": "bg-orange-700",
+                    "initialsBgColor": "bg-orange-500",
+                    "imageUrl": "https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=4096",
+                    "dots": [
+                        "red-400",
+                        "purple-400"
+                    ],
+                    "avatarDecorationUrl": "https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true",
+                    "dotsCount": 10,
+                    "useGradient": true,
+                    "cardBgColor": "",
+                    "cardGradient": "linear-gradient(90deg, #ded94a 2%, #000000 80%)",
+                    "gradientType": "linear",
+                    "gradientAngle": 90,
+                    "radialGradientShape": "circle",
+                    "radialGradientExtent": "farthest-corner",
+                    "cardRounded": "rounded-xl",
+                    "textEffect": "firefly",
+                    "textEffectProps": {
+                        "--firefly-text-color": "#ffffff",
+                        "--firefly-glow-color": "#ffd700"
+                    },
+                    "nameLinkUrl": "https://discordlookup.com/user/690926649318834201"
+                },
+            ];
+
+            // DOM Elements
+            const contributorsGrid = document.getElementById('contributors-grid');
+
+            // Function to generate a unique ID (simple for client-side, though not strictly needed for static display)
+            const generateUniqueId = () => {
+                return '_' + Math.random().toString(36).substr(2, 9);
+            };
+
+            // Function to render a single contributor card
+            const createContributorCard = (contributor) => {
+                // Use dynamic background and roundedness classes
+                // Added max-w-sm and mx-auto to center and limit the width of each card
+                const cardClasses = `bg-gray-700 rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto
+                                     ${contributor.cardRounded || 'rounded-xl'}`;
+
+                const card = document.createElement('div');
+                card.className = cardClasses;
+                card.dataset.id = contributor.id; // Store ID on the card element
+
+                // Apply background color or gradient
+                if (contributor.useGradient && contributor.cardGradient) {
+                    card.style.backgroundImage = contributor.cardGradient;
+                    card.style.backgroundColor = ''; // Clear solid background if gradient is used
+                    card.style.backgroundSize = 'cover';
+                } else if (contributor.cardBgColor) {
+                    const match = contributor.cardBgColor.match(/bg-\[(#[0-9a-fA-F]{3,6})\]/);
+                    if (match) {
+                        card.style.backgroundColor = match[1];
+                        card.style.backgroundImage = ''; // Clear gradient if solid color is used
+                    } else {
+                        card.classList.add(contributor.cardBgColor); // Fallback to Tailwind class if not hex
+                        card.style.backgroundImage = ''; // Clear gradient
+                    }
+                }
+
+
+                // Determine if an image URL is provided, otherwise use initials
+                // The profile image/initials div itself should always be 80x80 (w-20 h-20)
+                const profileImageOrInitials = contributor.imageUrl
+                    ? `<img src="${contributor.imageUrl}" alt="${contributor.name}" class="w-20 h-20 rounded-full profile-img object-cover" onerror="this.onerror=null; this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png || '?'}'">`
+                    : `<div class="w-20 h-20 ${contributor.initialsBgColor || 'bg-gray-500'} rounded-full flex items-center justify-content-center text-3xl font-bold">${contributor.initials || '??'}</div>`;
+
+                let profileContentHtml;
+                // If an avatar decoration URL is provided, wrap the profile image/initials in the SVG structure
+                if (contributor.avatarDecorationUrl) {
+                    // Generate a unique ID for the mask for each avatar
+                    const maskId = `svg-mask-avatar-decoration-status-round-${contributor.id || generateUniqueId()}`;
+                    profileContentHtml = `
+                        <div class="avatar-decoration-svg">
+                            <!-- SVG dimensions and viewBox adjusted to match the user's example (108x96) -->
+                            <svg width="108" height="96" viewBox="0 0 108 96" class="avatarDecoration__44b0c" aria-hidden="true">
+                                <defs>
+                                    <mask id="${maskId}">
+                                        <!-- This circle defines the visible area for the avatar (80px diameter) -->
+                                        <!-- Centered within the 108x96 SVG, considering the PFP is 80x80 and offset by x=14, y=8 -->
+                                        <circle cx="54" cy="48" r="40" fill="white"></circle>
+                                    </mask>
+                                </defs>
+                                <!-- foreignObject x, y, width, height adjusted to center the 80x80 PFP within 108x96 SVG: -->
+                                <!-- x = (108 - 80) / 2 = 14 -->
+                                <!-- y = (96 - 80) / 2 = 8 -->
+                                <foreignObject x="14" y="8" width="80" height="80" mask="url(#${maskId})">
+                                    <div class="avatarStack__44b0c">
+                                        ${profileImageOrInitials}
+                                    </div>
+                                </foreignObject>
+                                <!-- The decoration image is placed over the foreignObject and is NOT masked -->
+                                <image class="decoration-image" href="${contributor.avatarDecorationUrl}"
+                                    x="0" y="0" width="108" height="96" />
+                            </svg>
+                        </div>
+                    `;
+                } else {
+                    // Otherwise, just use the profile image/initials directly
+                    // Retaining mb-4 for consistency when no decoration is present
+                    // Adjusted to w-20 h-20 to match the 80x80px size
+                    profileContentHtml = `<div class="profile-picture-container">
+                                            <div class="w-20 h-20 rounded-full profile-img mb-4 object-cover">
+                                                ${profileImageOrInitials}
+                                            </div>
+                                          </div>`;
+                }
+
+                // Generate dots based on dotsCount
+                const dotColors = ['blue-400', 'green-400', 'red-400', 'purple-400', 'yellow-400', 'pink-400', 'cyan-400', 'orange-400', 'teal-400', 'indigo-400']; // More predefined colors
+                let generatedDotsHtml = '';
+                const numDots = contributor.dotsCount || 0;
+                for (let i = 0; i < numDots; i++) {
+                    const color = dotColors[i % dotColors.length]; // Cycle through colors
+                    generatedDotsHtml += `<span class="w-4 h-4 rounded-full bg-${color}"></span>`;
+                }
+
+                // Apply existing text effect if any
+                const currentEffectClass = contributor.textEffect ? `${contributor.textEffect}-text` : '';
+                const currentEffectDataset = contributor.textEffect || 'none';
+
+                // Special handling for effects that need `data-text` or span wrapping
+                let nameContent = contributor.name;
+                let dataTextAttribute = '';
+                if (currentEffectDataset === 'digital-glitch' || currentEffectDataset === 'arcade-glitch') {
+                    dataTextAttribute = `data-text="${contributor.name}"`;
+                } else if (currentEffectDataset === 'wavy') {
+                    nameContent = contributor.name.split('').map((char, index) => `<span style="--char-index: ${index};">${char}</span>`).join('');
+                }
+
+
+                let nameHtml = `<h3 class="text-xl font-semibold mb-1 contributor-name ${currentEffectClass}" data-effect="${currentEffectDataset}" ${dataTextAttribute}>${nameContent}</h3>`;
+
+                // Wrap name in an anchor tag if nameLinkUrl is provided
+                if (contributor.nameLinkUrl) {
+                    nameHtml = `<a href="${contributor.nameLinkUrl}" target="_blank" class="hover:underline">${nameHtml}</a>`;
+                }
+
+
+                card.innerHTML = `
+                    <div class="profile-picture-container">
+                        ${profileContentHtml}
+                    </div>
+                    ${nameHtml}
+                    <p class="text-gray-200 text-sm mb-4">${contributor.description}</p>
+                    <div class="flex gap-2 mb-4">
+                        ${generatedDotsHtml}
+                    </div>
+                `;
+
+                // Apply stored custom CSS variables for the effect
+                if (contributor.textEffectProps) {
+                    for (const key in contributor.textEffectProps) {
+                        const nameElement = card.querySelector('.contributor-name');
+                        if (nameElement) {
+                            nameElement.style.setProperty(key, contributor.textEffectProps[key]);
+                        }
+                    }
+                }
+
+                return card;
+            };
+
+            // Function to render all contributors
+            const renderContributors = (data) => {
+                console.log('[Client] Rendering contributors...');
+                contributorsGrid.innerHTML = ''; // Clear existing cards
+                if (data.length === 0) {
+                    contributorsGrid.innerHTML = '<p class="col-span-full text-center text-gray-400">No contributors found.</p>';
+                    return;
+                }
+                data.forEach(contributor => {
+                    contributorsGrid.appendChild(createContributorCard(contributor));
+                });
+                console.log('Contributors rendered successfully.');
+            };
+
+            // Initial rendering of contributors when the page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('[Client] DOMContentLoaded event fired. Rendering contributors from embedded JSON.');
+                renderContributors(contributors);
+            });
+        })(); // End of IIFE
+    </script>
+    <script src="helpers/load.js"></script>
+</body>
+</html>
