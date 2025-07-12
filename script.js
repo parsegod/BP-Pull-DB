@@ -48,6 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const contributionsButton = document.getElementById('contributionsButton');
+    if (contributionsButton) {
+        contributionsButton.addEventListener('click', function() {
+            window.location.href = 'http://parsed.top/HAH';
+        });
+    }
+});
 const categoryMap = {
   "0": "ASSAULT RIFLES",
   "1": "SUBMACHINE GUNS",
@@ -69,7 +77,7 @@ let Weapons = [];
 let currentData = [];
 
 const changelogEntries = [
-      {
+    {
     date: "2025-07-12 2:52AM 𝗠𝗦𝗧",
     changes: [
       "↷ Update To UI ↶",
