@@ -273,6 +273,19 @@
             100% { transform: translateY(0) scaleY(1); }
         }
 
+        .firefly-text {
+            position: relative;
+            color: var(--firefly-text-color, #fff);
+            text-shadow: 0 0 5px var(--firefly-glow-color, #FFD700),
+                         0 0 10px var(--firefly-glow-color, #FFD700),
+                         0 0 15px var(--firefly-glow-color, #FFD700);
+            animation: firefly-flicker 2s infinite alternate;
+        }
+        @keyframes firefly-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
         .arcade-glitch-text {
             position: relative;
             color: var(--glitch-base-color, #0f0);
@@ -657,7 +670,7 @@
                         </div>
                     </div>
                     <a href="https://discordlookup.com/user/690926649122456701" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name" data-effect="none">@junglewut</h3>
+                        <h3 class="text-xl font-semibold mb-1 contributor-name firefly-text" data-effect="firefly" style="--firefly-text-color: #ffffff; --firefly-glow-color: #ffd700;">@junglewut</h3>
                     </a>
                     <p class="text-gray-200 text-sm mb-4">The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.</p>
                     <div class="flex gap-2 mb-4">
