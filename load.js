@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const assetsToLoad = [
     { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'}, 
     { url: 'assets/wallpaper.mp4', type: 'video'}, 
-    { url: 'assets/wallpaper.mp4', type: 'video'}, 
     { url: 'assets/weapon.json', type: 'json'},
     { url: 'package.json', type: 'json'},
     { url: 'vercel.json', type: 'json'},
@@ -76,14 +75,14 @@ document.addEventListener('DOMContentLoaded', function() {
       function updateProgressBar() {
         const progress = (explicitResourcesLoadedCount / totalExplicitResources) * 100;
         loadingBar.style.width = progress + '%';
-        loadingText.textContent = `.. Fetching ${Math.round(progress)}%`;
+        loadingText.textContent = `Fetching ${Math.round(progress)}%`;
         console.log(`Progress: ${Math.round(progress)}%, Current Loaded count: ${explicitResourcesLoadedCount}`);
       }
 
       function loadAsset(asset) {
           return new Promise(resolve => {
               const fileName = getFileNameFromUrl(asset.url);
-              enqueueMessage(`<strong>.. Fetching</strong> - ${fileName}`);
+              enqueueMessage(`<strong>Placing</strong> - ${fileName}..`);
 
               const markAsLoaded = (status) => {
                   explicitResourcesLoadedCount++;
