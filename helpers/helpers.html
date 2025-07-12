@@ -342,6 +342,7 @@
             z-index: -1; /* Ensures the video stays behind all other content */
             opacity: 1; /* Always visible */
             visibility: visible; /* Always visible */
+            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
         }
 
         .video-background video {
@@ -357,36 +358,36 @@
             filter: brightness(0.6); /* Slightly darkens the video for better text readability */
         }
 
-        /* New style for the main content container */
+        /* Main Content Container - Replicating .container from index.html */
         .main-content-bg {
-            width: calc(100% - 20px);
-            max-width: 900px; /* Added from index.html */
-            min-width: 320px; /* Added from index.html */
-            margin: 20px auto; /* Adjusted margin for consistency */
-            padding: 25px; /* Adjusted from 15px */
-            background: rgba(11, 23, 56, 0.95); /* Adjusted from 0.9 */
+            width: 96%; /* Consistent with index.html's mobile media query for .container */
+            max-width: 900px; /* From index.html */
+            min-width: 320px; /* From index.html */
+            margin: 10px auto; /* From index.html's mobile media query for .container */
+            padding: 25px; /* From index.html */
+            background: rgba(11, 23, 56, 0.95); /* From index.html */
             border-radius: 0;
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Adjusted from 0 8px 20px rgba(0, 0, 0, 0.4) */
-            border: 1px solid rgba(44, 72, 124, 0.6); /* Added border */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* From index.html */
+            border: 1px solid rgba(44, 72, 124, 0.6); /* From index.html */
             position: relative;
             z-index: 2;
-            /* Removed zoom as it's non-standard and we're using responsive design */
-            min-height: calc(100vh - 40px); /* Added min-height */
-            padding-top: 250px; /* Adjusted from 200px */
+            min-height: calc(100vh - 40px); /* From index.html */
+            padding-top: 180px; /* Adjusted to match index.html's visual top spacing for content below logo/motto */
         }
 
-        /* Initially show the main content */
+        /* #mainContent - Adjusted for non-loading page */
         #mainContent {
           display: block; /* Always visible */
           opacity: 1; /* Always visible */
           margin-top: 40px; /* Added margin-top to create space below the fixed banner */
+          transition: opacity 1s ease-in-out; /* Smooth fade-in for main content */
         }
 
-        /* Styles for the announcement banner */
+        /* Announcement Banner - Copied from index.html/style.css */
         .announcement-banner {
-          background: rgba(11, 23, 56, 0.7); /* Added background color from style.css */
+          background: rgba(11, 23, 56, 0.7);
           color: #ffffff;
           text-align: center;
           padding: 10px 0;
@@ -394,10 +395,10 @@
           font-size: 1.1em;
           font-weight: bold;
           letter-spacing: 0.5px;
-          position: fixed; /* Changed to fixed */
-          top: 0; /* Position at the top */
-          left: 0; /* Align to the left */
-          width: 100%; /* Full width */
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
           z-index: 1000;
         }
 
@@ -428,29 +429,29 @@
           vertical-align: middle;
         }
 
-        /* Style for the logo */
+        /* Logo - Copied from index.html/style.css, with absolute positioning */
         .logo {
-          position: absolute; /* Added absolute positioning */
-          top: 30px; /* Adjusted top position */
-          left: 50%; /* Centered horizontally */
-          transform: translateX(-50%); /* Centered horizontally */
-          width: 180px; /* Adjusted width from 200px to 180px */
+          position: absolute;
+          top: 30px; /* Relative to .main-content-bg */
+          left: 50%;
+          transform: translateX(-50%);
+          width: 180px; /* Default width */
           height: auto;
-          z-index: 10; /* Ensures logo is above other content */
-          margin-bottom: 0px; /* Kept existing margin-bottom */
+          z-index: 10;
+          margin-bottom: 0px;
           transition: transform 0.3s ease-in-out;
         }
 
         .logo:hover {
-          transform: translateX(-50%) scale(1.05); /* Adjusted transform for hover */
+          transform: translateX(-50%) scale(1.05);
         }
 
-        /* Style for the motto */
+        /* Motto - Copied from index.html/style.css, with absolute positioning */
         .motto {
-          position: absolute; /* Added absolute positioning */
-          top: 180px; /* Adjusted top position */
-          left: 50%; /* Centered horizontally */
-          transform: translateX(-50%); /* Centered horizontally */
+          position: absolute;
+          top: 120px; /* Adjusted to be below the logo */
+          left: 50%;
+          transform: translateX(-50%);
           background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
           -webkit-background-clip: text;
           background-clip: text;
@@ -463,67 +464,65 @@
           width: 100%;
           font-weight: bold;
           text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-          margin-top: 0; /* Kept existing margin-top */
-          margin-bottom: 30px; /* Kept existing margin-bottom */
-          z-index: 10; /* Ensures motto is above other content */
+          margin-top: 0;
+          margin-bottom: 30px;
+          z-index: 10;
         }
 
-        /* Media queries for responsiveness */
+        /* Media queries for responsiveness - Combined and refined */
         @media (max-width: 768px) {
             .main-content-bg {
-                width: 96%; /* Adjusted width for mobile */
-                padding: 10px; /* Adjusted padding for mobile */
-                padding-top: 180px; /* Adjusted padding-top for mobile */
-                margin: 10px auto; /* Adjusted margin for mobile */
+                width: 96%;
+                padding: 10px;
+                padding-top: 180px; /* Ensure enough space for logo/motto on smaller screens */
+                margin: 10px auto;
             }
             .logo {
-                width: 120px; /* Adjusted width for mobile */
-                top: 15px; /* Adjusted top position for mobile */
+                width: 120px;
+                top: 15px;
             }
 
             .motto {
-                font-size: 1.2em; /* Adjusted font-size for mobile */
-                top: 120px; /* Adjusted top position for mobile */
-                white-space: normal; /* Allow text to wrap on mobile */
+                font-size: 1.2em;
+                top: 120px;
+                white-space: normal; /* Allow text to wrap */
             }
         }
 
         @media (max-width: 480px) {
             .main-content-bg {
-                width: 96%; /* Adjusted width for mobile */
-                padding: 10px; /* Adjusted padding for mobile */
-                padding-top: 180px; /* Adjusted padding-top for mobile */
-                margin: 10px auto; /* Adjusted margin for mobile */
+                width: 96%;
+                padding: 10px;
+                padding-top: 180px;
+                margin: 10px auto;
             }
             .logo {
-                width: 120px; /* Adjusted width for mobile */
-                top: 15px; /* Adjusted top position for mobile */
+                width: 120px;
+                top: 15px;
             }
 
             .motto {
-                font-size: 1.2em; /* Adjusted font-size for mobile */
-                top: 120px; /* Adjusted top position for mobile */
-                white-space: normal; /* Allow text to wrap on mobile */
+                font-size: 1.2em;
+                top: 120px;
+                white-space: normal;
             }
         }
 
-        /* --- NEW CUSTOM CARD BACKGROUND EFFECTS --- */
-
-        /* Base card styles for hover effects */
+        /* --- NEW CUSTOM CARD BACKGROUND EFFECTS --- (Keeping as is, seem fine) */
         .contributor-card {
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-            border-radius: 1rem; /* Tailwind's rounded-xl */
-            background-color: #1a202c; /* Fallback for cards */
+            border-radius: 1rem;
+            background-color: #1a202c;
             position: relative;
-            overflow: hidden; /* Crucial for containing pseudo-elements */
-            z-index: 1; /* Ensure card content is above background effects */
-            padding: 1.5rem; /* Equivalent to p-6 */
-            display: flex; /* Ensure flex properties for content alignment */
+            overflow: hidden;
+            z-index: 1;
+            padding: 1.5rem;
+            display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 0; /* Remove individual bottom margin */
-            min-height: 300px; /* Added min-height to ensure consistent card height */
+            margin-bottom: 0;
+            min-height: 300px;
         }
 
         .contributor-card:hover {
@@ -531,15 +530,12 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
         }
 
-        /* Emerald Matrix Glitch Effect for @retrodaz (Green Glitch Text) */
         .emerald-matrix-glitch-card {
             background: linear-gradient(135deg, #004d00 0%, #000000 100%);
-            /* Removed box-shadow and animation for glow */
             box-shadow: none;
             animation: none;
         }
 
-        /* Deep Ocean Current Effect for @realcorndog999 (Liquid Blue Text) */
         .deep-ocean-current-card {
             background: linear-gradient(160deg, #000020, #000005);
             box-shadow: 0 0 35px rgba(61, 84, 255, 0.7), inset 0 0 18px rgba(0, 100, 200, 0.4);
