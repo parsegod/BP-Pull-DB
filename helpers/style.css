@@ -391,7 +391,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 2;
-            zoom:0.83;
+            /* Removed zoom:0.83; as it's non-standard and can cause issues on mobile */
             padding-top: 200px; /* Adjusted to make space for logo and motto */
         }
 
