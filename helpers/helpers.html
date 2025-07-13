@@ -23,264 +23,354 @@
     <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
     <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
+  <style>
 
-    <style>
-        /* General Body and HTML styles from style.css */
-        html {
-            box-sizing: border-box;
-        }
+    html {
+      box-sizing: border-box;
+    }
 
-        *, *::before, *::after {
-            box-sizing: inherit;
-        }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
 
-        body {
-            width: 100%;
-            height: 100%;
-            min-width: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-size: 400% 400%;
-            color: #D0D8E8;
-            font-weight: bold;
-            line-height: 1.6;
-            animation: gradientAnimation 15s ease infinite;
-            list-style: none; /* Ensure no default list styles */
-            background-color: #0B1738; /* From index.html body style */
-        }
+    body {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-size: 400% 400%;
+      color: #D0D8E8;
+      font-weight: bold;
+      line-height: 1.6;
+      animation: gradientAnimation 15s ease infinite;
+      list-style: none; 
+      background-color: #0B1738; 
+      overflow: hidden; 
+    }
 
-        /* Scrollbar styles from style.css */
-        ::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-        }
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(11, 23, 56, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: #D0D8E8;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2em;
+      transition: opacity 1s ease-out;
+    }
 
-        ::-webkit-scrollbar-track {
-            background: #1A2B4D;
-            border-radius: 10px;
-        }
+    #loadingLogo {
+      display: block;
+      width: 200px;
+      height: auto;
+      opacity: 0; 
+      transition: opacity 1s ease-in-out; 
+      border: 2px solid #7CA0E0; 
+    }
 
-        ::-webkit-scrollbar-thumb {
-            background: #2C487C;
-            border-radius: 10px;
-        }
+    #loadingLogo.fade-in {
+      opacity: 1; 
+    }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #7CA0E0;
-        }
+    #loadingBarContainer {
+      margin-top: -30px;
+      width: 80%;
+      max-width: 400px;
+      height: 20px;
+      background-color: #1A2B4D;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        ::-webkit-scrollbar-corner {
-            background: #1A2B4D;
-        }
+    #loadingBar {
+      height: 100%;
+      width: 0%;
+      background-color: #7CA0E0;
+      border-radius: 10px;
+      transition: width 0.3s ease-out;
+    }
 
-        ::-webkit-scrollbar-button {
-            background: #1A2B4D;
-            height: 0;
-            width: 0;
-        }
+    #loadingText {
+      margin-top: 10px;
+      font-weight: bold;
+    }
 
-        /* Gradient Animation from style.css */
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+    #loadingAssetText {
+      font-size: 0.9em;
+      margin-top: 5px;
+      text-align: center;
+      line-height: 1.4;
+      min-height: 2.8em;
+      width: 90%;
+      max-width: 500px;
+    }
 
-        /* Video Background styles from style.css and index.html */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: -1;
-            opacity: 1; /* Always visible for helpers.html */
-            visibility: visible; /* Always visible for helpers.html */
-            transition: opacity 1s ease-in-out;
-        }
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
 
-        .video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.6);
-        }
+    ::-webkit-scrollbar-track {
+      background: #1A2B4D;
+      border-radius: 10px;
+    }
 
-        /* Announcement Banner from style.css */
-        .announcement-banner {
-            background: rgba(11, 23, 56, 0.7);
-            color: #ffffff;
-            text-align: center;
-            padding: 10px 0;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1em;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            position: relative; /* Changed to relative for flow, fixed for index.html */
-            z-index: 1000;
-        }
+    ::-webkit-scrollbar-thumb {
+      background: #2C487C;
+      border-radius: 10px;
+    }
 
-        .announcement-banner p {
-            margin: 0;
-        }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7CA0E0;
+    }
 
-        .gradient-heart {
-            background: linear-gradient(to right, #059695, #0B1738);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.2em;
-            display: inline-block;
-            line-height: 1;
-            vertical-align: middle;
-        }
+    ::-webkit-scrollbar-corner {
+      background: #1A2B4D;
+    }
 
-        .announcement-banner a {
-            color: #059695;
-            text-decoration: underline;
-            transition: color 0.2s ease;
-        }
+    ::-webkit-scrollbar-button {
+      background: #1A2B4D;
+      height: 0;
+      width: 0;
+    }
 
-        .announcement-banner a:hover {
-            color: #059695;
-            font-weight: bold;
-        }
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 
-        /* Main Content Container - Replicating .container from index.html/style.css */
-        .container {
-            width: calc(100% - 20px);
-            max-width: 900px;
-            min-width: 320px;
-            margin: 20px auto 20px auto;
-            padding: 25px;
-            background: rgba(11, 23, 56, 0.95);
-            border-radius: 0;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(44, 72, 124, 0.6);
-            position: relative;
-            z-index: 2;
-            zoom: 0.85; /* Added back to match style.css */
-            min-height: calc(100vh - 40px);
-            padding-top: 250px; /* Space for logo and motto */
-        }
+    .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: -1;
+        opacity: 0; 
+        visibility: hidden; 
+        transition: opacity 1s ease-in-out;
+    }
 
-        /* Logo from style.css */
-        .logo {
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: auto;
-            z-index: 10;
-            margin-bottom: 0px;
-            transition: transform 0.3s ease-in-out;
-        }
+    .video-background video {
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        filter: brightness(0.6);
+    }
 
-        .logo:hover {
-            transform: translateX(-50%) scale(1.05);
-        }
+    .announcement-banner {
+      background: rgba(11, 23, 56, 0.7);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1em;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1000;
+    }
 
-        /* Motto from style.css */
-        .motto {
-            position: absolute;
-            top: 180px; /* Adjusted to be below the logo */
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8em;
-            text-align: center;
-            white-space: nowrap;
-            width: 100%;
-            font-weight: bold;
-            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-            margin-top: 0;
-            margin-bottom: 30px;
-            z-index: 10;
-        }
+    .announcement-banner p {
+      margin: 0;
+    }
 
-        /* #mainContent - Always visible for helpers.html */
-        #mainContent {
-            display: block;
-            opacity: 1;
-            margin-top: 0; /* No extra margin needed here as container handles spacing */
-            transition: opacity 1s ease-in-out;
-        }
+    .gradient-heart {
+      background: linear-gradient(to right, #059695, #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.2em;
+      display: inline-block;
+      line-height: 1;
+      vertical-align: middle;
+    }
 
-        /* Profile image object-fit */
-        .profile-img {
-            object-fit: cover;
-        }
+    .announcement-banner a {
+      color: #059695;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
 
-        /* Avatar decoration SVG styles */
-        .avatar-decoration-svg {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 16px;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
-        .avatar-decoration-svg foreignObject {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .avatar-decoration-svg .avatarStack__44b0c {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-        .avatar-decoration-svg .avatar__44b0c {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .avatar-decoration-svg .decoration-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
+    .announcement-banner a:hover {
+      color: #059695;
+      font-weight: bold;
+    }
 
-        /* Contributor name text effects base style */
-        .contributor-name {
-            transition: all 0.3s ease-in-out;
-            display: inline-block;
-            white-space: nowrap;
-        }
+    #mainContent {
+      display: none; 
+      opacity: 0; 
+      transition: opacity 1s ease-in-out; 
+    }
 
-        /* Text Effect Styles (copied directly) */
+    .container {
+      width: calc(100% - 20px);
+      max-width: 900px;
+      min-width: 320px;
+      margin: 20px auto 20px auto;
+      padding: 25px;
+      background: rgba(11, 23, 56, 0.95);
+      border-radius: 0;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(44, 72, 124, 0.6);
+      position: relative;
+      z-index: 2;
+      zoom: 0.85; 
+      min-height: calc(100vh - 40px);
+      padding-top: 250px;
+    }
+
+    .motto {
+      position: absolute;
+      top: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8em;
+      text-align: center;
+      white-space: normal; 
+      z-index: 10;
+      width: 100%;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+    }
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+
+      transform: translateX(calc(-50% - 4%)) scale(0.8); 
+      width: 180px;
+      height: auto;
+      z-index: 10;
+      opacity: 0; 
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out; 
+    }
+
+    .logo.fade-in {
+      opacity: 1;
+      transform: translateX(calc(-50% - 4%)) scale(1); 
+    }
+
+    .contributions-page-content {
+        background-color: #0B1738;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: inset 0 4px 10px rgba(0,0,0,0.3);
+        border: 2px solid #2C487C;
+        margin-top: 20px;
+    }
+
+    .contributions-page-content h3 {
+        font-family: 'Oswald', sans-serif;
+        color: #7CA0E0;
+        font-size: 1.8em;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .blueprint-heading {
+        display: block; 
+        margin: 0 auto; 
+        text-align: center; 
+        color: #60A5FA; 
+        font-weight: 800; 
+    }
+
+    .centered-paragraph {
+        text-align: center; 
+        word-wrap: break-word; 
+        overflow-wrap: break-word; 
+    }
+
+    .profile-img {
+        object-fit: cover;
+    }
+
+    .avatar-decoration-svg {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 16px;
+        will-change: transform, opacity;
+        transform: translateZ(0);
+    }
+    .avatar-decoration-svg foreignObject {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .avatar-decoration-svg .avatarStack__44b0c {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    .avatar-decoration-svg .avatar__44b0c {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .avatar-decoration-svg .decoration-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        will-change: transform, opacity;
+        transform: translateZ(0);
+    }
+
+    .contributor-name {
+        transition: all 0.3s ease-in-out;
+        display: inline-block;
+        white-space: normal; 
+    }
+
         .glowing-text {
             color: var(--glowing-color, #fff);
             text-shadow: 0 0 5px var(--glowing-color, #fff),
@@ -487,7 +577,6 @@
             50% { transform: translateY(-5px); }
         }
 
-        /* Card specific styles */
         .contributor-card {
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
             border-radius: 1rem;
@@ -500,7 +589,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 0;
+            margin-bottom: 2rem; 
             min-height: 300px;
         }
 
@@ -517,7 +606,7 @@
 
         .deep-ocean-current-card {
             background: linear-gradient(160deg, #000020, #000005);
-            box-shadow: 0 0 35px rgba(61, 84, 255, 0.7), inset 0 0 18px rgba(0, 100, 200, 0.4);
+
             position: relative;
             overflow: hidden;
             padding: 1.5rem;
@@ -568,525 +657,430 @@
         }
 
         #contributors-grid {
-            gap: 1rem;
+            gap: 2rem; 
         }
 
-        /* Media Queries - Consolidated and matched to index.html/style.css */
+        footer {
+            margin-top: 4rem; 
+            text-align: center; 
+            color: #D0D8E8;
+            font-size: 0.9em;
+        }
+
         @media (max-width: 768px) {
+
+            #loadingLogo {
+                width: 150px;
+                z-index: 9999;
+            }
             .container {
-                width: 96%;
+                width: 96%; 
                 padding: 10px;
                 padding-top: 180px;
-                margin: 10px auto; /* Centered with auto margins */
-                /* Removed border-radius overrides to inherit base styles */
+                margin: 10px auto; 
+                border: 2px solid #7CA0E0;
+
             }
 
             .logo {
                 width: 120px;
                 top: 15px;
+
+                transform: translateX(-50%) scale(0.8);
+            }
+
+            .logo.fade-in {
+                transform: translateX(-50%) scale(1);
             }
 
             .motto {
                 font-size: 1.2em;
                 top: 120px;
-                white-space: normal; /* Allow text to wrap on mobile */
+                white-space: normal; 
             }
 
-            /* Styles specific to index.html components not present in helpers.html, but kept for completeness */
-            .loadingLogo {
-                width: 150px;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                opacity: 1;
-                z-index: 9999;
-            }
-            .search-filter-section {
-                padding: 15px 10px;
-            }
-            .search-bar-row {
-                flex-direction: column;
-                gap: 8px;
-                max-width: none;
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-                align-items: flex-start;
-            }
-            .search-bar-row input[type="search"] {
-                width: 100%;
-                max-width: none;
-                font-size: 0.8em;
-                padding: 8px 10px;
-            }
-            .filter-dropdown {
-                width: 100%;
-                max-width: none;
-            }
-            .checkbox-controls {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-                justify-content: center;
-                padding: 5px 0;
-                width: 100%;
-            }
-            .checkbox-controls label {
-                width: 100%;
-                margin: 0;
-                text-align: left;
-                padding-left: 12px;
-            }
-            .contributions-button-container {
-                margin-bottom: 10px;
-            }
-            #contributionsButton {
-                width: calc(100% - 20px);
-                margin: 0 10px;
-            }
-            .blueprint-counters {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 10px;
-                font-size: 0.8em;
-            }
-            table {
-                border: 0;
-            }
-            table thead {
-                display: none;
-            }
-            table tr {
-                display: block;
-                margin-bottom: 0.625em;
-                border: 1px solid #1A2B4D;
-                border-radius: 8px;
-                background-color: rgba(11, 23, 56, 0.9);
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            }
-            table td {
-                border-bottom: 1px solid #1A2B4D;
-                display: block;
-                font-size: 0.8em;
-                text-align: center;
-                padding: 0.625em 0.825em;
-                position: relative;
-                white-space: normal;
-                text-overflow: clip;
-            }
-            table td::before {
-                content: attr(data-label);
-                float: left;
-                font-weight: bold;
-                text-transform: uppercase;
-                color: #7CA0E0;
-                margin-right: 1em;
-            }
-            table td:last-child {
-                border-bottom: 0;
-            }
-            th:nth-child(1), td:nth-child(1),
-            th:nth-child(2), td:nth-child(2),
-            th:nth-child(3), td:nth-child(3),
-            th:nth-child(4), td:nth-child(4) {
-                width: auto;
-                flex: none;
-            }
-            tr td:nth-child(3), tr th:nth-child(3),
-            tr td:nth-child(4), tr th:nth-child(4) {
-                flex: none;
-            }
-            th:first-child { border-top-left-radius: 0; }
-            th:last-child { border-top-right-radius: 0; }
-            .modal-content {
-                width: 96%;
-                padding: 15px;
-                max-width: none;
-                border-radius: 12px;
-            }
-            .tab-content {
-                padding: 15px;
-            }
-            .changelog-entries li {
-                padding: 10px 15px;
-            }
-            .how-to-tabs {
-                flex-wrap: wrap;
-                flex-direction: row;
-                justify-content: center;
-                gap: 5px;
-                margin-bottom: 15px;
-                padding-bottom: 5px;
-                margin-top: -25px;
-            }
-            .how-to-tabs .tab-button {
-                flex: 1 1 auto;
-                min-width: 90px;
-                max-width: 150px;
-                padding: 8px 10px;
-                font-size: 0.8em;
-                margin: 5px;
-                border-radius: 8px;
-                border-bottom: 1px solid #1A2B4D;
-                top: 0;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-                text-align: center;
-            }
-            .how-to-tabs .tab-button.active {
-                transform: none;
-                border-width: 1px;
-                border-bottom: 1px solid #2C487C;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            }
-            .tab-content li {
-                padding: 10px 12px;
-                padding-left: 20px;
-                font-size: 0.9em;
-            }
-            .tab-content li::before {
-                left: 5px;
+            footer {
+                margin-top: 3rem; 
             }
         }
 
         @media (max-width: 480px) {
-            .loadingLogo {
+
+            #loadingLogo {
                 width: 150px;
-                top: 50%;
-                left: 70%;
-                transform: translate(-50%, -50%);
-                opacity: 1;
                 z-index: 9999;
-                border: 2px solid #7CA0E0;
             }
             .container {
-                width: 96%;
+                width: 96%; 
                 padding: 10px;
                 padding-top: 180px;
-                margin: 10px auto; /* Centered with auto margins */
-                /* Removed border-radius overrides to inherit base styles */
+                margin: 10px auto; 
+                border: 2px solid #7CA0E0;
+
             }
             .logo {
                 width: 120px;
                 top: 15px;
+
+                transform: translateX(-50%) scale(0.8);
+            }
+            .logo.fade-in {
+                transform: translateX(-50%) scale(1);
             }
             .motto {
                 font-size: 1.2em;
                 top: 120px;
                 white-space: normal;
             }
-            .search-filter-section {
-                padding: 15px 10px;
-            }
-            .search-bar-row {
-                flex-direction: column;
-                gap: 8px;
-                max-width: none;
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-                align-items: flex-start;
-            }
-            .search-bar-row input[type="search"] {
-                width: 100%;
-                max-width: none;
-                font-size: 0.8em;
-                padding: 8px 10px;
-            }
-            .filter-dropdown {
-                width: 100%;
-                max-width: none;
-            }
-            .checkbox-controls {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-                justify-content: center;
-                padding: 5px 0;
-                width: 100%;
-            }
-            .checkbox-controls label {
-                width: 100%;
-                margin: 0;
-                text-align: left;
-                padding-left: 12px;
-            }
-            .changelog-button,
-            .how-to-use-button {
-                width: calc(100% - 20px);
-                display: block;
-                margin-left: 10px;
-                margin-right: auto;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-            .blueprint-counters {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 10px;
-                font-size: 0.8em;
-            }
-            table {
-                border: 0;
-            }
-            table thead {
-                display: none;
-            }
-            table tr {
-                display: block;
-                margin-bottom: 0.625em;
-                border: 1px solid #1A2B4D;
-                border-radius: 8px;
-                background-color: rgba(11, 23, 56, 0.9);
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            }
-            table td {
-                border-bottom: 1px solid #1A2B4D;
-                display: block;
-                font-size: 0.8em;
-                text-align: center;
-                padding: 0.625em 0.825em;
-                position: relative;
-                white-space: normal;
-                text-overflow: clip;
-            }
-            table td::before {
-                content: attr(data-label);
-                float: left;
-                font-weight: bold;
-                text-transform: uppercase;
-                color: #7CA0E0;
-                margin-right: 1em;
-            }
-            table td:last-child {
-                border-bottom: 0;
-            }
-            th:nth-child(1), td:nth-child(1),
-            th:nth-child(2), td:nth-child(2),
-            th:nth-child(3), td:nth-child(3),
-            th:nth-child(4), td:nth-child(4) {
-                width: auto;
-                flex: none;
-            }
-            tr td:nth-child(3), tr th:nth-child(3),
-            tr td:nth-child(4), tr th:nth-child(4) {
-                flex: none;
-            }
-            th:first-child { border-top-left-radius: 0; }
-            th:last-child { border-top-right-radius: 0; }
-            .modal-content {
-                width: 96%;
-                padding: 15px;
-                max-width: none;
-                border-radius: 12px;
-            }
-            .tab-content {
-                padding: 15px;
-            }
-            .changelog-entries li {
-                padding: 10px 15px;
-            }
-            .how-to-tabs {
-                flex-wrap: wrap;
-                flex-direction: row;
-                justify-content: center;
-                gap: 5px;
-                margin-bottom: 15px;
-                padding-bottom: 5px;
-                margin-top: -25px;
-            }
-            .how-to-tabs .tab-button {
-                flex: 1 1 auto;
-                min-width: 90px;
-                max-width: 150px;
-                padding: 8px 10px;
-                font-size: 0.8em;
-                margin: 5px;
-                border-radius: 8px;
-                border-bottom: 1px solid #1A2B4D;
-                top: 0;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-                text-align: center;
-            }
-            .tab-to-tabs .tab-button.active {
-                transform: none;
-                border-width: 1px;
-                border-bottom: 1px solid #2C487C;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            }
-            .tab-content li {
-                padding: 10px 12px;
-                padding-left: 20px;
-                font-size: 0.9em;
-            }
-            .tab-content li::before {
-                left: 5px;
+
+            footer {
+                margin-top: 3rem; 
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="video-background">
-        <video id="backgroundVideo" autoplay loop muted playsinline>
-            <source src="assets/wallpaper.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+  <div id="loadingScreen">
+    <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
+    <div id="loadingBarContainer">
+      <div id="loadingBar"></div>
     </div>
+    <div id="loadingText">Loading... 0%</div>
+    <div id="loadingAssetText"></div>
+  </div>
+
+  <div id="mainContent">
 
     <div class="announcement-banner">
-        <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
-    <div id="mainContent">
-        <div class="container">
-
-            <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
-            <h1 class="motto">your no.1 bp pull db</h1>
-
-            <header class="text-center mb-12">
-                <p class="text-lg sm:text-xl text-gray-300">I'd like to take a moment to express sincere gratitude to the members of this project. Their invaluable assistance was crucial in making this whole thing possible! 
-</p>
-            </header>
-
-            <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
-
-                <div class="contributor-card rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto emerald-matrix-glitch-card">
-                    <div class="profile-picture-container">
-                        <div class="avatar-decoration-svg">
-                            <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
-                                <defs>
-
-                                    <clipPath id="svg-clip-path-avatar-jd">
-
-                                        <circle cx="50" cy="50" r="40"></circle>
-                                    </clipPath>
-                                </defs>
-
-                                <image href="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=128" x="10" y="10" width="80" height="80"
-                                    clip-path="url(#svg-clip-path-avatar-jd)" preserveAspectRatio="xMidYMid slice"
-                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
-
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true"
-                                    x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
-                    </a>
-                    <p class="text-gray-200 text-sm mb-4">Led the discovery of the majority of unreleased pools from Season 4R, as well as various other seasons. Additionally, was responsible for identifying the BO6 Melee pools.</p>
-                    <div class="flex gap-2 mb-4">
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                    </div>
-                </div>
-
-                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto deep-ocean-current-card">
-                    <div class="profile-picture-container">
-                        <div class="avatar-decoration-svg">
-                            <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
-                                <defs>
-                                    <clipPath id="svg-clip-path-avatar-as">
-                                        <circle cx="50" cy="50" r="40"></circle>
-                                    </clipPath>
-                                </defs>
-                                <image href="https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=128" x="10" y="10" width="80" height="80"
-                                    clip-path="url(#svg-clip-path-avatar-as)" preserveAspectRatio="xMidYMid slice"
-                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true"
-                                    x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
-                            </svg>
-                        </div>
-                    </div>
-                    <a href="https://discordlookup.com/user/703365791122456707" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name liquid-text" data-effect="liquid" style="--liquid-base-color: #3d54ff; --liquid-shadow-1: #3d54ffB3; --liquid-shadow-2: #3d54ff80; --liquid-shadow-3: #3d54ff4D;">@realcorndog999</h3>
-                    </a>
-                    <p class="text-gray-200 text-sm mb-4">Responsible for designating the majority of MW3 Melee Pools. Also a lead helper in designating Unreleased Season 4R pools.</p>
-                    <div class="flex gap-2 mb-4">
-                        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-pink-400"></span>
-                    </div>
-                </div>
-
-                <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" id="junglewut-card">
-                    <div class="profile-picture-container">
-                        <div class="avatar-decoration-svg">
-                            <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
-                                <defs>
-                                    <clipPath id="svg-clip-path-avatar-mb">
-                                        <circle cx="50" cy="50" r="40"></circle>
-                                    </clipPath>
-                                </defs>
-                                <image href="https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=128" x="10" y="10" width="80" height="80"
-                                    clip-path="url(#svg-clip-path-avatar-mb)" preserveAspectRatio="xMidYMid slice"
-                                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
-                                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true"
-                                    x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
-                            </svg>
-                        </div>
-                    </div>
-                    <a href="https://discordlookup.com/user/690926649122456701" target="_blank" class="hover:underline">
-                        <h3 class="text-xl font-semibold mb-1 contributor-name firefly-text" data-effect="firefly" style="--firefly-text-color: #ffffff; --firefly-glow-color: #ffd700;">@junglewut</h3>
-                    </a>
-                    <p class="text-gray-200 text-sm mb-4">The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.</p>
-                    <div class="flex gap-2 mb-4">
-                        <span class="w-4 h-4 rounded-full bg-red-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-green-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-pink-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-cyan-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-orange-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-teal-400"></span>
-                        <span class="w-4 h-4 rounded-full bg-indigo-400"></span>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="text-center mt-12 text-gray-400 text-sm">
-                    made by parse 🖤
-            </footer>
-        </div>
+    <div class="video-background">
+      <video id="backgroundVideo" autoplay loop muted playsinline>
+        <source src="assets/wallpaper.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
 
-    <script>
-        (function() { 
+    <div class="container">
 
-            const mainContent = document.getElementById('mainContent');
-            const videoBackground = document.querySelector('.video-background');
-            const videoElement = document.getElementById('backgroundVideo');
+      <img id="mainLogo" src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
+      <h1 class="motto">your no.1 bp pull db</h1>
 
-            document.addEventListener('DOMContentLoaded', () => {
-                console.log('[Client] DOMContentLoaded event fired.');
+      <header class="text-center mb-12">
 
-                if (videoElement) {
-                    videoElement.play().catch(error => {
-                        console.warn('Video autoplay prevented:', error);
-                    });
+          <p class="text-lg sm:text-xl text-gray-300 centered-paragraph">I'd like to take a moment to express sincere gratitude to the members of this project. Their invaluable assistance was crucial in making this whole thing possible!</p>
+      </header>
 
-                    videoElement.addEventListener('ended', () => {
-                        videoElement.currentTime = 0; 
-                        videoElement.play().catch(error => {
-                            console.warn('Video replay prevented after ending:', error);
-                        });
-                    });
-                }
+      <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
 
-            });
-        })(); 
-    </script>
+          <div class="contributor-card rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto emerald-matrix-glitch-card">
+              <div class="profile-picture-container">
+                  <div class="avatar-decoration-svg">
+                      <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
+                          <defs>
+
+                              <clipPath id="svg-clip-path-avatar-jd">
+
+                                  <circle cx="50" cy="50" r="40"></circle>
+                              </clipPath>
+                          </defs>
+
+                          <image href="https://cdn.discordapp.com/avatars/848647666425528371/d2a405e9f5f80789064ccf8290c5373f.png?size=128" x="10" y="10" width="80" height="80"
+                              clip-path="url(#svg-clip-path-avatar-jd)" preserveAspectRatio="xMidYMid slice"
+                              onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+
+                          <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_1cbe627a7afa31cf166a7395ab454d3d.png?size=128&passthrough=true"
+                              x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
+                      </svg>
+                  </div>
+              </div>
+
+              <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
+                  <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
+              </a>
+              <p class="text-gray-200 text-sm mb-4">Led the discovery of the majority of unreleased pools from Season 4R, as well as various other seasons. Additionally, was responsible for identifying the BO6 Melee pools.</p>
+              <div class="flex gap-2 mb-4">
+                  <span class="w-4 h-4 rounded-full bg-green-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-red-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-purple-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-blue-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-green-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-red-400"></span>
+              </div>
+          </div>
+
+          <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto deep-ocean-current-card">
+              <div class="profile-picture-container">
+                  <div class="avatar-decoration-svg">
+                      <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
+                          <defs>
+                              <clipPath id="svg-clip-path-avatar-as">
+                                  <circle cx="50" cy="50" r="40"></circle>
+                              </clipPath>
+                          </defs>
+                          <image href="https://cdn.discordapp.com/avatars/703365791122456707/4bf62c4322c865eee0163fed764ee7cc.png?size=128" x="10" y="10" width="80" height="80"
+                              clip-path="url(#svg-clip-path-avatar-as)" preserveAspectRatio="xMidYMid slice"
+                              onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+                          <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_8464c412fa5d11184e90540413d5752b.png?size=160&passthrough=true"
+                              x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
+                      </svg>
+                  </div>
+              </div>
+              <a href="https://discordlookup.com/user/703365791122456707" target="_blank" class="hover:underline">
+                  <h3 class="text-xl font-semibold mb-1 contributor-name liquid-text" data-effect="liquid" style="--liquid-base-color: #3d54ff; --liquid-shadow-1: #3d54ffB3; --liquid-shadow-2: #3d54ff80; --liquid-shadow-3: #3d54ff4D;">@realcorndog999</h3>
+              </a>
+              <p class="text-gray-200 text-sm mb-4">Responsible for designating the majority of MW3 Melee Pools. Also a lead helper in designating Unreleased Season 4R pools.</p>
+              <div class="flex gap-2 mb-4">
+                  <span class="w-4 h-4 rounded-full bg-blue-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-green-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-red-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-purple-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-pink-400"></span>
+              </div>
+          </div>
+
+          <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto" id="junglewut-card">
+              <div class="profile-picture-container">
+                  <div class="avatar-decoration-svg">
+                      <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
+                          <defs>
+                              <clipPath id="svg-clip-path-avatar-mb">
+                                  <circle cx="50" cy="50" r="40"></circle>
+                              </clipPath>
+                          </defs>
+                          <image href="https://cdn.discordapp.com/avatars/690926649318834201/cc9a1bff5eae5ea0a26076c687d59dfe.png?size=128" x="10" y="10" width="80" height="80"
+                              clip-path="url(#svg-clip-path-avatar-mb)" preserveAspectRatio="xMidYMid slice"
+                              onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+                          <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_fe3c76cac2adf426832a7e495e8329d3.png?size=128&passthrough=true"
+                              x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
+                      </svg>
+                  </div>
+              </div>
+              <a href="https://discordlookup.com/user/690926649122456701" target="_blank" class="hover:underline">
+                  <h3 class="text-xl font-semibold mb-1 contributor-name firefly-text" data-effect="firefly" style="--firefly-text-color: #ffffff; --firefly-glow-color: #ffd700;">@junglewut</h3>
+              </a>
+              <p class="text-gray-200 text-sm mb-4">The creator of the original Blueprint Pulling site. Designated the majority of the Released BO6 Pools and was also a helpful contributor.</p>
+              <div class="flex gap-2 mb-4">
+                  <span class="w-4 h-4 rounded-full bg-red-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-purple-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-blue-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-green-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
+                  <span class="w-4 h-4 rounded-full bg-red-400"></span>
+              </div>
+          </div>
+      </div>
+
+      <footer class="text-center mt-12 text-gray-400 text-sm">
+              made by parse <span class="gradient-heart">🖤</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMContentLoaded fired. Script execution started.');
+
+      const loadingScreen = document.getElementById('loadingScreen');
+      const loadingBar = document.getElementById('loadingBar');
+      const loadingText = document.getElementById('loadingText');
+      const loadingAssetText = document.getElementById('loadingAssetText');
+      const mainContent = document.getElementById('mainContent');
+      const videoBackground = document.querySelector('.video-background');
+      const videoElement = document.getElementById('backgroundVideo');
+      const loadingLogo = document.getElementById('loadingLogo'); 
+
+      const loadingMessageDisplayDelay = 500; 
+
+      const assetsToLoad = [
+        { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'}, 
+        { url: 'assets/wallpaper.mp4', type: 'video'} 
+      ];
+
+      const messageQueue = [];
+      let isProcessingQueue = false;
+      let explicitResourcesLoadedCount = 0;
+      const totalExplicitResources = assetsToLoad.length;
+
+      function getFileNameFromUrl(url) {
+          try {
+              const urlObj = new URL(url);
+              const path = urlObj.pathname;
+              return path.substring(path.lastIndexOf('/') + 1);
+          } catch (e) {
+
+              return url.substring(url.lastIndexOf('/') + 1);
+          }
+      }
+
+      function enqueueMessage(message) {
+          if (message) {
+              messageQueue.push(message);
+              if (!isProcessingQueue) {
+                  processMessageQueue();
+              }
+          }
+      }
+
+      function processMessageQueue() {
+          if (messageQueue.length > 0) {
+              isProcessingQueue = true;
+              const message = messageQueue.shift();
+              loadingAssetText.innerHTML = message;
+              console.log(`Displayed asset loading text: ${message}`);
+              setTimeout(() => {
+                  processMessageQueue();
+              }, loadingMessageDisplayDelay);
+          } else {
+              isProcessingQueue = false;
+          }
+      }
+
+      function updateProgressBar() {
+        const progress = (explicitResourcesLoadedCount / totalExplicitResources) * 100;
+        loadingBar.style.width = progress + '%';
+        loadingText.textContent = `Fetching ${Math.round(progress)}%`;
+        console.log(`Progress: ${Math.round(progress)}%, Current Loaded count: ${explicitResourcesLoadedCount}`);
+      }
+
+      function loadAsset(asset) {
+          return new Promise(resolve => {
+              const fileName = getFileNameFromUrl(asset.url);
+              enqueueMessage(`<strong>.. Fetching</strong> - ${fileName}`);
+
+              const markAsLoaded = (status) => {
+                  explicitResourcesLoadedCount++;
+                  updateProgressBar();
+                  enqueueMessage(`${fileName}: <strong>${status}</strong>`);
+                  resolve();
+              };
+
+              if (asset.type === 'image') {
+                  const img = new Image();
+                  img.onload = () => {
+
+                      if (asset.url.includes('pucbmh.png') && loadingLogo) {
+                          loadingLogo.classList.add('fade-in');
+                      }
+                      markAsLoaded('Loaded');
+                  };
+                  img.onerror = () => {
+                      console.warn(`Failed to load image: ${fileName}`);
+                      markAsLoaded('Failed');
+                  };
+                  img.src = asset.url;
+              } else if (asset.type === 'video') {
+                  if (videoElement && asset.url.includes('wallpaper.mp4')) {
+                      const videoLoadHandler = () => {
+                          markAsLoaded('Loaded');
+                          videoElement.removeEventListener('canplaythrough', videoLoadHandler);
+                          videoElement.removeEventListener('loadeddata', videoLoadHandler);
+                          videoElement.removeEventListener('error', videoErrorHandler);
+                      };
+                      const videoErrorHandler = () => {
+                          console.warn(`Failed to load video: ${fileName}`);
+                          markAsLoaded('Failed');
+                          videoElement.removeEventListener('canplaythrough', videoLoadHandler);
+                          videoElement.removeEventListener('loadeddata', videoLoadHandler);
+                          videoElement.removeEventListener('error', videoErrorHandler);
+                      };
+
+                      videoElement.addEventListener('canplaythrough', videoLoadHandler, { once: true });
+                      videoElement.addEventListener('loadeddata', videoLoadHandler, { once: true });
+                      videoElement.addEventListener('error', videoErrorHandler, { once: true });
+
+                      if (videoElement.readyState >= 4) { 
+                          markAsLoaded('Cached');
+                      } else {
+                          videoElement.load();
+                      }
+                  } else {
+                      console.warn(`Skipping video asset tracking for: ${fileName} (not background video or element not found)`);
+                      markAsLoaded('Skipped');
+                  }
+              } else {
+
+                  fetch(asset.url)
+                      .then(response => {
+                          if (response.ok) {
+                              markAsLoaded('Loaded');
+                          } else {
+                              console.warn(`Failed to load asset: ${fileName}`);
+                              markAsLoaded('Failed');
+                          }
+                      })
+                      .catch(error => {
+                          console.warn(`Error loading asset: ${fileName}`, error);
+                          markAsLoaded('Error');
+                      });
+              }
+          });
+      }
+
+      function loadAllAssetsSequentially() {
+          console.log('loadAllAssetsSequentially function called.');
+          let p = Promise.resolve();
+          assetsToLoad.forEach(asset => {
+              p = p.then(() => loadAsset(asset));
+          });
+          return p;
+      }
+
+      updateProgressBar(); 
+
+      loadAllAssetsSequentially().then(() => {
+          console.log('All assets loaded function completed.');
+          enqueueMessage('All assets: <strong>Complete</strong>');
+          setTimeout(() => {
+              loadingScreen.style.opacity = '0';
+              setTimeout(() => {
+                  loadingScreen.style.display = 'none';
+                  document.body.style.overflow = 'auto'; 
+                  mainContent.style.display = 'block';
+                  mainContent.style.opacity = '1'; 
+                  videoBackground.style.visibility = 'visible';
+                  videoBackground.style.opacity = '1';
+                  if (videoElement) {
+                      videoElement.play().catch(error => {
+                          console.warn('Video autoplay prevented after load:', error);
+                      });
+                  }
+
+                  setTimeout(() => {
+                      const mainLogo = document.getElementById('mainLogo');
+                      if (mainLogo) {
+                          mainLogo.classList.add('fade-in');
+                      }
+                  }, 1000); 
+
+              }, 1000); 
+          }, loadingMessageDisplayDelay);
+      }).catch(error => {
+          console.error('An error occurred during asset loading:', error);
+          enqueueMessage('Asset loading: <strong>Error occurred!</strong>');
+          setTimeout(() => {
+              loadingScreen.style.opacity = '0';
+              setTimeout(() => {
+                  loadingScreen.style.display = 'none';
+                  document.body.style.overflow = 'auto';
+                  mainContent.style.display = 'block';
+                  mainContent.style.opacity = '1';
+                  videoBackground.style.visibility = 'visible';
+                  videoBackground.style.opacity = '1';
+                  if (videoElement) {
+                      videoElement.play().catch(error => {
+                          console.warn('Video autoplay prevented after load (fallback):', error);
+                      });
+                  }
+              }, 1000);
+          }, loadingMessageDisplayDelay);
+      });
+    });
+  </script>
 </body>
 </html>
