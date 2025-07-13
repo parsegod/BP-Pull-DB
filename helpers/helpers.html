@@ -667,6 +667,38 @@
             font-size: 0.9em;
         }
 
+        /* Styles for the back to main site button */
+        .back-to-main-button {
+            display: block; /* Make it a block element to center it */
+            margin: 2rem auto; /* Center horizontally and add vertical margin */
+            padding: 12px 24px;
+            background-color: #059695; /* A teal-like color */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            text-align: center;
+            max-width: 250px; /* Limit button width */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid #047a79; /* Slightly darker border */
+        }
+
+        .back-to-main-button:hover {
+            background-color: #047a79; /* Darker teal on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .back-to-main-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
         @media (max-width: 768px) {
 
             #loadingLogo {
@@ -701,6 +733,12 @@
             footer {
                 margin-top: 3rem; 
             }
+
+            .back-to-main-button {
+                font-size: 1em;
+                padding: 10px 20px;
+                margin: 1.5rem auto;
+            }
         }
 
         @media (max-width: 480px) {
@@ -732,6 +770,12 @@
 
             footer {
                 margin-top: 3rem; 
+            }
+
+            .back-to-main-button {
+                font-size: 0.9em;
+                padding: 8px 16px;
+                margin: 1rem auto;
             }
         }
     </style>
@@ -872,6 +916,11 @@
               </div>
           </div>
       </div>
+
+      <!-- New button added here -->
+      <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer" class="back-to-main-button">
+          Go back to Main Site
+      </a>
 
       <footer class="text-center mt-12 text-gray-400 text-sm">
               made by parse <span class="gradient-heart">🖤</span>
