@@ -77,6 +77,13 @@ let Weapons = [];
 let currentData = [];
 
 const changelogEntries = [
+      {
+    date: "2025-07-12 7:16PM 𝗠𝗦𝗧",
+    changes: [
+      "↷ Update To Helpers UI ↶",
+      " - Fixed UI Fill Causing Pages To Not Look Fluent.",
+    ]
+  },
     {
     date: "2025-07-12 2:52AM 𝗠𝗦𝗧",
     changes: [
