@@ -76,7 +76,6 @@
       height: auto;
       opacity: 0; 
       transition: opacity 1s ease-in-out; 
-      border: 2px solid #7CA0E0; 
     }
 
     #loadingLogo.fade-in {
@@ -668,49 +667,45 @@
             font-size: 0.9em;
         }
 
-        /* Styles for the back to main site button */
         .back-to-main-button {
-            display: block; /* Make it a block element to center it */
-            margin: 2rem auto; /* Center horizontally and add vertical margin */
+            display: block; 
+            margin: 2rem auto; 
             padding: 12px 24px;
-            background: transparent; /* Make background transparent */
-            color: transparent; /* Make text color transparent for background-clip */
+            background: transparent; 
+            color: transparent; 
             text-decoration: none;
             border-radius: 8px;
-            font-family: 'Dancing Script', cursive; /* Apply motto font */
-            font-size: 1.5em; /* Adjusted font size for button */
+            font-family: 'Dancing Script', cursive; 
+            font-size: 1.5em; 
             font-weight: bold;
             letter-spacing: 0.5px;
             text-align: center;
-            max-width: fit-content; /* Allow button to fit content */
-            min-width: 200px; /* Ensure a minimum width */
-            
-            /* Apply motto's text gradient and shadow */
+            max-width: fit-content; 
+            min-width: 200px; 
+
             background-image: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            
-            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7); /* Apply motto's text shadow */
 
-            /* Add a subtle border and glowing box shadow for button shape */
-            border: 2px solid rgba(31, 190, 190, 0.5); /* A subtle glowing border */
-            box-shadow: 0 0 15px rgba(31, 190, 190, 0.4), inset 0 0 10px rgba(31, 190, 190, 0.2); /* Glowing box shadow */
+            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7); 
 
-            transition: all 0.3s ease; /* Smooth transitions for hover effects */
+            border: 2px solid rgba(31, 190, 190, 0.5); 
+            box-shadow: 0 0 15px rgba(31, 190, 190, 0.4), inset 0 0 10px rgba(31, 190, 190, 0.2); 
+
+            transition: all 0.3s ease; 
         }
 
         .back-to-main-button:hover {
-            transform: translateY(-2px) scale(1.02); /* Slight lift and scale */
-            box-shadow: 0 0 25px rgba(31, 190, 190, 0.6), inset 0 0 15px rgba(31, 190, 190, 0.3); /* More intense glow on hover */
-            border-color: rgba(31, 190, 190, 0.8); /* More intense border glow */
+            transform: translateY(-2px) scale(1.02); 
+            box-shadow: 0 0 25px rgba(31, 190, 190, 0.6), inset 0 0 15px rgba(31, 190, 190, 0.3); 
+            border-color: rgba(31, 190, 190, 0.8); 
         }
 
         .back-to-main-button:active {
             transform: translateY(0);
             box-shadow: 0 0 10px rgba(31, 190, 190, 0.3), inset 0 0 5px rgba(31, 190, 190, 0.1);
         }
-
 
         @media (max-width: 768px) {
 
@@ -723,7 +718,6 @@
                 padding: 10px;
                 padding-top: 180px;
                 margin: 10px auto; 
-                border: 2px solid #7CA0E0;
 
             }
 
@@ -749,7 +743,7 @@
             }
 
             .back-to-main-button {
-                font-size: 1.2em; /* Adjusted font size for tablet */
+                font-size: 1.2em; 
                 padding: 10px 20px;
                 margin: 1.5rem auto;
             }
@@ -766,8 +760,6 @@
                 padding: 10px;
                 padding-top: 180px;
                 margin: 10px auto; 
-                border: 2px solid #7CA0E0;
-
             }
             .logo {
                 width: 120px;
@@ -789,7 +781,7 @@
             }
 
             .back-to-main-button {
-                font-size: 1em; /* Adjusted font size for mobile */
+                font-size: 1em; 
                 padding: 8px 16px;
                 margin: 1rem auto;
             }
@@ -933,7 +925,6 @@
           </div>
       </div>
 
-      <!-- New button added here -->
       <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer" class="back-to-main-button">
           Go back to Main Site
       </a>
