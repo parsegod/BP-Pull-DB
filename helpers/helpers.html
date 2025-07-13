@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <title>Hall Of Helpers</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
   <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
   <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
@@ -21,7 +23,6 @@
   <meta name="twitter:title" content="Blu Base - Contributions">
   <meta name="twitter:description" content="A page dedicated to the helpers and contributors of Blu Base!">
   <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
-
   <style>
 
     html {
@@ -47,7 +48,19 @@
       animation: gradientAnimation 15s ease infinite;
       list-style: none;
       background-color: #0B1738;
-      overflow: hidden;
+      /* Changed overflow to auto to allow scrolling */
+      overflow: auto;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar {
+        display: none; /* Hide scrollbar */
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    body {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
     }
 
     #loadingScreen {
@@ -74,6 +87,7 @@
       height: auto;
       opacity: 0;
       transition: opacity 1s ease-in-out;
+      border: 2px solid #7CA0E0;
     }
 
     #loadingLogo.fade-in {
@@ -117,31 +131,30 @@
       max-width: 500px;
     }
 
+    /* Removed previous scrollbar styling to hide it */
     ::-webkit-scrollbar {
       width: 0;
       height: 0;
     }
 
     ::-webkit-scrollbar-track {
-      background: #1A2B4D;
-      border-radius: 10px;
+      background: transparent; /* Make track transparent */
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #2C487C;
-      border-radius: 10px;
+      background: transparent; /* Make thumb transparent */
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #7CA0E0;
+      background: transparent; /* Make thumb transparent on hover */
     }
 
     ::-webkit-scrollbar-corner {
-      background: #1A2B4D;
+      background: transparent; /* Make corner transparent */
     }
 
     ::-webkit-scrollbar-button {
-      background: #1A2B4D;
+      background: transparent; /* Make button transparent */
       height: 0;
       width: 0;
     }
@@ -720,6 +733,8 @@
                 padding: 10px;
                 padding-top: 180px;
                 margin: 10px auto;
+                border: 2px solid #7CA0E0;
+
             }
 
             .logo {
@@ -761,6 +776,8 @@
                 padding: 10px;
                 padding-top: 180px;
                 margin: 10px auto;
+                border: 2px solid #7CA0E0;
+
             }
             .logo {
                 width: 120px;
@@ -948,14 +965,14 @@
       const mainContent = document.getElementById('mainContent');
       const videoBackground = document.querySelector('.video-background');
       const videoElement = document.getElementById('backgroundVideo');
-      const loadingLogo = document.getElementById('loadingLogo'); 
+      const loadingLogo = document.getElementById('loadingLogo');
       const backToMainSiteButton = document.getElementById('backToMainSiteButton'); // Get the new button
 
-      const loadingMessageDisplayDelay = 500; 
+      const loadingMessageDisplayDelay = 500;
 
       const assetsToLoad = [
-        { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'}, 
-        { url: 'assets/wallpaper.mp4', type: 'video'} 
+        { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'},
+        { url: 'assets/wallpaper.mp4', type: 'video'}
       ];
 
       const messageQueue = [];
@@ -1096,7 +1113,7 @@
               loadingScreen.style.opacity = '0';
               setTimeout(() => {
                   loadingScreen.style.display = 'none';
-                  document.body.style.overflow = 'auto';
+                  document.body.style.overflow = 'auto'; // Ensure body can scroll after loading
                   mainContent.style.display = 'block';
                   mainContent.style.opacity = '1';
                   videoBackground.style.visibility = 'visible';
@@ -1123,7 +1140,7 @@
               loadingScreen.style.opacity = '0';
               setTimeout(() => {
                   loadingScreen.style.display = 'none';
-                  document.body.style.overflow = 'auto';
+                  document.body.style.overflow = 'auto'; // Ensure body can scroll after loading
                   mainContent.style.display = 'block';
                   mainContent.style.opacity = '1';
                   videoBackground.style.visibility = 'visible';
