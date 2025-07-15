@@ -230,7 +230,7 @@ function loadAppData() {
       applyFilters();
       searchView.classList.remove('hidden');
       showChangelogModal();
-      adjustTableContainerHeight(); 
+      adjustTableContainerHeight(); // Call on load
     })
     .catch(err => console.error("Error on load:", err));
 }
@@ -852,9 +852,9 @@ function showChangelogOnPageLoad() {
 document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
 
 function adjustTableContainerHeight() {
-  const fixedTopHeader = document.querySelector('.announcement-banner'); 
+  const fixedTopHeader = document.querySelector('.announcement-banner'); // Assuming this is your fixed header
   const tableContainer = document.querySelector('.table-container');
-  const mainContainer = document.querySelector('.container'); 
+  const mainContainer = document.querySelector('.container'); // The main scrollable container
 
   if (fixedTopHeader && tableContainer && mainContainer) {
     const fixedHeaderHeight = fixedTopHeader.offsetHeight;
@@ -862,13 +862,23 @@ function adjustTableContainerHeight() {
     const mainContainerPaddingBottom = parseFloat(getComputedStyle(mainContainer).paddingBottom);
     const mainContainerMarginBottom = parseFloat(getComputedStyle(mainContainer).marginBottom);
 
+    // Calculate the available height for the table container within the main scrollable container
+    // This needs to account for the elements above the table within the .container
+    // For simplicity, let's assume the space taken by search bar, filters, and blueprint counters
+    // is roughly constant or can be calculated.
+    // A more robust solution would be to calculate the height of all elements above the table dynamically.
+
+    // For now, let's use a fixed offset or calculate based on known elements
     const elementsAboveTableHeight = document.getElementById('searchView').offsetHeight +
                                     document.querySelector('.checkbox-controls').offsetHeight +
                                     document.querySelector('.blueprint-counters').offsetHeight;
 
     const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
 
-    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; 
+    // The table container's max-height should be the total height of the main container
+    // minus the fixed header height (if it's outside the main container)
+    // and minus the height of other elements within the main container that are above the table.
+    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; // 30px for some extra buffer/margin
   }
 }
 
