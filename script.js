@@ -32,16 +32,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search');
 
     if (searchInput) {
-
+        // Store the initial placeholder text
         const originalPlaceholder = searchInput.placeholder;
 
+        // When the search input gains focus (is clicked or tabbed into)
         searchInput.addEventListener('focus', function() {
-            this.value = ''; 
-            this.placeholder = ''; 
+            // This line was causing the input to clear. It is now commented out.
+            // If you uncomment this, the text will clear on focus.
+            // this.value = ''; 
+            this.placeholder = ''; // Optionally clear the placeholder too, for a completely blank look
         });
 
+        // When the search input loses focus (user clicks outside or tabs away)
         searchInput.addEventListener('blur', function() {
-
+            // If the input is empty, restore the original placeholder
             if (this.value.trim() === '') {
                 this.placeholder = originalPlaceholder;
             }
@@ -100,7 +104,7 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨𝗽𝗱𝗮�𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -230,7 +234,7 @@ function loadAppData() {
       applyFilters();
       searchView.classList.remove('hidden');
       showChangelogModal();
-      adjustTableContainerHeight(); // Call on load
+      adjustTableContainerHeight(); 
     })
     .catch(err => console.error("Error on load:", err));
 }
@@ -852,9 +856,9 @@ function showChangelogOnPageLoad() {
 document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
 
 function adjustTableContainerHeight() {
-  const fixedTopHeader = document.querySelector('.announcement-banner'); // Assuming this is your fixed header
+  const fixedTopHeader = document.querySelector('.announcement-banner'); 
   const tableContainer = document.querySelector('.table-container');
-  const mainContainer = document.querySelector('.container'); // The main scrollable container
+  const mainContainer = document.querySelector('.container'); 
 
   if (fixedTopHeader && tableContainer && mainContainer) {
     const fixedHeaderHeight = fixedTopHeader.offsetHeight;
@@ -862,23 +866,13 @@ function adjustTableContainerHeight() {
     const mainContainerPaddingBottom = parseFloat(getComputedStyle(mainContainer).paddingBottom);
     const mainContainerMarginBottom = parseFloat(getComputedStyle(mainContainer).marginBottom);
 
-    // Calculate the available height for the table container within the main scrollable container
-    // This needs to account for the elements above the table within the .container
-    // For simplicity, let's assume the space taken by search bar, filters, and blueprint counters
-    // is roughly constant or can be calculated.
-    // A more robust solution would be to calculate the height of all elements above the table dynamically.
-
-    // For now, let's use a fixed offset or calculate based on known elements
     const elementsAboveTableHeight = document.getElementById('searchView').offsetHeight +
                                     document.querySelector('.checkbox-controls').offsetHeight +
                                     document.querySelector('.blueprint-counters').offsetHeight;
 
     const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
 
-    // The table container's max-height should be the total height of the main container
-    // minus the fixed header height (if it's outside the main container)
-    // and minus the height of other elements within the main container that are above the table.
-    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; // 30px for some extra buffer/margin
+    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; 
   }
 }
 
