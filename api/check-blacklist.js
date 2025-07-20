@@ -11,12 +11,17 @@ module.exports = async (req, res) => {
   console.log('--- End IP Headers ---');
 
   // Get the user's IP address.
+  // On Vercel, the client IP is typically in the 'x-forwarded-for' header.
+  // It can be a comma-separated list, where the first IP is the client's.
   let clientIp = req.headers['x-forwarded-for'];
   if (clientIp) {
     clientIp = clientIp.split(',')[0].trim(); // Take the first IP if multiple are present
   } else {
-    clientIp = req.connection.remoteAddress;
+    // Fallback for environments where x-forwarded-for might not be present
+    // (though less common for public-facing Vercel deployments)
+    clientIp = req.connection.remoteAddress || req.socket.remoteAddress;
   }
+
 
   // Log the final client IP being used for the check
   console.log(`Checking client IP: ${clientIp}`);
@@ -24,6 +29,7 @@ module.exports = async (req, res) => {
   // --- IMPORTANT: Blacklist Data Management ---
   const ipBlacklist = [
     '71.205.26.180',     // Example blacklisted IP
+    // Add more IPs here as needed
   ];
 
   // Check if the client's IP is in the blacklist
