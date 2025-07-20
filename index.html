@@ -365,6 +365,7 @@
   </style>
 </head>
 <body class="modal-open">
+  <!-- Video Background (visible from start) -->
   <div class="video-background">
     <video id="backgroundVideo" autoplay loop muted playsinline>
       <source src="assets/wallpaper.mp4" type="video/mp4">
@@ -372,6 +373,7 @@
     </video>
   </div>
 
+  <!-- Verification Popup -->
   <div id="verificationModal" class="verification-modal-overlay">
     <div class="verification-modal-content scale-in">
       <h2 id="verificationTitle">Account Verification Required</h2>
@@ -382,14 +384,16 @@
         A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
       </p>
       <div id="verificationSuccessMessage">
-        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         Verification Successful!
         <br>Loading content...
       </div>
       <button id="verifyButton">Verify Your IP</button>
-      </div>
+      <!-- Removed manualVerifyButton as the server-side check is now primary -->
+    </div>
   </div>
 
+  <!-- Loading Screen -->
   <div id="loadingScreen">
     <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
     <div id="loadingBarContainer">
@@ -560,7 +564,9 @@
     function initializeVerificationModal() {
       // Check if the user has already been verified
       if (localStorage.getItem('blubase_verified') === 'true') {
-        console.log("User already verified, skipping modal.");
+        // --- NEW CONSOLE MESSAGE HERE ---
+        console.log("LocalStorage check: User previously verified. Bypassing verification modal.");
+        // --- END NEW CONSOLE MESSAGE ---
         // Directly proceed to handleVerificationSuccess to load assets
         handleVerificationSuccess();
         return; // Exit the function early
