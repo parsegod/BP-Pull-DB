@@ -27,7 +27,6 @@ module.exports = async (req, res) => {
 
   // --- IMPORTANT: Blacklist Data Management ---
   const ipBlacklist = [
-    '71.205.26.180',    
     '174.212.224.117'
   ];
 
