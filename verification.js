@@ -102,49 +102,46 @@ function handleVerificationSuccess() {
     verificationSuccessMessage.style.display = 'block';
     console.log("Success message shown.");
 
-    // After a short delay for success message, hide verification modal and start loading other scripts
-    setTimeout(() => {
-        verificationModal.classList.add('hidden'); // This line should hide the modal
-        document.body.classList.remove('modal-open'); // Allow scrolling again
-        console.log("Verification modal hidden. Attempting to load load.js");
+    // Immediately hide verification modal and start loading other scripts
+    verificationModal.classList.add('hidden'); // This line should hide the modal
+    document.body.classList.remove('modal-open'); // Allow scrolling again
+    console.log("Verification modal hidden. Attempting to load load.js");
 
-        // Dynamically load load.js
-        const loadJsScript = document.createElement('script');
-        loadJsScript.src = 'load.js';
-        loadJsScript.onload = () => {
-            // Once load.js is loaded, execute its main loading function
-            // This assumes load.js has been modified to expose a global function like 'startAssetLoading'
-            if (typeof startAssetLoading === 'function') {
-                console.log("startAssetLoading function found, calling it.");
-                startAssetLoading(mainContent, videoBackground, videoElement, loadingScreen, loadingLogo); // Pass necessary elements
+    // Dynamically load load.js
+    const loadJsScript = document.createElement('script');
+    loadJsScript.src = 'load.js';
+    loadJsScript.onload = () => {
+        // Once load.js is loaded, execute its main loading function
+        // This assumes load.js has been modified to expose a global function like 'startAssetLoading'
+        if (typeof startAssetLoading === 'function') {
+            console.log("startAssetLoading function found, calling it.");
+            startAssetLoading(mainContent, videoBackground, videoElement, loadingScreen, loadingLogo); // Pass necessary elements
+        } else {
+            console.error("Error: startAssetLoading function not found in load.js. Ensure load.js exposes its main logic globally.");
+            // Fallback: Manually show loading screen if load.js isn't set up correctly
+            loadingScreen.style.display = 'flex';
+            setTimeout(() => { loadingScreen.style.opacity = '1'; }, 10);
+        }
+
+        // Dynamically load script.js after load.js has started its process
+        const scriptJsScript = document.createElement('script');
+        scriptJsScript.src = 'script.js';
+        scriptJsScript.onload = () => {
+            // Once script.js is loaded, execute its main data loading and UI setup functions
+            if (typeof loadAppData === 'function') {
+                loadAppData();
             } else {
-                console.error("Error: startAssetLoading function not found in load.js. Ensure load.js exposes its main logic globally.");
-                // Fallback: Manually show loading screen if load.js isn't set up correctly
-                loadingScreen.style.display = 'flex';
-                setTimeout(() => { loadingScreen.style.opacity = '1'; }, 10);
+                console.error("Error: loadAppData function not found in script.js.");
             }
-
-            // Dynamically load script.js after load.js has started its process
-            const scriptJsScript = document.createElement('script');
-            scriptJsScript.src = 'script.js';
-            scriptJsScript.onload = () => {
-                // Once script.js is loaded, execute its main data loading and UI setup functions
-                if (typeof loadAppData === 'function') {
-                    loadAppData();
-                } else {
-                    console.error("Error: loadAppData function not found in script.js.");
-                }
-                if (typeof showChangelogOnPageLoad === 'function') {
-                    showChangelogOnPageLoad(); // Call this now that script.js is loaded
-                } else {
-                    console.error("Error: showChangelogOnPageLoad function not found in script.js.");
-                }
-            };
-            document.body.appendChild(scriptJsScript);
+            if (typeof showChangelogOnPageLoad === 'function') {
+                showChangelogOnPageLoad(); // Call this now that script.js is loaded
+            } else {
+                console.error("Error: showChangelogOnPageLoad function not found in script.js.");
+            }
         };
-        document.body.appendChild(loadJsScript);
-
-    }, 2000); // Display success message for 2 seconds before starting asset loading
+        document.body.appendChild(scriptJsScript);
+    };
+    document.body.appendChild(loadJsScript);
 }
 
 // Event listener for the verify button
