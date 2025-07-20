@@ -31,21 +31,48 @@ async function getUserIP() {
 
 // This function initializes the verification modal state.
 async function initializeVerificationModal() {
-    // Check localStorage first
+    // Perform IP blacklist check FIRST, regardless of localStorage
+    const userIP = await getUserIP();
+    console.log("Initial IP check:", userIP);
+
+    // --- IMPORTANT: This blacklist is for demonstration ONLY. ---
+    // A real blacklist should be managed securely on a server.
+    const blacklistedIPs = [
+        '174.212.224.117',      // Example: Google DNS, just for testing
+        '1.2.3.4'               // Example: A hypothetical blacklisted IP
+    ];
+
+    if (blacklistedIPs.includes(userIP)) {
+        console.warn("IP Blacklisted on initial load:", userIP);
+        document.body.classList.add('modal-open'); // Ensure modal is visible
+        verificationModal.classList.remove('hidden'); // Ensure modal is visible
+        verificationTitle.textContent = 'Access Denied';
+        verificationInstruction.textContent = 'Your IP address is blacklisted. You cannot proceed to the site.';
+        verificationNote.textContent = 'Please contact support if you believe this is an error.';
+        verifyButton.style.display = 'none'; // Hide the button
+        verificationSuccessMessage.style.display = 'none'; // Hide success message
+        return; // Stop further execution if blacklisted
+    }
+
+    // If IP is not blacklisted, then check localStorage
     const isVerified = localStorage.getItem('blubase_verified');
     if (isVerified === 'true') {
-        console.log("Already verified via localStorage. Proceeding to main content.");
-        // Directly proceed to success flow if already verified
+        console.log("Already verified via localStorage and not blacklisted. Proceeding to main content.");
+        // Directly proceed to success flow if already verified and not blacklisted
         handleVerificationSuccess();
         return; // Exit function, no need to show modal
     }
 
-    // If not verified, show the modal
+    // If not verified and not blacklisted, show the modal
     document.body.classList.add('modal-open');
+    verificationModal.classList.remove('hidden'); // Ensure modal is visible
 
     // Reset modal content to initial state
+    verificationTitle.textContent = 'Account Verification Required'; // Reset title
     verificationTitle.style.display = 'block';
+    verificationInstruction.innerHTML = 'To maintain the integrity of our database and prevent spam entries, we require a quick verification.'; // Reset instruction
     verificationInstruction.style.display = 'block';
+    verificationNote.textContent = 'A new tab will open for the verification. If the modal doesn\'t close automatically, please close the verification tab.'; // Reset note
     verificationNote.style.display = 'block';
     verifyButton.style.display = 'inline-block';
     verificationSuccessMessage.style.display = 'none';
