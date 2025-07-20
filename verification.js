@@ -102,10 +102,18 @@ function handleVerificationSuccess() {
     verificationSuccessMessage.style.display = 'block';
     console.log("Success message shown.");
 
-    // Immediately hide verification modal and start loading other scripts
+    // Immediately hide verification modal
     verificationModal.classList.add('hidden'); // This line should hide the modal
     document.body.classList.remove('modal-open'); // Allow scrolling again
-    console.log("Verification modal hidden. Attempting to load load.js");
+    console.log("Verification modal hidden.");
+
+    // Immediately show the loading screen
+    loadingScreen.style.display = 'flex'; // Ensure it's a flex container for centering
+    loadingScreen.style.visibility = 'visible'; // Make it visible
+    loadingScreen.style.opacity = '1'; // Fade it in
+    loadingLogo.style.opacity = '1'; // Fade in the loading logo
+    console.log("Loading screen displayed.");
+
 
     // Dynamically load load.js
     const loadJsScript = document.createElement('script');
