@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    { 
+    "source": "/(.*)", 
+    "destination": "/api/check-blacklist" 
+    },
     {
       "source": "/guide",
       "destination": "/guide/bypass.html"

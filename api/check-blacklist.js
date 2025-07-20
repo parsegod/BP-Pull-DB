@@ -22,14 +22,13 @@ module.exports = async (req, res) => {
     clientIp = req.connection.remoteAddress || req.socket.remoteAddress;
   }
 
-
   // Log the final client IP being used for the check
   console.log(`Checking client IP: ${clientIp}`);
 
   // --- IMPORTANT: Blacklist Data Management ---
   const ipBlacklist = [
     '71.205.26.180',     // Example blacklisted IP
-    // Add more IPs here as needed
+    // Add more IPs here as needed (e.g., your test IP)
   ];
 
   // Check if the client's IP is in the blacklist
@@ -39,7 +38,7 @@ module.exports = async (req, res) => {
     // Log the blacklisted IP for your records
     console.warn(`Blacklisted IP detected: ${clientIp}`);
 
-    // Send a 403 Forbidden response with a custom HTML page
+    // Send a 403 Forbidden response with a custom HTML page for blacklisted IPs
     res.status(403).send(`
       <!DOCTYPE html>
       <html lang="en">
@@ -66,7 +65,7 @@ module.exports = async (req, res) => {
           }
           h1 {
             font-size: clamp(2em, 8vw, 3.5em);
-            color: #E53E3E;
+            color: #E53E3E; /* Red for denied */
             margin-bottom: 20px;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
           }
@@ -91,7 +90,7 @@ module.exports = async (req, res) => {
       </head>
       <body>
         <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
-        <h1>Access Denied</h1>
+        <h1>Verification Denied!</h1>
         <p>Your IP address (<code>${clientIp}</code>) has been blacklisted. Access to this site is forbidden.</p>
         <p>Detected IP for this request: <code>${clientIp}</code></p>
         <p>If you believe this is an error, please contact support.</p>
