@@ -31,7 +31,16 @@ async function getUserIP() {
 
 // This function initializes the verification modal state.
 async function initializeVerificationModal() {
-    // The modal will always show first, regardless of local storage or IP.
+    // Check localStorage first
+    const isVerified = localStorage.getItem('blubase_verified');
+    if (isVerified === 'true') {
+        console.log("Already verified via localStorage. Proceeding to main content.");
+        // Directly proceed to success flow if already verified
+        handleVerificationSuccess();
+        return; // Exit function, no need to show modal
+    }
+
+    // If not verified, show the modal
     document.body.classList.add('modal-open');
 
     // Reset modal content to initial state
@@ -43,6 +52,7 @@ async function initializeVerificationModal() {
 
     // Re-enable buttons if they were disabled (only verifyButton should be enabled)
     verifyButton.disabled = false;
+    verifyButton.textContent = 'Verify Your IP'; // Ensure button text is reset
 }
 
 // Function to handle successful verification (manual or auto-closed window)
@@ -161,8 +171,8 @@ verifyButton.addEventListener('click', async () => { // Made async to await getU
                 console.warn("Pop-up blocker might be preventing the verification window from opening.");
                 // Provide user feedback if pop-up blocker is detected
                 verificationTitle.textContent = 'Pop-up Blocker Detected!';
-                verificationInstruction.textContent = 'Please disable your pop-up blocker and try again, or check your browser for a blocked pop-up notification.';
-                verificationNote.textContent = ''; // Clear previous note
+                verificationInstruction.innerHTML = 'Please disable your pop-up blocker and try again, or <a href="https://vdax.rf.gd/" target="_blank" rel="noopener noreferrer" style="color: #7CA0E0; text-decoration: underline;">click here to open the verification page manually</a>.';
+                verificationNote.textContent = 'After verifying, please return to this tab and click "Try Again".'; // Clear previous note and add new instruction
                 verifyButton.disabled = false; // Re-enable button
                 verifyButton.textContent = 'Try Again';
                 // Do NOT return here, allow the function to complete so the button can be clicked again
