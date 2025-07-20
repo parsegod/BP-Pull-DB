@@ -149,6 +149,14 @@ verifyButton.addEventListener('click', async () => { // Made async to await getU
             verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
             if (verificationWindow) {
                 console.log("Verify button clicked. External verification initiated. Window opened successfully.");
+                // If a window was successfully opened, start checking if it's closed
+                window.checkWindowClosedInterval = setInterval(() => {
+                    if (verificationWindow && verificationWindow.closed) {
+                        clearInterval(window.checkWindowClosedInterval);
+                        // If the verification window closes, automatically trigger the success flow
+                        handleVerificationSuccess();
+                    }
+                }, 1000); // Check every second
             } else {
                 console.warn("Pop-up blocker might be preventing the verification window from opening.");
                 // Provide user feedback if pop-up blocker is detected
@@ -157,7 +165,7 @@ verifyButton.addEventListener('click', async () => { // Made async to await getU
                 verificationNote.textContent = ''; // Clear previous note
                 verifyButton.disabled = false; // Re-enable button
                 verifyButton.textContent = 'Try Again';
-                return; // Stop further execution
+                // Do NOT return here, allow the function to complete so the button can be clicked again
             }
         } catch (e) {
             console.error("Error opening verification window:", e);
@@ -166,18 +174,8 @@ verifyButton.addEventListener('click', async () => { // Made async to await getU
             verificationNote.textContent = '';
             verifyButton.disabled = false;
             verifyButton.textContent = 'Try Again';
-            return;
+            // Do NOT return here, allow the function to complete so the button can be clicked again
         }
-
-
-        // Check if the opened window is closed (this might not work reliably for cross-origin tabs)
-        window.checkWindowClosedInterval = setInterval(() => {
-            if (verificationWindow && verificationWindow.closed) {
-                clearInterval(window.checkWindowClosedInterval);
-                // If the verification window closes, automatically trigger the success flow
-                handleVerificationSuccess();
-            }
-        }, 1000); // Check every second
     }
 });
 
