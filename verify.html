@@ -596,9 +596,8 @@
 
       if (isVerified && verifiedTimestamp) {
         if (currentTime - verifiedTimestamp < EXPIRY_TIME_MS) {
-
-        
-          console.log("User is already verified and timestamp is valid. Staying on verification page.");
+          console.log("User is already verified and timestamp is valid. Redirecting to home.");
+          window.location.href = '/home';
           return;
         } else {
           localStorage.removeItem('blubase_verified');
