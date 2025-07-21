@@ -22,6 +22,7 @@ const normalBlueprintsSpan = document.getElementById('normalBlueprints');
 const unreleasedBlueprintsSpan = document.getElementById('unreleasedBlueprints');
 const nothingBlueprintsSpan = document.getElementById('nothingBlueprints');
 
+// Moved these references here for proper scope within script.js
 const changelogModal = document.getElementById('changelogModal');
 const closeChangelogModalBtn = document.getElementById('closeChangelogModal');
 const changelogButton = document.getElementById('changelogButton');
@@ -102,8 +103,8 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 �𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
-      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
+            "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+            " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
     {
@@ -235,7 +236,6 @@ function loadAppData() {
       populateStatusFilter();
       applyFilters();
       searchView.classList.remove('hidden');
-      // showChangelogModal(); // This is now called by showChangelogOnPageLoad
       adjustTableContainerHeight();
     })
     .catch(err => console.error("Error on load:", err));
@@ -813,30 +813,40 @@ function populateChangelog() {
  */
 function showChangelogModal() {
   populateChangelog();
-  changelogModal.classList.add('visible');
+  changelogModal.classList.remove('hidden'); // Use 'hidden' class
+  document.body.classList.add('modal-open'); // Add modal-open to body
 }
 
 /**
  * Hides the changelog modal.
  */
 function hideChangelogModal() {
-  changelogModal.classList.remove('visible');
+  changelogModal.classList.add('hidden'); // Use 'hidden' class
+  document.body.classList.remove('modal-open'); // Remove modal-open from body
 }
 
-// Event listeners for changelog modal
-changelogButton.addEventListener('click', showChangelogModal);
-closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
-changelogModal.addEventListener('click', (e) => {
-  if (e.target === changelogModal) {
-    hideChangelogModal();
-  }
-});
+// Event listeners for changelog modal - ATTACHED HERE
+if (changelogButton) { // Check if element exists before attaching listener
+    changelogButton.addEventListener('click', showChangelogModal);
+}
+if (closeChangelogModalBtn) { // Check if element exists before attaching listener
+    closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
+}
+if (changelogModal) { // Close when clicking outside content
+    changelogModal.addEventListener('click', (e) => {
+        if (e.target === changelogModal) {
+            hideChangelogModal();
+        }
+    });
+}
+
 
 /**
  * Shows the "How To Use" modal.
  */
 function showHowToUseModal() {
-  howToUseModal.classList.add('visible');
+  howToUseModal.classList.remove('hidden'); // Use 'hidden' class
+  document.body.classList.add('modal-open'); // Add modal-open to body
   showHowToTab('explanation');
 }
 
@@ -844,17 +854,24 @@ function showHowToUseModal() {
  * Hides the "How To Use" modal.
  */
 function hideHowToUseModal() {
-  howToUseModal.classList.remove('visible');
+  howToUseModal.classList.add('hidden'); // Use 'hidden' class
+  document.body.classList.remove('modal-open'); // Remove modal-open from body
 }
 
-// Event listeners for "How To Use" modal
-howToUseButton.addEventListener('click', showHowToUseModal);
-closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
-howToUseModal.addEventListener('click', (e) => {
-  if (e.target === howToUseModal) {
-    hideHowToUseModal();
-  }
-});
+// Event listeners for "How To Use" modal - ATTACHED HERE
+if (howToUseButton) { // Check if element exists before attaching listener
+    howToUseButton.addEventListener('click', showHowToUseModal);
+}
+if (closeHowToUseModalBtn) { // Check if element exists before attaching listener
+    closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
+}
+if (howToUseModal) { // Close when clicking outside content
+    howToUseModal.addEventListener('click', (e) => {
+        if (e.target === howToUseModal) {
+            hideHowToUseModal();
+        }
+    });
+}
 
 /**
  * Displays a specific tab within the "How To Use" modal.
@@ -894,7 +911,12 @@ if (howToUseTabs) {
  * This function is now called externally.
  */
 function showChangelogOnPageLoad() {
-  showChangelogModal();
+  // This function is likely for populating content, not necessarily showing the modal on load.
+  // The modals are now controlled by click events.
+  // If you intend for the changelog to *always* show on page load, you would call showChangelogModal() here.
+  // Based on previous interactions, it seems you want it to open on button click.
+  // So, this function might be redundant or used for initial content setup.
+  populateChangelog(); // Ensure content is populated if this is called.
 }
 
 /**
