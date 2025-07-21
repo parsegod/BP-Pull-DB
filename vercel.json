@@ -5,6 +5,16 @@
       "destination": "/helpers/helpers.html"
     },
     {
+      "source": "/index.html",
+      "destination": "/home",
+      "statusCode": 308
+    },
+    {
+      "source": "/verify.html",
+      "destination": "/verify",
+      "statusCode": 308
+    },
+    {
       "source": "/home",
       "destination": "/index.html",
       "has": [
