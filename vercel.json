@@ -10,10 +10,16 @@
       "destination": "/home",
       "statusCode": 308
     },
+
     {
       "source": "/verify.html",
       "destination": "/verify",
       "statusCode": 308
+    },
+
+    {
+      "source": "/blocked",
+      "destination": "/blocked.html"
     },
 
     {
@@ -35,7 +41,6 @@
       "statusCode": 308
     },
 
-   
     {
       "source": "/home",
       "destination": "/index.html",
@@ -47,10 +52,12 @@
         }
       ]
     },
+
     {
       "source": "/verify",
       "destination": "/verify.html"
     },
+
 
     {
       "source": "/(.*)",
@@ -63,7 +70,7 @@
         }
       ]
     },
-
+  
     {
       "source": "/(.*)",
       "destination": "/verify.html"

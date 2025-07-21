@@ -346,10 +346,6 @@
     }
 
     @media (max-width: 768px) {
-        .verification-modal-overlay {
-            justify-content: center;
-            padding-top: 0;
-        }
         .verification-modal-content {
             width: 96%;
             max-width: none;
@@ -597,8 +593,8 @@
 
       if (isVerified && verifiedTimestamp) {
         if (currentTime - verifiedTimestamp < EXPIRY_TIME_MS) {
-          // This redirect is already to a clean URL, which is good.
-          window.location.href = '/home';
+
+          window.location.href = '/home'; 
           return;
         } else {
           localStorage.removeItem('blubase_verified');
@@ -632,7 +628,7 @@
         setTimeout(() => { loadingScreen.style.opacity = '1'; loadingLogo.style.opacity = '1'; }, 10);
         document.body.classList.remove('modal-open');
 
-        window.location.href = '/home';
+        window.location.href = '/home'; 
     }
 
     verifyButton.addEventListener('click', () => {
@@ -640,7 +636,7 @@
         localStorage.removeItem('blubase_verified');
         localStorage.removeItem('blubase_verified_timestamp'); 
 
-        window.location.replace('/blocked');
+        window.location.replace('/blocked'); 
         return;
       }
 
@@ -657,6 +653,8 @@
         }
       }, 1000);
     });
+
+    checkUserAccess();
   </script>
 </body>
 </html>
