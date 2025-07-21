@@ -3,30 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blu Base</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link href="[https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap)" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)">
+  <link href="[https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap)" rel="stylesheet">
 
-  <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
+  <link rel="preload" href="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)" as="image">
   <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Blu Base" />
   <meta property="og:description" content="your no.1 bp pull db!" />
-  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
-  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:image" content="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)" />
+  <meta property="og:url" content="[https://parsegod.github.io/BP-Pull-DB/](https://parsegod.github.io/BP-Pull-DB/)" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Blu Base" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Blu Base">
   <meta name="twitter:description" content="your no.1 bp pull db!">
-  <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
+  <meta name="twitter:image" content="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)">
 
   <script src="/_vercel/insights/script.js"></script>
 
   <style>
+
+    ::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+
+    html {
+      scrollbar-width: none;
+    }
     body {
       background-color: #0B1738;
       margin: 0;
@@ -294,12 +312,47 @@
       margin-top: 10px;
     }
 
-    .hide-on-desktop {
-        display: none;
+    .bug-log-button-positioned {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        z-index: 10;
+
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: none;
+        border: 2px solid #2C487C;
+        color: #D0D8E8;
+        box-shadow: none;
+    }
+    .bug-log-button-positioned:hover {
+        background: none;
+        transform: translateY(0);
+        box-shadow: none;
+        border-color: #7CA0E0;
+        color: #D0D8E8;
+        text-decoration: none;
+    }
+
+    .bug-log-button-positioned svg {
+        width: 24px;
+        height: 24px;
+
+        stroke: currentColor;
+        fill: none;
+    }
+
+    @media (max-width: 768px) {
+
     }
 
     #search {
-        font-size: 16px; 
+        font-size: 16px;
     }
 
     @media (max-width: 768px) {
@@ -381,9 +434,6 @@
             font-size: 1.2em;
             top: 120px;
             white-space: normal;
-        }
-        .hide-on-desktop {
-            display: block;
         }
 
         .filter-dropdown button {
@@ -472,6 +522,121 @@
             white-space: normal;
         }
     }
+
+    #clearStorageModal .modal-content {
+      padding: 78px;
+      border-radius: 12px;
+      background: rgba(11, 23, 56, 0.85);
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(44, 72, 124, 0.6);
+      overflow: hidden;
+    }
+
+    #clearStorageModal .modal-content h2 {
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+      letter-spacing: 1px;
+      font-size: 2em;
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+
+    }
+
+    #clearStorageModal .modal-content p {
+      text-align: center;
+      color: #CCE0F0;
+      font-size: 0.95em;
+      margin-top: 15px;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    #clearStorageModal .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    #clearStorageModal .modal-buttons button {
+
+        padding: 8px 15px;
+        font-size: 0.85em;
+        border-radius: 6px;
+        max-width: 200px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+        #clearStorageModal .modal-buttons {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+        }
+    }
+
+    .small-dark-red-glowing-text {
+      font-size: 0.75em;
+      color: #CC0000;
+      text-shadow: 0 0 5px rgba(204, 0, 0, 0.7);
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .glowing-green-text {
+        color: #00FF00;
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+        font-size: 0.95em;
+        font-weight: bold;
+    }
+
+    #changelogModal .modal-content h2 {
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+      letter-spacing: 1px;
+      font-size: 2em;
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    #howToUseModal .modal-content h2 {
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+      letter-spacing: 1px;
+      font-size: 2em;
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
   </style>
   <script>
 
@@ -492,7 +657,7 @@
 
     async function getUserIP() {
         try {
-            const response = await fetch('https://api.ipify.org?format=json');
+            const response = await fetch('[https://api.ipify.org?format=json](https://api.ipify.org?format=json)');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -508,29 +673,107 @@
         return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
     }
 
+    // --- NEW: Simple Hash Function for API Key Integrity (must be identical to verify.html and endkey.html) ---
+    function generateSimpleHash(str) {
+        let hash = 0;
+        if (str.length === 0) return '0';
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char; // Simple hash algorithm
+            hash |= 0; // Convert to 32bit integer
+        }
+        return Math.abs(hash).toString(16); // Convert to hex string
+    }
+    // --- END NEW ---
+
+    // --- NEW: API Key Pattern and Checksum Validation (must be identical to endkey.html) ---
+    const API_KEY_FULL_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}_[0-9a-f]+$/i;
+    const API_KEY_UUID_PART_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+    function isValidApiKeyPatternAndChecksum(fullKey) {
+        if (!fullKey || typeof fullKey !== 'string') return false;
+        
+        if (!API_KEY_FULL_PATTERN.test(fullKey)) {
+            return false;
+        }
+
+        const parts = fullKey.split('_');
+        if (parts.length !== 2) return false;
+        
+        const uuidPart = parts[0];
+        const storedHashPart = parts[1];
+
+        if (!API_KEY_UUID_PART_PATTERN.test(uuidPart)) return false;
+
+        const recalculatedHash = generateSimpleHash(uuidPart);
+
+        return recalculatedHash === storedHashPart;
+    }
+    // --- END NEW ---
+
+    /**
+     * Checks if the API key in local storage is valid, not expired, and not tampered with.
+     * If invalid, expired, or tampered, it clears the local storage items and redirects accordingly.
+     * @param {boolean} isInitialCheck - True if this is the first check on page load, false otherwise.
+     */
+    function checkAPIKeyAndRedirect(isInitialCheck) {
+        const apiKey = localStorage.getItem('blubase_api_key');
+        const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+        const currentTime = new Date().getTime();
+
+        let shouldRedirectToEndkey = false;
+
+        if (!apiKey || !apiKeyExpiry) {
+            console.log("Index.html: API key or expiry missing.");
+            shouldRedirectToEndkey = true;
+        } else if (!isValidApiKeyPatternAndChecksum(apiKey)) {
+            console.log("Index.html: API key corrupted/tampered.");
+            shouldRedirectToEndkey = true;
+        } else if (isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry)) {
+            console.log("Index.html: API key expired.");
+            shouldRedirectToEndkey = true;
+        }
+
+        if (shouldRedirectToEndkey) {
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear cookie too
+
+            if (isInitialCheck) {
+                console.log("Index.html: Initial load, no valid API key found. Redirecting to /verify.");
+                window.location.replace('verify.html');
+            } else {
+                console.log("Index.html: API key invalid/expired/corrupted during runtime. Redirecting to endkey.html.");
+                window.location.replace('endkey.html');
+            }
+        } else {
+            console.log("Index.html: Valid API key found. Displaying content.");
+            document.documentElement.style.display = 'block';
+        }
+    }
+
     (async () => {
         const userIP = await getUserIP();
         console.log("Index.html: User IP detected:", userIP);
 
         if (userIP && isIPBlacklisted(userIP)) {
             console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
-            localStorage.removeItem('blubase_verified');
-            window.location.replace('blocked.html');
-            return;
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            window.location.replace('/blocked');
+            return; // Stop execution if IP is blacklisted
         } else if (userIP) {
             console.log("Index.html: User IP not blacklisted.");
         } else {
             console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
-
         }
 
-        if (localStorage.getItem('blubase_verified') !== 'true') {
-            console.log("Index.html: User not verified. Redirecting to verf.html.");
-            window.location.replace('verify.html');
-        } else {
-            console.log("Index.html: User verified. Displaying content.");
-            document.documentElement.style.display = 'block';
-        }
+        // Initial check on page load, pass true for isInitialCheck
+        checkAPIKeyAndRedirect(true);
+
+        // Set up a perpetual check for API key expiry/tampering every 17 seconds
+        // For subsequent checks, pass false for isInitialCheck
+        setInterval(() => checkAPIKeyAndRedirect(false), 17000); // Check every 17 seconds (17000 milliseconds)
     })();
   </script>
 </head>
@@ -554,19 +797,30 @@
 
   <div id="mainContent">
     <div class="announcement-banner">
-      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+      <p><span class="gradient-heart">🖤</span> we are now live at <a href="[http://parsed.top/](http://parsed.top/)" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
     <div class="container">
-      <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
+      <img src="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)" alt="Logo" class="logo">
       <h1 class="motto">your no.1 bp pull db</h1>
+
+      <button id="bugLogButton" class="changelog-button bug-log-button-positioned">
+        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" xmlns:xlink="[http://www.w3.org/1999/xlink](http://www.w3.org/1999/xlink)" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
+          <style type="text/css">
+
+            .st0{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+          </style>
+          <path class="st0" d="M29,15h-5.1c-0.1-1.2-0.5-2.4-1-3.5c1.9-1.5,3.1-3.7,3.1-6.1V5c0-0.6-0.4-1-1-1s-1,0.4-1,1v0.4c0,1.8-0.8,3.4-2.2,4.5 C19.5,8.8,18.8,8.2,18.1,7.7c0-0.1,0-0.1,0-0.2c0-2.2-1.8-4-4-4s-4,1.8-4,4c0,0.1,0,0.1,0,0.2c-0.7,0.5-1.3,1-1.9,1.7 C8.8,8.8,8,7.2,8,5.4V5c0-0.6-0.4-1-1-1S6,4.4,6,5v0.4c0,2.4,1.1,4.7,3.1,6.1c-0.5,1-0.9,2.2-1,3.5H3c-0.6,0-1,0.4-1,1s0.4,1,1,1 h5.1c0.1,1.2,0.5,2.4,1,3.5C7.1,21.9,6,24.2,6,26.6V27c0,0.6,0.4,1,1,1s1-0.4,1-1v-0.4c0-1.8,0.8-3.4,2.2-4.5 c1.5,1.8,3.5,2.9,5.8,2.9s4.4-1.1,5.8-2.9c1.4,1.1,2.2,2.7,2.2,4.5V27c0,0.6,0.4,1,1,1s1-0.4,1-1v-0.4c0-2.4-1.1-4.7-3.1-6.1 c0.5-1,0.9-2.2,1-3.5H29c0.6,0,1-0.4,1-1S29.6,15,29,15z"></path>
+        </svg>
+      </button>
+
       <div class="search-filter-section">
         <div class="contributions-button-container">
-        <button id="contributionsButton" class="changelog-button" onclick="window.location.href='https://parsed.top/HAH'">Hall Of Helpers</button>
+        <button id="contributionsButton" class="changelog-button" onclick="window.location.href='[https://parsed.top/HAH](https://parsed.top/HAH)'">Hall Of Helpers</button>
         </div>
         <div id="searchView"> <div class="search-bar-row">
-            <!-- Reverted to original type="search" and placeholder. -->
-            <input type="search" id="search" placeholder="      ..." />
+
+          <input type="search" id="search" placeholder="      ..." />
 
             <div class="filter-dropdown">
               <button id="toggleCategoryDropdown" type="button">
@@ -598,7 +852,7 @@
           </label>
           <button id="changelogButton" class="changelog-button">View Changelog</button>
           <button id="howToUseButton" class="changelog-button">How To Use</button>
-          <button id="clearStorageButton" class="changelog-button hide-on-desktop">Clear Local Storage</button>
+          <button id="clearStorageButton" class="changelog-button">Clear Local Storage</button>
         </div>
 
         <div class="blueprint-counters">
@@ -645,7 +899,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼�𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -679,7 +933,6 @@
                 <p>5. Finally equip the unowned camo again to save it<br>
                    (or just equip a att 2x on build)</p>
                 <p class="red-announcement">PLEASE KEEP IN MIND IF YOU ARE IN A BROKEN STATE THEN IN ORDER TO SAVE BLUEPRINTS YOU MUST DELETE ANY BUILD AND THEN SAVE IT (THE SAME WAY THE CAMO SWAP SAVE WORKS)</p>
-                <p><strong>Important Notes:</strong></p>
                 <ul>
                   <li>keep it noted that prints are pulled in half's and currently there is not a way the pull the full prints in one method</li>
                   <li>if you wish to get the full print you must find the right Receiver attachment combo that pulls the full print (likely hood 1/20 roughly)</li>
@@ -691,6 +944,38 @@
         </div>
       </div>
     </div>
+
+
+    <div id="bugLogModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeBugLogModal">&times;</button>
+        <h2>Bug Log</h2>
+        <div id="bugLogContent" class="changelog-entries">
+
+        </div>
+      </div>
+    </div>
+
+    <div id="clearStorageModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeClearStorageModal">&times;</button>
+        <h2>Clear Local Storage</h2>
+        <p class="small-dark-red-glowing-text">thank you for using parsed.top made by parse
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+        </p>
+        <p class="glowing-green-text">if you clear your LocalStorage items you will have to reverify your IP. Do you wish to continue?</p>
+        <div class="modal-buttons">
+          <button id="confirmClearStorageBtn" class="changelog-button">Yes, Clear</button>
+          <button id="cancelClearStorageBtn" class="changelog-button">No, Cancel</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="load.js"></script>
@@ -702,7 +987,7 @@
       }
 
       const searchInput = document.getElementById('search');
-      let storedValue = ''; 
+      let storedValue = '';
 
       if (searchInput) {
 
@@ -714,239 +999,20 @@
           this.value = storedValue;
         });
       }
-    });
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>API Key Expired/Corrupted</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:title" content="Blu Base - API Key Issue" />
-  <meta property="og:description" content="Your API key has expired or is corrupted." />
-  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
-  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/endkey.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Blu Base" />
+      document.getElementById('confirmClearStorageBtn').addEventListener('click', () => {
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
 
-  <style>
-    body {
-      background-color: #0B1738;
-      margin: 0;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-      color: #E0E8F0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh; 
-    }
+        document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-    .video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      z-index: -1;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 1s ease-in-out;
-    }
+        document.getElementById('clearStorageModal').classList.add('hidden');
+        document.getElementById('clearMessagePopup').classList.remove('hidden');
 
-    .video-background video {
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        object-fit: cover;
-
-    }
-
-    #apiKeyErrorModal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000; 
-    }
-
-    #apiKeyErrorModal .modal-content {
-        padding: 78px; 
-        border-radius: 0; 
-        border-top-left-radius: 30px; 
-        border-top-right-radius: 30px; 
-        background: rgba(11, 23, 56, 0.85); 
-        border: 1px solid rgba(44, 72, 124, 0.6); 
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
-        text-align: center;
-        color: #E0E8F0;
-        font-family: 'Open Sans', sans-serif;
-        max-width: 500px; 
-        width: calc(95% - 20px); 
-        box-sizing: border-box;
-        overflow: hidden; 
-        animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; 
-    }
-
-    @keyframes popIn {
-        from { transform: scale(0.5); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
-    #apiKeyErrorModal .modal-content h2 {
-        font-family: 'Oswald', sans-serif;
-        background: linear-gradient(to right, rgb(31, 190, 190), #0B1738); 
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7); 
-        font-size: 2em; 
-        margin-top: 0;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px; 
-    }
-
-    #apiKeyErrorModal .modal-content p {
-        font-size: 0.95em; 
-        line-height: 1.5;
-        margin-top: 15px; 
-        margin-bottom: 25px; 
-        font-weight: bold; 
-        color: #CCE0F0; 
-    }
-
-    #apiKeyErrorModal .modal-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px; 
-        margin-top: 20px;
-    }
-
-    #apiKeyErrorModal .modal-buttons button {
-        background: linear-gradient(to right, #CC0000, #990000); 
-        color: white;
-        padding: 8px 15px; 
-        border: none;
-        border-radius: 6px; 
-        font-size: 0.85em; 
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        max-width: 200px; 
-        text-transform: uppercase; 
-        letter-spacing: 0.5px; 
-    }
-
-    #apiKeyErrorModal .modal-buttons button:hover {
-        background: linear-gradient(to right, #FF3333, #CC0000); 
-        transform: translateY(-2px);
-        box-shadow: 0 7px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    @media (max-width: 480px) {
-        #apiKeyErrorModal .modal-content {
-            width: 96%; 
-            padding: 10px; 
-            margin: auto; 
-            min-height: 40vh; 
-            border-top-left-radius: 20px; 
-            border-top-right-radius: 20px; 
-
-            position: static;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box; 
-            max-width: none; 
-        }
-
-        #apiKeyErrorModal .modal-content h2 {
-            font-size: clamp(1.5em, 4.5vw, 2em); 
-            margin-bottom: 1.5vh; 
-        }
-
-        #apiKeyErrorModal .modal-content p {
-            font-size: clamp(0.8em, 3vw, 1em); 
-            margin-bottom: 1.5vh; 
-        }
-
-        #apiKeyErrorModal .modal-buttons {
-            flex-direction: column; 
-            align-items: center;
-            width: 100%;
-        }
-
-        #apiKeyErrorModal .modal-buttons button {
-            padding: 1.2vh 2.5vw; 
-            font-size: clamp(0.9em, 3.5vw, 1.1em); 
-            margin: 1vh auto; 
-            width: 80%; 
-        }
-    }
-  </style>
-</head>
-<body>
-  <div class="video-background">
-    <video id="backgroundVideo" autoplay loop muted playsinline>
-      <source src="assets/wallpaper.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
-  <div id="apiKeyErrorModal">
-    <div class="modal-content">
-      <h2>API Key Issue!</h2>
-      <p>Your API Key has expired or is corrupted. Please re-verify to continue using the site.</p>
-      <div class="modal-buttons">
-        <button id="redirectToVerifyBtn">Go to Verification Page</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-      localStorage.removeItem('blubase_api_key');
-      localStorage.removeItem('blubase_api_key_expiry');
-      document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/=/;'; 
-
-      document.getElementById('redirectToVerifyBtn').addEventListener('click', () => {
-        window.location.replace('/verify'); 
+        setTimeout(() => {
+          window.location.replace('endkey.html'); // This redirect remains to endkey.html
+        }, 2000);
       });
-
-      const backgroundVideo = document.getElementById('backgroundVideo');
-      if (backgroundVideo) {
-        backgroundVideo.load();
-        backgroundVideo.play().catch(error => {
-          console.warn("Video autoplay failed:", error);
-
-        });
-      }
     });
   </script>
 </body>
