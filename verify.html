@@ -597,7 +597,7 @@
 
       if (isVerified && verifiedTimestamp) {
         if (currentTime - verifiedTimestamp < EXPIRY_TIME_MS) {
-          window.location.href = 'home';
+          window.location.href = 'index.html';
           return;
         } else {
           localStorage.removeItem('blubase_verified');
