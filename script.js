@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (confirm(confirmationMessage)) {
                 localStorage.removeItem('blubase_verified');
-                window.location.replace('verify.html');
+                window.location.replace('/verify');
             }
         });
     }
