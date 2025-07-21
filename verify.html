@@ -340,12 +340,15 @@
       text-align: center;
       white-space: nowrap;
       z-index: 10;
-      width: 100%;
       font-weight: bold;
       text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
     }
 
     @media (max-width: 768px) {
+        .verification-modal-overlay {
+            justify-content: center;
+            padding-top: 0;
+        }
         .verification-modal-content {
             width: 96%;
             max-width: none;
@@ -594,7 +597,8 @@
       if (isVerified && verifiedTimestamp) {
         if (currentTime - verifiedTimestamp < EXPIRY_TIME_MS) {
 
-          window.location.href = '/home'; 
+        
+          console.log("User is already verified and timestamp is valid. Staying on verification page.");
           return;
         } else {
           localStorage.removeItem('blubase_verified');
@@ -628,15 +632,14 @@
         setTimeout(() => { loadingScreen.style.opacity = '1'; loadingLogo.style.opacity = '1'; }, 10);
         document.body.classList.remove('modal-open');
 
-        window.location.href = '/home'; 
+        window.location.href = 'index.html';
     }
 
     verifyButton.addEventListener('click', () => {
       if (isUserIPBlacklisted) {
         localStorage.removeItem('blubase_verified');
         localStorage.removeItem('blubase_verified_timestamp'); 
-
-        window.location.replace('/blocked'); 
+        window.location.replace('blocked.html');
         return;
       }
 
@@ -653,8 +656,6 @@
         }
       }, 1000);
     });
-
-    checkUserAccess();
   </script>
 </body>
 </html>
