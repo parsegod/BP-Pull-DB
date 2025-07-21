@@ -27,80 +27,145 @@
   <script src="/_vercel/insights/script.js"></script>
 
   <style>
-
     body {
       background-color: #0B1738;
       margin: 0;
       overflow: hidden;
     }
 
-#loadingScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(11, 23, 56, 0.9);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  color: #D0D8E8;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.2em;
-  transition: opacity 1s ease-out;
-}
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: #D0D8E8;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.2em;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease-out, visibility 1s ease-out;
+      overflow: hidden;
+    }
 
-#loadingLogo {
-  display: block;
-  margin: 150px auto 50px 50%;
-  transform: translateX(-42%);
-  width: 200px;
-  height: auto;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px;
+      width: calc(95% - 20px);
+      max-width: 855px;
+      box-sizing: border-box;
+      background: rgba(11, 23, 56, 0.95);
+      border-radius: 0;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(44, 72, 124, 0.6);
+      position: relative;
+      overflow: hidden;
+      animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+      margin: auto;
+    }
 
-#loadingBarContainer {
-  margin-top: -30px;
-}
+    @keyframes popIn {
+        from { transform: scale(0.5); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
 
-#loadingBarContainer {
-  width: 80%;
-  max-width: 400px;
-  height: 20px;
-  background-color: #1A2B4D;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    #loadingLogo {
+      display: block;
+      width: clamp(100px, 30vw, 180px);
+      height: auto;
+      margin-bottom: 3vh;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInSlideUp 1.2s ease-out forwards 0.5s;
+    }
 
-  margin-left: auto;
-  margin-right: auto;
-}
+    @keyframes fadeInSlideUp {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .motto-loading {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1em, 5vw, 1.8em);
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+      margin-top: 1vh;
+      margin-bottom: 4vh;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+
+    #loadingBarContainer {
+      width: 100%;
+      height: 2.5vh;
+      background-color: #1A2B4D;
+      border-radius: 1.25vh;
+      overflow: hidden;
+      margin-top: 2vh;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+      border: 1px solid rgba(44, 72, 124, 0.6);
+    }
 
     #loadingBar {
       height: 100%;
       width: 0%;
-      background-color: #7CA0E0;
-      border-radius: 10px;
-      transition: width 0.3s ease-out;
+      background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
+      border-radius: 1.25vh;
+      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 0 10px rgba(124, 160, 224, 0.7);
     }
 
     #loadingText {
-      margin-top: 10px;
-      font-weight: bold;
+      margin-top: 3vh;
+      font-weight: 700;
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      color: #E0E8F0;
+      animation: pulseText 1.8s infinite alternate;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    @keyframes pulseText {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(1.03); opacity: 0.95; }
     }
 
     #loadingAssetText {
-      font-size: 0.9em;
-      margin-top: 5px;
+      font-size: clamp(0.7rem, 2.8vw, 1rem);
+      margin-top: 1.5vh;
       text-align: center;
-      line-height: 1.4;
-      min-height: 2.8em;
-      width: 90%;
-      max-width: 500px;
+      line-height: 1.6;
+      min-height: 3.5em;
+      color: #BCC7D8;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .bold-green-percentage {
+        color: #00FF00;
+        font-weight: bold;
     }
 
     #mainContent {
@@ -117,8 +182,8 @@
       height: 100vh;
       overflow: hidden;
       z-index: -1;
-      opacity: 0;
-      visibility: hidden;
+      opacity: 1;
+      visibility: visible;
       transition: opacity 1s ease-in-out;
     }
 
@@ -135,28 +200,299 @@
         filter: brightness(0.6);
     }
 
-    /* Updated style for the announcement with !important */
+    .announcement-banner {
+      background: rgba(11, 23, 56, 0.7);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1em;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .announcement-banner p {
+      margin: 0;
+    }
+
+    .gradient-heart {
+      background: linear-gradient(to right, #059695, #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-size: 1.2em;
+      display: inline-block;
+      line-height: 1;
+      vertical-align: middle;
+    }
+
+    .announcement-banner a {
+      color: #059695;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
+
+    .announcement-banner a:hover {
+      color: #059695;
+      font-weight: bold;
+    }
+
+    .container {
+      width: calc(100% - 20px);
+      max-width: 900px;
+      min-width: 320px;
+      margin: 20px auto 20px auto;
+      padding: 25px;
+      background: rgba(11, 23, 56, 0.95);
+      border-radius: 0;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(44, 72, 124, 0.6);
+      position: relative;
+      z-index: 2;
+      zoom: 0.85;
+      min-height: calc(100vh - 40px);
+      padding-top: 250px;
+    }
+
+    .motto {
+      position: absolute;
+      top: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8em;
+      text-align: center;
+      white-space: normal;
+      z-index: 10;
+      width: 100%;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+    }
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: auto;
+      z-index: 10;
+    }
+
+
     .red-announcement {
-      color: red !important; /* Forced red */
+      color: red !important;
       font-weight: bold;
       margin-top: 10px;
+    }
+
+    .hide-on-desktop {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        #loadingScreen {
+            justify-content: center;
+            padding-top: 0;
+        }
+        .loading-content {
+            width: 96%;
+            max-width: none;
+            padding: 10px;
+            margin: auto;
+            min-height: 40vh;
+            
+            border-radius: 0;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            zoom: 1; /* Ensure no zoom interference */
+        }
+        #loadingLogo {
+            position: static;
+            margin-bottom: 3vh;
+            width: clamp(80px, 25vw, 150px);
+            top: auto;
+            left: auto;
+            transform: none;
+            opacity: 1;
+            animation: none;
+        }
+        .motto-loading {
+            position: static;
+            font-size: clamp(0.9em, 4vw, 1.5em);
+            margin-top: 1vh;
+            margin-bottom: 4vh;
+            white-space: nowrap;
+            top: auto;
+            left: auto;
+            transform: none;
+        }
+
+        #loadingBarContainer {
+            height: 2vh;
+            margin-top: 2vh;
+        }
+        #loadingText {
+            margin-top: 3vh;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+        }
+        #loadingAssetText {
+            min-height: 3.5em;
+            font-size: clamp(0.7rem, 2.8vw, 1rem);
+            margin-top: 1.5vh;
+        }
+
+        .container {
+            width: 96%;
+            padding: 10px;
+            padding-top: 180px;
+            margin: 10px auto;
+            zoom: 1;
+            border-radius: 0;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+        }
+        .logo {
+            width: 120px;
+            top: 15px;
+            transform: translateX(-50%);
+        }
+        .motto {
+            font-size: 1.2em;
+            top: 120px;
+            white-space: normal;
+        }
+        .hide-on-desktop {
+            display: block;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #loadingScreen {
+            justify-content: center;
+            padding-top: 0;
+        }
+        .loading-content {
+            width: 96%;
+            max-width: none;
+            padding: 10px;
+            margin: auto;
+            min-height: 40vh;
+
+            border-radius: 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            zoom: 1; /* Ensure no zoom interference */
+        }
+        #loadingLogo {
+            position: static;
+            margin-bottom: 2vh;
+            width: clamp(70px, 20vw, 120px);
+            top: auto;
+            left: auto;
+            transform: none;
+            opacity: 1;
+            animation: none;
+        }
+        .motto-loading {
+            position: static;
+            font-size: clamp(0.8em, 3.5vw, 1.2em);
+            margin-top: 1vh;
+            margin-bottom: 2.5vh;
+            white-space: nowrap;
+            top: auto;
+            left: auto;
+            transform: none;
+        }
+
+        #loadingBarContainer {
+            height: 1.8vh;
+            margin-top: 2vh;
+        }
+        #loadingText {
+            margin-top: 2vh;
+            font-size: clamp(1rem, 4vw, 1.3rem);
+        }
+        #loadingAssetText {
+            min-height: 2em;
+            font-size: clamp(0.6rem, 2.5vw, 0.9rem);
+            margin-top: 1.5vh;
+        }
+
+        .container {
+            width: 96%;
+            padding: 10px;
+            padding-top: 180px;
+            margin: 10px auto;
+            zoom: 1;
+            border-radius: 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .logo {
+            width: 120px;
+            top: 15px;
+            transform: translateX(-50%);
+        }
+        .motto {
+            font-size: 1.2em;
+            top: 120px;
+            white-space: normal;
+        }
+        .hide-on-desktop {
+            display: block;
+        }
     }
   </style>
 </head>
 <body>
-  <div id="loadingScreen">
-    <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
-    <div id="loadingBarContainer">
-      <div id="loadingBar"></div>
-    </div>
-    <div id="loadingText">Loading... 0%</div>
-    <div id="loadingAssetText"></div> </div>
+  <script>
+    if (localStorage.getItem('blubase_verified') !== 'true') {
+      window.location.replace('verf.html');
+    }
+  </script>
 
   <div class="video-background">
     <video id="backgroundVideo" autoplay loop muted playsinline>
       <source src="assets/wallpaper.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+  </div>
+
+  <div id="loadingScreen">
+    <div class="loading-content">
+      <div id="loadingBarContainer">
+        <div id="loadingBar"></div>
+      </div>
+      <div id="loadingText">LOADING ASSETS: <span class="bold-green-percentage">0%</span></div>
+      <div id="loadingAssetText">Initializing...</div>
+    </div>
   </div>
 
   <div id="mainContent">
@@ -204,6 +540,7 @@
           </label>
           <button id="changelogButton" class="changelog-button">View Changelog</button>
           <button id="howToUseButton" class="changelog-button">How To Use</button>
+          <button id="clearStorageButton" class="changelog-button hide-on-desktop">Clear Local Storage</button>
         </div>
 
         <div class="blueprint-counters">
@@ -250,7 +587,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 �𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -303,9 +640,7 @@
   <script>
     window.addEventListener('load', () => {
       if (window.va && typeof window.va.track === 'function') {
-        console.log('Vercel Analytics script appears to be loaded and ready.');
       } else {
-        console.warn('Vercel Analytics script not detected or not fully loaded.');
       }
     });
   </script>

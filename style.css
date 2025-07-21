@@ -5,7 +5,6 @@
   height: auto;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
-  border: 2px solid #7CA0E0; 
 }
 .video-background {
     position: fixed;
@@ -1128,7 +1127,6 @@ th.sorted-desc::after {
     transform: translate(-50%, -50%);
     opacity: 1;
     z-index: 9999;
-    border: 2px solid #7CA0E0; 
   }
 
   .container {

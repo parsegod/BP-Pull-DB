@@ -10,34 +10,38 @@ document.addEventListener('DOMContentLoaded', function() {
       const videoElement = document.getElementById('backgroundVideo');
       const loadingLogo = document.getElementById('loadingLogo');
 
-      const loadingMessageDisplayDelay = 700; 
+      // Reduced delay for faster message cycling
+      const loadingMessageDisplayDelay = 500;
 
+      // Define assets to load with a unique 'id' for tracking
       const assetsToLoad = [
-    { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'}, 
-    { url: 'assets/wallpaper.mp4', type: 'video'}, 
-    { url: 'assets/wallpaper.mp4', type: 'video'}, 
-    { url: 'assets/weapon.json', type: 'json'},
-    { url: 'package.json', type: 'json'},
-    { url: 'vercel.json', type: 'json'},
-    { url: 'index.html', type: 'file'},
-    { url: 'README.md', type: 'md'},
-    { url: 'script.js', type: 'js'},
-    { url: 'style.css', type: 'css'},
-    { url: 'assets/blueprints/images/9MM PM/CRACKED.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/9MM PM/FIRECRACKER.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/9MM PM/MAJOR GIFT.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/9MM PM/SCRUB.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/9MM PM/THRONEBUSTER.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/AEK-973/APHELION.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/AEK-973/BLOODFANG.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/AEK-973/DEFILADE.jpg', type: 'image'},
-    { url: 'assets/blueprints/images/AEK-973/GOOD VIBES.jpg', type: 'image'},
-    ];
+        { id: 'logo_png', url: 'https://files.catbox.moe/pucbmh.png', type: 'image', loaded: false },
+        { id: 'wallpaper_mp4_1', url: 'assets/wallpaper.mp4', type: 'video', loaded: false },
+        { id: 'wallpaper_mp4_2', url: 'assets/wallpaper.mp4', type: 'video', loaded: false }, // If this is intentional, it will be counted twice unless handled
+        { id: 'weapon_json', url: 'assets/weapon.json', type: 'json', loaded: false },
+        { id: 'package_json', url: 'package.json', type: 'json', loaded: false },
+        { id: 'vercel_json', url: 'vercel.json', type: 'json', loaded: false },
+        { id: 'index_html', url: 'index.html', type: 'file', loaded: false },
+        { id: 'readme_md', url: 'README.md', type: 'md', loaded: false },
+        { id: 'script_js', url: 'script.js', type: 'js', loaded: false },
+        { id: 'style_css', url: 'style.css', type: 'css', loaded: false },
+        { id: '9mm_cracked_jpg', url: 'assets/blueprints/images/9MM PM/CRACKED.jpg', type: 'image', loaded: false },
+        { id: '9mm_firecracker_jpg', url: 'assets/blueprints/images/9MM PM/FIRECRACKER.jpg', type: 'image', loaded: false },
+        { id: '9mm_major_gift_jpg', url: 'assets/blueprints/images/9MM PM/MAJOR GIFT.jpg', type: 'image', loaded: false },
+        { id: '9mm_scrub_jpg', url: 'assets/blueprints/images/9MM PM/SCRUB.jpg', type: 'image', loaded: false },
+        { id: '9mm_thronebuster_jpg', url: 'assets/blueprints/images/9MM PM/THRONEBUSTER.jpg', type: 'image', loaded: false },
+        { id: 'aek_aphelion_jpg', url: 'assets/blueprints/images/AEK-973/APHELION.jpg', type: 'image', loaded: false },
+        { id: 'aek_bloodfang_jpg', url: 'assets/blueprints/images/AEK-973/BLOODFANG.jpg', type: 'image', loaded: false },
+        { id: 'aek_defilade_jpg', url: 'assets/blueprints/images/AEK-973/DEFILADE.jpg', type: 'image', loaded: false },
+        { id: 'aek_good_vibes_jpg', url: 'assets/blueprints/images/AEK-973/GOOD VIBES.jpg', type: 'image', loaded: false },
+        // Add more assets here if needed
+      ];
 
       const messageQueue = [];
       let isProcessingQueue = false;
-      let explicitResourcesLoadedCount = 0;
-      const totalExplicitResources = assetsToLoad.length;
+      // Filter out duplicate video entries if they refer to the same file and are meant to be one asset
+      // For now, assuming each entry in assetsToLoad is a distinct item to track.
+      const totalExplicitResources = assetsToLoad.length; // Total count of items to load
 
       function getFileNameFromUrl(url) {
           try {
@@ -45,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
               const path = urlObj.pathname;
               return path.substring(path.lastIndexOf('/') + 1);
           } catch (e) {
-
+              // Fallback for relative paths or invalid URLs
               return url.substring(url.lastIndexOf('/') + 1);
           }
       }
@@ -64,115 +68,124 @@ document.addEventListener('DOMContentLoaded', function() {
               isProcessingQueue = true;
               const message = messageQueue.shift();
               loadingAssetText.innerHTML = message;
+              loadingAssetText.style.fontFamily = "'Open Sans', sans-serif";
               console.log(`Displayed asset loading text: ${message}`);
+              loadingAssetText.style.opacity = 0;
               setTimeout(() => {
-                  processMessageQueue();
-              }, loadingMessageDisplayDelay);
+                  loadingAssetText.style.opacity = 1;
+                  setTimeout(() => {
+                      processMessageQueue();
+                  }, loadingMessageDisplayDelay);
+              }, 50);
           } else {
               isProcessingQueue = false;
           }
       }
 
       function updateProgressBar() {
-        const progress = (explicitResourcesLoadedCount / totalExplicitResources) * 100;
+        // Count only assets that have been marked as loaded (loaded: true)
+        const loadedCount = assetsToLoad.filter(asset => asset.loaded).length;
+        const progress = Math.min(100, (loadedCount / totalExplicitResources) * 100);
+        const roundedProgress = Math.round(progress);
+
+        loadingText.innerHTML = `LOADING ASSETS: <span class="bold-green-percentage">${roundedProgress}%</span>`;
+        loadingText.style.fontFamily = "'Oswald', sans-serif";
         loadingBar.style.width = progress + '%';
-        loadingText.textContent = `.. Fetching ${Math.round(progress)}%`;
-        console.log(`Progress: ${Math.round(progress)}%, Current Loaded count: ${explicitResourcesLoadedCount}`);
+        console.log(`Progress: ${roundedProgress}%, Current Loaded count: ${loadedCount}`);
       }
 
       function loadAsset(asset) {
           return new Promise(resolve => {
               const fileName = getFileNameFromUrl(asset.url);
-              enqueueMessage(`<strong>.. Fetching</strong> - ${fileName}`);
+              enqueueMessage(`<strong>FETCHING:</strong> ${fileName}`);
 
               const markAsLoaded = (status) => {
-                  explicitResourcesLoadedCount++;
-                  updateProgressBar();
-                  enqueueMessage(`${fileName}: <strong>${status}</strong>`);
-                  resolve();
+                  if (!asset.loaded) { // Only mark as loaded if not already
+                      asset.loaded = true; // Set the asset's loaded flag
+                      updateProgressBar();
+                      enqueueMessage(`${fileName}: <strong>${status}</strong>`);
+                      resolve(); // Resolve the promise once handled
+                  } else {
+                      // If already loaded, just resolve without re-counting
+                      resolve();
+                  }
               };
 
               if (asset.type === 'image') {
                   const img = new Image();
-                  img.onload = () => {
-                      if (asset.url === loadingLogo.src) {
-                          loadingLogo.style.opacity = '1'; 
-                      }
-                      markAsLoaded('Loaded');
-                  };
+                  img.onload = () => markAsLoaded('LOADED');
                   img.onerror = () => {
                       console.warn(`Failed to load image: ${fileName}`);
-                      markAsLoaded('Failed');
+                      markAsLoaded('FAILED');
                   };
                   img.src = asset.url;
               } else if (asset.type === 'video') {
                   if (videoElement && asset.url.includes('wallpaper.mp4')) {
-                      const videoLoadHandler = () => {
-                          markAsLoaded('Loaded');
-                          videoElement.removeEventListener('canplaythrough', videoLoadHandler);
-                          videoElement.removeEventListener('loadeddata', videoLoadHandler);
+                      // Use a single handler for video to prevent multiple calls
+                      const videoHandler = () => {
+                          markAsLoaded('LOADED');
+                          // Remove listeners after the first successful load/canplaythrough
+                          videoElement.removeEventListener('canplaythrough', videoHandler);
+                          videoElement.removeEventListener('loadeddata', videoHandler);
                           videoElement.removeEventListener('error', videoErrorHandler);
                       };
                       const videoErrorHandler = () => {
                           console.warn(`Failed to load video: ${fileName}`);
-                          markAsLoaded('Failed');
-                          videoElement.removeEventListener('canplaythrough', videoLoadHandler);
-                          videoElement.removeEventListener('loadeddata', videoLoadHandler);
+                          markAsLoaded('FAILED');
+                          // Remove listeners on error too
+                          videoElement.removeEventListener('canplaythrough', videoHandler);
+                          videoElement.removeEventListener('loadeddata', videoHandler);
                           videoElement.removeEventListener('error', videoErrorHandler);
                       };
 
-                      videoElement.addEventListener('canplaythrough', videoLoadHandler, { once: true });
-                      videoElement.addEventListener('loadeddata', videoLoadHandler, { once: true });
+                      // Add listeners, ensuring they are removed or set to once:true
+                      videoElement.addEventListener('canplaythrough', videoHandler, { once: true });
+                      videoElement.addEventListener('loadeddata', videoHandler, { once: true });
                       videoElement.addEventListener('error', videoErrorHandler, { once: true });
 
-                      if (videoElement.readyState >= 4) { 
-                          markAsLoaded('Cached');
+                      if (videoElement.readyState >= 4) { // Already cached or loaded
+                          markAsLoaded('CACHED');
                       } else {
                           videoElement.load();
                       }
                   } else {
-
                       console.warn(`Skipping video asset tracking for: ${fileName} (not background video or element not found)`);
-                      markAsLoaded('Skipped'); 
+                      markAsLoaded('SKIPPED'); // Mark as skipped if not the main video
                   }
-              } else if (asset.type === 'css' || asset.type === 'js') {
-
+              } else if (asset.type === 'css' || asset.type === 'js' || asset.type === 'json' || asset.type === 'file' || asset.type === 'md') {
                   fetch(asset.url)
                       .then(response => {
                           if (response.ok) {
-                              markAsLoaded('Parsed/Fetched');
+                              markAsLoaded('PARSED/FETCHED');
                           } else {
                               console.warn(`Failed to fetch ${asset.type}: ${fileName}`);
-                              markAsLoaded('Failed to fetch');
+                              markAsLoaded('FAILED TO FETCH');
                           }
                       })
                       .catch(error => {
                           console.warn(`Error fetching ${asset.type}: ${fileName}`, error);
-                          markAsLoaded('Error');
+                          markAsLoaded('ERROR');
                       });
               } else if (asset.type === 'font') {
-
                   document.fonts.ready.then(() => {
-
-                      markAsLoaded('Loaded');
+                      markAsLoaded('LOADED');
                   }).catch(() => {
                       console.warn(`Font loading issue for: ${fileName}`);
-                      markAsLoaded('Failed');
+                      markAsLoaded('FAILED');
                   });
               } else {
-
                   fetch(asset.url)
                       .then(response => {
                           if (response.ok) {
-                              markAsLoaded('Loaded');
+                              markAsLoaded('LOADED');
                           } else {
                               console.warn(`Failed to load asset: ${fileName}`);
-                              markAsLoaded('Failed');
+                              markAsLoaded('FAILED');
                           }
                       })
                       .catch(error => {
                           console.warn(`Error loading asset: ${fileName}`, error);
-                          markAsLoaded('Error');
+                          markAsLoaded('ERROR');
                       });
               }
           });
@@ -187,15 +200,19 @@ document.addEventListener('DOMContentLoaded', function() {
           return p;
       }
 
-      updateProgressBar(); 
+      updateProgressBar(); // Initial call to set 0%
 
       loadAllAssetsSequentially().then(() => {
           console.log('All assets loaded function completed.');
-          enqueueMessage('All assets: <strong>Complete</strong>');
+          enqueueMessage('ALL ASSETS: <strong>COMPLETE</strong>');
+          // Ensure progress bar is exactly 100% at the end
+          loadingBar.style.width = '100%';
+          loadingText.innerHTML = `LOADING ASSETS: <span class="bold-green-percentage">100%</span>`;
+
           setTimeout(() => {
               loadingScreen.style.opacity = '0';
+              loadingScreen.style.visibility = 'hidden'; // Ensure it's hidden after fade
               setTimeout(() => {
-                  loadingScreen.style.display = 'none';
                   document.body.style.overflow = 'auto';
                   mainContent.style.display = 'block';
                   mainContent.style.opacity = '1';
@@ -206,15 +223,19 @@ document.addEventListener('DOMContentLoaded', function() {
                           console.warn('Video autoplay prevented after load:', error);
                       });
                   }
-              }, 1000);
+              }, 1000); // Matches CSS transition duration
           }, loadingMessageDisplayDelay);
       }).catch(error => {
           console.error('An error occurred during asset loading:', error);
-          enqueueMessage('Asset loading: <strong>Error occurred!</strong>');
+          enqueueMessage('ASSET LOADING: <strong>ERROR OCCURRED!</strong>');
+          // Ensure progress bar doesn't go over 100% even on error
+          loadingBar.style.width = '100%';
+          loadingText.innerHTML = `LOADING ASSETS: <span class="bold-green-percentage">ERROR</span>`; // Or a specific error percentage
+
           setTimeout(() => {
               loadingScreen.style.opacity = '0';
+              loadingScreen.style.visibility = 'hidden'; // Ensure it's hidden after fade
               setTimeout(() => {
-                  loadingScreen.style.display = 'none';
                   document.body.style.overflow = 'auto';
                   mainContent.style.display = 'block';
                   mainContent.style.opacity = '1';
@@ -225,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           console.warn('Video autoplay prevented after load (fallback):', error);
                       });
                   }
-              }, 1000);
+              }, 1000); // Matches CSS transition duration
           }, loadingMessageDisplayDelay);
       });
     });

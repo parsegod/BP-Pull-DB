@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalPlaceholder = searchInput.placeholder;
 
         searchInput.addEventListener('focus', function() {
-            this.value = ''; 
-            this.placeholder = ''; 
+            this.value = '';
+            this.placeholder = '';
         });
 
         searchInput.addEventListener('blur', function() {
@@ -93,15 +93,15 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
-      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
+      "↷ 𝗨𝗽𝗱𝗮𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽�𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
     {
     date: "2025-06-11 6:13AM 𝗠𝗦𝗧",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "𝗔𝗦𝗚-𝟴𝟵: 𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟 𝗗𝗘𝗧𝗘𝗖𝗧𝗜𝗩𝗘 (𝗣𝗼𝗼𝗹 𝟮𝟮)"
+            "ASG-89: PERSONAL DETECTIVE (Pool 22)"
     ]
   },
     {
@@ -223,7 +223,7 @@ function loadAppData() {
       applyFilters();
       searchView.classList.remove('hidden');
       showChangelogModal();
-      adjustTableContainerHeight(); 
+      adjustTableContainerHeight();
     })
     .catch(err => console.error("Error on load:", err));
 }
@@ -845,9 +845,9 @@ function showChangelogOnPageLoad() {
 document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
 
 function adjustTableContainerHeight() {
-  const fixedTopHeader = document.querySelector('.announcement-banner'); 
+  const fixedTopHeader = document.querySelector('.announcement-banner');
   const tableContainer = document.querySelector('.table-container');
-  const mainContainer = document.querySelector('.container'); 
+  const mainContainer = document.querySelector('.container');
 
   if (fixedTopHeader && tableContainer && mainContainer) {
     const fixedHeaderHeight = fixedTopHeader.offsetHeight;
@@ -861,8 +861,30 @@ function adjustTableContainerHeight() {
 
     const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
 
-    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; 
+    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`;
   }
 }
 
 window.addEventListener('resize', adjustTableContainerHeight);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const clearStorageButton = document.getElementById('clearStorageButton');
+
+    if (clearStorageButton) {
+        clearStorageButton.addEventListener('click', () => {
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            let confirmationMessage = 'Thank your for using Parsed.top created by parse...';
+
+            if (isMobile) {
+                confirmationMessage += ' You will be redirected to the verification page.';
+            } else {
+                confirmationMessage += ' The page will reload.';
+            }
+
+            if (confirm(confirmationMessage)) {
+                localStorage.removeItem('blubase_verified');
+                window.location.replace('verify.html');
+            }
+        });
+    }
+});
