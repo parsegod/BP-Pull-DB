@@ -33,6 +33,11 @@ const closeBugLogModalBtn = document.getElementById('closeBugLogModal');
 const bugLogButton = document.getElementById('bugLogButton');
 const bugLogContentDiv = document.getElementById('bugLogContent');
 
+const clearStorageModal = document.getElementById('clearStorageModal');
+const closeClearStorageModalBtn = document.getElementById('closeClearStorageModal');
+const confirmClearStorageBtn = document.getElementById('confirmClearStorageBtn');
+const cancelClearStorageBtn = document.getElementById('cancelClearStorageBtn');
+
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
@@ -89,7 +94,7 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨�𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -879,27 +884,6 @@ function adjustTableContainerHeight() {
 
 window.addEventListener('resize', adjustTableContainerHeight);
 
-document.addEventListener('DOMContentLoaded', () => {
-    const clearStorageButton = document.getElementById('clearStorageButton');
-
-    if (clearStorageButton) {
-        clearStorageButton.addEventListener('click', () => {
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            let confirmationMessage = 'Thank your for using Parsed.top created by parse...';
-
-            if (isMobile) {
-                confirmationMessage += ' You will be redirected to the verification page.';
-            } else {
-                confirmationMessage += ' The page will reload.';
-            }
-
-            localStorage.removeItem('blubase_verified');
-            window.location.replace('/verify');
-
-        });
-    }
-});
-
 function populateBugLog() {
   bugLogContentDiv.innerHTML = '';
 
@@ -937,4 +921,53 @@ bugLogModal.addEventListener('click', (e) => {
   if (e.target === bugLogModal) {
     hideBugLogModal();
   }
+});
+
+function showClearStorageModal() {
+    clearStorageModal.classList.add('visible');
+}
+
+function hideClearStorageModal() {
+    clearStorageModal.classList.remove('visible');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const clearStorageButton = document.getElementById('clearStorageButton');
+
+    if (clearStorageButton) {
+        clearStorageButton.addEventListener('click', () => {
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+
+                showClearStorageModal();
+            } else {
+
+                const confirmationMessage = 'Thank your for using Parsed.top created by parse... The page will reload.';
+                if (confirm(confirmationMessage)) {
+                    localStorage.removeItem('blubase_verified');
+                    window.location.replace('/verify');
+                }
+            }
+        });
+    }
+
+    confirmClearStorageBtn.addEventListener('click', () => {
+        localStorage.removeItem('blubase_verified');
+        window.location.replace('/verify');
+    });
+
+    cancelClearStorageBtn.addEventListener('click', () => {
+        hideClearStorageModal();
+    });
+
+    closeClearStorageModalBtn.addEventListener('click', () => {
+        hideClearStorageModal();
+    });
+
+    clearStorageModal.addEventListener('click', (e) => {
+        if (e.target === clearStorageModal) {
+            hideClearStorageModal();
+        }
+    });
 });
