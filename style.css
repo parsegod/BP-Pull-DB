@@ -5,6 +5,7 @@
   height: auto;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
+  border: 2px solid #7CA0E0; 
 }
 .video-background {
     position: fixed;
@@ -147,7 +148,7 @@ body {
   border: 1px solid rgba(44, 72, 124, 0.6);
   position: relative;
   z-index: 2;
-  zoom: 0.85; /* This will be overridden by media queries for mobile */
+  zoom: 0.85;
   min-height: calc(100vh - 40px);
   padding-top: 250px;
 }
@@ -586,29 +587,23 @@ th.sorted-desc::after {
   background-clip: unset;
 }
 
-/* Prevents mobile browsers from zooming on input focus */
-input[type="search"] {
-    font-size: 16px; /* Ensure font size is at least 16px */
-    /* Added for iOS specific zoom prevention */
-    -webkit-text-size-adjust: 100%; 
-}
-
 @media (max-width: 768px) {
   .loadingLogo {
+
     width: 150px; 
+
     position: fixed; 
     top: 50%;
-    left: 50%; /* Corrected to 50% for centering */
+    left: 50%;
     transform: translate(-50%, -50%); 
     opacity: 1;
     z-index: 9999; 
   }
   .container {
-    width: 85%; /* Adjusted for more "zoom out" effect */
+    width: 96%;
     padding: 10px;
     padding-top: 180px;
-    margin: 10px auto; /* Centered with auto margins */
-    zoom: 0.95; /* Keep zoom for this breakpoint as it was in original */
+    margin: 10px auto;
   }
 
   .logo {
@@ -619,7 +614,7 @@ input[type="search"] {
   .motto {
     font-size: 1.2em;
     top: 120px;
-    white-space: normal; /* Allow text to wrap on mobile */
+    white-space: normal;
   }
 
   .search-filter-section {
@@ -639,10 +634,8 @@ input[type="search"] {
   .search-bar-row input[type="search"] {
     width: 100%;
     max-width: none;
-    font-size: 16px; /* FIXED: Set font-size to 16px to prevent zoom on mobile */
+    font-size: 0.8em;
     padding: 8px 10px;
-    /* Added for iOS specific zoom prevention within media query */
-    -webkit-text-size-adjust: 100%; 
   }
 
   .filter-dropdown {
@@ -1131,10 +1124,11 @@ input[type="search"] {
     width: 150px;
     position: fixed;
     top: 50%;
-    left: 50%; /* Corrected to 50% for centering */
+    left: 70%; 
     transform: translate(-50%, -50%);
     opacity: 1;
     z-index: 9999;
+    border: 2px solid #7CA0E0; 
   }
 
   .container {
@@ -1142,7 +1136,6 @@ input[type="search"] {
     padding: 10px;
     padding-top: 180px;
     margin: 10px auto;
-    /* Removed zoom for better native scaling */
   }
 
   .logo {
@@ -1160,13 +1153,21 @@ input[type="search"] {
     padding: 15px 10px;
   }
 
+  .search-bar-row {
+    flex-direction: column;
+    gap: 8px;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    align-items: flex-start;
+  }
+
   .search-bar-row input[type="search"] {
     width: 100%;
     max-width: none;
-    font-size: 16px; /* FIXED: Set font-size to 16px to prevent zoom on mobile */
+    font-size: 0.8em;
     padding: 8px 10px;
-    /* Added for iOS specific zoom prevention within media query */
-    -webkit-text-size-adjust: 100%; 
   }
 
   .filter-dropdown {
