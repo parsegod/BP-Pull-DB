@@ -479,7 +479,6 @@
         box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
 
-
     @media (max-width: 768px) {
         .verification-modal-overlay {
             justify-content: center;
@@ -491,7 +490,7 @@
             padding: 10px;
             margin: auto;
             min-height: 40vh;
-            
+
             border-radius: 0;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
@@ -674,7 +673,7 @@
 <body class="modal-open">
   <script>
     const blacklistedIPsEncoded = [
-      "" //test ip
+      "" 
     ];
 
     let isUserIPBlacklisted = false;
@@ -747,18 +746,18 @@
         <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         Verification Successful!
         <br>
-        <!-- Loader elements moved inside verificationSuccessMessage -->
+
         <div id="loadingContainerInModal" style="display: none;">
             <div id="loadingBarContainer">
                 <div id="loadingBar"></div>
             </div>
-            <div id="loadingText">Generating API Key- 0%</div> <!-- loadingText is here -->
-            <!-- #loadingAssetText is removed -->
+            <div id="loadingText">Generating API Key- 0%</div> 
+
         </div>
         <div id="apiKeyDisplay"></div>
       </div>
       <button id="verifyButton">Verify Your IP</button>
-      
+
     </div>
   </div>
 
@@ -770,7 +769,6 @@
     </div>
   </div>
 
-  <!-- New API Key Popup Structure -->
   <div id="apiKeyPopupOverlay">
     <div id="apiKeyPopupContent">
         <h3>Verification Aftermath</h3>
@@ -788,20 +786,19 @@
   <script>
     const verificationModal = document.getElementById('verificationModal');
     const verifyButton = document.getElementById('verifyButton');
-    
+
     const verificationTitle = document.getElementById('verificationTitle');
     const verificationInstruction = document.getElementById('verificationInstruction');
     const verificationNote = document.getElementById('verificationNote');
     const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
     const loadingContainerInModal = document.getElementById('loadingContainerInModal');
     const loadingBar = document.getElementById('loadingBar');
-    const loadingText = document.getElementById('loadingText'); // Reference to loadingText
+    const loadingText = document.getElementById('loadingText'); 
     const apiKeyDisplay = document.getElementById('apiKeyDisplay');
 
     const customMessageBox = document.getElementById('customMessageBox');
     const clearMessagePopup = document.getElementById('clearMessagePopup');
 
-    // New API Key Popup elements
     const apiKeyPopupOverlay = document.getElementById('apiKeyPopupOverlay');
     const popupUserIp = document.getElementById('popupUserIp');
     const popupApiKey = document.getElementById('popupApiKey');
@@ -812,10 +809,10 @@
     const apiKeyPopupButton = document.getElementById('apiKeyPopupButton');
 
     let verificationWindow = null;
-    let generationLogMessages = []; // Array to store messages for the popup log
-    let capturedUserIP = "N/A"; // To store the fetched IP for the popup
+    let generationLogMessages = []; 
+    let capturedUserIP = "N/A"; 
 
-    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; // 2 hours
+    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; 
 
     function setCookie(name, value, ms) {
         const expires = new Date(Date.now() + ms).toUTCString();
@@ -849,8 +846,8 @@
     }
 
     async function simulateApiKeyGeneration() {
-        generationLogMessages = []; // Clear previous logs
-        // loadingAssetText is removed, so no need to clear its content here.
+        generationLogMessages = []; 
+
         loadingContainerInModal.style.display = 'flex';
         loadingContainerInModal.style.opacity = '1';
 
@@ -858,19 +855,18 @@
         const updateProgressBar = (percentage) => {
             currentProgress = percentage;
             loadingBar.style.width = `${percentage}%`;
-            loadingText.textContent = `Generating API Key- ${Math.floor(percentage)}%`; // Only update progress here
+            loadingText.textContent = `Generating API Key- ${Math.floor(percentage)}%`; 
         };
 
         const addLogMessage = (message) => {
             const timestamp = new Date().toLocaleTimeString();
             const fullMessage = `[${timestamp}] ${message}`;
             generationLogMessages.push(fullMessage);
-            // Do NOT update loadingText with these messages during loading
+
         };
 
         let ipBlacklistStatus = "UNKNOWN"; 
 
-        // Phase 1: IP and Blacklist Check
         addLogMessage("Initiating security checks - ");
         updateProgressBar(5);
         await delay(300);
@@ -879,9 +875,9 @@
         addLogMessage("Fetching user IP address - ");
         const userIP = await getUserIP();
         const ipCheckDuration = (performance.now() - ipCheckStartTime).toFixed(2);
-        
+
         if (userIP) {
-            capturedUserIP = userIP; // Store IP for the popup
+            capturedUserIP = userIP; 
             addLogMessage(`User IP: ${userIP} (fetched in ${ipCheckDuration}ms) - `);
             updateProgressBar(20);
             await delay(500);
@@ -890,7 +886,7 @@
             addLogMessage("Checking IP against blacklist database - ");
             const isBlacklisted = isIPBlacklisted(userIP);
             const blacklistCheckDuration = (performance.now() - blacklistCheckStartTime).toFixed(2);
-            
+
             if (isBlacklisted) {
                 addLogMessage(`IP Blacklist Status: BLOCKED! (check in ${blacklistCheckDuration}ms) - `);
                 ipBlacklistStatus = "BLOCKED";
@@ -904,13 +900,12 @@
             addLogMessage("Failed to retrieve user IP. Proceeding with caution - ");
             ipBlacklistStatus = "FAILED TO RETRIEVE";
             capturedUserIP = "N/A - Failed to retrieve";
-            updateProgressBar(40); // Still advance progress
+            updateProgressBar(40); 
             await delay(500);
         }
         addLogMessage("Security checks complete - ");
         await delay(300);
 
-        // Phase 2: API Key Generation Steps
         addLogMessage("Beginning API Key generation process - ");
         const generationStartTime = performance.now();
         updateProgressBar(45);
@@ -926,14 +921,13 @@
         for (const step of generationSteps) {
             addLogMessage(step.msg + " - ");
             updateProgressBar(step.progress);
-            await delay(700); // Simulate work for each step
+            await delay(700); 
         }
 
-        // Phase 3: Finalization
         updateProgressBar(100);
-        loadingText.textContent = 'API Key Generated!'; // Final message for loadingText
+        loadingText.textContent = 'API Key Generated!'; 
         addLogMessage('Finalizing and Redirecting - ');
-        
+
         const generationDuration = (performance.now() - generationStartTime).toFixed(2);
         addLogMessage(`API Key generation completed in ${generationDuration}ms - `);
         await delay(300);
@@ -944,19 +938,16 @@
 
         localStorage.setItem('blubase_api_key', newApiKey);
         localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
-        
+
         addLogMessage(`Generated API Key: ${newApiKey} - `);
         addLogMessage("API key successfully stored in local storage - ");
         await delay(500);
 
-        // Hide the main verification modal content
         verificationModal.style.display = 'none';
 
-        // Populate and show the new API Key popup
-        popupUserIp.textContent = capturedUserIP; // Set the IP in the popup
+        popupUserIp.textContent = capturedUserIP; 
         popupApiKey.textContent = newApiKey;
-        
-        // Format expiry date for popup (M/D/Y, H:MM:SS AM/PM MDT)
+
         const options = {
             month: 'numeric',
             day: 'numeric',
@@ -965,42 +956,38 @@
             minute: 'numeric',
             second: 'numeric',
             hour12: true,
-            timeZoneName: 'short', // This will add 'MDT' or 'MST'
-            timeZone: 'America/Denver' // Explicitly set timezone for Colorado Springs
+            timeZoneName: 'short', 
+            timeZone: 'America/Denver' 
         };
         popupApiKeyExpiry.textContent = expiryDate.toLocaleString('en-US', options);
-        
-        // API Login status is static in the HTML, no dynamic update needed here
-        popupBlacklistStatus.textContent = ipBlacklistStatus;
-        popupBlacklistStatus.className = `status-${ipBlacklistStatus.toLowerCase().replace(/\s/g, '-')}`; // Apply styling class
 
-        // Populate the generation log in the popup
+        popupBlacklistStatus.textContent = ipBlacklistStatus;
+        popupBlacklistStatus.className = `status-${ipBlacklistStatus.toLowerCase().replace(/\s/g, '-')}`; 
+
         popupGenerationLog.innerHTML = generationLogMessages.join('<br>');
 
-        apiKeyPopupOverlay.classList.add('show'); // Show the popup
+        apiKeyPopupOverlay.classList.add('show'); 
 
-        // Set up the button to redirect
         apiKeyPopupButton.onclick = () => {
             window.location.href = '/home';
         };
     }
 
     function handleVerificationSuccess() {
-        // Hide initial verification elements
+
         verifyButton.disabled = true;
         verificationTitle.style.display = 'none';
         verificationInstruction.style.display = 'none';
         verificationNote.style.display = 'none';
         verifyButton.style.display = 'none';
 
-        // Show "Verification Successful!" message and the loader container
         verificationSuccessMessage.style.display = 'block';
-        
-        simulateApiKeyGeneration(); // No callback needed here, as redirection is manual
+
+        simulateApiKeyGeneration(); 
     }
 
     verifyButton.addEventListener('click', () => {
-      console.log("Verify button clicked!"); // Debugging log
+      console.log("Verify button clicked!"); 
 
       if (isUserIPBlacklisted) {
         localStorage.removeItem('blubase_api_key');
@@ -1012,28 +999,28 @@
 
       if (window.checkWindowClosedInterval) {
         clearInterval(window.checkWindowClosedInterval);
-        console.log("Cleared existing checkWindowClosedInterval."); // Debugging log
+        console.log("Cleared existing checkWindowClosedInterval."); 
       }
 
       verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
-      console.log("Verification window opened. Reference:", verificationWindow); // Debugging log
+      console.log("Verification window opened. Reference:", verificationWindow); 
 
       if (!verificationWindow || verificationWindow.closed || typeof verificationWindow.closed === 'undefined') {
-          // This custom message box is not the one previously removed, it's for pop-up blocking
+
           customMessageBox.textContent = "Pop-up blocked or failed to open! Please allow pop-ups for this site.";
           customMessageBox.style.display = 'block';
           setTimeout(() => {
             customMessageBox.style.display = 'none';
           }, 3000);
           console.error("Pop-up window was blocked or failed to open.");
-          return; // Exit if window didn't open
+          return; 
       }
 
       window.checkWindowClosedInterval = setInterval(() => {
-        // console.log("Checking window closure. Window reference:", verificationWindow, "Closed status:", verificationWindow.closed); // Too verbose, keep for deeper debugging if needed
+
         if (verificationWindow && verificationWindow.closed) {
           clearInterval(window.checkWindowClosedInterval);
-          console.log("Verification window closed. Calling handleVerificationSuccess."); // Debugging log
+          console.log("Verification window closed. Calling handleVerificationSuccess."); 
           handleVerificationSuccess();
         }
       }, 1000);
