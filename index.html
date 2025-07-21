@@ -1,544 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Blu Base</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Blu Base</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
-    <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
+  <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Blu Base" />
-    <meta property="og:description" content="your no.1 bp pull db!" />
-    <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
-    <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Blu Base" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Blu Base" />
+  <meta property="og:description" content="your no.1 bp pull db!" />
+  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Blu Base">
-    <meta name="twitter:description" content="your no.1 bp pull db!">
-    <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blu Base">
+  <meta name="twitter:description" content="your no.1 bp pull db!">
+  <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
-    <style>
+  <style>
 
-        body {
-            background-color: #0B1738;
-            margin: 0;
-        }
+    body {
+      background-color: #0B1738;
+      margin: 0;
+    }
 
-        /* Class to apply when modal is open */
-        body.modal-open {
-            overflow: hidden; /* Prevents scrolling of underlying content */
-        }
+    /* Class to apply when modal is open */
+    body.modal-open {
+        overflow: hidden; /* Prevents scrolling of underlying content */
+    }
 
-        /* Loading screen styles - initially hidden, shown after verification */
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(11, 23, 56, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* Lower than verification modal, higher than main content */
-            color: #D0D8E8;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2em;
-            transition: opacity 1s ease-out;
-            opacity: 0; /* Initially hidden */
-            visibility: hidden; /* Initially hidden */
-        }
+    /* Loading screen styles - initially hidden, shown after verification */
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(11, 23, 56, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Lower than verification modal, higher than main content */
+      color: #D0D8E8;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2em;
+      transition: opacity 1s ease-out;
+      opacity: 0; /* Initially hidden */
+      visibility: hidden; /* Initially hidden */
+    }
 
-        #loadingLogo {
-            display: block;
-            margin: 150px auto 50px 50%;
-            transform: translateX(-42%);
-            width: 200px;
-            height: auto;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
+    #loadingLogo {
+      display: block;
+      margin: 150px auto 50px 50%;
+      transform: translateX(-42%);
+      width: 200px;
+      height: auto;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
 
-        #loadingBarContainer {
-            width: 80%;
-            max-width: 400px;
-            height: 20px;
-            background-color: #1A2B4D;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            margin-left: auto;
-            margin-right: auto;
-        }
+    #loadingBarContainer {
+      width: 80%;
+      max-width: 400px;
+      height: 20px;
+      background-color: #1A2B4D;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        #loadingBar {
-            height: 100%;
-            width: 0%;
-            background-color: #7CA0E0;
-            border-radius: 10px;
-            transition: width 0.3s ease-out;
-        }
+    #loadingBar {
+      height: 100%;
+      width: 0%;
+      background-color: #7CA0E0;
+      border-radius: 10px;
+      transition: width 0.3s ease-out;
+    }
 
-        #loadingText {
-            margin-top: 10px;
-            font-weight: bold;
-        }
+    #loadingText {
+      margin-top: 10px;
+      font-weight: bold;
+    }
 
-        #loadingAssetText {
-            font-size: 0.9em;
-            margin-top: 5px;
-            text-align: center;
-            line-height: 1.4;
-            min-height: 2.8em;
-            width: 90%;
-            max-width: 500px;
-        }
+    #loadingAssetText {
+      font-size: 0.9em;
+      margin-top: 5px;
+      text-align: center;
+      line-height: 1.4;
+      min-height: 2.8em;
+      width: 90%;
+      max-width: 500px;
+    }
 
-        #mainContent {
-            display: none; /* Ensure main content is hidden by default */
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
+    #mainContent {
+      display: none; /* Ensure main content is hidden by default */
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
 
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: -1;
-            opacity: 1; /* Changed from 0 to 1 */
-            visibility: visible; /* Changed from hidden to visible */
-            transition: opacity 1s ease-in-out;
-        }
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 1; /* Changed from 0 to 1 */
+      visibility: visible; /* Changed from hidden to visible */
+      transition: opacity 1s ease-in-out;
+    }
 
-        .video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.6);
-        }
+    .video-background video {
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        filter: brightness(0.6);
+    }
 
-        /* Updated style for the announcement with !important */
-        .red-announcement {
-            color: red !important; /* Forced red */
-            font-weight: bold;
-            margin-top: 10px;
-        }
+    /* Updated style for the announcement with !important */
+    .red-announcement {
+      color: red !important; /* Forced red */
+      font-weight: bold;
+      margin-top: 10px;
+    }
 
-        /* Styles for the verification popup */
-        .verification-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Darker, slightly transparent overlay */
-            backdrop-filter: blur(5px); /* Subtle blur effect */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000; /* Ensure it's on top of everything */
-        }
+    /* Styles for the verification popup */
+    .verification-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Darker, slightly transparent overlay */
+      backdrop-filter: blur(5px); /* Subtle blur effect */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000; /* Ensure it's on top of everything */
+    }
 
+    .verification-modal-content {
+      background: linear-gradient(135deg, #1a2b4d, #0b1738); /* Subtle gradient background */
+      color: #E0E8F0; /* Slightly brighter text color */
+      font-family: 'Oswald', sans-serif;
+      padding: 40px; /* Increased padding */
+      border-radius: 15px; /* Softer rounded corners */
+      text-align: center;
+      max-width: 550px; /* Slightly wider */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Stronger, deeper shadow */
+      border: 1px solid rgba(124, 160, 224, 0.3); /* Subtle light border */
+      transform: scale(1);
+      transition: transform 0.3s ease-out; /* Smooth scale animation */
+    }
+
+    .verification-modal-content.scale-in {
+        animation: scaleIn 0.5s ease-out forwards;
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-logo {
+        width: 80px; /* Adjust size as needed */
+        height: auto;
+        margin: 0 auto 25px auto; /* Centered horizontally, 25px bottom margin */
+        display: block; /* Ensure it's a block element for margin:auto to work */
+        opacity: 0.9;
+    }
+
+    .verification-modal-content h2 {
+      font-size: 2.5em; /* Larger title */
+      margin-bottom: 20px;
+      color: #A0C0E8; /* Lighter blue for title */
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4); /* Text shadow */
+    }
+
+    .verification-modal-content p {
+      font-family: 'Open Sans', sans-serif; /* Use Open Sans for body text */
+      font-size: 1.1em;
+      margin-bottom: 25px; /* Adjusted margin */
+      line-height: 1.6;
+      color: #CAD8E8; /* Slightly darker body text */
+    }
+
+    .verification-modal-content button {
+      background: linear-gradient(180deg, #6CACE4, #4A8CD4); /* Blue gradient for buttons */
+      color: #0B1738;
+      border: none;
+      padding: 16px 35px; /* Increased padding */
+      border-radius: 10px; /* Softer corners */
+      font-size: 1.3em; /* Larger font */
+      cursor: pointer;
+      transition: all 0.3s ease; /* Smooth transitions for all properties */
+      margin: 10px; /* More spacing between buttons */
+      font-weight: 600; /* Bolder text */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Button shadow */
+    }
+
+    .verification-modal-content button:hover {
+      background: linear-gradient(180deg, #5A99D0, #3B75B0); /* Darker gradient on hover */
+      transform: translateY(-2px); /* Slight lift effect */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .verification-modal-content button:disabled {
+        background: #3A4F70; /* Darker background when disabled */
+        cursor: not-allowed;
+        opacity: 0.6; /* Reduced opacity */
+        transform: none; /* No lift */
+        box-shadow: none; /* No shadow */
+    }
+
+    /* Style for the success message */
+    #verificationSuccessMessage {
+        color: #4CAF50; /* Vibrant green for success */
+        font-weight: bold;
+        font-size: 1.8em; /* Much larger font */
+        margin-bottom: 25px; /* Increased margin */
+        display: none; /* Hidden by default */
+        line-height: 1.4;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        padding: 15px 0;
+        animation: fadeInScale 0.8s ease-out forwards; /* Animation for success message */
+    }
+
+    #verificationSuccessMessage .success-icon {
+        width: 60px; /* Size of the checkmark icon */
+        height: 60px;
+        display: block;
+        margin: 0 auto 15px; /* Center and space from text */
+        fill: #4CAF50; /* Color the SVG icon */
+        animation: bounceIn 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bounceIn {
+        0% { transform: scale(0.1); opacity: 0; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+
+    /* Glowing red text for verification note */
+    .glowing-red-text {
+      color: red;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.3);
+      animation: pulsate-glow 1.5s infinite alternate;
+    }
+
+    @keyframes pulsate-glow {
+      from { text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5); }
+      to { text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.6); }
+    }
+
+
+    /* IMPORTANT: Force hide the element when 'hidden' class is applied */
+    .hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    /* --- Responsive Adjustments for Mobile --- */
+    #clearLocalStorageButton {
+        display: none; /* Hidden by default on desktop */
+    }
+
+    @media (max-width: 768px) {
         .verification-modal-content {
-            background: linear-gradient(135deg, #1a2b4d, #0b1738); /* Subtle gradient background */
-            color: #E0E8F0; /* Slightly brighter text color */
-            font-family: 'Oswald', sans-serif;
-            padding: 40px; /* Increased padding */
-            border-radius: 15px; /* Softer rounded corners */
-            text-align: center;
-            max-width: 550px; /* Slightly wider */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Stronger, deeper shadow */
-            border: 1px solid rgba(124, 160, 224, 0.3); /* Subtle light border */
-            transform: scale(1);
-            transition: transform 0.3s ease-out; /* Smooth scale animation */
-        }
-
-        .verification-modal-content.scale-in {
-            animation: scaleIn 0.5s ease-out forwards;
-        }
-
-        @keyframes scaleIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            max-width: 90%; /* Adjust max-width for tablets */
+            padding: 30px; /* Reduce padding */
         }
 
         .modal-logo {
-            width: 80px; /* Adjust size as needed */
-            height: auto;
-            margin: 0 auto 25px auto; /* Centered horizontally, 25px bottom margin */
-            display: block; /* Ensure it's a block element for margin:auto to work */
-            opacity: 0.9;
+            width: 70px; /* Slightly smaller logo */
+            margin-bottom: 20px;
         }
 
         .verification-modal-content h2 {
-            font-size: 2.5em; /* Larger title */
-            margin-bottom: 20px;
-            color: #A0C0E8; /* Lighter blue for title */
-            text-shadow: 0 2px 5px rgba(0,0,0,0.4); /* Text shadow */
+            font-size: 2em; /* Smaller title on tablets */
         }
 
         .verification-modal-content p {
-            font-family: 'Open Sans', sans-serif; /* Use Open Sans for body text */
-            font-size: 1.1em;
-            margin-bottom: 25px; /* Adjusted margin */
-            line-height: 1.6;
-            color: #CAD8E8; /* Slightly darker body text */
+            font-size: 1em; /* Smaller body text on tablets */
+            margin-bottom: 20px;
         }
 
         .verification-modal-content button {
-            background: linear-gradient(180deg, #6CACE4, #4A8CD4); /* Blue gradient for buttons */
-            color: #0B1738;
-            border: none;
-            padding: 16px 35px; /* Increased padding */
-            border-radius: 10px; /* Softer corners */
-            font-size: 1.3em; /* Larger font */
-            cursor: pointer;
-            transition: all 0.3s ease; /* Smooth transitions for all properties */
-            margin: 10px; /* More spacing between buttons */
-            font-weight: 600; /* Bolder text */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Button shadow */
+            padding: 14px 25px; /* Smaller button padding */
+            font-size: 1.1em; /* Smaller button font */
+            margin: 8px; /* Slightly less margin */
         }
 
-        .verification-modal-content button:hover {
-            background: linear-gradient(180deg, #5A99D0, #3B75B0); /* Darker gradient on hover */
-            transform: translateY(-2px); /* Slight lift effect */
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        }
-        .verification-modal-content button:disabled {
-            background: #3A4F70; /* Darker background when disabled */
-            cursor: not-allowed;
-            opacity: 0.6; /* Reduced opacity */
-            transform: none; /* No lift */
-            box-shadow: none; /* No shadow */
-        }
-
-        /* Style for the success message */
         #verificationSuccessMessage {
-            color: #4CAF50; /* Vibrant green for success */
-            font-weight: bold;
-            font-size: 1.8em; /* Much larger font */
-            margin-bottom: 25px; /* Increased margin */
-            display: none; /* Hidden by default */
-            line-height: 1.4;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            padding: 15px 0;
-            animation: fadeInScale 0.8s ease-out forwards; /* Animation for success message */
+            font-size: 1.5em; /* Smaller success message font */
+            margin-bottom: 20px;
         }
 
         #verificationSuccessMessage .success-icon {
-            width: 60px; /* Size of the checkmark icon */
-            height: 60px;
-            display: block;
-            margin: 0 auto 15px; /* Center and space from text */
-            fill: #4CAF50; /* Color the SVG icon */
-            animation: bounceIn 0.6s ease-out forwards;
+            width: 50px; /* Smaller success icon */
+            height: 50px;
+            margin-bottom: 10px;
         }
 
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        #clearLocalStorageButton {
+            display: block; /* Show on tablets and smaller */
+            margin-top: 15px; /* Add some space above it */
+            width: 100%; /* Make it full width */
+            box-sizing: border-box; /* Include padding and border in the width */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .verification-modal-content {
+            max-width: 95%; /* Even wider on small phones */
+            padding: 20px; /* Further reduce padding */
+            border-radius: 10px; /* Slightly less rounded */
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.1); opacity: 0; }
-            60% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); }
+        .modal-logo {
+            width: 60px; /* Smaller logo for phones */
+            margin-bottom: 15px;
         }
 
-        /* Glowing red text for verification note */
-        .glowing-red-text {
-            color: red;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.3);
-            animation: pulsate-glow 1.5s infinite alternate;
+        .verification-modal-content h2 {
+            font-size: 1.8em; /* Smaller title for phones */
         }
 
-        @keyframes pulsate-glow {
-            from { text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5); }
-            to { text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.6); }
+        .verification-modal-content p {
+            font-size: 0.9em; /* Smaller body text for phones */
+            margin-bottom: 15px;
         }
 
-
-        /* IMPORTANT: Force hide the element when 'hidden' class is applied */
-        .hidden {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
+        .verification-modal-content button {
+            display: block; /* Stack buttons vertically */
+            width: calc(100% - 20px); /* Full width minus horizontal margin */
+            margin: 10px auto; /* Center buttons and add vertical spacing */
+            padding: 12px 20px; /* Smaller button padding */
+            font-size: 1em; /* Smaller button font */
         }
 
-        /* --- Responsive Adjustments for Mobile --- */
-        @media (max-width: 768px) {
-            .verification-modal-content {
-                max-width: 90%; /* Adjust max-width for tablets */
-                padding: 30px; /* Reduce padding */
-            }
-
-            .modal-logo {
-                width: 70px; /* Slightly smaller logo */
-                margin-bottom: 20px;
-            }
-
-            .verification-modal-content h2 {
-                font-size: 2em; /* Smaller title on tablets */
-            }
-
-            .verification-modal-content p {
-                font-size: 1em; /* Smaller body text on tablets */
-                margin-bottom: 20px;
-            }
-
-            .verification-modal-content button {
-                padding: 14px 25px; /* Smaller button padding */
-                font-size: 1.1em; /* Smaller button font */
-                margin: 8px; /* Slightly less margin */
-            }
-
-            #verificationSuccessMessage {
-                font-size: 1.5em; /* Smaller success message font */
-                margin-bottom: 20px;
-            }
-
-            #verificationSuccessMessage .success-icon {
-                width: 50px; /* Smaller success icon */
-                height: 50px;
-                margin-bottom: 10px;
-            }
+        #verificationSuccessMessage {
+            font-size: 1.3em; /* Smallest success message font */
+            margin-bottom: 15px;
         }
 
-        @media (max-width: 480px) {
-            .verification-modal-content {
-                max-width: 95%; /* Even wider on small phones */
-                padding: 20px; /* Further reduce padding */
-                border-radius: 10px; /* Slightly less rounded */
-            }
-
-            .modal-logo {
-                width: 60px; /* Smaller logo for phones */
-                margin-bottom: 15px;
-            }
-
-            .verification-modal-content h2 {
-                font-size: 1.8em; /* Smaller title for phones */
-            }
-
-            .verification-modal-content p {
-                font-size: 0.9em; /* Smaller body text for phones */
-                margin-bottom: 15px;
-            }
-
-            .verification-modal-content button {
-                display: block; /* Stack buttons vertically */
-                width: calc(100% - 20px); /* Full width minus horizontal margin */
-                margin: 10px auto; /* Center buttons and add vertical spacing */
-                padding: 12px 20px; /* Smaller button padding */
-                font-size: 1em; /* Smaller button font */
-            }
-
-            #verificationSuccessMessage {
-                font-size: 1.3em; /* Smallest success message font */
-                margin-bottom: 15px;
-            }
-
-            #verificationSuccessMessage .success-icon {
-                width: 40px; /* Smallest success icon */
-                height: 40px;
-                margin-bottom: 8px;
-            }
+        #verificationSuccessMessage .success-icon {
+            width: 40px; /* Smallest success icon */
+            height: 40px;
+            margin-bottom: 8px;
         }
-    </style>
+
+        #clearLocalStorageButton {
+            display: block; /* Ensure it's shown on small phones */
+        }
+    }
+  </style>
 </head>
 <body class="modal-open">
-    <div class="video-background">
-        <video id="backgroundVideo" autoplay loop muted playsinline>
-            <source src="assets/wallpaper.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+  <div class="video-background">
+    <video id="backgroundVideo" autoplay loop muted playsinline>
+      <source src="assets/wallpaper.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div id="verificationModal" class="verification-modal-overlay">
+    <div class="verification-modal-content scale-in">
+      <h2 id="verificationTitle">Account Verification Required</h2>
+      <p id="verificationInstruction">
+        To maintain the integrity of our database and prevent spam entries, we require a quick verification.
+      </p>
+      <p id="verificationNote" class="glowing-red-text">
+        A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
+      </p>
+      <div id="verificationSuccessMessage">
+        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        Verification Successful!
+        <br>Loading content...
+      </div>
+      <button id="verifyButton">Verify Your IP</button>
+      </div>
+  </div>
+
+  <div id="loadingScreen">
+    <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
+    <div id="loadingBarContainer">
+      <div id="loadingBar"></div>
+    </div>
+    <div id="loadingText">Loading... 0%</div>
+    <div id="loadingAssetText"></div>
+  </div>
+
+  <div id="mainContent">
+    <div class="announcement-banner">
+      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
-    <div id="verificationModal" class="verification-modal-overlay">
-        <div class="verification-modal-content scale-in">
-            <h2 id="verificationTitle">Account Verification Required</h2>
-            <p id="verificationInstruction">
-                To maintain the integrity of our database and prevent spam entries, we require a quick verification.
-            </p>
-            <p id="verificationNote" class="glowing-red-text">
-                A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
-            </p>
-            <div id="verificationSuccessMessage">
-                <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
-                Verification Successful!
-                <br>Loading content...
+    <div class="container">
+      <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
+      <h1 class="motto">your no.1 bp pull db</h1>
+      <div class="search-filter-section">
+        <div class="contributions-button-container">
+        <button id="contributionsButton" class="changelog-button" onclick="window.location.href='https://parsed.top/HAH'">Hall Of Helpers</button>
+        </div>
+        <div id="searchView"> <div class="search-bar-row">
+            <input type="search" id="search" placeholder="      ..." />
+
+            <div class="filter-dropdown">
+              <button id="toggleCategoryDropdown" type="button">
+                Filter Category <span id="categoryArrow">▼</span>
+              </button>
+              <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
             </div>
-            <button id="verifyButton">Verify Your IP</button>
-        </div>
-    </div>
 
-    <div id="loadingScreen">
-        <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
-        <div id="loadingBarContainer">
-            <div id="loadingBar"></div>
-        </div>
-        <div id="loadingText">Loading... 0%</div>
-        <div id="loadingAssetText"></div>
-    </div>
-
-    <div id="mainContent">
-        <div class="announcement-banner">
-            <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
-        </div>
-
-        <div class="container">
-            <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
-            <h1 class="motto">your no.1 bp pull db</h1>
-            <div class="search-filter-section">
-                <div class="contributions-button-container">
-                <button id="contributionsButton" class="changelog-button" onclick="window.location.href='https://parsed.top/HAH'">Hall Of Helpers</button>
-                </div>
-                <div id="searchView"> <div class="search-bar-row">
-                        <input type="search" id="search" placeholder="       ..." />
-
-                        <div class="filter-dropdown">
-                            <button id="toggleCategoryDropdown" type="button">
-                                Filter Category <span id="categoryArrow">▼</span>
-                            </button>
-                            <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
-                        </div>
-
-                        <div class="filter-dropdown">
-                            <button id="togglePoolDropdown" type="button">
-                                Filter Pool <span id="poolArrow">▼</span>
-                            </button>
-                            <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
-                        </div>
-
-                        <div class="filter-dropdown">
-                            <button id="toggleStatusDropdown" type="button">
-                                Filter Status <span id="statusArrow">▼</span>
-                            </button>
-                            <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="checkbox-controls">
-                    <label for="imageCheckbox">
-                        <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
-                        Show All Previews
-                    </label>
-                    <button id="changelogButton" class="changelog-button">View Changelog</button>
-                    <button id="howToUseButton" class="changelog-button">How To Use</button>
-                </div>
-
-                <div class="blueprint-counters">
-                    <p>TOTAL Blueprints Displayed: <span id="totalBlueprints">0</span></p>
-                    <p>RELEASED Blueprints: <span id="normalBlueprints">0</span></p>
-                    <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
-                    <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
-                </div>
-            </div> <table id="pullsTable">
-                <thead>
-                    <tr>
-                        <th data-key="Weapon">Weapon</th>
-                        <th data-key="Category">Category</th>
-                        <th data-key="Blueprint">Blueprint</th>
-                        <th data-key="Pool">Pool</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div id="changelogModal" class="modal-overlay hidden">
-            <div class="modal-content">
-                <button class="modal-close-button" id="closeChangelogModal">&times;</button>
-                <h2>Changelog</h2>
-                <div id="changelogContent" class="changelog-entries">
-                    </div>
+            <div class="filter-dropdown">
+               <button id="togglePoolDropdown" type="button">
+                 Filter Pool <span id="poolArrow">▼</span>
+               </button>
+               <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
             </div>
-        </div>
 
-        <div id="howToUseModal" class="modal-overlay hidden">
-            <div class="modal-content">
-                <button class="modal-close-button" id="closeHowToUseModal">&times;</button>
-                <h2>How To Use</h2>
-                <div id="howToUseContent" class="how-to-sections">
-                    <div class="how-to-tabs">
-                        <button class="tab-button active" data-tab="explanation">Explanation</button>
-                        <button class="tab-button" data-tab="zombies">Zombies</button>
-                        <button class="tab-button" data-tab="multiplayer">MP/WZ</button>
-                    </div>
-
-                    <div id="explanation-content" class="tab-content active">
-                        <ul>
-                            <li>
-                            <h3>Exploit Explanation</h3>
-                                <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗡𝗧𝗦𝗧𝗥𝗠" variant, which is stored in 𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div id="zombies-content" class="tab-content hidden">
-                    <ul>
-                        <li>
-                        <h3>Zombies Exploit </h3>
-                            <p>If you’re still unsure about how this exploit works or how to perform the pulling process, don’t worry — it will become clearer as you follow along.</p>
-                            <p>First, it’s important to know that this exploit only works on PS5 and Xbox Series X/S, last-gen consoles and PC players do not have access to split-screen, so this won’t work for you. Also, Player 2 doesn’t need a leveled-up account, but having one makes the pulls easier. If Player 2 uses a fresh account, you may need to perform an extra glitch to equip locked weapons in your Zombies loadout.</p>
-                            <p>Now, here’s how it works: start by launching Call of Duty and go into Zombies mode. Connect a second controller and sign in with your secondary profile. Set up Player 2’s loadout with the weapon you want to pull prints for (like the LADRA).
-                            Then back out to the screen where you can edit your main loadouts—that will affect Controller 1’s loadouts. On your main account, equip the blueprint you want to use to pull the print. After that, back out to the main menu where you can select Multiplayer, Zombies, or Campaign.
-                            With Controller 2, select Zombies mode. Finally, go back to Player 1’s main loadout, and you should see the print you were trying to pull, as long as you’ve followed everything correctly.</p>
-                        </li>
-                    </ul>
-                    </div>
-
-                    <div id="multiplayer-content" class="tab-content hidden">
-                        <ul>
-                            <li>
-                                <h3>Setup Build Method</h3>
-                                <p><strong>Working Universally through MP and WZ</strong></p>
-                                <p>1. <strong>Make a Setup Gun</strong> (base of the gun you want to pull)<br>
-                                    (create new -> delete build -> add att [Same As Receiver slots] -> name build Setup)</p>
-                                <p>2. <strong>Find A Print</strong> you own <strong>in the same pool as</strong> the print you wanna pull, create new build and then fill the same att slots as the Setup.<br>
-                                    (Optional: Rename to Receiver)</p>
-                                <p>3. <strong>Equip the Receiver</strong> and then equip the Unowned Camo<br>
-                                    (If you are using DB then this is the same just DB shotgun with only DB)<br>
-                                    {RECOMMENDED: DUPE THE UNOWNED CAMO TO PREVENT WIPING!}</p>
-                                <p>4. <strong>Kill yourself</strong> and then requip that Build (setup)</p>
-                                <p>5. Finally equip the unowned camo again to save it<br>
-                                    (or just equip a att 2x on build)</p>
-                                <p class="red-announcement">PLEASE KEEP IN MIND IF YOU ARE IN A BROKEN STATE THEN IN ORDER TO SAVE BLUEPRINTS YOU MUST DELETE ANY BUILD AND THEN SAVE IT (THE SAME WAY THE CAMO SWAP SAVE WORKS)</p>
-                                <p><strong>Important Notes:</strong></p>
-                                <ul>
-                                    <li>keep it noted that prints are pulled in half's and currently there is not a way the pull the full prints in one method</li>
-                                    <li>if you wish to get the full print you must find the right Receiver attachment combo that pulls the full print (likely hood 1/20 roughly)</li>
-                                    <li>but it doesn't matter just throw a nice camo on and you'll be set!</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="filter-dropdown">
+              <button id="toggleStatusDropdown" type="button">
+                Filter Status <span id="statusArrow">▼</span>
+              </button>
+              <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
             </div>
+          </div>
         </div>
+
+        <div class="checkbox-controls">
+          <label for="imageCheckbox">
+            <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
+            Show All Previews
+          </label>
+          <button id="changelogButton" class="changelog-button">View Changelog</button>
+          <button id="howToUseButton" class="changelog-button">How To Use</button>
+          <button id="clearLocalStorageButton" class="changelog-button">Clear Local Storage</button> </div>
+
+        <div class="blueprint-counters">
+          <p>TOTAL Blueprints Displayed: <span id="totalBlueprints">0</span></p>
+          <p>RELEASED Blueprints: <span id="normalBlueprints">0</span></p>
+          <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
+          <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
+        </div>
+      </div> <table id="pullsTable">
+        <thead>
+          <tr>
+            <th data-key="Weapon">Weapon</th>
+            <th data-key="Category">Category</th>
+            <th data-key="Blueprint">Blueprint</th>
+            <th data-key="Pool">Pool</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
-    <!-- Load the verification script first -->
-    <script src="verification.js"></script>
+    <div id="changelogModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeChangelogModal">&times;</button>
+        <h2>Changelog</h2>
+        <div id="changelogContent" class="changelog-entries">
+          </div>
+      </div>
+    </div>
+
+    <div id="howToUseModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeHowToUseModal">&times;</button>
+        <h2>How To Use</h2>
+        <div id="howToUseContent" class="how-to-sections">
+          <div class="how-to-tabs">
+            <button class="tab-button active" data-tab="explanation">Explanation</button>
+            <button class="tab-button" data-tab="zombies">Zombies</button>
+            <button class="tab-button" data-tab="multiplayer">MP/WZ</button>
+          </div>
+
+          <div id="explanation-content" class="tab-content active">
+            <ul>
+              <li>
+            <h3>Exploit Explanation</h3>
+                <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗡𝗧𝗦𝗧𝗥𝗠" variant, which is stored in 𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+              </li>
+            </ul>
+          </div>
+
+          <div id="zombies-content" class="tab-content hidden">
+          <ul>
+            <li>
+            <h3>Zombies Exploit </h3>
+                <p>If you’re still unsure about how this exploit works or how to perform the pulling process, don’t worry — it will become clearer as you follow along.</p>
+                <p>First, it’s important to know that this exploit only works on PS5 and Xbox Series X/S, last-gen consoles and PC players do not have access to split-screen, so this won’t work for you. Also, Player 2 doesn’t need a leveled-up account, but having one makes the pulls easier. If Player 2 uses a fresh account, you may need to perform an extra glitch to equip locked weapons in your Zombies loadout.</p>
+                <p>Now, here’s how it works: start by launching Call of Duty and go into Zombies mode. Connect a second controller and sign in with your secondary profile. Set up Player 2’s loadout with the weapon you want to pull prints for (like the LADRA).
+                Then back out to the screen where you can edit your main loadouts—that will affect Controller 1’s loadouts. On your main account, equip the blueprint you want to use to pull the print. After that, back out to the main menu where you can select Multiplayer, Zombies, or Campaign.
+                With Controller 2, select Zombies mode. Finally, go back to Player 1’s main loadout, and you should see the print you were trying to pull, as long as you’ve followed everything correctly.</p>
+          </li>
+          </ul>
+          </div>
+
+          <div id="multiplayer-content" class="tab-content hidden">
+            <ul>
+              <li>
+                <h3>Setup Build Method</h3>
+                <p><strong>Working Universally through MP and WZ</strong></p>
+                <p>1. <strong>Make a Setup Gun</strong> (base of the gun you want to pull)<br>
+                   (create new -> delete build -> add att [Same As Receiver slots] -> name build Setup)</p>
+                <p>2. <strong>Find A Print</strong> you own <strong>in the same pool as</strong> the print you wanna pull, create new build and then fill the same att slots as the Setup.<br>
+                   (Optional: Rename to Receiver)</p>
+                <p>3. <strong>Equip the Receiver</strong> and then equip the Unowned Camo<br>
+                   (If you are using DB then this is the same just DB shotgun with only DB)<br>
+                   {RECOMMENDED: DUPE THE UNOWNED CAMO TO PREVENT WIPING!}</p>
+                <p>4. <strong>Kill yourself</strong> and then requip that Build (setup)</p>
+                <p>5. Finally equip the unowned camo again to save it<br>
+                   (or just equip a att 2x on build)</p>
+                <p class="red-announcement">PLEASE KEEP IN MIND IF YOU ARE IN A BROKEN STATE THEN IN ORDER TO SAVE BLUEPRINTS YOU MUST DELETE ANY BUILD AND THEN SAVE IT (THE SAME WAY THE CAMO SWAP SAVE WORKS)</p>
+                <p><strong>Important Notes:</strong></p>
+                <ul>
+                  <li>keep it noted that prints are pulled in half's and currently there is not a way the pull the full prints in one method</li>
+                  <li>if you wish to get the full print you must find the right Receiver attachment combo that pulls the full print (likely hood 1/20 roughly)</li>
+                  <li>but it doesn't matter just throw a nice camo on and you'll be set!</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get references to the verification modal and button
+    const verificationModal = document.getElementById('verificationModal');
+    const verifyButton = document.getElementById('verifyButton');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainContent = document.getElementById('mainContent');
+    const videoBackground = document.querySelector('.video-background');
+    const videoElement = document.getElementById('backgroundVideo'); // Defined here for load.js access
+    const loadingLogo = document.getElementById('loadingLogo'); // ADDED THIS LINE
+    const clearLocalStorageButton = document.getElementById('clearLocalStorageButton'); // NEW LINE
+
+    // References to verification modal content elements
+    const verificationTitle = document.getElementById('verificationTitle');
+    const verificationInstruction = document.getElementById('verificationInstruction');
+    const verificationNote = document.getElementById('verificationNote');
+    const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
+
+    let verificationWindow = null; // To store the reference to the opened window
+
+    // This function initializes the verification modal state.
+    function initializeVerificationModal() {
+      // Check if the user has already been verified
+      if (localStorage.getItem('blubase_verified') === 'true') {
+        console.log("User already verified, skipping modal.");
+        // Directly proceed to handleVerificationSuccess to load assets
+        handleVerificationSuccess();
+        return; // Exit the function early
+      }
+
+      // Ensure body scroll is prevented from the start.
+      document.body.classList.add('modal-open');
+
+      // Reset modal content to initial state
+      verificationTitle.style.display = 'block';
+      verificationInstruction.style.display = 'block';
+      verificationNote.style.display = 'block';
+      verifyButton.style.display = 'inline-block';
+      verificationSuccessMessage.style.display = 'none';
+
+      // Re-enable buttons if they were disabled (only verifyButton should be enabled)
+      verifyButton.disabled = false;
+    }
+
+    // Function to handle successful verification (manual or auto-closed window)
+    function handleVerificationSuccess() {
+        console.log("Verification success handler called.");
+
+        // Set localStorage item to remember verification
+        localStorage.setItem('blubase_verified', 'true');
+        console.log("Verification status saved to localStorage.");
+
+        // Visually disable buttons and hide instructions/title
+        verifyButton.disabled = true;
+
+        verificationTitle.style.display = 'none';
+        verificationInstruction.style.display = 'none';
+        verificationNote.style.display = 'none';
+        verifyButton.style.display = 'none';
+
+        // Show the success message
+        verificationSuccessMessage.style.display = 'block';
+        console.log("Success message shown.");
+
+
+        // After a short delay for success message, hide verification modal and start loading other scripts
+        setTimeout(() => {
+            verificationModal.classList.add('hidden'); // This line should hide the modal
+            console.log("Verification modal hidden. Attempting to load load.js");
+
+            // Dynamically load load.js
+            const loadJsScript = document.createElement('script');
+            loadJsScript.src = 'load.js';
+            loadJsScript.onload = () => {
+                // Once load.js is loaded, execute its main loading function
+                // This assumes load.js has been modified to expose a global function like 'startAssetLoading'
+                if (typeof startAssetLoading === 'function') {
+                    console.log("startAssetLoading function found, calling it.");
+                    startAssetLoading(mainContent, videoBackground, videoElement, loadingScreen, loadingLogo); // Pass necessary elements
+                } else {
+                    console.error("Error: startAssetLoading function not found in load.js. Ensure load.js exposes its main logic globally.");
+                    // Fallback: Manually show loading screen if load.js isn't set up correctly
+                    loadingScreen.style.display = 'flex';
+                    setTimeout(() => { loadingScreen.style.opacity = '1'; }, 10);
+                }
+
+                // Dynamically load script.js after load.js has started its process
+                const scriptJsScript = document.createElement('script');
+                scriptJsScript.src = 'script.js';
+                scriptJsScript.onload = () => {
+                    // Once script.js is loaded, execute its main data loading and UI setup functions
+                    if (typeof loadAppData === 'function') {
+                        loadAppData();
+                    } else {
+                        console.error("Error: loadAppData function not found in script.js.");
+                    }
+                    if (typeof showChangelogOnPageLoad === 'function') {
+                        showChangelogOnPageLoad(); // Call this now that script.js is loaded
+                    } else {
+                        console.error("Error: showChangelogOnPageLoad function not found in script.js.");
+                    }
+                };
+                document.body.appendChild(scriptJsScript);
+            };
+            document.body.appendChild(loadJsScript);
+
+        }, 2000); // Display success message for 2 seconds before starting asset loading
+    }
+
+    // Event listener for the verify button
+    verifyButton.addEventListener('click', () => {
+      // Clear any existing interval if the button is clicked again
+      if (window.checkWindowClosedInterval) {
+        clearInterval(window.checkWindowClosedInterval);
+      }
+
+      verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+      console.log("Verify button clicked. External verification initiated.");
+
+      // Check if the opened window is closed (this might not work reliably for cross-origin tabs)
+      window.checkWindowClosedInterval = setInterval(() => {
+        if (verificationWindow && verificationWindow.closed) {
+          clearInterval(window.checkWindowClosedInterval);
+          // If the verification window closes, automatically trigger the success flow
+          handleVerificationSuccess();
+        }
+      }, 1000); // Check every second
+    });
+
+    // NEW: Event listener for the Clear Local Storage button
+    clearLocalStorageButton.addEventListener('click', () => {
+        localStorage.removeItem('blubase_verified');
+        alert('Local storage cleared. The verification modal will reappear on reload.');
+        location.reload(); // Reload the page to show the modal again
+    });
+
+    // Initialize the verification modal immediately on page load
+    initializeVerificationModal();
+  </script>
 </body>
 </html>
