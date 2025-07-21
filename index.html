@@ -720,6 +720,17 @@
         const urlParams = new URLSearchParams(window.location.search);
         const wasJustVerified = urlParams.get('verified') === 'true'; // Check for the verification flag
 
+        // If this is the initial load AND we just came from verification, trust it and proceed.
+        if (isInitialCheck && wasJustVerified) {
+            console.log("Index.html: Just verified successfully. Displaying content.");
+            document.documentElement.style.display = 'block';
+            // Clear the 'verified' flag from the URL to prevent issues on subsequent refreshes
+            // or if the user shares the URL.
+            history.replaceState({}, document.title, window.location.pathname);
+            return; // Exit the function, no redirection
+        }
+
+        // Proceed with normal API key checks for all other cases (not initial load from verification, or initial load without verification flag)
         const apiKey = localStorage.getItem('blubase_api_key');
         const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
         const currentTime = new Date().getTime();
@@ -742,15 +753,12 @@
             localStorage.removeItem('blubase_api_key_expiry');
             document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear cookie too
 
-            if (isInitialCheck && !wasJustVerified) { // ONLY redirect to verify.html if initial check AND NOT just verified
+            // If it's an initial check and not explicitly from verification, go to verify.
+            // Otherwise, if it's a runtime check or a refresh without the 'verified' flag, go to endkey.
+            if (isInitialCheck) {
                 console.log("Index.html: Initial load, no valid API key found. Redirecting to /verify.");
                 window.location.replace('verify.html');
-            } else if (isInitialCheck && wasJustVerified) {
-                // If just verified, and key is somehow still invalid, log error but don't loop back to verify.
-                // This case should ideally not happen if verify.html correctly generates and stores the key.
-                console.error("Index.html: Just verified, but API key still invalid. This indicates an issue with verification process.");
-                document.documentElement.style.display = 'block'; // Still show content, but log error
-            } else { // Not initial check, or was just verified but still invalid (runtime check)
+            } else {
                 console.log("Index.html: API key invalid/expired/corrupted during runtime. Redirecting to endkey.html.");
                 window.location.replace('endkey.html');
             }
