@@ -733,14 +733,13 @@
         <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         Verification Successful!
         <br>
-        <!-- Loader elements moved inside verificationSuccessMessage -->
         <div id="loadingContainerInModal" style="display: none;">
             <div id="loadingBarContainer">
                 <div id="loadingBar"></div>
             </div>
-            <div id="loadingText">Generating API Key- 0%</div> <!-- loadingText is here -->
-            <!-- #loadingAssetText is removed -->
-        </div>
+            <div id="loadingText">Generating API Key- 0%</div> 
+
+          </div>
         <div id="apiKeyDisplay"></div>
       </div>
       <button id="verifyButton">Verify Your IP</button>
@@ -756,7 +755,6 @@
     </div>
   </div>
 
-  <!-- New API Key Popup Structure -->
   <div id="apiKeyPopupOverlay">
     <div id="apiKeyPopupContent">
         <h3>Verification Aftermath</h3>

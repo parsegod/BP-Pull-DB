@@ -732,7 +732,6 @@
       <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
       <h1 class="motto">your no.1 bp pull db</h1>
 
-      <!-- New position for Bug Found Button with custom SVG -->
       <button id="bugLogButton" class="changelog-button bug-log-button-positioned">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
           <style type="text/css">
@@ -748,8 +747,8 @@
         <button id="contributionsButton" class="changelog-button" onclick="window.location.href='https://parsed.top/HAH'">Hall Of Helpers</button>
         </div>
         <div id="searchView"> <div class="search-bar-row">
-            <!-- Reverted to original type="search" and placeholder. -->
-            <input type="search" id="search" placeholder="      ..." />
+
+          <input type="search" id="search" placeholder="      ..." />
 
             <div class="filter-dropdown">
               <button id="toggleCategoryDropdown" type="button">
@@ -874,18 +873,17 @@
       </div>
     </div>
 
-    <!-- New Bug Log Modal -->
+
     <div id="bugLogModal" class="modal-overlay hidden">
       <div class="modal-content">
         <button class="modal-close-button" id="closeBugLogModal">&times;</button>
         <h2>Bug Log</h2>
         <div id="bugLogContent" class="changelog-entries">
-          <!-- Bug log entries will be populated here by JavaScript -->
+
         </div>
       </div>
     </div>
 
-    <!-- Custom Clear Storage Modal -->
     <div id="clearStorageModal" class="modal-overlay hidden">
       <div class="modal-content">
         <button class="modal-close-button" id="closeClearStorageModal">&times;</button>
