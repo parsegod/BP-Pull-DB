@@ -511,21 +511,21 @@
 
     let isUserIPBlacklisted = false;
 
-    // UI elements
-    const verificationModal = document.getElementById('verificationModal');
-    const verifyButton = document.getElementById('verifyButton');
-    const loadingScreen = document.getElementById('loadingScreen');
-    const loadingText = document.getElementById('loadingText');
-    const loadingBar = document.getElementById('loadingBar');
-    const loadingAssetText = document.getElementById('loadingAssetText');
+    // UI elements (declared globally for scope, but assigned inside DOMContentLoaded)
+    let verificationModal;
+    let verifyButton;
+    let loadingScreen;
+    let loadingText;
+    let loadingBar;
+    let loadingAssetText;
 
-    const verificationTitle = document.getElementById('verificationTitle');
-    const verificationInstruction = document.getElementById('verificationInstruction');
-    const verificationNote = document.getElementById('verificationNote');
-    const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
+    let verificationTitle;
+    let verificationInstruction;
+    let verificationNote;
+    let verificationSuccessMessage;
 
-    const customMessageBox = document.getElementById('customMessageBox');
-    const clearMessagePopup = document.getElementById('clearMessagePopup');
+    let customMessageBox;
+    let clearMessagePopup;
 
     let verificationWindow = null;
 
@@ -657,6 +657,8 @@
      */
     function handleVerificationSuccess() {
         // Hide verification modal content
+        // Note: verifyButton, verificationTitle, etc. are now assigned inside DOMContentLoaded
+        // and should be accessible here due to closure.
         verifyButton.disabled = true;
         verificationTitle.style.display = 'none';
         verificationInstruction.style.display = 'none';
@@ -743,34 +745,53 @@
       verifyButton.disabled = false;
     }
 
-    // Event listener for the verification button click
-    verifyButton.addEventListener('click', () => {
-      // This IP blacklist check is redundant if initializeVerificationModal already handles it,
-      // but kept here as a fallback in case the user somehow bypasses the initial load check.
-      if (isUserIPBlacklisted) {
-        localStorage.removeItem('blubase_api_key');
-        localStorage.removeItem('blubase_api_key_expiry');
-        setCookie('blubase_verified', '', -1); // Clear cookie as well
-        window.location.replace('blocked.html');
-        return;
-      }
+    // This ensures all DOM elements are loaded before trying to access them
+    document.addEventListener('DOMContentLoaded', () => {
+        // Assign UI elements here, after the DOM is ready
+        verificationModal = document.getElementById('verificationModal');
+        verifyButton = document.getElementById('verifyButton');
+        loadingScreen = document.getElementById('loadingScreen');
+        loadingText = document.getElementById('loadingText');
+        loadingBar = document.getElementById('loadingBar');
+        loadingAssetText = document.getElementById('loadingAssetText');
 
-      if (window.checkWindowClosedInterval) {
-        clearInterval(window.checkWindowClosedInterval);
-      }
+        verificationTitle = document.getElementById('verificationTitle');
+        verificationInstruction = document.getElementById('verificationInstruction');
+        verificationNote = document.getElementById('verificationNote');
+        verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
 
-      verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+        customMessageBox = document.getElementById('customMessageBox');
+        clearMessagePopup = document.getElementById('clearMessagePopup');
 
-      window.checkWindowClosedInterval = setInterval(() => {
-        if (verificationWindow && verificationWindow.closed) {
-          clearInterval(window.checkWindowClosedInterval);
-          handleVerificationSuccess(); // This will now trigger the detailed post-verification loading
-        }
-      }, 1000); // Check every second
+        // Event listener for the verification button click
+        verifyButton.addEventListener('click', () => {
+          // This IP blacklist check is redundant if initializeVerificationModal already handles it,
+          // but kept here as a fallback in case the user somehow bypasses the initial load check.
+          if (isUserIPBlacklisted) {
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            setCookie('blubase_verified', '', -1); // Clear cookie as well
+            window.location.replace('blocked.html');
+            return;
+          }
+
+          if (window.checkWindowClosedInterval) {
+            clearInterval(window.checkWindowClosedInterval);
+          }
+
+          verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+
+          window.checkWindowClosedInterval = setInterval(() => {
+            if (verificationWindow && verificationWindow.closed) {
+              clearInterval(window.checkWindowClosedInterval);
+              handleVerificationSuccess(); // This will now trigger the detailed post-verification loading
+            }
+          }, 1000); // Check every second
+        });
+
+        // Call the initialization function when the page loads
+        initializeVerificationModal(); // This function now handles initial checks and displays the correct UI
     });
-
-    // Call the initialization function when the page loads
-    initializeVerificationModal(); // This function now handles initial checks and displays the correct UI
   </script>
 </body>
 </html>
