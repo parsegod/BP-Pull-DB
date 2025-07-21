@@ -78,15 +78,24 @@ let currentData = [];
 
 const changelogEntries = [
     {
-    date: "2025-07-12 2:52AM 𝗠𝗦𝗧",
-    changes: [
+    date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
+    changes: 
+    [
+      "↷ Major Security adds ↶",
+      " - Added BlockedPage (blacklisted_home)",
+      " - Added VerifyPage  (ipBlacklistCheck",
+      " - Revamped The Loading Page for Mobile",
+      " - Added 2H LocalStroage (keys)",
+      " - Added Button To Clear LocalStorage Items",
+      " - Linked All Files Correctly"
+    ]
+    [
       "↷ Update To UI ↶",
       " - Added PageLoader",
       " - Added Contributions Page",
       " - Revamped Search-Filter-Section",
       " - Revamped Main Container",
       " - Added Mobile Responsive Browsing",
-      " - Added Contributions Page",
       " - Minor CSS Adjustments"
     ]
   },
