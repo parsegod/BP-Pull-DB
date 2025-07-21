@@ -112,7 +112,6 @@
       text-align: center;
     }
 
-
     #loadingBarContainer {
       width: 100%;
       height: 2.5vh;
@@ -289,7 +288,6 @@
       z-index: 10;
     }
 
-
     .red-announcement {
       color: red !important;
       font-weight: bold;
@@ -311,7 +309,7 @@
             padding: 10px;
             margin: auto;
             min-height: 40vh;
-            
+
             border-radius: 0;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
@@ -323,7 +321,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            zoom: 1; /* Ensure no zoom interference */
+            zoom: 1;
         }
         #loadingLogo {
             position: static;
@@ -383,6 +381,10 @@
         .hide-on-desktop {
             display: block;
         }
+
+        .filter-dropdown button {
+            text-align: center;
+        }
     }
 
     @media (max-width: 480px) {
@@ -408,7 +410,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            zoom: 1; /* Ensure no zoom interference */
+            zoom: 1;
         }
         #loadingLogo {
             position: static;
@@ -470,14 +472,69 @@
         }
     }
   </style>
+  <script>
+
+    document.documentElement.style.display = 'none';
+
+    const blacklistedIPsEncoded = [
+      "", 
+
+    ];
+
+    function decodeBase64(encodedString) {
+        try {
+            return atob(encodedString);
+        } catch (e) {
+            console.error("Base64 decoding error:", e);
+            return "";
+        }
+    }
+
+    async function getUserIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.ip;
+        } catch (error) {
+            console.error("Error fetching IP address:", error);
+            return null;
+        }
+    }
+
+    function isIPBlacklisted(ip) {
+        return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
+    }
+
+    (async () => {
+        const userIP = await getUserIP();
+        console.log("Index.html: User IP detected:", userIP);
+
+        if (userIP && isIPBlacklisted(userIP)) {
+            console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
+            localStorage.removeItem('blubase_verified'); 
+            window.location.replace('blocked.html'); 
+            return; 
+        } else if (userIP) {
+            console.log("Index.html: User IP not blacklisted.");
+        } else {
+            console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
+
+        }
+
+        if (localStorage.getItem('blubase_verified') !== 'true') {
+            console.log("Index.html: User not verified. Redirecting to verf.html.");
+            window.location.replace('verf.html');
+        } else {
+            console.log("Index.html: User verified. Displaying content.");
+            document.documentElement.style.display = 'block'; 
+        }
+    })();
+  </script>
 </head>
 <body>
-  <script>
-    if (localStorage.getItem('blubase_verified') !== 'true') {
-      window.location.replace('verify.html');
-    }
-  </script>
-
   <div class="video-background">
     <video id="backgroundVideo" autoplay loop muted playsinline>
       <source src="assets/wallpaper.mp4" type="video/mp4">
@@ -587,7 +644,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 �𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
