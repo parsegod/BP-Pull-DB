@@ -28,26 +28,19 @@ const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search');
+// Bug Log Modal Elements
+const bugLogModal = document.getElementById('bugLogModal');
+const closeBugLogModalBtn = document.getElementById('closeBugLogModal');
+const bugLogButton = document.getElementById('bugLogButton');
+const bugLogContentDiv = document.getElementById('bugLogContent');
 
-    if (searchInput) {
+// Custom Clear Storage Modal Elements
+const clearStorageModal = document.getElementById('clearStorageModal');
+const closeClearStorageModalBtn = document.getElementById('closeClearStorageModal');
+const confirmClearStorageBtn = document.getElementById('confirmClearStorageBtn');
+const cancelClearStorageBtn = document.getElementById('cancelClearStorageBtn');
 
-        const originalPlaceholder = searchInput.placeholder;
 
-        searchInput.addEventListener('focus', function() {
-            this.value = '';
-            this.placeholder = '';
-        });
-
-        searchInput.addEventListener('blur', function() {
-
-            if (this.value.trim() === '') {
-                this.placeholder = originalPlaceholder;
-            }
-        });
-    }
-});
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
@@ -79,8 +72,7 @@ let currentData = [];
 const changelogEntries = [
     {
     date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
-    changes: 
-    [
+    changes: [
       "↷ Major Security adds ↶",
       " - Added BlockedPage (blacklisted_home)",
       " - Added VerifyPage  (ipBlacklistCheck",
@@ -89,7 +81,10 @@ const changelogEntries = [
       " - Added Button To Clear LocalStorage Items",
       " - Linked All Files Correctly"
     ]
-    [
+  },
+    {
+    date: "2025-07-12 2:43PM 𝗠𝗦𝗧",
+    changes: [
       "↷ Update To UI ↶",
       " - Added PageLoader",
       " - Added Contributions Page",
@@ -102,7 +97,7 @@ const changelogEntries = [
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      "↷ 𝗨�𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
       " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
@@ -110,7 +105,7 @@ const changelogEntries = [
     date: "2025-06-11 6:13AM 𝗠𝗦𝗧",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "𝗔𝗦𝗚-𝟴𝟵: 𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟 𝗗𝗘𝗧𝗘𝗖𝗧𝗜𝗩𝗘 (𝗣𝗼𝗼𝗹 𝟮𝟮)"
+            "ASG-89: PERSONAL DETECTIVE (Pool 22)"
     ]
   },
     {
@@ -219,6 +214,26 @@ const changelogEntries = [
     ]
   }
 ];
+
+// New array for bug log entries
+const bugLogEntries = [
+    {
+        date: "2025-07-21 11:30AM 𝗠𝗗𝗧",
+        fixes: [
+            "Fixed an issue where the search input would lose focus on blur.",
+            "Improved responsiveness of filter dropdowns on smaller screens.",
+            "Resolved a bug causing incorrect blueprint counts for 'NOTHING' status."
+        ]
+    },
+    {
+        date: "2025-07-20 09:00AM 𝗠𝗗𝗧",
+        fixes: [
+            "Addressed a display bug with images not loading correctly in accordion views.",
+            "Optimized table rendering for faster performance with large datasets."
+        ]
+    }
+];
+
 
 function loadAppData() {
   fetch('assets/weapon.json')
@@ -851,7 +866,8 @@ function showChangelogOnPageLoad() {
   showChangelogModal();
 }
 
-document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
+// Commented out to prevent changelog from showing on every page load
+// document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
 
 function adjustTableContainerHeight() {
   const fixedTopHeader = document.querySelector('.announcement-banner');
@@ -876,24 +892,94 @@ function adjustTableContainerHeight() {
 
 window.addEventListener('resize', adjustTableContainerHeight);
 
+// Functions for the new Bug Log Modal
+function populateBugLog() {
+  bugLogContentDiv.innerHTML = '';
+
+  bugLogEntries.forEach(entry => {
+    const listItem = document.createElement('li');
+    const dateStrong = document.createElement('strong');
+    dateStrong.textContent = `Date: ${entry.date}`;
+    listItem.appendChild(dateStrong);
+
+    const ul = document.createElement('ul');
+    entry.fixes.forEach(fix => {
+      const li = document.createElement('li');
+      li.textContent = fix;
+      ul.appendChild(li);
+    });
+    listItem.appendChild(ul);
+    bugLogContentDiv.appendChild(listItem);
+  });
+}
+
+function showBugLogModal() {
+  populateBugLog();
+  bugLogModal.classList.add('visible');
+}
+
+function hideBugLogModal() {
+  bugLogModal.classList.remove('visible');
+}
+
+// Event listeners for the Bug Log Modal
+bugLogButton.addEventListener('click', showBugLogModal);
+
+closeBugLogModalBtn.addEventListener('click', hideBugLogModal);
+
+bugLogModal.addEventListener('click', (e) => {
+  if (e.target === bugLogModal) {
+    hideBugLogModal();
+  }
+});
+
+// Custom Clear Storage Modal Functions
+function showClearStorageModal() {
+    clearStorageModal.classList.add('visible');
+}
+
+function hideClearStorageModal() {
+    clearStorageModal.classList.remove('visible');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const clearStorageButton = document.getElementById('clearStorageButton');
 
     if (clearStorageButton) {
         clearStorageButton.addEventListener('click', () => {
             const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            let confirmationMessage = 'Thank your for using Parsed.top created by parse...';
 
             if (isMobile) {
-                confirmationMessage += ' You will be redirected to the verification page.';
+                // Show custom modal for mobile
+                showClearStorageModal();
             } else {
-                confirmationMessage += ' The page will reload.';
-            }
-
-            if (confirm(confirmationMessage)) {
-                localStorage.removeItem('blubase_verified');
-                window.location.replace('verify.html');
+                // Keep original behavior for desktop (using browser's confirm)
+                const confirmationMessage = 'Thank your for using Parsed.top created by parse... The page will reload.';
+                if (confirm(confirmationMessage)) {
+                    localStorage.removeItem('blubase_verified');
+                    window.location.replace('/verify');
+                }
             }
         });
     }
+
+    // Event listeners for the custom clear storage modal buttons
+    confirmClearStorageBtn.addEventListener('click', () => {
+        localStorage.removeItem('blubase_verified');
+        window.location.replace('/verify');
+    });
+
+    cancelClearStorageBtn.addEventListener('click', () => {
+        hideClearStorageModal();
+    });
+
+    closeClearStorageModalBtn.addEventListener('click', () => {
+        hideClearStorageModal();
+    });
+
+    clearStorageModal.addEventListener('click', (e) => {
+        if (e.target === clearStorageModal) {
+            hideClearStorageModal();
+        }
+    });
 });
