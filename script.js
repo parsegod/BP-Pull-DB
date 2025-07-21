@@ -79,8 +79,7 @@ let currentData = [];
 const changelogEntries = [
     {
     date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
-    changes: 
-    [
+    changes: [
       "↷ Major Security adds ↶",
       " - Added BlockedPage (blacklisted_home)",
       " - Added VerifyPage  (ipBlacklistCheck",
@@ -89,7 +88,10 @@ const changelogEntries = [
       " - Added Button To Clear LocalStorage Items",
       " - Linked All Files Correctly"
     ]
-    [
+  },
+    {
+    date: "2025-07-12 2:43PM 𝗠𝗦𝗧",
+    changes: [
       "↷ Update To UI ↶",
       " - Added PageLoader",
       " - Added Contributions Page",
