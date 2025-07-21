@@ -1,7 +1,3 @@
-// script.js
-// This script is now designed to be dynamically loaded AFTER load.js has started its process.
-// All DOMContentLoaded listeners have been removed, and main setup functions are exposed globally.
-
 const tableBody = document.querySelector('#pullsTable tbody');
 const searchInput = document.getElementById('search');
 const categoryFilterContainer = document.getElementById('categoryCheckboxes');
@@ -22,7 +18,6 @@ const normalBlueprintsSpan = document.getElementById('normalBlueprints');
 const unreleasedBlueprintsSpan = document.getElementById('unreleasedBlueprints');
 const nothingBlueprintsSpan = document.getElementById('nothingBlueprints');
 
-// Moved these references here for proper scope within script.js
 const changelogModal = document.getElementById('changelogModal');
 const closeChangelogModalBtn = document.getElementById('closeChangelogModal');
 const changelogButton = document.getElementById('changelogButton');
@@ -33,32 +28,34 @@ const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
-// Initialize search input behavior
-// This logic is now directly executed, not waiting for DOMContentLoaded
-if (searchInput) {
-    const originalPlaceholder = searchInput.placeholder;
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search');
 
-    searchInput.addEventListener('focus', function() {
-        this.value = '';
-        this.placeholder = '';
-    });
+    if (searchInput) {
 
-    searchInput.addEventListener('blur', function() {
-        if (this.value.trim() === '') {
-            this.placeholder = originalPlaceholder;
-        }
-    });
-}
+        const originalPlaceholder = searchInput.placeholder;
 
-// Initialize contributions button behavior
-// This logic is now directly executed, not waiting for DOMContentLoaded
-const contributionsButton = document.getElementById('contributionsButton');
-if (contributionsButton) {
-    contributionsButton.addEventListener('click', function() {
-        window.location.href = 'https://parsed.top/HAH';
-    });
-}
+        searchInput.addEventListener('focus', function() {
+            this.value = ''; 
+            this.placeholder = ''; 
+        });
 
+        searchInput.addEventListener('blur', function() {
+
+            if (this.value.trim() === '') {
+                this.placeholder = originalPlaceholder;
+            }
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const contributionsButton = document.getElementById('contributionsButton');
+    if (contributionsButton) {
+        contributionsButton.addEventListener('click', function() {
+            window.location.href = 'https://parsed.top/HAH';
+        });
+    }
+});
 const categoryMap = {
   "0": "ASSAULT RIFLES",
   "1": "SUBMACHINE GUNS",
@@ -80,31 +77,24 @@ let Weapons = [];
 let currentData = [];
 
 const changelogEntries = [
-      {
-    date: "2025-07-12 7:18PM 𝗠𝗦𝗧",
-    changes: [
-      "↷ Update To Helpers UI ↶",
-      "  Fixed UI Fill Causing Pages To Not Look Fluent.",
-    ]
-  },
     {
     date: "2025-07-12 2:52AM 𝗠𝗦𝗧",
     changes: [
       "↷ Update To UI ↶",
-      "  Added PageLoader",
-      "  Added Contributions Page",
-      "  Revamped Search-Filter-Section",
-      "  Revamped Main Container",
-      "  Added Mobile Responsive Browsing",
-      "  Added Contributions Page",
-      "  Minor CSS Adjustments"
+      " - Added PageLoader",
+      " - Added Contributions Page",
+      " - Revamped Search-Filter-Section",
+      " - Revamped Main Container",
+      " - Added Mobile Responsive Browsing",
+      " - Added Contributions Page",
+      " - Minor CSS Adjustments"
     ]
   },
     {
     date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
     changes: [
-            "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
-            " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
+      "↷ 𝗨𝗽𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
+      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
     ]
   },
     {
@@ -221,10 +211,6 @@ const changelogEntries = [
   }
 ];
 
-/**
- * Loads application data, populates filters, and renders the table.
- * This function is now called externally after necessary scripts are loaded.
- */
 function loadAppData() {
   fetch('assets/weapon.json')
     .then(res => res.json())
@@ -236,15 +222,14 @@ function loadAppData() {
       populateStatusFilter();
       applyFilters();
       searchView.classList.remove('hidden');
-      adjustTableContainerHeight();
+      showChangelogModal();
+      adjustTableContainerHeight(); 
     })
     .catch(err => console.error("Error on load:", err));
 }
 
-/**
- * Renders the blueprint table based on filtered data.
- * @param {Array} data - The filtered weapon data.
- */
+document.addEventListener('DOMContentLoaded', loadAppData);
+
 function renderTable(data) {
   let totalCount = 0;
   let normalCount = 0;
@@ -417,9 +402,6 @@ function renderTable(data) {
   applyImageToggle();
 }
 
-/**
- * Populates the category filter checkboxes.
- */
 function populateCategoryFilter() {
   categoryFilterContainer.innerHTML = '';
 
@@ -464,9 +446,6 @@ function populateCategoryFilter() {
   });
 }
 
-/**
- * Populates the pool filter checkboxes.
- */
 function populatePoolFilter() {
   poolFilterContainer.innerHTML = '';
 
@@ -525,9 +504,6 @@ function populatePoolFilter() {
   poolFilterContainer.appendChild(checkboxesContainer);
 }
 
-/**
- * Populates the status filter checkboxes.
- */
 function populateStatusFilter() {
     statusFilterContainer.innerHTML = '';
 
@@ -574,10 +550,6 @@ function populateStatusFilter() {
     });
 }
 
-/**
- * Applies all active filters (text, category, pool, status) to the weapon data
- * and re-renders the table.
- */
 function applyFilters() {
   const textFilter = searchInput.value.toLowerCase();
   const activeCategories = [...categoryFilterContainer.querySelectorAll('input:checked')]
@@ -634,15 +606,12 @@ function applyFilters() {
   renderTable(filtered);
 }
 
-// Event listeners for filters - these are now directly attached
 searchInput.addEventListener('input', applyFilters);
+
 imageCheckbox.addEventListener('change', () => {
   applyFilters();
 });
 
-/**
- * Toggles the visibility of blueprint images based on the imageCheckbox state.
- */
 function applyImageToggle() {
   const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
     const isAccordionRow = row.querySelector('td[colspan="4"]');
@@ -701,9 +670,6 @@ function applyImageToggle() {
   });
 }
 
-/**
- * Closes all dropdown filter menus.
- */
 function closeAllDropdowns() {
   const dropdowns = [categoryFilterContainer, poolFilterContainer, statusFilterContainer];
   const arrows = [categoryArrow, poolArrow, statusArrow];
@@ -716,7 +682,6 @@ function closeAllDropdowns() {
   });
 }
 
-// Event listeners for dropdown toggles
 toggleCategoryDropdown.addEventListener('click', (e) => {
   e.stopPropagation();
   const isHidden = categoryFilterContainer.classList.contains('hidden');
@@ -785,9 +750,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-/**
- * Populates the changelog modal with entries.
- */
 function populateChangelog() {
   changelogContentDiv.innerHTML = '';
 
@@ -808,75 +770,44 @@ function populateChangelog() {
   });
 }
 
-/**
- * Shows the changelog modal.
- */
 function showChangelogModal() {
   populateChangelog();
-  changelogModal.classList.remove('hidden'); // Use 'hidden' class
-  document.body.classList.add('modal-open'); // Add modal-open to body
+  changelogModal.classList.add('visible');
 }
 
-/**
- * Hides the changelog modal.
- */
 function hideChangelogModal() {
-  changelogModal.classList.add('hidden'); // Use 'hidden' class
-  document.body.classList.remove('modal-open'); // Remove modal-open from body
+  changelogModal.classList.remove('visible');
 }
 
-// Event listeners for changelog modal - ATTACHED HERE
-if (changelogButton) { // Check if element exists before attaching listener
-    changelogButton.addEventListener('click', showChangelogModal);
-}
-if (closeChangelogModalBtn) { // Check if element exists before attaching listener
-    closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
-}
-if (changelogModal) { // Close when clicking outside content
-    changelogModal.addEventListener('click', (e) => {
-        if (e.target === changelogModal) {
-            hideChangelogModal();
-        }
-    });
-}
+changelogButton.addEventListener('click', showChangelogModal);
 
+closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
 
-/**
- * Shows the "How To Use" modal.
- */
+changelogModal.addEventListener('click', (e) => {
+  if (e.target === changelogModal) {
+    hideChangelogModal();
+  }
+});
+
 function showHowToUseModal() {
-  howToUseModal.classList.remove('hidden'); // Use 'hidden' class
-  document.body.classList.add('modal-open'); // Add modal-open to body
+  howToUseModal.classList.add('visible');
   showHowToTab('explanation');
 }
 
-/**
- * Hides the "How To Use" modal.
- */
 function hideHowToUseModal() {
-  howToUseModal.classList.add('hidden'); // Use 'hidden' class
-  document.body.classList.remove('modal-open'); // Remove modal-open from body
+  howToUseModal.classList.remove('visible');
 }
 
-// Event listeners for "How To Use" modal - ATTACHED HERE
-if (howToUseButton) { // Check if element exists before attaching listener
-    howToUseButton.addEventListener('click', showHowToUseModal);
-}
-if (closeHowToUseModalBtn) { // Check if element exists before attaching listener
-    closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
-}
-if (howToUseModal) { // Close when clicking outside content
-    howToUseModal.addEventListener('click', (e) => {
-        if (e.target === howToUseModal) {
-            hideHowToUseModal();
-        }
-    });
-}
+howToUseButton.addEventListener('click', showHowToUseModal);
 
-/**
- * Displays a specific tab within the "How To Use" modal.
- * @param {string} tabId - The ID of the tab to display.
- */
+closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
+
+howToUseModal.addEventListener('click', (e) => {
+  if (e.target === howToUseModal) {
+    hideHowToUseModal();
+  }
+});
+
 function showHowToTab(tabId) {
   const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
   const tabContents = document.querySelectorAll('.how-to-sections .tab-content');
@@ -895,38 +826,28 @@ function showHowToTab(tabId) {
   }
 }
 
-// Event listener for how-to-use tabs
-const howToUseTabs = document.querySelector('.how-to-tabs');
-if (howToUseTabs) {
-    howToUseTabs.addEventListener('click', (event) => {
-        if (event.target.classList.contains('tab-button')) {
-            const tabId = event.target.dataset.tab;
-            showHowToTab(tabId);
-        }
-    });
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const howToUseTabs = document.querySelector('.how-to-tabs');
+    if (howToUseTabs) {
+        howToUseTabs.addEventListener('click', (event) => {
+            if (event.target.classList.contains('tab-button')) {
+                const tabId = event.target.dataset.tab;
+                showHowToTab(tabId);
+            }
+        });
+    }
+});
 
-/**
- * Shows the changelog modal on page load.
- * This function is now called externally.
- */
 function showChangelogOnPageLoad() {
-  // This function is likely for populating content, not necessarily showing the modal on load.
-  // The modals are now controlled by click events.
-  // If you intend for the changelog to *always* show on page load, you would call showChangelogModal() here.
-  // Based on previous interactions, it seems you want it to open on button click.
-  // So, this function might be redundant or used for initial content setup.
-  populateChangelog(); // Ensure content is populated if this is called.
+  showChangelogModal();
 }
 
-/**
- * Adjusts the height of the table container for responsiveness.
- * This function is now called externally and on window resize.
- */
+document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
+
 function adjustTableContainerHeight() {
-  const fixedTopHeader = document.querySelector('.announcement-banner');
+  const fixedTopHeader = document.querySelector('.announcement-banner'); 
   const tableContainer = document.querySelector('.table-container');
-  const mainContainer = document.querySelector('.container');
+  const mainContainer = document.querySelector('.container'); 
 
   if (fixedTopHeader && tableContainer && mainContainer) {
     const fixedHeaderHeight = fixedTopHeader.offsetHeight;
@@ -938,14 +859,10 @@ function adjustTableContainerHeight() {
                                     document.querySelector('.checkbox-controls').offsetHeight +
                                     document.querySelector('.blueprint-counters').offsetHeight;
 
-    // A buffer to account for various paddings/margins and ensure it doesn't overflow
     const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
 
-    // Calculate max height based on available client height minus elements above the table
-    // and a small additional buffer (e.g., 30px) to prevent scrollbar issues.
-    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`;
+    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`; 
   }
 }
 
-// Event listener for window resize, now directly attached
 window.addEventListener('resize', adjustTableContainerHeight);
