@@ -380,6 +380,7 @@
   </style>
 </head>
 <body class="modal-open">
+  <!-- Video Background (visible from start) -->
   <div class="video-background">
     <video id="backgroundVideo" autoplay loop muted playsinline>
       <source src="assets/wallpaper.mp4" type="video/mp4">
@@ -387,6 +388,7 @@
     </video>
   </div>
 
+  <!-- Verification Popup -->
   <div id="verificationModal" class="verification-modal-overlay">
     <div class="verification-modal-content scale-in">
       <h2 id="verificationTitle">Account Verification Required</h2>
@@ -397,14 +399,16 @@
         A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
       </p>
       <div id="verificationSuccessMessage">
-        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         Verification Successful!
         <br>Loading content...
       </div>
       <button id="verifyButton">Verify Your IP</button>
-      </div>
+      <!-- Removed manualVerifyButton as the server-side check is now primary -->
+    </div>
   </div>
 
+  <!-- Loading Screen -->
   <div id="loadingScreen">
     <img id="loadingLogo" src="https://files.catbox.moe/pucbmh.png" alt="Loading Logo">
     <div id="loadingBarContainer">
@@ -459,7 +463,8 @@
           </label>
           <button id="changelogButton" class="changelog-button">View Changelog</button>
           <button id="howToUseButton" class="changelog-button">How To Use</button>
-          <button id="clearLocalStorageButton" class="changelog-button">Clear Local Storage</button> </div>
+          <button id="clearLocalStorageButton" class="changelog-button">Clear Local Storage</button>
+        </div>
 
         <div class="blueprint-counters">
           <p>TOTAL Blueprints Displayed: <span id="totalBlueprints">0</span></p>
@@ -505,7 +510,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗡𝗧𝗦𝗧𝗥𝗠" variant, which is stored in 𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "�𝗛𝗘 𝗣𝗔𝗡𝗧𝗦𝗧𝗥𝗠" variant, which is stored in 𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -620,6 +625,8 @@
         // After a short delay for success message, hide verification modal and start loading other scripts
         setTimeout(() => {
             verificationModal.classList.add('hidden'); // This line should hide the modal
+            // IMPORTANT FIX: Remove the modal-open class to re-enable scrolling
+            document.body.classList.remove('modal-open'); // ADDED THIS LINE
             console.log("Verification modal hidden. Attempting to load load.js");
 
             // Dynamically load load.js
@@ -684,6 +691,8 @@
     // NEW: Event listener for the Clear Local Storage button
     clearLocalStorageButton.addEventListener('click', () => {
         localStorage.removeItem('blubase_verified');
+        // Using alert() is generally not recommended in iframes as it can be blocked or not visible.
+        // For a more robust solution, consider a custom modal or a temporary message on the page.
         alert('Local storage cleared. The verification modal will reappear on reload.');
         location.reload(); // Reload the page to show the modal again
     });
