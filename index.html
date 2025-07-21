@@ -697,9 +697,8 @@
     // NEW: Event listener for the Clear Local Storage button
     clearLocalStorageButton.addEventListener('click', () => {
         localStorage.removeItem('blubase_verified');
-        alert('Local storage cleared. The verification modal will reappear on reload.')
+        alert('Local storage cleared. The verification modal will reappear on reload.'),
         alert('thank you for using parsed brought to you by parse :)')
-
         ;
         location.reload(); // Reload the page to show the modal again
     });
