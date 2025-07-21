@@ -537,7 +537,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗡𝗧𝗦𝗧𝗥𝗠" variant, which is stored in 𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣�𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗡𝗧𝗦𝗧𝗥𝗠" variant, which is stored in 𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗣𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -601,14 +601,6 @@
     const verificationInstruction = document.getElementById('verificationInstruction');
     const verificationNote = document.getElementById('verificationNote');
     const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
-
-    // References for changelog and how-to-use modals
-    const changelogButton = document.getElementById('changelogButton');
-    const howToUseButton = document.getElementById('howToUseButton');
-    const changelogModal = document.getElementById('changelogModal');
-    const howToUseModal = document.getElementById('howToUseModal');
-    const closeChangelogModal = document.getElementById('closeChangelogModal');
-    const closeHowToUseModal = document.getElementById('closeHowToUseModal');
 
     // Reference for the custom message box
     const customMessageBox = document.getElementById('customMessageBox');
@@ -702,39 +694,8 @@
                         console.error("Error: loadAppData function not found in script.js.");
                     }
 
-                    // Attach event listeners for changelog and how-to-use modals here,
-                    // ensuring the buttons are in the DOM and visible.
-                    if (changelogButton) {
-                        changelogButton.addEventListener('click', () => {
-                            changelogModal.classList.remove('hidden');
-                            document.body.classList.add('modal-open');
-                        });
-                    }
-                    if (closeChangelogModal) {
-                        closeChangelogModal.addEventListener('click', () => {
-                            changelogModal.classList.add('hidden');
-                            document.body.classList.remove('modal-open');
-                        });
-                    }
-
-                    if (howToUseButton) {
-                        howToUseButton.addEventListener('click', () => {
-                            howToUseModal.classList.remove('hidden');
-                            document.body.classList.add('modal-open');
-                        });
-                    }
-                    if (closeHowToUseModal) {
-                        closeHowToUseModal.addEventListener('click', () => {
-                            howToUseModal.classList.add('hidden');
-                            document.body.classList.remove('modal-open');
-                        });
-                    }
-
-                    // The original showChangelogOnPageLoad was likely for initial display,
-                    // but we're now handling clicks and ensuring modals open.
-                    // If this function is still needed for initial content population, keep it.
-                    // Otherwise, it might be redundant with the new click listeners.
-                    // For now, keeping it as it might populate content.
+                    // The original showChangelogOnPageLoad was likely for initial content population.
+                    // Keep it if it's still needed for that purpose.
                     if (typeof showChangelogOnPageLoad === 'function') {
                         showChangelogOnPageLoad();
                     } else {
