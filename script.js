@@ -75,7 +75,7 @@ let currentData = [];
 
 const changelogEntries = [
     {
-    date: "2025-07-21 3:30AM 𝗠𝗦�",
+    date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
     changes: [
       "↷ Major Security adds ↶",
       " - Added BlockedPage (blacklisted_home)",
