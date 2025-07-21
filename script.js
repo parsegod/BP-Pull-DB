@@ -28,23 +28,6 @@ const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
-// REMOVED CONFLICTING CODE: The following block was clearing the search input on focus.
-// document.addEventListener('DOMContentLoaded', function() {
-//     const searchInput = document.getElementById('search');
-//     if (searchInput) {
-//         const originalPlaceholder = searchInput.placeholder;
-//         searchInput.addEventListener('focus', function() {
-//             this.value = '';
-//             this.placeholder = '';
-//         });
-//         searchInput.addEventListener('blur', function() {
-//             if (this.value.trim() === '') {
-//                 this.placeholder = originalPlaceholder;
-//             }
-//         });
-//     }
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
