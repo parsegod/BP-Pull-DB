@@ -28,6 +28,11 @@ const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
+const bugLogModal = document.getElementById('bugLogModal');
+const closeBugLogModalBtn = document.getElementById('closeBugLogModal');
+const bugLogButton = document.getElementById('bugLogButton');
+const bugLogContentDiv = document.getElementById('bugLogContent');
+
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
@@ -200,6 +205,24 @@ const changelogEntries = [
       " MAELSTROM: BARRAINA (Pool 13)"
     ]
   }
+];
+
+const bugLogEntries = [
+    {
+        date: "2025-07-21 11:30AM 𝗠𝗗𝗧",
+        fixes: [
+            "Fixed an issue where the search input would lose focus on blur.",
+            "Improved responsiveness of filter dropdowns on smaller screens.",
+            "Resolved a bug causing incorrect blueprint counts for 'NOTHING' status."
+        ]
+    },
+    {
+        date: "2025-07-20 09:00AM 𝗠𝗗𝗧",
+        fixes: [
+            "Addressed a display bug with images not loading correctly in accordion views.",
+            "Optimized table rendering for faster performance with large datasets."
+        ]
+    }
 ];
 
 function loadAppData() {
@@ -833,8 +856,6 @@ function showChangelogOnPageLoad() {
   showChangelogModal();
 }
 
-document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
-
 function adjustTableContainerHeight() {
   const fixedTopHeader = document.querySelector('.announcement-banner');
   const tableContainer = document.querySelector('.table-container');
@@ -872,10 +893,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 confirmationMessage += ' The page will reload.';
             }
 
-            if (confirm(confirmationMessage)) {
-                localStorage.removeItem('blubase_verified');
-                window.location.replace('/verify');
-            }
+            localStorage.removeItem('blubase_verified');
+            window.location.replace('/verify');
+
         });
     }
+});
+
+function populateBugLog() {
+  bugLogContentDiv.innerHTML = '';
+
+  bugLogEntries.forEach(entry => {
+    const listItem = document.createElement('li');
+    const dateStrong = document.createElement('strong');
+    dateStrong.textContent = `Date: ${entry.date}`;
+    listItem.appendChild(dateStrong);
+
+    const ul = document.createElement('ul');
+    entry.fixes.forEach(fix => {
+      const li = document.createElement('li');
+      li.textContent = fix;
+      ul.appendChild(li);
+    });
+    listItem.appendChild(ul);
+    bugLogContentDiv.appendChild(listItem);
+  });
+}
+
+function showBugLogModal() {
+  populateBugLog();
+  bugLogModal.classList.add('visible');
+}
+
+function hideBugLogModal() {
+  bugLogModal.classList.remove('visible');
+}
+
+bugLogButton.addEventListener('click', showBugLogModal);
+
+closeBugLogModalBtn.addEventListener('click', hideBugLogModal);
+
+bugLogModal.addEventListener('click', (e) => {
+  if (e.target === bugLogModal) {
+    hideBugLogModal();
+  }
 });
