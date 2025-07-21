@@ -5,7 +5,17 @@
       "destination": "/helpers/helpers.html"
     },
     {
-      "source": "/home",
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/verify.html",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/",
       "destination": "/index.html",
       "has": [
         {
@@ -16,22 +26,7 @@
       ]
     },
     {
-      "source": "/verify",
-      "destination": "/verify.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "cookie",
-          "key": "blubase_verified",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "/verify.html"
     }
   ]
