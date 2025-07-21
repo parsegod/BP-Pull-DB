@@ -692,14 +692,14 @@
 
     function isValidApiKeyPatternAndChecksum(fullKey) {
         if (!fullKey || typeof fullKey !== 'string') return false;
-        
+
         if (!API_KEY_FULL_PATTERN.test(fullKey)) {
             return false;
         }
 
         const parts = fullKey.split('_');
         if (parts.length !== 2) return false;
-        
+
         const uuidPart = parts[0];
         const storedHashPart = parts[1];
 
@@ -720,48 +720,36 @@
         const urlParams = new URLSearchParams(window.location.search);
         const wasJustVerified = urlParams.get('verified') === 'true'; // Check for the verification flag
 
-        // If this is the initial load AND we just came from verification, trust it and proceed.
-        if (isInitialCheck && wasJustVerified) {
-            console.log("Index.html: Just verified successfully. Displaying content.");
-            document.documentElement.style.display = 'block';
-            // Clear the 'verified' flag from the URL to prevent issues on subsequent refreshes
-            // or if the user shares the URL.
-            history.replaceState({}, document.title, window.location.pathname);
-            return; // Exit the function, no redirection
-        }
-
-        // Proceed with normal API key checks for all other cases (not initial load from verification, or initial load without verification flag)
         const apiKey = localStorage.getItem('blubase_api_key');
         const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
         const currentTime = new Date().getTime();
 
-        let shouldRedirect = false;
+        let shouldRedirectToVerify = false;
+        let shouldRedirectToEndkey = false;
 
         if (!apiKey || !apiKeyExpiry) {
             console.log("Index.html: API key or expiry missing.");
-            shouldRedirect = true;
+            shouldRedirectToVerify = true;
         } else if (!isValidApiKeyPatternAndChecksum(apiKey)) {
             console.log("Index.html: API key corrupted/tampered.");
-            shouldRedirect = true;
+            shouldRedirectToEndkey = true; // Redirect to endkey for tampering
         } else if (isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry)) {
             console.log("Index.html: API key expired.");
-            shouldRedirect = true;
+            shouldRedirectToEndkey = true; // Redirect to endkey for expiry
         }
 
-        if (shouldRedirect) {
+        if (shouldRedirectToVerify && !wasJustVerified) {
             localStorage.removeItem('blubase_api_key');
             localStorage.removeItem('blubase_api_key_expiry');
             document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear cookie too
-
-            // If it's an initial check and not explicitly from verification, go to verify.
-            // Otherwise, if it's a runtime check or a refresh without the 'verified' flag, go to endkey.
-            if (isInitialCheck) {
-                console.log("Index.html: Initial load, no valid API key found. Redirecting to /verify.");
-                window.location.replace('verify.html');
-            } else {
-                console.log("Index.html: API key invalid/expired/corrupted during runtime. Redirecting to endkey.html.");
-                window.location.replace('endkey.html');
-            }
+            console.log("Index.html: Initial load, no valid API key found. Redirecting to /verify.");
+            window.location.replace('verify.html');
+        } else if (shouldRedirectToEndkey) {
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear cookie too
+            console.log("Index.html: API key invalid/expired/corrupted during runtime or initial check. Redirecting to endkey.html.");
+            window.location.replace('endkey.html');
         } else {
             console.log("Index.html: Valid API key found. Displaying content.");
             document.documentElement.style.display = 'block';
@@ -915,7 +903,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡�𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
