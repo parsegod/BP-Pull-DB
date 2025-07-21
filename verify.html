@@ -481,7 +481,8 @@
 <body class="modal-open">
   <script>
     const blacklistedIPsEncoded = [
-      "MTkyLjE2OC4xLjE=",
+      "NzEuMjA1LjI2LjE4MAo=",
+      "MjAzLjAuMTEzLjQ1",
     ];
 
     let isUserIPBlacklisted = false;
@@ -583,15 +584,26 @@
 
     let verificationWindow = null;
 
+    const EXPIRY_TIME_MS = 2 * 60 * 60 * 1000; 
+
     function showCustomMessage(message) {
         customMessageBox.textContent = message;
         customMessageBox.style.display = 'block';
     }
 
     function initializeVerificationModal() {
-      if (localStorage.getItem('blubase_verified') === 'true') {
-        window.location.href = 'index.html';
-        return;
+      const verifiedTimestamp = localStorage.getItem('blubase_verified_timestamp');
+      const isVerified = localStorage.getItem('blubase_verified') === 'true';
+      const currentTime = new Date().getTime();
+
+      if (isVerified && verifiedTimestamp) {
+        if (currentTime - verifiedTimestamp < EXPIRY_TIME_MS) {
+          window.location.href = 'index.html';
+          return;
+        } else {
+          localStorage.removeItem('blubase_verified');
+          localStorage.removeItem('blubase_verified_timestamp');
+        }
       }
 
       document.body.classList.add('modal-open');
@@ -606,6 +618,7 @@
 
     function handleVerificationSuccess() {
         localStorage.setItem('blubase_verified', 'true');
+        localStorage.setItem('blubase_verified_timestamp', new Date().getTime().toString()); 
 
         verifyButton.disabled = true;
         verificationTitle.style.display = 'none';
@@ -625,6 +638,7 @@
     verifyButton.addEventListener('click', () => {
       if (isUserIPBlacklisted) {
         localStorage.removeItem('blubase_verified');
+        localStorage.removeItem('blubase_verified_timestamp'); 
         window.location.replace('blocked.html');
         return;
       }
