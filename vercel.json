@@ -15,6 +15,38 @@
       "statusCode": 308
     },
     {
+      "source": "/",
+      "destination": "/home",
+      "statusCode": 308,
+      "has": [
+        {
+          "type": "cookie",
+          "key": "blubase_verified",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "destination": "/verify",
+      "statusCode": 308
+    },
+    {
+      "source": "/home",
+      "destination": "/index.html",
+      "has": [
+        {
+          "type": "cookie",
+          "key": "blubase_verified",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "source": "/verify",
+      "destination": "/verify.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html",
       "has": [
