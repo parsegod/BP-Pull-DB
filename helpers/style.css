@@ -1,45 +1,43 @@
-/* Custom font for a cleaner look */
         body {
             font-family: "Inter", sans-serif;
-            background-color: #0B1738; /* Matches main theme background */
-            margin: 0; /* Remove default body margin */
-            overflow: hidden; /* Prevent scrollbars during loading */
+            background-color: #0B1738; 
+            margin: 0; 
+            overflow: hidden; 
         }
-        /* Ensure image covers the div without distortion */
+
         .profile-img {
             object-fit: cover;
         }
-        /* Styles for the SVG avatar decoration container */
+
         .avatar-decoration-svg {
             position: relative;
-            width: 108px; /* Overall container for the decorated avatar, matches SVG width */
-            height: 96px; /* Overall container for the decorated avatar, matches SVG height */
+            width: 108px; 
+            height: 96px; 
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 16px; /* Added margin for consistency with profile-img */
+            margin-bottom: 16px; 
         }
-        /* The foreignObject itself will be explicitly sized and positioned in the SVG.
-           Its internal content (avatarStack and avatar) should fill it. */
+
         .avatar-decoration-svg foreignObject {
             display: flex;
             justify-content: center;
             align-items: center;
-            /* No explicit width/height here, it's set in the SVG tag */
+
         }
         .avatar-decoration-svg .avatarStack__44b0c {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%; /* Make avatarStack fill its foreignObject container */
-            height: 100%; /* Make avatarStack fill its foreignObject container */
+            width: 100%; 
+            height: 100%; 
         }
-        /* The actual avatar image/initials div within the foreignObject */
+
         .avatar-decoration-svg .avatar__44b0c {
-            width: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            height: 100%; /* Make avatar fill its foreignObject container (which is 80x80) */
-            border-radius: 50%; /* Ensure the image itself is round */
-            object-fit: cover; /* Ensure the image covers the circular area without distortion */
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            object-fit: cover; 
         }
         .avatar-decoration-svg .decoration-image {
             position: absolute;
@@ -47,18 +45,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allow clicks to pass through to the underlying avatar */
-        }
-        /* Base styles for text effects */
-        .contributor-name {
-            transition: all 0.3s ease-in-out; /* Smooth transitions for effects */
-            display: inline-block; /* Required for some text effects */
-            white-space: nowrap; /* Prevent wrapping for some effects */
-            position: relative; /* Needed for pseudo-elements */
+            pointer-events: none; 
         }
 
-        /* Text Effect Styles */
-        /* Glowing Text */
+        .contributor-name {
+            transition: all 0.3s ease-in-out; 
+            display: inline-block; 
+            white-space: nowrap; 
+            position: relative; 
+        }
+
         .glowing-text {
             color: var(--glowing-color, #fff) !important;
             text-shadow: 0 0 5px var(--glowing-color, #fff),
@@ -67,13 +63,12 @@
                          0 0 20px var(--glowing-color, #fff) !important;
         }
 
-        /* Rainbow Text */
         .rainbow-text {
             background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            color: transparent !important; /* Ensure text color is transparent for background clip */
+            color: transparent !important; 
             animation: rainbow-glow 5s linear infinite !important;
         }
         .rainbow-text.with-glow {
@@ -85,7 +80,6 @@
             100% { filter: hue-rotate(360deg); }
         }
 
-        /* Glitter Text */
         .glitter-text {
             background-color: var(--glitter-color-1, #ccc) !important;
             background-image: radial-gradient(circle, transparent 1px, var(--glitter-color-2, #eee) 1px),
@@ -95,10 +89,9 @@
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            color: transparent !important; /* Ensure text color is transparent for background clip */
+            color: transparent !important; 
         }
 
-        /* Confetti Text */
         .confetti-text {
             background-image:
                 radial-gradient(circle at 10% 20%, var(--confetti-color-1, #ff0000) 1px, transparent 1px),
@@ -111,7 +104,7 @@
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            color: transparent !important; /* Ensure text color is transparent for background clip */
+            color: transparent !important; 
             animation: confetti-sparkle 1s infinite alternate !important;
         }
         @keyframes confetti-sparkle {
@@ -119,14 +112,13 @@
             100% { transform: scale(1.05); opacity: 0.8; }
         }
 
-        /* Fire Text */
         .fire-text {
-            color: var(--fire-base-color, #FFA500) !important; /* Base orange */
+            color: var(--fire-base-color, #FFA500) !important; 
             text-shadow:
-                0 0 5px var(--fire-shadow-1, #FF4500), /* Orange-red */
-                0 0 10px var(--fire-shadow-2, #FF8C00), /* Dark orange */
-                0 0 15px var(--fire-shadow-3, #FFD700), /* Gold */
-                0 0 20px var(--fire-shadow-4, #FFFF00), /* Yellow */
+                0 0 5px var(--fire-shadow-1, #FF4500), 
+                0 0 10px var(--fire-shadow-2, #FF8C00), 
+                0 0 15px var(--fire-shadow-3, #FFD700), 
+                0 0 20px var(--fire-shadow-4, #FFFF00), 
                 0 0 25px var(--fire-shadow-dark1, rgba(255, 69, 0, 0.8)),
                 0 0 30px var(--fire-shadow-dark2, rgba(255, 140, 0, 0.7)),
                 0 0 35px var(--fire-shadow-dark3, rgba(255, 215, 0, 0.6)),
@@ -140,9 +132,8 @@
             75% { text-shadow: 0 0 8px var(--fire-shadow-dark3), 0 0 13px var(--fire-shadow-dark4); }
         }
 
-        /* Water Text */
         .water-text {
-            color: var(--water-base-color, #ADD8E6) !important; /* Light blue */
+            color: var(--water-base-color, #ADD8E6) !important; 
             text-shadow:
                 0 0 5px var(--water-shadow-1, rgba(173, 216, 230, 0.7)),
                 0 0 10px var(--water-shadow-2, rgba(173, 216, 230, 0.5)),
@@ -154,11 +145,10 @@
             50% { transform: translateY(-3px); text-shadow: 0 5px 10px var(--water-shadow-2); }
         }
 
-        /* Digital Glitch Text */
         .digital-glitch-text {
-            color: var(--glitch-color, #0f0) !important; /* Default bright green, customizable */
-            position: relative; /* Needed for pseudo-elements */
-            text-shadow: none !important; /* Clear base text-shadow if pseudo-elements handle it */
+            color: var(--glitch-color, #0f0) !important; 
+            position: relative; 
+            text-shadow: none !important; 
         }
         .digital-glitch-text::before,
         .digital-glitch-text::after {
@@ -168,7 +158,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent; /* Ensure background is transparent */
+            background-color: transparent; 
             overflow: hidden;
         }
         .digital-glitch-text::before {
@@ -198,13 +188,12 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* Metallic Text */
         .metallic-text {
             background: linear-gradient(180deg, var(--metallic-color-1, #BFBFBF) 0%, var(--metallic-color-2, #E6E6E6) 100%) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            color: transparent !important; /* Ensure text color is transparent for background clip */
+            color: transparent !important; 
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
         }
         .metallic-text.custom-metallic {
@@ -212,10 +201,9 @@
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            color: transparent !important; /* Ensure text color is transparent for background clip */
+            color: transparent !important; 
         }
 
-        /* 3D Text */
         .text-3d {
             color: var(--text-3d-color, #fff) !important;
             text-shadow:
@@ -227,7 +215,6 @@
                 6px 6px var(--text-3d-shadow-color, #000) !important;
         }
 
-        /* Holographic Text */
         .holographic-text {
             color: var(--holographic-color, #AAFFFF) !important;
             text-shadow:
@@ -241,15 +228,13 @@
             50% { opacity: 0.8; transform: scale(1.01); }
         }
 
-        /* Outline Text */
         .outline-text {
             -webkit-text-stroke-width: var(--outline-width, 1px) !important;
             -webkit-text-stroke-color: var(--outline-color, #4ade80) !important;
             -webkit-text-fill-color: var(--outline-fill-color, #fff) !important;
-            color: var(--outline-fill-color, #fff) !important; /* Fallback for non-webkit */
+            color: var(--outline-fill-color, #fff) !important; 
         }
 
-        /* Neon Text */
         .neon-text {
             color: var(--neon-color, #fff) !important;
             text-shadow:
@@ -263,13 +248,11 @@
                 0 0 151px var(--neon-glow-color, #0fa) !important;
         }
 
-        /* Shadow Text */
         .shadow-text {
             color: var(--shadow-text-color, #fff) !important;
             text-shadow: var(--shadow-x-offset, 2px) var(--shadow-y-offset, 2px) var(--shadow-blur, 4px) var(--shadow-color, rgba(0, 0, 0, 0.5)) !important;
         }
 
-        /* Liquid Text */
         .liquid-text {
             color: var(--liquid-base-color, #ADD8E6) !important;
             text-shadow:
@@ -283,7 +266,6 @@
             50% { transform: translateY(-2px) scaleY(1.05); }
         }
 
-        /* Firefly Text */
         .firefly-text {
             position: relative;
             color: var(--firefly-text-color, #fff) !important;
@@ -297,11 +279,10 @@
             50% { opacity: 0.8; }
         }
 
-        /* Arcade Glitch Text */
         .arcade-glitch-text {
             position: relative;
             color: var(--glitch-base-color, #0f0) !important;
-            text-shadow: none !important; /* Clear base text-shadow if pseudo-elements handle it */
+            text-shadow: none !important; 
         }
         .arcade-glitch-text::before,
         .arcade-glitch-text::after {
@@ -341,18 +322,16 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* Wavy Text (requires span wrapping for each character) */
         .wavy-text span {
             display: inline-block;
             animation: wavy-motion 1.5s infinite ease-in-out !important;
-            animation-delay: calc(var(--char-index) * 0.05s) !important; /* Delay based on character index */
+            animation-delay: calc(var(--char-index) * 0.05s) !important; 
         }
         @keyframes wavy-motion {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
 
-        /* Video Background Styles */
         .video-background {
             position: fixed;
             top: 0;
@@ -360,10 +339,10 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            z-index: -1; /* Ensures the video stays behind all other content */
-            opacity: 1; /* Start visible */
-            visibility: visible; /* Ensure it's interactive */
-            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
+            z-index: -1; 
+            opacity: 1; 
+            visibility: visible; 
+            transition: opacity 1s ease-in-out; 
         }
 
         .video-background video {
@@ -375,34 +354,31 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            object-fit: cover; /* Ensures the video covers the entire container */
-            filter: brightness(0.6); /* Slightly darkens the video for better text readability */
+            object-fit: cover; 
+            filter: brightness(0.6); 
         }
 
-        /* New style for the main content container */
         .main-content-bg {
             width: calc(100% - 20px);
-            margin: 20px auto 20px auto; /* Existing margin-top is preserved */
+            margin: 20px auto 20px auto; 
             padding: 15px;
-            background: rgba(11, 23, 56, 0.9); /* Transparency added previously */
-            border-radius: 0; /* Set to 0 to remove default rounding from all corners */
-            border-top-left-radius: 30px; /* Cut top-left corner */
-            border-top-right-radius: 30px; /* Cut top-right corner */
+            background: rgba(11, 23, 56, 0.9); 
+            border-radius: 0; 
+            border-top-left-radius: 30px; 
+            border-top-right-radius: 30px; 
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 2;
-            /* Removed zoom:0.83; as it's non-standard and can cause issues on mobile */
-            padding-top: 200px; /* Adjusted to make space for logo and motto */
+
+            padding-top: 200px; 
         }
 
-        /* Initially show the main content */
         #mainContent {
           display: block;
-          opacity: 1; /* Start visible */
-          transition: opacity 1s ease-in-out; /* Smooth fade-in for main content */
+          opacity: 1; 
+          transition: opacity 1s ease-in-out; 
         }
 
-        /* Styles for the announcement banner */
         .announcement-banner {
           background: rgba(11, 23, 56, 0.7);
           color: #ffffff;
@@ -414,7 +390,7 @@
           letter-spacing: 0.5px;
           position: relative;
           z-index: 1000;
-          /* Removed margin-bottom to match index.html */
+
         }
 
         .announcement-banner p {
@@ -444,7 +420,6 @@
           vertical-align: middle;
         }
 
-        /* Style for the logo */
         .logo {
           width: 200px;
           height: auto;
@@ -459,7 +434,6 @@
           transform: scale(1.05);
         }
 
-        /* Style for the motto */
         .motto {
           background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
           -webkit-background-clip: text;
@@ -477,7 +451,6 @@
           margin-bottom: 30px;
         }
 
-        /* Media queries for responsiveness */
         @media (max-width: 768px) {
             .logo {
                 width: 180px;

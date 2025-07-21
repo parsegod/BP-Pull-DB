@@ -1,4 +1,4 @@
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
       console.log('DOMContentLoaded fired. Script execution started.');
 
       const loadingScreen = document.getElementById('loadingScreen');
@@ -10,12 +10,11 @@
       const videoElement = document.getElementById('backgroundVideo');
       const loadingLogo = document.getElementById('loadingLogo');
 
-      const loadingMessageDisplayDelay = 700; // milliseconds
+      const loadingMessageDisplayDelay = 700; 
 
-      // Define all assets to be loaded and tracked
       const assetsToLoad = [
-    { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'}, // Logo and favicon
-    { url: 'assets/wallpaper.mp4', type: 'video'}, // Background video
+    { url: 'https://files.catbox.moe/pucbmh.png', type: 'image'}, 
+    { url: 'assets/wallpaper.mp4', type: 'video'}, 
     { url: 'style.css', type: 'css'},
     { url: 'load.js', type: 'js'},
     { url: 'helpers.html', type: 'file'},
@@ -32,7 +31,7 @@
               const path = urlObj.pathname;
               return path.substring(path.lastIndexOf('/') + 1);
           } catch (e) {
-              // Fallback for relative paths or invalid URLs
+
               return url.substring(url.lastIndexOf('/') + 1);
           }
       }
@@ -83,7 +82,7 @@
                   const img = new Image();
                   img.onload = () => {
                       if (asset.url === loadingLogo.src) {
-                          loadingLogo.style.opacity = '1'; // Fade in the actual logo if it's the one being tracked
+                          loadingLogo.style.opacity = '1'; 
                       }
                       markAsLoaded('Loaded');
                   };
@@ -112,19 +111,18 @@
                       videoElement.addEventListener('loadeddata', videoLoadHandler, { once: true });
                       videoElement.addEventListener('error', videoErrorHandler, { once: true });
 
-                      if (videoElement.readyState >= 4) { // HAVE_ENOUGH_DATA
+                      if (videoElement.readyState >= 4) { 
                           markAsLoaded('Cached');
                       } else {
                           videoElement.load();
                       }
                   } else {
-                      // If it's a video but not the background video, or videoElement not found
+
                       console.warn(`Skipping video asset tracking for: ${fileName} (not background video or element not found)`);
-                      markAsLoaded('Skipped'); // Mark as skipped if not the main video or element missing
+                      markAsLoaded('Skipped'); 
                   }
               } else if (asset.type === 'css' || asset.type === 'js') {
-                  // For CSS and JS, we assume they are loaded by the browser's parsing
-                  // or will be fetched. We can try to fetch them to confirm.
+
                   fetch(asset.url)
                       .then(response => {
                           if (response.ok) {
@@ -139,20 +137,16 @@
                           markAsLoaded('Error');
                       });
               } else if (asset.type === 'font') {
-                  // For fonts, we can check if they are loaded via the FontFaceSet API
-                  // This is more robust than just fetching the CSS file.
-                  // Note: This is a simplified check and might not cover all font loading scenarios.
+
                   document.fonts.ready.then(() => {
-                      // This resolves when all fonts are loaded. We can't track individual fonts easily.
-                      // So, we'll just mark it as loaded once the document fonts are ready.
-                      // This means all font assets will resolve together.
+
                       markAsLoaded('Loaded');
                   }).catch(() => {
                       console.warn(`Font loading issue for: ${fileName}`);
                       markAsLoaded('Failed');
                   });
               } else {
-                  // For other types like JSON, etc., use fetch
+
                   fetch(asset.url)
                       .then(response => {
                           if (response.ok) {
@@ -179,7 +173,7 @@
           return p;
       }
 
-      updateProgressBar(); // Initial update
+      updateProgressBar(); 
 
       loadAllAssetsSequentially().then(() => {
           console.log('All assets loaded function completed.');
