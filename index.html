@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blu Base</title>
-  <link href="[https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap)" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)">
-  <link href="[https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap)" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="preload" href="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)" as="image">
+  <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
   <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Blu Base" />
   <meta property="og:description" content="your no.1 bp pull db!" />
-  <meta property="og:image" content="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)" />
-  <meta property="og:url" content="[https://parsegod.github.io/BP-Pull-DB/](https://parsegod.github.io/BP-Pull-DB/)" />
+  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Blu Base" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Blu Base">
   <meta name="twitter:description" content="your no.1 bp pull db!">
-  <meta name="twitter:image" content="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)">
+  <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
   <script src="/_vercel/insights/script.js"></script>
 
@@ -657,7 +657,7 @@
 
     async function getUserIP() {
         try {
-            const response = await fetch('[https://api.ipify.org?format=json](https://api.ipify.org?format=json)');
+            const response = await fetch('https://api.ipify.org?format=json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -717,32 +717,40 @@
      * @param {boolean} isInitialCheck - True if this is the first check on page load, false otherwise.
      */
     function checkAPIKeyAndRedirect(isInitialCheck) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const wasJustVerified = urlParams.get('verified') === 'true'; // Check for the verification flag
+
         const apiKey = localStorage.getItem('blubase_api_key');
         const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
         const currentTime = new Date().getTime();
 
-        let shouldRedirectToEndkey = false;
+        let shouldRedirect = false;
 
         if (!apiKey || !apiKeyExpiry) {
             console.log("Index.html: API key or expiry missing.");
-            shouldRedirectToEndkey = true;
+            shouldRedirect = true;
         } else if (!isValidApiKeyPatternAndChecksum(apiKey)) {
             console.log("Index.html: API key corrupted/tampered.");
-            shouldRedirectToEndkey = true;
+            shouldRedirect = true;
         } else if (isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry)) {
             console.log("Index.html: API key expired.");
-            shouldRedirectToEndkey = true;
+            shouldRedirect = true;
         }
 
-        if (shouldRedirectToEndkey) {
+        if (shouldRedirect) {
             localStorage.removeItem('blubase_api_key');
             localStorage.removeItem('blubase_api_key_expiry');
             document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear cookie too
 
-            if (isInitialCheck) {
+            if (isInitialCheck && !wasJustVerified) { // ONLY redirect to verify.html if initial check AND NOT just verified
                 console.log("Index.html: Initial load, no valid API key found. Redirecting to /verify.");
                 window.location.replace('verify.html');
-            } else {
+            } else if (isInitialCheck && wasJustVerified) {
+                // If just verified, and key is somehow still invalid, log error but don't loop back to verify.
+                // This case should ideally not happen if verify.html correctly generates and stores the key.
+                console.error("Index.html: Just verified, but API key still invalid. This indicates an issue with verification process.");
+                document.documentElement.style.display = 'block'; // Still show content, but log error
+            } else { // Not initial check, or was just verified but still invalid (runtime check)
                 console.log("Index.html: API key invalid/expired/corrupted during runtime. Redirecting to endkey.html.");
                 window.location.replace('endkey.html');
             }
@@ -797,15 +805,15 @@
 
   <div id="mainContent">
     <div class="announcement-banner">
-      <p><span class="gradient-heart">🖤</span> we are now live at <a href="[http://parsed.top/](http://parsed.top/)" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
     </div>
 
     <div class="container">
-      <img src="[https://files.catbox.moe/pucbmh.png](https://files.catbox.moe/pucbmh.png)" alt="Logo" class="logo">
+      <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
       <h1 class="motto">your no.1 bp pull db</h1>
 
       <button id="bugLogButton" class="changelog-button bug-log-button-positioned">
-        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" xmlns:xlink="[http://www.w3.org/1999/xlink](http://www.w3.org/1999/xlink)" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
           <style type="text/css">
 
             .st0{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
@@ -816,7 +824,7 @@
 
       <div class="search-filter-section">
         <div class="contributions-button-container">
-        <button id="contributionsButton" class="changelog-button" onclick="window.location.href='[https://parsed.top/HAH](https://parsed.top/HAH)'">Hall Of Helpers</button>
+        <button id="contributionsButton" class="changelog-button" onclick="window.location.href='https://parsed.top/HAH'">Hall Of Helpers</button>
         </div>
         <div id="searchView"> <div class="search-bar-row">
 
