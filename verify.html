@@ -2,15 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Blu Base</title>
+  <title>Blu Base - Verification</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-
-  <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
-  <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Blu Base" />
   <meta property="og:description" content="your no.1 bp pull db!" />
@@ -24,172 +18,63 @@
   <meta name="twitter:description" content="your no.1 bp pull db!">
   <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
 
-  <script src="/_vercel/insights/script.js"></script>
+  <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
   <style>
-
-    ::-webkit-scrollbar {
-      width: 0px; 
-      height: 0px; 
-      background: transparent; 
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: transparent;
-    }
-
-    html {
-      scrollbar-width: none; 
-    }
     body {
       background-color: #0B1738;
       margin: 0;
       overflow: hidden;
-    }
-
-    #loadingScreen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: transparent;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      color: #D0D8E8;
       font-family: 'Open Sans', sans-serif;
-      font-size: 1.2em;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 1s ease-out, visibility 1s ease-out;
-      overflow: hidden;
+      color: #D0D8E8;
+      line-height: 1.6;
     }
 
-    .loading-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 25px;
-      width: calc(95% - 20px);
-      max-width: 855px;
-      box-sizing: border-box;
-      background: rgba(11, 23, 56, 0.95);
-      border-radius: 0;
-      border-top-left-radius: 30px;
-      border-top-right-radius: 30px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(44, 72, 124, 0.6);
-      position: relative;
-      overflow: hidden;
-      animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-      margin: auto;
+    body.modal-open {
+        overflow: hidden;
     }
 
-    @keyframes popIn {
-        from { transform: scale(0.5); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
-    #loadingLogo {
-      display: block;
-      width: clamp(100px, 30vw, 180px);
-      height: auto;
-      margin-bottom: 3vh;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: fadeInSlideUp 1.2s ease-out forwards 0.5s;
-    }
-
-    @keyframes fadeInSlideUp {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .motto-loading {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(1em, 5vw, 1.8em);
-      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      font-weight: bold;
-      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-      margin-top: 1vh;
-      margin-bottom: 4vh;
-      white-space: nowrap;
-      text-align: center;
+    /* Styles for the loading elements when they are inside the modal */
+    #loadingContainerInModal {
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px; /* Space from success message */
+        transition: opacity 0.5s ease-out; /* For fading out */
     }
 
     #loadingBarContainer {
-      width: 100%;
-      height: 2.5vh;
+      width: 80%;
+      max-width: 400px;
+      height: 20px;
       background-color: #1A2B4D;
-      border-radius: 1.25vh;
+      border-radius: 10px;
       overflow: hidden;
-      margin-top: 2vh;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
-      border: 1px solid rgba(44, 72, 124, 0.6);
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #7CA0E0; /* Added border for definition */
     }
 
     #loadingBar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
-      border-radius: 1.25vh;
-      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 10px rgba(124, 160, 224, 0.7);
+      background: linear-gradient(90deg, #7CA0E0, #A0C0E8); /* Gradient for better look */
+      border-radius: 10px;
+      transition: width 0.3s ease-out;
+      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7); /* Subtle glow */
     }
 
-    #loadingText {
-      margin-top: 3vh;
-      font-weight: 700;
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1rem, 4vw, 1.5rem);
-      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-      color: #E0E8F0;
-      animation: pulseText 1.8s infinite alternate;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-align: center;
+    #loadingText { /* Styles for loadingText */
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 1.1em; /* Slightly larger */
+      color: #A0C0E8;
     }
 
-    @keyframes pulseText {
-        from { transform: scale(1); opacity: 1; }
-        to { transform: scale(1.03); opacity: 0.95; }
-    }
-
-    #loadingAssetText {
-      font-size: clamp(0.7rem, 2.8vw, 1rem);
-      margin-top: 1.5vh;
-      text-align: center;
-      line-height: 1.6;
-      min-height: 3.5em;
-      color: #BCC7D8;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .bold-green-percentage {
-        color: #00FF00;
-        font-weight: bold;
-    }
-
-    #mainContent {
-      display: none;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
+    /* #loadingAssetText is removed as per user request */
 
     .video-background {
       position: fixed;
@@ -217,66 +102,221 @@
         filter: brightness(0.6);
     }
 
-    .announcement-banner {
-      background: rgba(11, 23, 56, 0.7);
-      color: #ffffff;
-      text-align: center;
-      padding: 10px 0;
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.1em;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      position: relative;
-      z-index: 1000;
+    .verification-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
     }
 
-    .announcement-banner p {
-      margin: 0;
-    }
-
-    .gradient-heart {
-      background: linear-gradient(to right, #059695, #0B1738);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      font-size: 1.2em;
-      display: inline-block;
-      line-height: 1;
-      vertical-align: middle;
-    }
-
-    .announcement-banner a {
-      color: #059695;
-      text-decoration: underline;
-      transition: color 0.2s ease;
-    }
-
-    .announcement-banner a:hover {
-      color: #059695;
-      font-weight: bold;
-    }
-
-    .container {
-      width: calc(100% - 20px);
-      max-width: 900px;
-      min-width: 320px;
-      margin: 20px auto 20px auto;
-      padding: 25px;
+    .verification-modal-content {
       background: rgba(11, 23, 56, 0.95);
+      color: #E0E8F0;
+      font-family: 'Oswald', sans-serif;
+      padding: 40px 25px; /* Adjusted padding */
       border-radius: 0;
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      text-align: center;
+      width: calc(95% - 20px);
+      max-width: 855px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(44, 72, 124, 0.6);
+      transform: scale(1);
+      transition: transform 0.3s ease-out;
       position: relative;
-      z-index: 2;
-      zoom: 0.85;
-      min-height: calc(100vh - 40px);
-      padding-top: 250px;
+      margin: auto;
+      min-height: auto; /* Changed to auto */
+      /* padding-top: 250px; REMOVED */
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Changed to center */
     }
 
-    .motto {
+    .verification-modal-content.scale-in {
+        animation: scaleIn 0.5s ease-out forwards;
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .verification-modal-content h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #A0C0E8;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .verification-modal-content p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      color: #CAD8E8;
+    }
+
+    .verification-modal-content button {
+      background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+      color: #0B1738;
+      border: none;
+      padding: 16px 35px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .verification-modal-content button:hover {
+      background: linear-gradient(180deg, #5A99D0, #3B75B0);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .verification-modal-content button:disabled {
+        background: #3A4F70;
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
+        box-shadow: none;
+    }
+
+    #verificationSuccessMessage {
+        color: #4CAF50;
+        font-weight: bold;
+        font-size: 1.8em;
+        margin-bottom: 25px;
+        display: none;
+        line-height: 1.4;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        padding: 15px 0;
+        animation: fadeInScale 0.8s ease-out forwards;
+    }
+
+    #verificationSuccessMessage .success-icon {
+        width: 60px;
+        height: 60px;
+        display: block;
+        margin: 0 auto 15px;
+        fill: #4CAF50;
+        animation: bounceIn 0.6s ease-out forwards;
+    }
+
+    #apiKeyDisplay {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1em;
+        color: #BCC7D8;
+        margin-top: 15px;
+        word-break: break-all; /* Ensures long keys wrap */
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid rgba(44, 72, 124, 0.6);
+        display: none; /* Hidden by default */
+    }
+
+    @keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bounceIn {
+        0% { transform: scale(0.1); opacity: 0; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+
+    .glowing-red-text {
+      color: red;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.3);
+      animation: pulsate-glow 1.5s infinite alternate;
+    }
+
+    @keyframes pulsate-glow {
+      from { text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5); }
+      to { text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.6); }
+    }
+
+    .hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    #customMessageBox {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1a2b4d;
+        color: #E0E8F0;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 10001;
+        display: none;
+        font-family: 'Oswald', sans-serif;
+        text-align: center;
+        max-width: 80%;
+    }
+
+    #clearMessagePopup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(11, 23, 56, 0.95);
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10002;
+        display: none;
+        font-size: 1.2em;
+        line-height: 1.6;
+    }
+
+    #clearMessagePopup > div {
+        background: linear-gradient(135deg, #1a2b4d, #0b1738);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(124, 160, 224, 0.3);
+        max-width: 400px;
+        width: calc(100% - 40px);
+        box-sizing: border-box;
+    }
+
+    .logo-verf {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: auto;
+      z-index: 10;
+    }
+
+    .motto-verf {
       position: absolute;
       top: 180px;
       left: 50%;
@@ -289,78 +329,162 @@
       font-family: 'Dancing Script', cursive;
       font-size: 1.8em;
       text-align: center;
-      white-space: normal;
+      white-space: nowrap;
       z-index: 10;
-      width: 100%;
       font-weight: bold;
       text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
     }
 
-    .logo {
-      position: absolute;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 180px;
-      height: auto;
-      z-index: 10;
-    }
-
-    .red-announcement {
-      color: red !important;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .bug-log-button-positioned {
-        position: absolute;
-        top: 25px; 
-        right: 25px; 
-        z-index: 10; 
-
-        width: 40px; 
-        height: 40px; 
-        padding: 0; 
+    /* New styles for the API Key popup */
+    #apiKeyPopupOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent; /* Changed to transparent */
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%; 
-        background: none; 
-        border: 2px solid #2C487C; 
-        color: #D0D8E8; 
-        box-shadow: none; 
-    }
-    .bug-log-button-positioned:hover {
-        background: none;
-        transform: translateY(0);
-        box-shadow: none;
-        border-color: #7CA0E0;
-        color: #D0D8E8;
-        text-decoration: none;
+        z-index: 10003;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     }
 
-    .bug-log-button-positioned svg {
-        width: 24px; 
-        height: 24px; 
+    #apiKeyPopupOverlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
 
-        stroke: currentColor;
-        fill: none; 
+    #apiKeyPopupContent {
+        background: rgba(11, 23, 56, 0.95); /* Changed to match verification-modal-content background */
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif; /* Changed to match verification-modal-content font */
+        padding: 40px 25px; /* Adjusted padding to match verification-modal-content */
+        border-radius: 0;
+        border-top-left-radius: 30px; /* Changed to match verification-modal-content border-radius */
+        border-top-right-radius: 30px; /* Changed to match verification-modal-content border-radius */
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        width: calc(95% - 20px); /* Changed to match verification-modal-content width */
+        max-width: 855px; /* Changed to match verification-modal-content max-width */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Changed to match verification-modal-content box-shadow */
+        border: 1px solid rgba(44, 72, 124, 0.6); /* Changed to match verification-modal-content border */
+        transform: scale(1);
+        opacity: 0; /* Keep initial opacity for animation */
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        position: relative; /* Changed to match verification-modal-content position */
+        margin: auto; /* Changed to match verification-modal-content margin */
+        min-height: auto; /* Changed to auto to allow content to dictate height */
+        /* padding-top: 250px; REMOVED to allow content to dictate vertical positioning */
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Changed to center for vertical alignment */
+        zoom: 0.85; /* Added zoom to match the main container */
+    }
+
+    #apiKeyPopupOverlay.show #apiKeyPopupContent {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    #apiKeyPopupContent h3 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 1.8em;
+        margin-top: 0; /* Set margin-top to 0 to bring it closer to the top */
+        margin-bottom: 10px; /* Reduced margin-bottom */
+        color: #A0C0E8;
+    }
+
+    #apiKeyPopupContent p {
+        font-family: 'Open Sans', sans-serif; /* Added to match other p tags */
+        font-size: 1.1em; /* Adjusted to match other p tags */
+        margin-bottom: 5px; /* Reduced margin-bottom to make elements closer */
+        line-height: 1.6; /* Added to match other p tags */
+        color: #CAD8E8; /* Added to match other p tags */
+        word-break: break-all;
+    }
+
+    #apiKeyPopupContent strong {
+        color: #7CA0E0;
+    }
+
+    #apiKeyPopupContent .status-clean {
+        color: #66BB6A; /* Green for clean */
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-blocked {
+        color: #EF5350; /* Red for blocked */
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-no-permission {
+        color: #EF5350; /* Red for no permission */
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-granted {
+        color: #66BB6A; /* Green for granted */
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .generation-log-container {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 10px; /* Reduced margin-top */
+        max-height: 150px;
+        overflow-y: auto;
+        text-align: left;
+        font-size: 0.8em;
+        border: 1px solid rgba(124, 160, 224, 0.2);
+    }
+
+    /* Hide scrollbar for WebKit browsers (Chrome, Safari, iOS) */
+    #apiKeyPopupContent .generation-log-container::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    #apiKeyPopupContent .generation-log-container::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    /* Hide scrollbar for Firefox */
+    #apiKeyPopupContent .generation-log-container {
+        scrollbar-width: none; /* Firefox */
+    }
+
+    #apiKeyPopupButton {
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+        color: #0B1738;
+        border: none;
+        padding: 16px 35px; /* Changed to match verification-modal-content button padding */
+        border-radius: 10px; /* Changed to match verification-modal-content button border-radius */
+        font-size: 1.3em; /* Changed to match verification-modal-content button font-size */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Changed to match verification-modal-content button box-shadow */
+    }
+
+    #apiKeyPopupButton:hover {
+        background: linear-gradient(180deg, #5A99D0, #3B75B0);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
 
     @media (max-width: 768px) {
-
-    }
-
-    #search {
-        font-size: 16px;
-    }
-
-    @media (max-width: 768px) {
-        #loadingScreen {
+        .verification-modal-overlay {
             justify-content: center;
             padding-top: 0;
         }
-        .loading-content {
+        .verification-modal-content {
             width: 96%;
             max-width: none;
             padding: 10px;
@@ -378,19 +502,17 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            zoom: 1;
         }
-        #loadingLogo {
+
+        .logo-verf {
             position: static;
             margin-bottom: 3vh;
             width: clamp(80px, 25vw, 150px);
             top: auto;
             left: auto;
             transform: none;
-            opacity: 1;
-            animation: none;
         }
-        .motto-loading {
+        .motto-verf {
             position: static;
             font-size: clamp(0.9em, 4vw, 1.5em);
             margin-top: 1vh;
@@ -401,256 +523,172 @@
             transform: none;
         }
 
-        #loadingBarContainer {
-            height: 2vh;
-            margin-top: 2vh;
-        }
-        #loadingText {
-            margin-top: 3vh;
-            font-size: clamp(1rem, 4vw, 1.4rem);
-        }
-        #loadingAssetText {
-            min-height: 3.5em;
-            font-size: clamp(0.7rem, 2.8vw, 1rem);
-            margin-top: 1.5vh;
+        .verification-modal-content h2 {
+            font-size: clamp(1.8em, 5vw, 2.2em);
+            margin-bottom: 2vh;
         }
 
-        .container {
-            width: 96%;
-            padding: 10px;
-            padding-top: 180px;
-            margin: 10px auto;
-            zoom: 1;
-            border-radius: 0;
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
-        }
-        .logo {
-            width: 120px;
-            top: 15px;
-            transform: translateX(-50%);
-        }
-        .motto {
-            font-size: 1.2em;
-            top: 120px;
-            white-space: normal;
+        .verification-modal-content p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin-bottom: 2vh;
         }
 
-        .filter-dropdown button {
-            text-align: center;
+        .verification-modal-content button {
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+            margin: 1.5vh auto;
+        }
+
+        #verificationSuccessMessage {
+            font-size: clamp(1.4em, 4.5vw, 1.7em);
+            margin-bottom: 2vh;
+        }
+
+        #verificationSuccessMessage .success-icon {
+            width: clamp(40px, 10vw, 50px);
+            height: clamp(40px, 10vw, 50px);
+            margin-bottom: 1vh;
+        }
+
+        #apiKeyDisplay {
+            font-size: 0.9em;
+            padding: 8px;
+        }
+
+        #clearMessagePopup > div {
+            max-width: 90%;
+            padding: 30px;
+            font-size: 1.1em;
+        }
+
+        /* Responsive for new API Key popup */
+        #apiKeyPopupContent {
+            padding: 10px; /* Adjusted to match verification-modal-content padding */
+            width: 96%; /* Adjusted to match verification-modal-content width */
+            max-width: none; /* Adjusted to match verification-modal-content max-width */
+            min-height: 40vh; /* Adjusted to match verification-modal-content min-height */
+            border-radius: 0; /* Adjusted to match verification-modal-content border-radius */
+            border-top-left-radius: 25px; /* Adjusted to match verification-modal-content border-radius */
+            border-top-right-radius: 25px; /* Adjusted to match verification-modal-content border-radius */
+            position: static; /* Adjusted to match verification-modal-content position */
+            display: flex; /* Adjusted to match verification-modal-content display */
+            flex-direction: column; /* Adjusted to match verification-modal-content flex-direction */
+            align-items: center; /* Adjusted to match verification-modal-content align-items */
+            justify-content: center; /* Adjusted to match verification-modal-content justify-content */
+            margin: auto; /* Adjusted to match verification-modal-content margin */
+            padding-top: 10px; /* Adjusted padding-top for mobile to be consistent */
+            zoom: 1; /* Reset zoom for mobile */
+        }
+        #apiKeyPopupContent h3 {
+            font-size: clamp(1.8em, 5vw, 2.2em); /* Adjusted to match verification-modal-content h2 font-size */
+            margin-bottom: 1.5vh; /* Adjusted to match verification-modal-content h2 margin-bottom */
+            margin-top: 0; /* Ensure it's at the top */
+        }
+        #apiKeyPopupContent p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em); /* Adjusted to match verification-modal-content p font-size */
+            margin-bottom: 0.5vh; /* Adjusted to match verification-modal-content p margin-bottom */
+        }
+        #apiKeyPopupButton {
+            padding: 1.5vh 3vw; /* Adjusted to match verification-modal-content button padding */
+            font-size: clamp(1em, 4vw, 1.2em); /* Adjusted to match verification-modal-content button font-size */
+            margin: 1.5vh auto; /* Adjusted to match verification-modal-content button margin */
         }
     }
 
     @media (max-width: 480px) {
-        #loadingScreen {
-            justify-content: center;
-            padding-top: 0;
-        }
-        .loading-content {
+        .verification-modal-content {
             width: 96%;
-            max-width: none;
             padding: 10px;
             margin: auto;
             min-height: 40vh;
 
-            border-radius: 0;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-
-            position: static;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            zoom: 1;
         }
-        #loadingLogo {
-            position: static;
+
+        .logo-verf {
+            position: static; /* Ensure it's static for smaller screens if it was absolute */
             margin-bottom: 2vh;
             width: clamp(70px, 20vw, 120px);
             top: auto;
             left: auto;
             transform: none;
-            opacity: 1;
-            animation: none;
         }
-        .motto-loading {
-            position: static;
+        .motto-verf {
+            position: static; /* Ensure it's static for smaller screens if it was absolute */
             font-size: clamp(0.8em, 3.5vw, 1.2em);
-            margin-top: 1vh;
             margin-bottom: 2.5vh;
-            white-space: nowrap;
             top: auto;
             left: auto;
             transform: none;
         }
 
-        #loadingBarContainer {
-            height: 1.8vh;
-            margin-top: 2vh;
-        }
-        #loadingText {
-            margin-top: 2vh;
-            font-size: clamp(1rem, 4vw, 1.3rem);
-        }
-        #loadingAssetText {
-            min-height: 2em;
-            font-size: clamp(0.6rem, 2.5vw, 0.9rem);
-            margin-top: 1.5vh;
+        .verification-modal-content h2 {
+            font-size: clamp(1.5em, 4.5vw, 2em);
+            margin-bottom: 1.5vh;
         }
 
-        .container {
-            width: 96%;
-            padding: 10px;
-            padding-top: 180px;
-            margin: 10px auto;
-            zoom: 1;
-            border-radius: 0;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+        .verification-modal-content p {
+            font-size: clamp(0.8em, 3vw, 1em);
+            margin-bottom: 1.5vh;
         }
-        .logo {
-            width: 120px;
-            top: 15px;
-            transform: translateX(-50%);
+
+        .verification-modal-content button {
+            padding: 1.2vh 2.5vw;
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin: 1vh auto;
         }
-        .motto {
-            font-size: 1.2em;
-            top: 120px;
-            white-space: normal;
+
+        #verificationSuccessMessage {
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            margin-bottom: 1.5vh;
         }
-    }
 
-    #clearStorageModal .modal-content {
-      padding: 78px; 
-      border-radius: 12px; 
-      background: rgba(11, 23, 56, 0.85);
-      border-top-left-radius: 30px;
-      border-top-right-radius: 30px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(44, 72, 124, 0.6);
-      overflow: hidden; 
-    }
-
-    #clearStorageModal .modal-content h2 {
-      text-align: center; 
-      font-family: 'Oswald', sans-serif; 
-
-      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent; 
-      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7); 
-      letter-spacing: 1px;
-      font-size: 2em;
-      margin-top: 0;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      font-weight: bold;
-
-    }
-
-    #clearStorageModal .modal-content p {
-      text-align: center; 
-      color: #CCE0F0; 
-      font-size: 0.95em; 
-      margin-top: 15px; 
-      margin-bottom: 25px; 
-      font-weight: bold;
-    }
-
-    #clearStorageModal .modal-buttons {
-      display: flex;
-      justify-content: center; 
-      gap: 10px; 
-      margin-top: 20px;
-    }
-
-    #clearStorageModal .modal-buttons button {
-
-        padding: 8px 15px;
-        font-size: 0.85em;
-        border-radius: 6px;
-        max-width: 200px; 
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: bold;
-    }
-
-    @media (max-width: 480px) {
-        #clearStorageModal .modal-buttons {
-            flex-direction: column;
-            align-items: center; 
-            width: 100%; 
-
+        #verificationSuccessMessage .success-icon {
+            width: clamp(30px, 8vw, 40px);
+            height: clamp(30px, 8vw, 40px);
+            margin-bottom: 0.8vh;
         }
-    }
 
-    .small-dark-red-glowing-text {
-      font-size: 0.75em; 
-      color: #CC0000; 
-      text-shadow: 0 0 5px rgba(204, 0, 0, 0.7); 
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+        #apiKeyDisplay {
+            font-size: 0.8em;
+            padding: 6px;
+        }
 
-    .glowing-green-text {
-        color: #00FF00;
-        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
-        font-size: 0.95em; 
-        font-weight: bold;
-    }
+        #clearMessagePopup > div {
+            max-width: 95%;
+            padding: 20px;
+            font-size: 1em;
+        }
 
-    #changelogModal .modal-content h2 {
-      text-align: center;
-      font-family: 'Oswald', sans-serif;
-      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-      letter-spacing: 1px;
-      font-size: 2em;
-      margin-top: 0;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-
-    #howToUseModal .modal-content h2 {
-      text-align: center;
-      font-family: 'Oswald', sans-serif;
-      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-      letter-spacing: 1px;
-      font-size: 2em;
-      margin-top: 0;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      font-weight: bold;
+        /* Responsive for new API Key popup */
+        #apiKeyPopupContent {
+            border-top-left-radius: 20px; /* Apply top-left radius */
+            border-top-right-radius: 20px; /* Apply top-right radius */
+            padding-top: 10px; /* Consistent padding-top for all mobile */
+        }
     }
   </style>
+</head>
+<body class="modal-open">
   <script>
-
-    document.documentElement.style.display = 'none';
-
     const blacklistedIPsEncoded = [
-      ""
+      "" 
     ];
+
+    let isUserIPBlacklisted = false;
+
+    /**
+     * Helper function to introduce a delay.
+     * @param {number} ms - The delay in milliseconds.
+     * @returns {Promise<void>} A promise that resolves after the delay.
+     */
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     function decodeBase64(encodedString) {
         try {
             return atob(encodedString);
         } catch (e) {
-            console.error("Base64 decoding error:", e);
             return "";
         }
     }
@@ -664,7 +702,6 @@
             const data = await response.json();
             return data.ip;
         } catch (error) {
-            console.error("Error fetching IP address:", error);
             return null;
         }
     }
@@ -673,39 +710,22 @@
         return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
     }
 
-    (async () => {
+    async function checkUserAccess() {
         const userIP = await getUserIP();
-        console.log("Index.html: User IP detected:", userIP);
-
-        if (userIP && isIPBlacklisted(userIP)) {
-            console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
-            localStorage.removeItem('blubase_api_key'); 
-            localStorage.removeItem('blubase_api_key_expiry'); 
-            window.location.replace('/blocked');
-            return;
-        } else if (userIP) {
-            console.log("Index.html: User IP not blacklisted.");
+        if (!userIP) {
+            console.error("Could not retrieve user IP.");
         } else {
-            console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
+            isUserIPBlacklisted = isIPBlacklisted(userIP);
+            if (isUserIPBlacklisted) {
+                console.warn("User IP is blacklisted.");
+            }
         }
+        initializeVerificationModal();
+    }
 
-        const apiKey = localStorage.getItem('blubase_api_key');
-        const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
-        const currentTime = new Date().getTime();
-
-        if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
-            console.log("Index.html: Valid API key found. Displaying content.");
-            document.documentElement.style.display = 'block';
-        } else {
-            console.log("Index.html: No valid API key found or key expired. Redirecting to verify.html.");
-            localStorage.removeItem('blubase_api_key'); 
-            localStorage.removeItem('blubase_api_key_expiry'); 
-            window.location.replace('/verify');
-        }
-    })();
+    checkUserAccess();
   </script>
-</head>
-<body>
+
   <div class="video-background">
     <video id="backgroundVideo" autoplay loop muted playsinline>
       <source src="assets/wallpaper.mp4" type="video/mp4">
@@ -713,234 +733,297 @@
     </video>
   </div>
 
-  <div id="loadingScreen">
-    <div class="loading-content">
-      <div id="loadingBarContainer">
-        <div id="loadingBar"></div>
+  <div id="verificationModal" class="verification-modal-overlay">
+    <div class="verification-modal-content scale-in">
+      <h2 id="verificationTitle">Account Verification Required</h2>
+      <p id="verificationInstruction">
+        To maintain the integrity of our database and prevent spam entries, we require a quick verification.
+      </p>
+      <p id="verificationNote" class="glowing-red-text">
+        A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
+      </p>
+      <div id="verificationSuccessMessage">
+        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        Verification Successful!
+        <br>
+
+        <div id="loadingContainerInModal" style="display: none;">
+            <div id="loadingBarContainer">
+                <div id="loadingBar"></div>
+            </div>
+            <div id="loadingText">Generating API Key- 0%</div> 
+
+        </div>
+        <div id="apiKeyDisplay"></div>
       </div>
-      <div id="loadingText">LOADING ASSETS: <span class="bold-green-percentage">0%</span></div>
-      <div id="loadingAssetText">Initializing...</div>
+      <button id="verifyButton">Verify Your IP</button>
+
     </div>
   </div>
 
-  <div id="mainContent">
-    <div class="announcement-banner">
-      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+  <div id="customMessageBox"></div>
+
+  <div id="clearMessagePopup" class="hidden">
+    <div>
+        Local storage cleared. You will be redirected to the verification page.
     </div>
-
-    <div class="container">
-      <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
-      <h1 class="motto">your no.1 bp pull db</h1>
-
-      <button id="bugLogButton" class="changelog-button bug-log-button-positioned">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
-          <style type="text/css">
-
-            .st0{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-          </style>
-          <path class="st0" d="M29,15h-5.1c-0.1-1.2-0.5-2.4-1-3.5c1.9-1.5,3.1-3.7,3.1-6.1V5c0-0.6-0.4-1-1-1s-1,0.4-1,1v0.4c0,1.8-0.8,3.4-2.2,4.5 C19.5,8.8,18.8,8.2,18.1,7.7c0-0.1,0-0.1,0-0.2c0-2.2-1.8-4-4-4s-4,1.8-4,4c0,0.1,0,0.1,0,0.2c-0.7,0.5-1.3,1-1.9,1.7 C8.8,8.8,8,7.2,8,5.4V5c0-0.6-0.4-1-1-1S6,4.4,6,5v0.4c0,2.4,1.1,4.7,3.1,6.1c-0.5,1-0.9,2.2-1,3.5H3c-0.6,0-1,0.4-1,1s0.4,1,1,1 h5.1c0.1,1.2,0.5,2.4,1,3.5C7.1,21.9,6,24.2,6,26.6V27c0,0.6,0.4,1,1,1s1-0.4,1-1v-0.4c0-1.8,0.8-3.4,2.2-4.5 c1.5,1.8,3.5,2.9,5.8,2.9s4.4-1.1,5.8-2.9c1.4,1.1,2.2,2.7,2.2,4.5V27c0,0.6,0.4,1,1,1s1-0.4,1-1v-0.4c0-2.4-1.1-4.7-3.1-6.1 c0.5-1,0.9-2.2,1-3.5H29c0.6,0,1-0.4,1-1S29.6,15,29,15z"></path>
-        </svg>
-      </button>
-
-      <div class="search-filter-section">
-        <div class="contributions-button-container">
-        <button id="contributionsButton" class="changelog-button" onclick="window.location.href='https://parsed.top/HAH'">Hall Of Helpers</button>
-        </div>
-        <div id="searchView"> <div class="search-bar-row">
-
-          <input type="search" id="search" placeholder="      ..." />
-
-            <div class="filter-dropdown">
-              <button id="toggleCategoryDropdown" type="button">
-                Filter Category <span id="categoryArrow">▼</span>
-              </button>
-              <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
-            </div>
-
-            <div class="filter-dropdown">
-               <button id="togglePoolDropdown" type="button">
-                 Filter Pool <span id="poolArrow">▼</span>
-               </button>
-               <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
-            </div>
-
-            <div class="filter-dropdown">
-              <button id="toggleStatusDropdown" type="button">
-                Filter Status <span id="statusArrow">▼</span>
-              </button>
-              <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="checkbox-controls">
-          <label for="imageCheckbox">
-            <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
-            Show All Previews
-          </label>
-          <button id="changelogButton" class="changelog-button">View Changelog</button>
-          <button id="howToUseButton" class="changelog-button">How To Use</button>
-          <button id="clearStorageButton" class="changelog-button">Clear Local Storage</button>
-        </div>
-
-        <div class="blueprint-counters">
-          <p>TOTAL Blueprints Displayed: <span id="totalBlueprints">0</span></p>
-          <p>RELEASED Blueprints: <span id="normalBlueprints">0</span></p>
-          <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
-          <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
-        </div>
-      </div> <table id="pullsTable">
-        <thead>
-          <tr>
-            <th data-key="Weapon">Weapon</th>
-            <th data-key="Category">Category</th>
-            <th data-key="Blueprint">Blueprint</th>
-            <th data-key="Pool">Pool</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div id="changelogModal" class="modal-overlay hidden">
-      <div class="modal-content">
-        <button class="modal-close-button" id="closeChangelogModal">&times;</button>
-        <h2>Changelog</h2>
-        <div id="changelogContent" class="changelog-entries">
-          </div>
-      </div>
-    </div>
-
-    <div id="howToUseModal" class="modal-overlay hidden">
-      <div class="modal-content">
-        <button class="modal-close-button" id="closeHowToUseModal">&times;</button>
-        <h2>How To Use</h2>
-        <div id="howToUseContent" class="how-to-sections">
-          <div class="how-to-tabs">
-            <button class="tab-button active" data-tab="explanation">Explanation</button>
-            <button class="tab-button" data-tab="zombies">Zombies</button>
-            <button class="tab-button" data-tab="multiplayer">MP/WZ</button>
-          </div>
-
-          <div id="explanation-content" class="tab-content active">
-            <ul>
-              <li>
-            <h3>Exploit Explanation</h3>
-                <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼�𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
-              </li>
-            </ul>
-          </div>
-
-          <div id="zombies-content" class="tab-content hidden">
-          <ul>
-            <li>
-            <h3>Zombies Exploit </h3>
-                <p>If you’re still unsure about how this exploit works or how to perform the pulling process, don’t worry — it will become clearer as you follow along.</p>
-                <p>First, it’s important to know that this exploit only works on PS5 and Xbox Series X/S, last-gen consoles and PC players do not have access to split-screen, so this won’t work for you. Also, Player 2 doesn’t need a leveled-up account, but having one makes the pulls easier. If Player 2 uses a fresh account, you may need to perform an extra glitch to equip locked weapons in your Zombies loadout.</p>
-                <p>Now, here’s how it works: start by launching Call of Duty and go into Zombies mode. Connect a second controller and sign in with your secondary profile. Set up Player 2’s loadout with the weapon you want to pull prints for (like the LADRA).
-                Then back out to the screen where you can edit your main loadouts—that will affect Controller 1’s loadouts. On your main account, equip the blueprint you want to use to pull the print. After that, back out to the main menu where you can select Multiplayer, Zombies, or Campaign.
-                With Controller 2, select Zombies mode. Finally, go back to Player 1’s main loadout, and you should see the print you were trying to pull, as long as you’ve followed everything correctly.</p>
-          </li>
-          </ul>
-          </div>
-
-          <div id="multiplayer-content" class="tab-content hidden">
-            <ul>
-              <li>
-                <h3>Setup Build Method</h3>
-                <p><strong>Working Universally through MP and WZ</strong></p>
-                <p>1. <strong>Make a Setup Gun</strong> (base of the gun you want to pull)<br>
-                   (create new -> delete build -> add att [Same As Receiver slots] -> name build Setup)</p>
-                <p>2. <strong>Find A Print</strong> you own <strong>in the same pool as</strong> the print you wanna pull, create new build and then fill the same att slots as the Setup.<br>
-                   (Optional: Rename to Receiver)</p>
-                <p>3. <strong>Equip the Receiver</strong> and then equip the Unowned Camo<br>
-                   (If you are using DB then this is the same just DB shotgun with only DB)<br>
-                   {RECOMMENDED: DUPE THE UNOWNED CAMO TO PREVENT WIPING!}</p>
-                <p>4. <strong>Kill yourself</strong> and then requip that Build (setup)</p>
-                <p>5. Finally equip the unowned camo again to save it<br>
-                   (or just equip a att 2x on build)</p>
-                <p class="red-announcement">PLEASE KEEP IN MIND IF YOU ARE IN A BROKEN STATE THEN IN ORDER TO SAVE BLUEPRINTS YOU MUST DELETE ANY BUILD AND THEN SAVE IT (THE SAME WAY THE CAMO SWAP SAVE WORKS)</p>
-                <ul>
-                  <li>keep it noted that prints are pulled in half's and currently there is not a way the pull the full prints in one method</li>
-                  <li>if you wish to get the full print you must find the right Receiver attachment combo that pulls the full print (likely hood 1/20 roughly)</li>
-                  <li>but it doesn't matter just throw a nice camo on and you'll be set!</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div id="bugLogModal" class="modal-overlay hidden">
-      <div class="modal-content">
-        <button class="modal-close-button" id="closeBugLogModal">&times;</button>
-        <h2>Bug Log</h2>
-        <div id="bugLogContent" class="changelog-entries">
-
-        </div>
-      </div>
-    </div>
-
-    <div id="clearStorageModal" class="modal-overlay hidden">
-      <div class="modal-content">
-        <button class="modal-close-button" id="closeClearStorageModal">&times;</button>
-        <h2>Clear Local Storage</h2>
-        <p class="small-dark-red-glowing-text">thank you for using parsed.top made by parse
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px;">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                <line x1="15" y1="9" x2="15.01" y2="9"></line>
-            </svg>
-        </p>
-        <p class="glowing-green-text">if you clear your LocalStorage items you will have to reverify your IP. Do you wish to continue?</p>
-        <div class="modal-buttons">
-          <button id="confirmClearStorageBtn" class="changelog-button">Yes, Clear</button>
-          <button id="cancelClearStorageBtn" class="changelog-button">No, Cancel</button>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <script src="load.js"></script>
-  <script src="script.js"></script>
+  <div id="apiKeyPopupOverlay">
+    <div id="apiKeyPopupContent">
+        <h3>Verification Aftermath</h3>
+        <p><strong>IP:</strong> <span id="popupUserIp"></span></p>
+        <p><strong>API Key:</strong> <span id="popupApiKey"></span></p>
+        <p><strong>Valid Until:</strong> <span id="popupApiKeyExpiry"></span></p>
+        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION - FOR EVERYONE</span></p>
+        <p><strong>IP Blacklist Status:</strong> <span id="popupBlacklistStatus"></span></p>
+        <p><strong>Generation Log:</strong></p>
+        <div id="popupGenerationLog" class="generation-log-container"></div>
+        <button id="apiKeyPopupButton">Proceed to Home</button>
+    </div>
+  </div>
+
   <script>
-    window.addEventListener('load', () => {
-      if (window.va && typeof window.va.track === 'function') {
-      } else {
-      }
+    const verificationModal = document.getElementById('verificationModal');
+    const verifyButton = document.getElementById('verifyButton');
 
-      const searchInput = document.getElementById('search');
-      let storedValue = '';
+    const verificationTitle = document.getElementById('verificationTitle');
+    const verificationInstruction = document.getElementById('verificationInstruction');
+    const verificationNote = document.getElementById('verificationNote');
+    const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
+    const loadingContainerInModal = document.getElementById('loadingContainerInModal');
+    const loadingBar = document.getElementById('loadingBar');
+    const loadingText = document.getElementById('loadingText'); 
+    const apiKeyDisplay = document.getElementById('apiKeyDisplay');
 
-      if (searchInput) {
+    const customMessageBox = document.getElementById('customMessageBox');
+    const clearMessagePopup = document.getElementById('clearMessagePopup');
 
-        searchInput.addEventListener('blur', function() {
-          storedValue = this.value;
-        });
+    const apiKeyPopupOverlay = document.getElementById('apiKeyPopupOverlay');
+    const popupUserIp = document.getElementById('popupUserIp');
+    const popupApiKey = document.getElementById('popupApiKey');
+    const popupApiKeyExpiry = document.getElementById('popupApiKeyExpiry');
+    const popupApiLoginStatus = document.getElementById('popupApiLoginStatus');
+    const popupBlacklistStatus = document.getElementById('popupBlacklistStatus');
+    const popupGenerationLog = document.getElementById('popupGenerationLog');
+    const apiKeyPopupButton = document.getElementById('apiKeyPopupButton');
 
-        searchInput.addEventListener('focus', function() {
-          this.value = storedValue;
-        });
-      }
+    let verificationWindow = null;
+    let generationLogMessages = []; 
+    let capturedUserIP = "N/A"; 
 
-      document.getElementById('confirmClearStorageBtn').addEventListener('click', () => {
+    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; 
+
+    function setCookie(name, value, ms) {
+        const expires = new Date(Date.now() + ms).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    }
+
+    function initializeVerificationModal() {
+      const apiKey = localStorage.getItem('blubase_api_key');
+      const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+      const currentTime = new Date().getTime();
+
+      if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
+        console.log("User has a valid API key. Redirecting to home.");
+        window.location.href = '/home';
+        return;
+      } else if (apiKey || apiKeyExpiry) {
+        console.log("Expired API key found. Clearing local storage.");
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
+      }
 
-        document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.body.classList.add('modal-open');
+      verificationTitle.style.display = 'block';
+      verificationInstruction.style.display = 'block';
+      verificationNote.style.display = 'block';
+      verifyButton.style.display = 'inline-block';
+      verificationSuccessMessage.style.display = 'none';
+      apiKeyDisplay.style.display = 'none';
+      loadingContainerInModal.style.display = 'none';
+      verifyButton.disabled = false;
+    }
 
-        document.getElementById('clearStorageModal').classList.add('hidden');
-        document.getElementById('clearMessagePopup').classList.remove('hidden');
+    async function simulateApiKeyGeneration() {
+        generationLogMessages = []; 
 
-        setTimeout(() => {
-          window.location.replace('/verify');
-        }, 2000); 
-      });
+        loadingContainerInModal.style.display = 'flex';
+        loadingContainerInModal.style.opacity = '1';
+
+        let currentProgress = 0;
+        const updateProgressBar = (percentage) => {
+            currentProgress = percentage;
+            loadingBar.style.width = `${percentage}%`;
+            loadingText.textContent = `Generating API Key- ${Math.floor(percentage)}%`; 
+        };
+
+        const addLogMessage = (message) => {
+            const timestamp = new Date().toLocaleTimeString();
+            const fullMessage = `[${timestamp}] ${message}`;
+            generationLogMessages.push(fullMessage);
+
+        };
+
+        let ipBlacklistStatus = "UNKNOWN"; 
+
+        addLogMessage("Initiating security checks - ");
+        updateProgressBar(5);
+        await delay(300);
+
+        const ipCheckStartTime = performance.now();
+        addLogMessage("Fetching user IP address - ");
+        const userIP = await getUserIP();
+        const ipCheckDuration = (performance.now() - ipCheckStartTime).toFixed(2);
+
+        if (userIP) {
+            capturedUserIP = userIP; 
+            addLogMessage(`User IP: ${userIP} (fetched in ${ipCheckDuration}ms) - `);
+            updateProgressBar(20);
+            await delay(500);
+
+            const blacklistCheckStartTime = performance.now();
+            addLogMessage("Checking IP against blacklist database - ");
+            const isBlacklisted = isIPBlacklisted(userIP);
+            const blacklistCheckDuration = (performance.now() - blacklistCheckStartTime).toFixed(2);
+
+            if (isBlacklisted) {
+                addLogMessage(`IP Blacklist Status: BLOCKED! (check in ${blacklistCheckDuration}ms) - `);
+                ipBlacklistStatus = "BLOCKED";
+            } else {
+                addLogMessage(`IP Blacklist Status: CLEAN (check in ${blacklistCheckDuration}ms) - `);
+                ipBlacklistStatus = "CLEAN";
+            }
+            updateProgressBar(40);
+            await delay(500);
+        } else {
+            addLogMessage("Failed to retrieve user IP. Proceeding with caution - ");
+            ipBlacklistStatus = "FAILED TO RETRIEVE";
+            capturedUserIP = "N/A - Failed to retrieve";
+            updateProgressBar(40); 
+            await delay(500);
+        }
+        addLogMessage("Security checks complete - ");
+        await delay(300);
+
+        addLogMessage("Beginning API Key generation process - ");
+        const generationStartTime = performance.now();
+        updateProgressBar(45);
+        await delay(300);
+
+        const generationSteps = [
+            { msg: "Establishing secure connection to key server", progress: 60 },
+            { msg: "Authenticating session for key request", progress: 75 },
+            { msg: "Processing unique identifier for key creation", progress: 85 },
+            { msg: "Encrypting and finalizing key data", progress: 95 }
+        ];
+
+        for (const step of generationSteps) {
+            addLogMessage(step.msg + " - ");
+            updateProgressBar(step.progress);
+            await delay(700); 
+        }
+
+        updateProgressBar(100);
+        loadingText.textContent = 'API Key Generated!'; 
+        addLogMessage('Finalizing and Redirecting - ');
+
+        const generationDuration = (performance.now() - generationStartTime).toFixed(2);
+        addLogMessage(`API Key generation completed in ${generationDuration}ms - `);
+        await delay(300);
+
+        const newApiKey = crypto.randomUUID();
+        const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
+        const expiryDate = new Date(expiryTime);
+
+        localStorage.setItem('blubase_api_key', newApiKey);
+        localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
+
+        addLogMessage(`Generated API Key: ${newApiKey} - `);
+        addLogMessage("API key successfully stored in local storage - ");
+        await delay(500);
+
+        verificationModal.style.display = 'none';
+
+        popupUserIp.textContent = capturedUserIP; 
+        popupApiKey.textContent = newApiKey;
+
+        const options = {
+            month: 'numeric',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true,
+            timeZoneName: 'short', 
+            timeZone: 'America/Denver' 
+        };
+        popupApiKeyExpiry.textContent = expiryDate.toLocaleString('en-US', options);
+
+        popupBlacklistStatus.textContent = ipBlacklistStatus;
+        popupBlacklistStatus.className = `status-${ipBlacklistStatus.toLowerCase().replace(/\s/g, '-')}`; 
+
+        popupGenerationLog.innerHTML = generationLogMessages.join('<br>');
+
+        apiKeyPopupOverlay.classList.add('show'); 
+
+        apiKeyPopupButton.onclick = () => {
+            window.location.href = '/home';
+        };
+    }
+
+    function handleVerificationSuccess() {
+
+        verifyButton.disabled = true;
+        verificationTitle.style.display = 'none';
+        verificationInstruction.style.display = 'none';
+        verificationNote.style.display = 'none';
+        verifyButton.style.display = 'none';
+
+        verificationSuccessMessage.style.display = 'block';
+
+        simulateApiKeyGeneration(); 
+    }
+
+    verifyButton.addEventListener('click', () => {
+      console.log("Verify button clicked!"); 
+
+      if (isUserIPBlacklisted) {
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+        setCookie('blubase_verified', '', -1);
+        window.location.replace('/blocked');
+        return;
+      }
+
+      if (window.checkWindowClosedInterval) {
+        clearInterval(window.checkWindowClosedInterval);
+        console.log("Cleared existing checkWindowClosedInterval."); 
+      }
+
+      verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+      console.log("Verification window opened. Reference:", verificationWindow); 
+
+      if (!verificationWindow || verificationWindow.closed || typeof verificationWindow.closed === 'undefined') {
+
+          customMessageBox.textContent = "Pop-up blocked or failed to open! Please allow pop-ups for this site.";
+          customMessageBox.style.display = 'block';
+          setTimeout(() => {
+            customMessageBox.style.display = 'none';
+          }, 3000);
+          console.error("Pop-up window was blocked or failed to open.");
+          return; 
+      }
+
+      window.checkWindowClosedInterval = setInterval(() => {
+
+        if (verificationWindow && verificationWindow.closed) {
+          clearInterval(window.checkWindowClosedInterval);
+          console.log("Verification window closed. Calling handleVerificationSuccess."); 
+          handleVerificationSuccess();
+        }
+      }, 1000);
     });
   </script>
 </body>

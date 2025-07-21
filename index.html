@@ -29,9 +29,9 @@
   <style>
 
     ::-webkit-scrollbar {
-      width: 0px; 
-      height: 0px; 
-      background: transparent; 
+      width: 0px;
+      height: 0px;
+      background: transparent;
     }
 
     ::-webkit-scrollbar-track {
@@ -43,7 +43,7 @@
     }
 
     html {
-      scrollbar-width: none; 
+      scrollbar-width: none;
     }
     body {
       background-color: #0B1738;
@@ -314,21 +314,21 @@
 
     .bug-log-button-positioned {
         position: absolute;
-        top: 25px; 
-        right: 25px; 
-        z-index: 10; 
+        top: 25px;
+        right: 25px;
+        z-index: 10;
 
-        width: 40px; 
-        height: 40px; 
-        padding: 0; 
+        width: 40px;
+        height: 40px;
+        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%; 
-        background: none; 
-        border: 2px solid #2C487C; 
-        color: #D0D8E8; 
-        box-shadow: none; 
+        border-radius: 50%;
+        background: none;
+        border: 2px solid #2C487C;
+        color: #D0D8E8;
+        box-shadow: none;
     }
     .bug-log-button-positioned:hover {
         background: none;
@@ -340,11 +340,11 @@
     }
 
     .bug-log-button-positioned svg {
-        width: 24px; 
-        height: 24px; 
+        width: 24px;
+        height: 24px;
 
         stroke: currentColor;
-        fill: none; 
+        fill: none;
     }
 
     @media (max-width: 768px) {
@@ -524,26 +524,26 @@
     }
 
     #clearStorageModal .modal-content {
-      padding: 78px; 
-      border-radius: 12px; 
+      padding: 78px;
+      border-radius: 12px;
       background: rgba(11, 23, 56, 0.85);
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(44, 72, 124, 0.6);
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     #clearStorageModal .modal-content h2 {
-      text-align: center; 
-      font-family: 'Oswald', sans-serif; 
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
 
       background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      color: transparent; 
-      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7); 
+      color: transparent;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
       letter-spacing: 1px;
       font-size: 2em;
       margin-top: 0;
@@ -554,18 +554,18 @@
     }
 
     #clearStorageModal .modal-content p {
-      text-align: center; 
-      color: #CCE0F0; 
-      font-size: 0.95em; 
-      margin-top: 15px; 
-      margin-bottom: 25px; 
+      text-align: center;
+      color: #CCE0F0;
+      font-size: 0.95em;
+      margin-top: 15px;
+      margin-bottom: 25px;
       font-weight: bold;
     }
 
     #clearStorageModal .modal-buttons {
       display: flex;
-      justify-content: center; 
-      gap: 10px; 
+      justify-content: center;
+      gap: 10px;
       margin-top: 20px;
     }
 
@@ -574,7 +574,7 @@
         padding: 8px 15px;
         font-size: 0.85em;
         border-radius: 6px;
-        max-width: 200px; 
+        max-width: 200px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         font-weight: bold;
@@ -583,16 +583,16 @@
     @media (max-width: 480px) {
         #clearStorageModal .modal-buttons {
             flex-direction: column;
-            align-items: center; 
-            width: 100%; 
+            align-items: center;
+            width: 100%;
 
         }
     }
 
     .small-dark-red-glowing-text {
-      font-size: 0.75em; 
-      color: #CC0000; 
-      text-shadow: 0 0 5px rgba(204, 0, 0, 0.7); 
+      font-size: 0.75em;
+      color: #CC0000;
+      text-shadow: 0 0 5px rgba(204, 0, 0, 0.7);
       font-weight: bold;
       margin-bottom: 5px;
     }
@@ -600,7 +600,7 @@
     .glowing-green-text {
         color: #00FF00;
         text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
-        font-size: 0.95em; 
+        font-size: 0.95em;
         font-weight: bold;
     }
 
@@ -673,35 +673,50 @@
         return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
     }
 
+    function checkAPIKeyAndRedirect(isInitialCheck) {
+        const apiKey = localStorage.getItem('blubase_api_key');
+        const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+        const currentTime = new Date().getTime();
+
+        const isKeyInvalidOrExpired = !apiKey || !apiKeyExpiry || isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry);
+
+        if (isKeyInvalidOrExpired) {
+            console.log("Index.html: API key invalid or expired.");
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+
+            if (isInitialCheck) {
+                console.log("Index.html: Initial load, no valid API key found. Redirecting to /verify.");
+                window.location.replace('/verify');
+            } else {
+                console.log("Index.html: API key expired during runtime. Redirecting to endkey.html.");
+                window.location.replace('/endkey.html');
+            }
+        } else {
+            console.log("Index.html: Valid API key found. Displaying content.");
+            document.documentElement.style.display = 'block';
+        }
+    }
+
     (async () => {
         const userIP = await getUserIP();
         console.log("Index.html: User IP detected:", userIP);
 
         if (userIP && isIPBlacklisted(userIP)) {
             console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
-            localStorage.removeItem('blubase_api_key'); 
-            localStorage.removeItem('blubase_api_key_expiry'); 
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
             window.location.replace('/blocked');
-            return;
+            return; 
         } else if (userIP) {
             console.log("Index.html: User IP not blacklisted.");
         } else {
             console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
         }
 
-        const apiKey = localStorage.getItem('blubase_api_key');
-        const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
-        const currentTime = new Date().getTime();
+        checkAPIKeyAndRedirect(true);
 
-        if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
-            console.log("Index.html: Valid API key found. Displaying content.");
-            document.documentElement.style.display = 'block';
-        } else {
-            console.log("Index.html: No valid API key found or key expired. Redirecting to verify.html.");
-            localStorage.removeItem('blubase_api_key'); 
-            localStorage.removeItem('blubase_api_key_expiry'); 
-            window.location.replace('/verify');
-        }
+        setInterval(() => checkAPIKeyAndRedirect(false), 17000); 
     })();
   </script>
 </head>
@@ -827,7 +842,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼�𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -872,7 +887,6 @@
         </div>
       </div>
     </div>
-
 
     <div id="bugLogModal" class="modal-overlay hidden">
       <div class="modal-content">
@@ -938,8 +952,8 @@
         document.getElementById('clearMessagePopup').classList.remove('hidden');
 
         setTimeout(() => {
-          window.location.replace('/verify');
-        }, 2000); 
+          window.location.replace('/endkey'); 
+        }, 2000);
       });
     });
   </script>
