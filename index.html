@@ -531,7 +531,6 @@
       border-top-right-radius: 30px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(44, 72, 124, 0.6);
-      /* Added to remove scrollbar */
       overflow: hidden; 
     }
 
@@ -680,22 +679,28 @@
 
         if (userIP && isIPBlacklisted(userIP)) {
             console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
-            localStorage.removeItem('blubase_verified');
+            localStorage.removeItem('blubase_api_key'); 
+            localStorage.removeItem('blubase_api_key_expiry'); 
             window.location.replace('/blocked');
             return;
         } else if (userIP) {
             console.log("Index.html: User IP not blacklisted.");
         } else {
             console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
-
         }
 
-        if (localStorage.getItem('blubase_verified') !== 'true') {
-            console.log("Index.html: User not verified. Redirecting to verf.html.");
-            window.location.replace('/verify');
-        } else {
-            console.log("Index.html: User verified. Displaying content.");
+        const apiKey = localStorage.getItem('blubase_api_key');
+        const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+        const currentTime = new Date().getTime();
+
+        if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
+            console.log("Index.html: Valid API key found. Displaying content.");
             document.documentElement.style.display = 'block';
+        } else {
+            console.log("Index.html: No valid API key found or key expired. Redirecting to verify.html.");
+            localStorage.removeItem('blubase_api_key'); 
+            localStorage.removeItem('blubase_api_key_expiry'); 
+            window.location.replace('/verify');
         }
     })();
   </script>
@@ -823,7 +828,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼�𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -924,6 +929,20 @@
           this.value = storedValue;
         });
       }
+
+      document.getElementById('confirmClearStorageBtn').addEventListener('click', () => {
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+
+        document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+        document.getElementById('clearStorageModal').classList.add('hidden');
+        document.getElementById('clearMessagePopup').classList.remove('hidden');
+
+        setTimeout(() => {
+          window.location.replace('/verify');
+        }, 2000); 
+      });
     });
   </script>
 </body>
