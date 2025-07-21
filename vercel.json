@@ -4,21 +4,6 @@
     {
       "source": "/HAH",
       "destination": "/helpers/helpers.html"
-    },
-    {
-      "source": "/index.html",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "cookie",
-          "key": "blubase_verified",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/verf.html"
     }
   ]
 }
