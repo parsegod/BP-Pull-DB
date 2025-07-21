@@ -8,6 +8,10 @@
       "source": "/blocked",
       "destination": "/blocked.html"
     },
+        {
+      "source": "/endkey",
+      "destination": "/endkey.html"
+    },
     {
       "source": "/home",
       "destination": "/index.html",
@@ -19,8 +23,8 @@
         }
       ]
     },
-    {
-      "source": "/verify",
+     {
+      "source": "/(.*)",
       "destination": "/verify.html"
     },
     {

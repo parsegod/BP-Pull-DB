@@ -34,13 +34,14 @@
         overflow: hidden;
     }
 
+    /* Styles for the loading elements when they are inside the modal */
     #loadingContainerInModal {
-        display: flex; 
+        display: flex; /* Use flexbox for layout */
         flex-direction: column;
         align-items: center;
         width: 100%;
-        margin-top: 20px; 
-        transition: opacity 0.5s ease-out; 
+        margin-top: 20px; /* Space from success message */
+        transition: opacity 0.5s ease-out; /* For fading out */
     }
 
     #loadingBarContainer {
@@ -54,24 +55,26 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
       margin-left: auto;
       margin-right: auto;
-      border: 1px solid #7CA0E0; 
+      border: 1px solid #7CA0E0; /* Added border for definition */
     }
 
     #loadingBar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #7CA0E0, #A0C0E8); 
+      background: linear-gradient(90deg, #7CA0E0, #A0C0E8); /* Gradient for better look */
       border-radius: 10px;
       transition: width 0.3s ease-out;
-      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7); 
+      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7); /* Subtle glow */
     }
 
-    #loadingText { 
+    #loadingText { /* Styles for loadingText */
       margin-top: 10px;
       font-weight: bold;
-      font-size: 1.1em; 
+      font-size: 1.1em; /* Slightly larger */
       color: #A0C0E8;
     }
+
+    /* #loadingAssetText is removed as per user request */
 
     .video-background {
       position: fixed;
@@ -116,7 +119,7 @@
       background: rgba(11, 23, 56, 0.95);
       color: #E0E8F0;
       font-family: 'Oswald', sans-serif;
-      padding: 40px 25px; 
+      padding: 40px 25px; /* Adjusted padding */
       border-radius: 0;
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
@@ -131,13 +134,13 @@
       transition: transform 0.3s ease-out;
       position: relative;
       margin: auto;
-      min-height: auto; 
-
+      min-height: auto; /* Changed to auto */
+      /* padding-top: 250px; REMOVED */
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; 
+      justify-content: center; /* Changed to center */
     }
 
     .verification-modal-content.scale-in {
@@ -220,13 +223,13 @@
         font-size: 1em;
         color: #BCC7D8;
         margin-top: 15px;
-        word-break: break-all; 
+        word-break: break-all; /* Ensures long keys wrap */
         text-align: center;
         background-color: rgba(0, 0, 0, 0.2);
         padding: 10px;
         border-radius: 5px;
         border: 1px solid rgba(44, 72, 124, 0.6);
-        display: none; 
+        display: none; /* Hidden by default */
     }
 
     @keyframes fadeInScale {
@@ -332,13 +335,14 @@
       text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
     }
 
+    /* New styles for the API Key popup */
     #apiKeyPopupOverlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: transparent; 
+        background-color: transparent; /* Changed to transparent */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -354,33 +358,33 @@
     }
 
     #apiKeyPopupContent {
-        background: rgba(11, 23, 56, 0.95); 
+        background: rgba(11, 23, 56, 0.95); /* Changed to match verification-modal-content background */
         color: #E0E8F0;
-        font-family: 'Oswald', sans-serif; 
-        padding: 40px 25px; 
+        font-family: 'Oswald', sans-serif; /* Changed to match verification-modal-content font */
+        padding: 40px 25px; /* Adjusted padding to match verification-modal-content */
         border-radius: 0;
-        border-top-left-radius: 30px; 
-        border-top-right-radius: 30px; 
+        border-top-left-radius: 30px; /* Changed to match verification-modal-content border-radius */
+        border-top-right-radius: 30px; /* Changed to match verification-modal-content border-radius */
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         text-align: center;
-        width: calc(95% - 20px); 
-        max-width: 855px; 
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
-        border: 1px solid rgba(44, 72, 124, 0.6); 
+        width: calc(95% - 20px); /* Changed to match verification-modal-content width */
+        max-width: 855px; /* Changed to match verification-modal-content max-width */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Changed to match verification-modal-content box-shadow */
+        border: 1px solid rgba(44, 72, 124, 0.6); /* Changed to match verification-modal-content border */
         transform: scale(1);
-        opacity: 0; 
+        opacity: 0; /* Keep initial opacity for animation */
         transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        position: relative; 
-        margin: auto; 
-        min-height: auto; 
-
+        position: relative; /* Changed to match verification-modal-content position */
+        margin: auto; /* Changed to match verification-modal-content margin */
+        min-height: auto; /* Changed to auto to allow content to dictate height */
+        /* padding-top: 250px; REMOVED to allow content to dictate vertical positioning */
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center; 
-        zoom: 0.85; 
+        justify-content: center; /* Changed to center for vertical alignment */
+        zoom: 0.85; /* Added zoom to match the main container */
     }
 
     #apiKeyPopupOverlay.show #apiKeyPopupContent {
@@ -391,17 +395,17 @@
     #apiKeyPopupContent h3 {
         font-family: 'Oswald', sans-serif;
         font-size: 1.8em;
-        margin-top: 0; 
-        margin-bottom: 10px; 
+        margin-top: 0; /* Set margin-top to 0 to bring it closer to the top */
+        margin-bottom: 10px; /* Reduced margin-bottom */
         color: #A0C0E8;
     }
 
     #apiKeyPopupContent p {
-        font-family: 'Open Sans', sans-serif; 
-        font-size: 1.1em; 
-        margin-bottom: 5px; 
-        line-height: 1.6; 
-        color: #CAD8E8; 
+        font-family: 'Open Sans', sans-serif; /* Added to match other p tags */
+        font-size: 1.1em; /* Adjusted to match other p tags */
+        margin-bottom: 5px; /* Reduced margin-bottom to make elements closer */
+        line-height: 1.6; /* Added to match other p tags */
+        color: #CAD8E8; /* Added to match other p tags */
         word-break: break-all;
     }
 
@@ -410,22 +414,22 @@
     }
 
     #apiKeyPopupContent .status-clean {
-        color: #66BB6A; 
+        color: #66BB6A; /* Green for clean */
         font-weight: bold;
     }
 
     #apiKeyPopupContent .status-blocked {
-        color: #EF5350; 
+        color: #EF5350; /* Red for blocked */
         font-weight: bold;
     }
 
     #apiKeyPopupContent .status-no-permission {
-        color: #EF5350; 
+        color: #EF5350; /* Red for no permission */
         font-weight: bold;
     }
 
     #apiKeyPopupContent .status-granted {
-        color: #66BB6A; 
+        color: #66BB6A; /* Green for granted */
         font-weight: bold;
     }
 
@@ -433,7 +437,7 @@
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         padding: 10px;
-        margin-top: 10px; 
+        margin-top: 10px; /* Reduced margin-top */
         max-height: 150px;
         overflow-y: auto;
         text-align: left;
@@ -441,6 +445,7 @@
         border: 1px solid rgba(124, 160, 224, 0.2);
     }
 
+    /* Hide scrollbar for WebKit browsers (Chrome, Safari, iOS) */
     #apiKeyPopupContent .generation-log-container::-webkit-scrollbar {
         width: 0px;
         background: transparent;
@@ -449,22 +454,23 @@
         background: transparent;
     }
 
+    /* Hide scrollbar for Firefox */
     #apiKeyPopupContent .generation-log-container {
-        scrollbar-width: none; 
+        scrollbar-width: none; /* Firefox */
     }
 
     #apiKeyPopupButton {
         background: linear-gradient(180deg, #6CACE4, #4A8CD4);
         color: #0B1738;
         border: none;
-        padding: 16px 35px; 
-        border-radius: 10px; 
-        font-size: 1.3em; 
+        padding: 16px 35px; /* Changed to match verification-modal-content button padding */
+        border-radius: 10px; /* Changed to match verification-modal-content button border-radius */
+        font-size: 1.3em; /* Changed to match verification-modal-content button font-size */
         cursor: pointer;
         transition: all 0.3s ease;
         margin-top: 20px;
         font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Changed to match verification-modal-content button box-shadow */
     }
 
     #apiKeyPopupButton:hover {
@@ -555,36 +561,37 @@
             font-size: 1.1em;
         }
 
+        /* Responsive for new API Key popup */
         #apiKeyPopupContent {
-            padding: 10px; 
-            width: 96%; 
-            max-width: none; 
-            min-height: 40vh; 
-            border-radius: 0; 
-            border-top-left-radius: 25px; 
-            border-top-right-radius: 25px; 
-            position: static; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            margin: auto; 
-            padding-top: 10px; 
-            zoom: 1; 
+            padding: 10px; /* Adjusted to match verification-modal-content padding */
+            width: 96%; /* Adjusted to match verification-modal-content width */
+            max-width: none; /* Adjusted to match verification-modal-content max-width */
+            min-height: 40vh; /* Adjusted to match verification-modal-content min-height */
+            border-radius: 0; /* Adjusted to match verification-modal-content border-radius */
+            border-top-left-radius: 25px; /* Adjusted to match verification-modal-content border-radius */
+            border-top-right-radius: 25px; /* Adjusted to match verification-modal-content border-radius */
+            position: static; /* Adjusted to match verification-modal-content position */
+            display: flex; /* Adjusted to match verification-modal-content display */
+            flex-direction: column; /* Adjusted to match verification-modal-content flex-direction */
+            align-items: center; /* Adjusted to match verification-modal-content align-items */
+            justify-content: center; /* Adjusted to match verification-modal-content justify-content */
+            margin: auto; /* Adjusted to match verification-modal-content margin */
+            padding-top: 10px; /* Adjusted padding-top for mobile to be consistent */
+            zoom: 1; /* Reset zoom for mobile */
         }
         #apiKeyPopupContent h3 {
-            font-size: clamp(1.8em, 5vw, 2.2em); 
-            margin-bottom: 1.5vh; 
-            margin-top: 0; 
+            font-size: clamp(1.8em, 5vw, 2.2em); /* Adjusted to match verification-modal-content h2 font-size */
+            margin-bottom: 1.5vh; /* Adjusted to match verification-modal-content h2 margin-bottom */
+            margin-top: 0; /* Ensure it's at the top */
         }
         #apiKeyPopupContent p {
-            font-size: clamp(0.9em, 3.5vw, 1.1em); 
-            margin-bottom: 0.5vh; 
+            font-size: clamp(0.9em, 3.5vw, 1.1em); /* Adjusted to match verification-modal-content p font-size */
+            margin-bottom: 0.5vh; /* Adjusted to match verification-modal-content p margin-bottom */
         }
         #apiKeyPopupButton {
-            padding: 1.5vh 3vw; 
-            font-size: clamp(1em, 4vw, 1.2em); 
-            margin: 1.5vh auto; 
+            padding: 1.5vh 3vw; /* Adjusted to match verification-modal-content button padding */
+            font-size: clamp(1em, 4vw, 1.2em); /* Adjusted to match verification-modal-content button font-size */
+            margin: 1.5vh auto; /* Adjusted to match verification-modal-content button margin */
         }
     }
 
@@ -600,7 +607,7 @@
         }
 
         .logo-verf {
-            position: static; 
+            position: static; /* Ensure it's static for smaller screens if it was absolute */
             margin-bottom: 2vh;
             width: clamp(70px, 20vw, 120px);
             top: auto;
@@ -608,7 +615,7 @@
             transform: none;
         }
         .motto-verf {
-            position: static; 
+            position: static; /* Ensure it's static for smaller screens if it was absolute */
             font-size: clamp(0.8em, 3.5vw, 1.2em);
             margin-bottom: 2.5vh;
             top: auto;
@@ -654,10 +661,11 @@
             font-size: 1em;
         }
 
+        /* Responsive for new API Key popup */
         #apiKeyPopupContent {
-            border-top-left-radius: 20px; 
-            border-top-right-radius: 20px; 
-            padding-top: 10px; 
+            border-top-left-radius: 20px; /* Apply top-left radius */
+            border-top-right-radius: 20px; /* Apply top-right radius */
+            padding-top: 10px; /* Consistent padding-top for all mobile */
         }
     }
   </style>
@@ -670,6 +678,11 @@
 
     let isUserIPBlacklisted = false;
 
+    /**
+     * Helper function to introduce a delay.
+     * @param {number} ms - The delay in milliseconds.
+     * @returns {Promise<void>} A promise that resolves after the delay.
+     */
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     function decodeBase64(encodedString) {
@@ -733,13 +746,14 @@
         <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         Verification Successful!
         <br>
+
         <div id="loadingContainerInModal" style="display: none;">
             <div id="loadingBarContainer">
                 <div id="loadingBar"></div>
             </div>
             <div id="loadingText">Generating API Key- 0%</div> 
 
-          </div>
+        </div>
         <div id="apiKeyDisplay"></div>
       </div>
       <button id="verifyButton">Verify Your IP</button>
@@ -761,7 +775,7 @@
         <p><strong>IP:</strong> <span id="popupUserIp"></span></p>
         <p><strong>API Key:</strong> <span id="popupApiKey"></span></p>
         <p><strong>Valid Until:</strong> <span id="popupApiKeyExpiry"></span></p>
-        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission"> NO PERMISSION</span></p>
+        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION - FOR EVERYONE</span></p>
         <p><strong>IP Blacklist Status:</strong> <span id="popupBlacklistStatus"></span></p>
         <p><strong>Generation Log:</strong></p>
         <div id="popupGenerationLog" class="generation-log-container"></div>
@@ -979,7 +993,7 @@
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
         setCookie('blubase_verified', '', -1);
-        window.location.replace('blocked.html');
+        window.location.replace('/blocked');
         return;
       }
 
