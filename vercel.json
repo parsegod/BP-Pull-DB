@@ -4,33 +4,12 @@
       "source": "/HAH",
       "destination": "/helpers/helpers.html"
     },
+
     {
-      "source": "/index.html",
-      "destination": "/home",
-      "statusCode": 308
+      "source": "/blocked",
+      "destination": "/blocked.html"
     },
-    {
-      "source": "/verify.html",
-      "destination": "/verify",
-      "statusCode": 308
-    },
-    {
-      "source": "/",
-      "destination": "/home",
-      "statusCode": 308,
-      "has": [
-        {
-          "type": "cookie",
-          "key": "blubase_verified",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "source": "/",
-      "destination": "/verify",
-      "statusCode": 308
-    },
+
     {
       "source": "/home",
       "destination": "/index.html",
@@ -42,14 +21,13 @@
         }
       ]
     },
+
     {
       "source": "/verify",
       "destination": "/verify.html"
     },
-    {
-      "source": "/blocked",
-      "destination": "/blocked.html"
-    },
+
+
     {
       "source": "/(.*)",
       "destination": "/index.html",
@@ -61,6 +39,7 @@
         }
       ]
     },
+  
     {
       "source": "/(.*)",
       "destination": "/verify.html"
