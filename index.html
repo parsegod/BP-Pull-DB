@@ -15,7 +15,7 @@
   <meta property="og:title" content="Blu Base" />
   <meta property="og:description" content="your no.1 bp pull db!" />
   <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
-  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:url" content="https://parsed.top/BP-Pull-DB/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Blu Base" />
 
@@ -48,7 +48,7 @@
     body {
       background-color: #0B1738;
       margin: 0;
-      overflow: hidden;
+      overflow: hidden; 
     }
 
     #loadingScreen {
@@ -69,7 +69,7 @@
       opacity: 1;
       visibility: visible;
       transition: opacity 1s ease-out, visibility 1s ease-out;
-      overflow: hidden;
+      overflow: hidden; 
     }
 
     .loading-content {
@@ -262,11 +262,11 @@
       max-width: 900px;
       min-width: 320px;
       margin: 20px auto 20px auto;
-      padding: 25px;
+      padding: 25px; 
       background: rgba(11, 23, 56, 0.95);
       border-radius: 0;
-      border-top-left-radius: 30px;
-      border-top-right-radius: 30px;
+      border-top-left-radius: 30px; 
+      border-top-right-radius: 30px; 
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(44, 72, 124, 0.6);
       position: relative;
@@ -417,13 +417,11 @@
 
         .container {
             width: 96%;
-            padding: 10px;
+
             padding-top: 180px;
             margin: 10px auto;
             zoom: 1;
-            border-radius: 0;
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
+
         }
         .logo {
             width: 120px;
@@ -503,13 +501,11 @@
 
         .container {
             width: 96%;
-            padding: 10px;
+
             padding-top: 180px;
             margin: 10px auto;
             zoom: 1;
-            border-radius: 0;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+
         }
         .logo {
             width: 120px;
@@ -549,7 +545,6 @@
       margin-bottom: 20px;
       text-transform: uppercase;
       font-weight: bold;
-
     }
 
     #clearStorageModal .modal-content p {
@@ -584,7 +579,6 @@
             flex-direction: column;
             align-items: center; 
             width: 100%; 
-
         }
     }
 
@@ -637,66 +631,6 @@
       font-weight: bold;
     }
   </style>
-  <script>
-
-    document.documentElement.style.display = 'none';
-
-    const blacklistedIPsEncoded = [
-      ""
-    ];
-
-    function decodeBase64(encodedString) {
-        try {
-            return atob(encodedString);
-        } catch (e) {
-            console.error("Base64 decoding error:", e);
-            return "";
-        }
-    }
-
-    async function getUserIP() {
-        try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            return data.ip;
-        } catch (error) {
-            console.error("Error fetching IP address:", error);
-            return null;
-        }
-    }
-
-    function isIPBlacklisted(ip) {
-        return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
-    }
-
-    (async () => {
-        const userIP = await getUserIP();
-        console.log("Index.html: User IP detected:", userIP);
-
-        if (userIP && isIPBlacklisted(userIP)) {
-            console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
-            localStorage.removeItem('blubase_verified');
-            window.location.replace('/blocked');
-            return;
-        } else if (userIP) {
-            console.log("Index.html: User IP not blacklisted.");
-        } else {
-            console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
-
-        }
-
-        if (localStorage.getItem('blubase_verified') !== 'true') {
-            console.log("Index.html: User not verified. Redirecting to verf.html.");
-            window.location.replace('/verify');
-        } else {
-            console.log("Index.html: User verified. Displaying content.");
-            document.documentElement.style.display = 'block';
-        }
-    })();
-  </script>
 </head>
 <body>
   <div class="video-background">
@@ -821,7 +755,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣𝗼𝗼𝗹 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in �𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "�𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣ool 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗣𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -904,6 +838,65 @@
   <script src="load.js"></script>
   <script src="script.js"></script>
   <script>
+
+    document.documentElement.style.display = 'none';
+
+    const blacklistedIPsEncoded = [
+      ""
+    ];
+
+    function decodeBase64(encodedString) {
+        try {
+            return atob(encodedString);
+        } catch (e) {
+            console.error("Base64 decoding error:", e);
+            return "";
+        }
+    }
+
+    async function getUserIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.ip;
+        } catch (error) {
+            console.error("Error fetching IP address:", error);
+            return null;
+        }
+    }
+
+    function isIPBlacklisted(ip) {
+        return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
+    }
+
+    (async () => {
+        const userIP = await getUserIP();
+        console.log("Index.html: User IP detected:", userIP);
+
+        if (userIP && isIPBlacklisted(userIP)) {
+            console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
+            localStorage.removeItem('blubase_verified');
+            window.location.replace('/blocked');
+            return;
+        } else if (userIP) {
+            console.log("Index.html: User IP not blacklisted.");
+        } else {
+            console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
+
+        }
+
+        if (localStorage.getItem('blubase_verified') !== 'true') {
+            console.log("Index.html: User not verified. Redirecting to verf.html.");
+            window.location.replace('/verify');
+        } else {
+            console.log("Index.html: User verified. Displaying content.");
+            document.documentElement.style.display = 'block';
+        }
+    })();
+
     window.addEventListener('load', () => {
       if (window.va && typeof window.va.track === 'function') {
       } else {
@@ -913,7 +906,6 @@
       let storedValue = '';
 
       if (searchInput) {
-
         searchInput.addEventListener('blur', function() {
           storedValue = this.value;
         });
@@ -923,6 +915,68 @@
         });
       }
     });
+
+    const clearStorageButton = document.getElementById('clearStorageButton');
+    const clearStorageModal = document.getElementById('clearStorageModal');
+    const confirmClearStorageBtn = document.getElementById('confirmClearStorageBtn');
+    const cancelClearStorageBtn = document.getElementById('cancelClearStorageBtn');
+    const closeClearStorageModal = document.getElementById('closeClearStorageModal');
+
+    function showModal(modal) {
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      console.log('Showing modal:', modal.id); 
+    }
+
+    function hideModal(modal) {
+      modal.classList.add('hidden');
+      modal.setAttribute('aria-hidden', 'true');
+      console.log('Hiding modal:', modal.id); 
+    }
+
+    if (clearStorageButton) {
+      console.log('Clear Storage Button found.'); 
+      clearStorageButton.addEventListener('click', (event) => {
+        event.preventDefault(); 
+        console.log('Clear Storage Button clicked.'); 
+        showModal(clearStorageModal);
+      });
+    } else {
+      console.error('Clear Storage Button not found!'); 
+    }
+
+    if (confirmClearStorageBtn) {
+      confirmClearStorageBtn.addEventListener('click', () => {
+        localStorage.clear(); 
+        hideModal(clearStorageModal); 
+        console.log('Local Storage cleared. Reloading page.'); 
+
+        window.location.reload();
+      });
+    }
+
+    if (cancelClearStorageBtn) {
+      cancelClearStorageBtn.addEventListener('click', () => {
+        hideModal(clearStorageModal); 
+        console.log('Clear Storage cancelled.'); 
+      });
+    }
+
+    if (closeClearStorageModal) {
+      closeClearStorageModal.addEventListener('click', () => {
+        hideModal(clearStorageModal); 
+        console.log('Clear Storage modal closed via X button.'); 
+      });
+    }
+
+    if (clearStorageModal) {
+      clearStorageModal.addEventListener('click', (event) => {
+        if (event.target === clearStorageModal) {
+          hideModal(clearStorageModal);
+          console.log('Clear Storage modal closed by clicking outside.'); 
+        }
+      });
+    }
   </script>
 </body>
 </html>
