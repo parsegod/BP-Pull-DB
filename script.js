@@ -28,26 +28,23 @@ const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search');
+// REMOVED CONFLICTING CODE: The following block was clearing the search input on focus.
+// document.addEventListener('DOMContentLoaded', function() {
+//     const searchInput = document.getElementById('search');
+//     if (searchInput) {
+//         const originalPlaceholder = searchInput.placeholder;
+//         searchInput.addEventListener('focus', function() {
+//             this.value = '';
+//             this.placeholder = '';
+//         });
+//         searchInput.addEventListener('blur', function() {
+//             if (this.value.trim() === '') {
+//                 this.placeholder = originalPlaceholder;
+//             }
+//         });
+//     }
+// });
 
-    if (searchInput) {
-
-        const originalPlaceholder = searchInput.placeholder;
-
-        searchInput.addEventListener('focus', function() {
-            this.value = '';
-            this.placeholder = '';
-        });
-
-        searchInput.addEventListener('blur', function() {
-
-            if (this.value.trim() === '') {
-                this.placeholder = originalPlaceholder;
-            }
-        });
-    }
-});
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
@@ -78,7 +75,7 @@ let currentData = [];
 
 const changelogEntries = [
     {
-    date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
+    date: "2025-07-21 3:30AM 𝗠𝗦�",
     changes: [
       "↷ Major Security adds ↶",
       " - Added BlockedPage (blacklisted_home)",
@@ -112,7 +109,7 @@ const changelogEntries = [
     date: "2025-06-11 6:13AM 𝗠𝗦𝗧",
     changes: [
             "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "𝗔𝗦𝗚-𝟴𝟵: 𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟 𝗗𝗘𝗧𝗘𝗖𝗧𝗜𝗩𝗘 (𝗣𝗼𝗼𝗹 𝟮𝟮)"
+            "ASG-89: PERSONAL DETECTIVE (Pool 22)"
     ]
   },
     {
