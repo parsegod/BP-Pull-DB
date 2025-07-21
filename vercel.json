@@ -5,29 +5,6 @@
       "destination": "/helpers/helpers.html"
     },
     {
-      "source": "/blocked",
-      "destination": "/blocked.html"
-    },
-        {
-      "source": "/endkey",
-      "destination": "/endkey.html"
-    },
-    {
-      "source": "/home",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "cookie",
-          "key": "blubase_verified",
-          "value": "true"
-        }
-      ]
-    },
-     {
-      "source": "/(.*)",
-      "destination": "/verify.html"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html",
       "has": [
