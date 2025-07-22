@@ -50,7 +50,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         object-fit: cover;
-        filter: brightness(0.6); 
+        filter: brightness(0.6);
     }
 
     #apiKeyErrorModal {
@@ -67,22 +67,22 @@
     }
 
     #apiKeyErrorModal .modal-content {
-        padding: 40px 25px; 
+        padding: 40px 25px;
         border-radius: 0;
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
-        background: rgba(11, 23, 56, 0.95); 
-        border: 1px solid rgba(44, 72, 124, 0.6); 
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+        background: rgba(11, 23, 56, 0.95);
+        border: 1px solid rgba(44, 72, 124, 0.6);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         text-align: center;
         color: #E0E8F0;
-        font-family: 'Oswald', sans-serif; 
-        max-width: 855px; 
-        width: calc(95% - 20px); 
+        font-family: 'Oswald', sans-serif;
+        max-width: 855px;
+        width: calc(95% - 20px);
         box-sizing: border-box;
         overflow: hidden;
         animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-        zoom: 0.85; 
+        zoom: 0.85;
     }
 
     @keyframes popIn {
@@ -98,21 +98,48 @@
         -webkit-text-fill-color: transparent;
         color: transparent;
         text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
-        font-size: 2.5em; 
+        font-size: 2.5em;
         margin-top: 0;
         margin-bottom: 20px;
         text-transform: uppercase;
         font-weight: bold;
-        letter-spacing: 1.5px; 
+        letter-spacing: 1.5px;
+    }
+
+    #apiKeyErrorModal .modal-content h2.status-valid {
+        background: linear-gradient(to right, #4CAF50, #2E7D32); 
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(76, 175, 80, 0.7), 0 0 15px rgba(46, 125, 50, 0.7);
+    }
+    #apiKeyErrorModal .modal-content h2.status-corrupted,
+    #apiKeyErrorModal .modal-content h2.status-tampered {
+        background: linear-gradient(to right, #FFD700, #DAA520); 
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 15px rgba(218, 165, 32, 0.7);
+    }
+    #apiKeyErrorModal .modal-content h2.status-missing,
+    #apiKeyErrorModal .modal-content h2.status-expired {
+        background: linear-gradient(to right, #EF5350, #C62828); 
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(239, 83, 80, 0.7), 0 0 15px rgba(198, 40, 40, 0.7);
     }
 
     #apiKeyErrorModal .modal-content p {
-        font-size: 1.1em; 
-        line-height: 1.6; 
+        font-size: 1.1em;
+        line-height: 1.6;
         margin-top: 15px;
         margin-bottom: 25px;
-        font-weight: normal; 
-        color: #CAD8E8; 
+        font-weight: normal;
+        color: #CAD8E8;
     }
 
     #apiKeyErrorModal .modal-buttons {
@@ -123,34 +150,34 @@
     }
 
     #apiKeyErrorModal .modal-buttons button {
-        background: linear-gradient(180deg, #6CACE4, #4A8CD4); 
-        color: #0B1738; 
-        padding: 16px 35px; 
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+        color: #0B1738;
+        padding: 16px 35px;
         border: none;
-        border-radius: 10px; 
-        font-size: 1.3em; 
-        font-weight: 600; 
+        border-radius: 10px;
+        font-size: 1.3em;
+        font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
-        max-width: none; 
-        text-transform: none; 
-        letter-spacing: normal; 
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        max-width: none;
+        text-transform: none;
+        letter-spacing: normal;
     }
 
     #apiKeyErrorModal .modal-buttons button:hover {
-        background: linear-gradient(180deg, #5A99D0, #3B75B0); 
+        background: linear-gradient(180deg, #5A99D0, #3B75B0);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); 
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
 
     #keyDetails {
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 8px;
-        padding: 15px;
-        margin-top: 15px;
-        border: 1px solid rgba(44, 72, 124, 0.6);
-        text-align: left;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid rgba(44, 72, 124, 0.2);
+        text-align: center;
         width: 100%;
         box-sizing: border-box;
     }
@@ -169,12 +196,79 @@
         font-weight: bold;
     }
 
-    .status-missing, .status-corrupted, .status-expired {
-        color: #EF5350; 
+    .status-missing, .status-corrupted, .status-expired, .status-tampered {
+        color: #EF5350;
     }
 
-    .status-valid_unexpected {
-        color: #66BB6A; 
+    .status-valid_unexpected, .status-valid {
+        color: #66BB6A;
+    }
+
+    #keyLogContainer {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 10px;
+        max-height: 150px;
+        overflow-y: auto;
+        text-align: center;
+        font-size: 0.8em;
+        border: 1px solid rgba(44, 72, 124, 0.2);
+        box-sizing: border-box;
+    }
+
+    #keyLogContainer::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    #keyLogContainer::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    #keyLogContainer {
+        scrollbar-width: none;
+    }
+
+    #keyLogDisplay {
+        text-align: center;
+    }
+
+    .log-entry {
+        margin-bottom: 5px;
+        padding-bottom: 0px;
+        border-bottom: none;
+        font-size: 1em;
+        line-height: 1.4;
+    }
+    .log-entry:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .log-entry .timestamp {
+        color: #A0C0E8;
+        font-weight: normal;
+        margin-right: 8px;
+    }
+
+    .log-entry .status-text {
+        font-weight: normal;
+    }
+
+    .log-entry.status-missing .status-text,
+    .log-entry.status-corrupted .status-text,
+    .log-entry.status-expired .status-text,
+    .log-entry.status-tampered .status-text {
+        color: #EF5350;
+    }
+
+    .log-entry.status-fixed .status-text,
+    .log-entry.status-valid .status-text {
+        color: #66BB6A;
+    }
+    .log-entry.status-fix-attempt .status-text {
+        color: #FFD700;
     }
 
     .hidden {
@@ -184,50 +278,55 @@
     @media (max-width: 768px) {
         #apiKeyErrorModal .modal-content {
             width: 96%;
-            padding: 10px;
-            margin: auto;
-            min-height: 40vh;
+            padding: 20px 15px;
+            min-height: 50vh;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
             position: static;
+            margin: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
             max-width: none;
-            zoom: 1; 
+            zoom: 1;
         }
 
         #apiKeyErrorModal .modal-content h2 {
-            font-size: clamp(1.8em, 5vw, 2.2em);
-            margin-bottom: 1.5vh;
+            font-size: clamp(1.8em, 7vw, 2.2em);
+            margin-bottom: 2vh;
         }
 
         #apiKeyErrorModal .modal-content p {
-            font-size: clamp(0.9em, 3.5vw, 1.1em);
-            margin-bottom: 0.5vh;
+            font-size: clamp(0.9em, 3.8vw, 1.1em);
+            margin-bottom: 1.5vh;
         }
 
         #apiKeyErrorModal .modal-buttons {
             flex-direction: column;
-            align-items: center;
+            gap: 10px;
             width: 100%;
         }
 
         #apiKeyErrorModal .modal-buttons button {
-            padding: 1.5vh 3vw;
-            font-size: clamp(1em, 4vw, 1.2em);
-            margin: 1.5vh auto;
-            width: 80%;
+            padding: 1.8vh 4vw;
+            font-size: clamp(1em, 4.5vw, 1.3em);
+            margin: 0.8vh auto;
+            width: 90%;
+            max-width: 300px;
         }
 
-        #keyDetails {
-            padding: 10px;
-            width: 90%;
+        #keyDetails, #keyLogContainer {
+            padding: 12px;
+            width: 95%;
+            margin-top: 15px;
         }
-        #keyDetails p {
+        #keyDetails p, #keyLogContainer p {
             font-size: clamp(0.9em, 3.5vw, 1.1em);
+        }
+        .log-entry {
+            font-size: clamp(0.8em, 3.2vw, 1em);
         }
     }
 
@@ -235,22 +334,32 @@
         #apiKeyErrorModal .modal-content {
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
+            padding: 15px 10px;
+            min-height: 55vh;
         }
         #apiKeyErrorModal .modal-content h2 {
-            font-size: clamp(1.5em, 4.5vw, 2em);
-            margin-bottom: 1.5vh;
+            font-size: clamp(1.5em, 6vw, 2em);
+            margin-bottom: 1.2vh;
         }
         #apiKeyErrorModal .modal-content p {
-            font-size: clamp(0.8em, 3vw, 1em);
-            margin-bottom: 1.5vh;
+            font-size: clamp(0.8em, 3.5vw, 1em);
+            margin-bottom: 1vh;
         }
         #apiKeyErrorModal .modal-buttons button {
-            padding: 1.2vh 2.5vw;
-            font-size: clamp(0.9em, 3.5vw, 1.1em);
-            margin: 1vh auto;
+            padding: 1.5vh 3vw;
+            font-size: clamp(0.9em, 4vw, 1.2em);
+            margin: 0.6vh auto;
+            width: 95%;
         }
-        #keyDetails p {
-            font-size: clamp(0.8em, 3vw, 1em);
+        #keyDetails, #keyLogContainer {
+            padding: 10px;
+            width: 98%;
+        }
+        #keyDetails p, #keyLogContainer p {
+            font-size: clamp(0.8em, 3.2vw, 1em);
+        }
+        .log-entry {
+            font-size: clamp(0.7em, 2.8vw, 0.9em);
         }
     }
   </style>
@@ -269,82 +378,211 @@
       <p id="modalMessage">The API Key that was detected in your LocalStorage Either expired or Was Corrupted/Tampered With. Please re-verify to continue using the site.</p>
       <div id="keyDetails" style="display: none;">
           <p><strong>Detected Key:</strong> <span id="detectedKey">N/A</span></p>
+          <p><strong>Original Key:</strong> <span id="originalKey">N/A</span></p>
           <p><strong>Expiry:</strong> <span id="detectedExpiry">N/A</span></p>
           <p><strong>Status:</strong> <span id="keyStatusText">N/A</span></p>
       </div>
+      <div id="keyLogContainer" style="display: none;">
+          <p><strong>Key Change Log:</strong></p>
+          <div id="keyLogDisplay"></div>
+      </div>
       <div class="modal-buttons">
         <button id="redirectToVerifyBtn">Go to Verification Page</button>
+        <button id="refreshPageBtn">Refresh Page</button>
       </div>
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    const API_KEY_LOG_KEY = 'blubase_key_log';
+    const MAX_LOG_ENTRIES = 10; 
+
+    function getFormattedTimestamp() {
+        const now = new Date();
+        const options = {
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true
+        };
+        return `[${now.toLocaleTimeString('en-US', options)}]`;
+    }
+
+    function getKeyLog() {
+        try {
+            const log = JSON.parse(localStorage.getItem(API_KEY_LOG_KEY));
+            return Array.isArray(log) ? log : [];
+        } catch (e) {
+            console.error("Error parsing key log from local storage:", e);
+            return [];
+        }
+    }
+
+    function saveKeyLog(log) {
+        try {
+            localStorage.setItem(API_KEY_LOG_KEY, JSON.stringify(log));
+        } catch (e) {
+            console.error("Error saving key log to local storage:", e);
+        }
+    }
+
+    function addLogEntry(status, message, keySnapshot = 'N/A') {
+        let log = getKeyLog();
+        const newEntry = {
+            timestamp: getFormattedTimestamp(),
+            status: status,
+            message: message,
+            key_snapshot: (keySnapshot !== null && keySnapshot !== undefined) ? String(keySnapshot) : 'N/A'
+        };
+
+        const lastEntry = log[log.length - 1];
+        if (lastEntry && lastEntry.status === newEntry.status && lastEntry.message === newEntry.message) {
+            lastEntry.timestamp = newEntry.timestamp; 
+        } else {
+            log.push(newEntry);
+
+            if (log.length > MAX_LOG_ENTRIES) {
+                log = log.slice(log.length - MAX_LOG_ENTRIES);
+            }
+        }
+        saveKeyLog(log);
+        displayLog();
+    }
+
+    function displayLog() {
+        const log = getKeyLog();
+        const keyLogDisplay = document.getElementById('keyLogDisplay');
+        if (keyLogDisplay) {
+            keyLogDisplay.innerHTML = ''; 
+            if (log.length === 0) {
+                keyLogDisplay.innerHTML = '<p>No key change history.</p>';
+                return;
+            }
+            log.forEach(entry => {
+                const logDiv = document.createElement('div');
+
+                logDiv.className = `log-entry status-${(entry.status || 'unknown').toLowerCase().replace(/\s/g, '-')}`;
+                logDiv.innerHTML = `
+                    <span class="timestamp">${entry.timestamp}</span>
+                    <span class="status-text">${entry.status}</span> - ${entry.message}
+                `;
+                keyLogDisplay.appendChild(logDiv);
+            });
+
+            keyLogDisplay.scrollTop = keyLogDisplay.scrollHeight;
+        }
+    }
+
+    function checkApiKeyStatus() {
+        console.log("checkApiKeyStatus: Running...");
         const modalTitle = document.getElementById('modalTitle');
         const modalMessage = document.getElementById('modalMessage');
         const keyDetails = document.getElementById('keyDetails');
         const detectedKey = document.getElementById('detectedKey');
+        const originalKey = document.getElementById('originalKey');
         const detectedExpiry = document.getElementById('detectedExpiry');
         const keyStatusText = document.getElementById('keyStatusText');
+        const keyLogContainer = document.getElementById('keyLogContainer');
         const redirectToVerifyBtn = document.getElementById('redirectToVerifyBtn');
+        const refreshPageBtn = document.getElementById('refreshPageBtn');
 
         const apiKey = localStorage.getItem('blubase_api_key');
         const apiKeyExpiry = parseInt(localStorage.getItem('blubase_api_key_expiry'), 10);
+        const originalApiKey = localStorage.getItem('blubase_api_key_original');
         const currentTime = new Date().getTime();
+
+        console.log("checkApiKeyStatus: apiKey:", apiKey);
+        console.log("checkApiKeyStatus: originalApiKey:", originalApiKey);
+        console.log("checkApiKeyStatus: apiKeyExpiry:", apiKeyExpiry);
+        console.log("checkApiKeyStatus: currentTime:", currentTime);
 
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-        let status = "unknown"; 
+        let currentStatus = "unknown";
+        let message = "";
+        let detectedKeyValue = apiKey || "N/A";
+        let originalKeyValue = originalApiKey || "N/A";
+        let detectedExpiryValue = "N/A";
 
-        if (!apiKey) {
-            status = "missing";
-            modalTitle.textContent = "API Key Missing!";
-            modalMessage.textContent = "No API Key was found in your local storage. Please verify to continue using the site.";
-            keyDetails.style.display = 'none';
-            localStorage.removeItem('blubase_api_key');
-            localStorage.removeItem('blubase_api_key_expiry');
-            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        } else if (!uuidRegex.test(apiKey)) {
-            status = "corrupted";
-            modalTitle.textContent = "API Key Corrupted!";
-            modalMessage.textContent = "The detected API Key is corrupted or in an invalid format. Please re-verify to continue using the site.";
-            detectedKey.textContent = apiKey;
-            detectedExpiry.textContent = "N/A";
-            keyStatusText.textContent = "CORRUPTED / INVALID FORMAT";
-            keyStatusText.className = 'status-corrupted';
-            keyDetails.style.display = 'block';
-            localStorage.removeItem('blubase_api_key');
-            localStorage.removeItem('blubase_api_key_expiry');
-            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        } else if (isNaN(apiKeyExpiry) || currentTime >= apiKeyExpiry) {
-            status = "expired";
-            modalTitle.textContent = "API Key Expired!";
-            modalMessage.textContent = "Your API Key has expired. Please re-verify to continue using the site.";
-            detectedKey.textContent = apiKey;
+        if (!isNaN(apiKeyExpiry)) {
             const expiryDate = new Date(apiKeyExpiry);
             const options = { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true, timeZoneName: 'short', timeZone: 'America/Denver' };
-            detectedExpiry.textContent = expiryDate.toLocaleString('en-US', options);
-            keyStatusText.textContent = "EXPIRED";
-            keyStatusText.className = 'status-expired';
-            keyDetails.style.display = 'block';
-            localStorage.removeItem('blubase_api_key');
-            localStorage.removeItem('blubase_api_key_expiry');
-            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        } else {
-
-            status = "valid_unexpected";
-            modalTitle.textContent = "Redirecting...";
-            modalMessage.textContent = "A valid API Key was detected. Redirecting you to the home page.";
-            keyDetails.style.display = 'none';
-            redirectToVerifyBtn.style.display = 'none'; 
-            keyStatusText.className = 'status-valid_unexpected';
-            setTimeout(() => {
-                window.location.replace('/home');
-            }, 1000); 
+            detectedExpiryValue = expiryDate.toLocaleString('en-US', options);
         }
 
+        if (!apiKey) {
+            currentStatus = "missing";
+            message = "No API Key was found in your local storage.";
+        } else if (!uuidRegex.test(apiKey)) {
+            currentStatus = "corrupted";
+            message = "The detected API Key is corrupted or in an invalid format.";
+        } else if (originalApiKey && apiKey !== originalApiKey) {
+            currentStatus = "tampered";
+            message = "The API Key has been tampered with. It does not match the original.";
+        } else if (currentTime >= apiKeyExpiry) {
+            currentStatus = "expired";
+            message = "Your API Key has expired.";
+        } else {
+            currentStatus = "valid";
+            message = "A valid API Key was detected. You can proceed to the home page or refresh.";
+        }
+
+        console.log("checkApiKeyStatus: Determined currentStatus:", currentStatus);
+
+        const lastLog = getKeyLog();
+        const lastLoggedStatus = lastLog.length > 0 ? lastLog[lastLog.length - 1].status.toLowerCase() : "initial_load";
+
+        if (currentStatus !== lastLoggedStatus) {
+            addLogEntry(currentStatus.toUpperCase(), message, apiKey);
+        }
+
+        document.title = `Blu Base - API Key ${currentStatus.toUpperCase()}!`;
+        modalTitle.textContent = `API Key ${currentStatus.toUpperCase()}!`;
+        modalTitle.className = `status-${currentStatus.toLowerCase().replace('_unexpected', '')}`;
+        modalMessage.textContent = message + (currentStatus !== "valid" ? " Please re-verify to continue using the site." : "");
+
+        keyDetails.style.display = 'block';
+        keyLogContainer.style.display = 'block';
+        redirectToVerifyBtn.style.display = 'inline-block';
+        refreshPageBtn.style.display = 'inline-block';
+
+        detectedKey.textContent = detectedKeyValue;
+        originalKey.textContent = originalKeyValue;
+        detectedExpiry.textContent = detectedExpiryValue;
+        keyStatusText.textContent = currentStatus.toUpperCase().replace('_UNEXPECTED', '');
+        keyStatusText.className = `status-${currentStatus.toLowerCase().replace(/\s/g, '-')}`;
+
+        displayLog();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("/endkey: DOMContentLoaded fired.");
+        checkApiKeyStatus();
+
+        window.addEventListener('storage', (event) => {
+            console.log("/endkey: Storage event detected for key:", event.key);
+
+            if (event.key === 'blubase_api_key' || event.key === 'blubase_api_key_expiry' || event.key === 'blubase_api_key_original') {
+                checkApiKeyStatus();
+            }
+        });
+
+        window.addEventListener('focus', () => {
+            console.log("/endkey: Window focus detected. Re-checking API key status.");
+            checkApiKeyStatus();
+        });
+
+        const redirectToVerifyBtn = document.getElementById('redirectToVerifyBtn');
         redirectToVerifyBtn.addEventListener('click', () => {
+            console.log("endkey: 'Go to Verification Page' button clicked.");
+            addLogEntry("FIX_ATTEMPT", "User initiated re-verification.", "N/A");
             window.location.replace('/verify');
+        });
+
+        const refreshPageBtn = document.getElementById('refreshPageBtn');
+        refreshPageBtn.addEventListener('click', () => {
+            console.log("/endkey: 'Refresh Page' button clicked.");
+            window.location.reload(); 
         });
 
         const backgroundVideo = document.getElementById('backgroundVideo');

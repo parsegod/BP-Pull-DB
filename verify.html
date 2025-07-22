@@ -35,12 +35,12 @@
     }
 
     #loadingContainerInModal {
-        display: flex; 
+        display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
-        margin-top: 20px; 
-        transition: opacity 0.5s ease-out; 
+        margin-top: 20px;
+        transition: opacity 0.5s ease-out;
     }
 
     #loadingBarContainer {
@@ -54,22 +54,22 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
       margin-left: auto;
       margin-right: auto;
-      border: 1px solid #7CA0E0; 
+      border: 1px solid #7CA0E0;
     }
 
     #loadingBar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #7CA0E0, #A0C0E8); 
+      background: linear-gradient(90deg, #7CA0E0, #A0C0E8);
       border-radius: 10px;
       transition: width 0.3s ease-out;
-      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7); 
+      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7);
     }
 
-    #loadingText { 
+    #loadingText {
       margin-top: 10px;
       font-weight: bold;
-      font-size: 1.1em; 
+      font-size: 1.1em;
       color: #A0C0E8;
     }
 
@@ -116,7 +116,7 @@
       background: rgba(11, 23, 56, 0.95);
       color: #E0E8F0;
       font-family: 'Oswald', sans-serif;
-      padding: 40px 25px; 
+      padding: 40px 25px;
       border-radius: 0;
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
@@ -131,13 +131,13 @@
       transition: transform 0.3s ease-out;
       position: relative;
       margin: auto;
-      min-height: auto; 
+      min-height: auto;
 
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; 
+      justify-content: center;
     }
 
     .verification-modal-content.scale-in {
@@ -220,13 +220,13 @@
         font-size: 1em;
         color: #BCC7D8;
         margin-top: 15px;
-        word-break: break-all; 
+        word-break: break-all;
         text-align: center;
         background-color: rgba(0, 0, 0, 0.2);
         padding: 10px;
         border-radius: 5px;
         border: 1px solid rgba(44, 72, 124, 0.6);
-        display: none; 
+        display: none;
     }
 
     @keyframes fadeInScale {
@@ -338,7 +338,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: transparent; 
+        background-color: transparent;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -354,33 +354,33 @@
     }
 
     #apiKeyPopupContent {
-        background: rgba(11, 23, 56, 0.95); 
+        background: rgba(11, 23, 56, 0.95);
         color: #E0E8F0;
-        font-family: 'Oswald', sans-serif; 
-        padding: 40px 25px; 
+        font-family: 'Oswald', sans-serif;
+        padding: 40px 25px;
         border-radius: 0;
-        border-top-left-radius: 30px; 
-        border-top-right-radius: 30px; 
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         text-align: center;
-        width: calc(95% - 20px); 
-        max-width: 855px; 
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
-        border: 1px solid rgba(44, 72, 124, 0.6); 
+        width: calc(95% - 20px);
+        max-width: 855px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(44, 72, 124, 0.6);
         transform: scale(1);
-        opacity: 0; 
+        opacity: 0;
         transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        position: relative; 
-        margin: auto; 
-        min-height: auto; 
+        position: relative;
+        margin: auto;
+        min-height: auto;
 
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center; 
-        zoom: 0.85; 
+        justify-content: center;
+        zoom: 0.85;
     }
 
     #apiKeyPopupOverlay.show #apiKeyPopupContent {
@@ -391,17 +391,17 @@
     #apiKeyPopupContent h3 {
         font-family: 'Oswald', sans-serif;
         font-size: 1.8em;
-        margin-top: 0; 
-        margin-bottom: 10px; 
+        margin-top: 0;
+        margin-bottom: 10px;
         color: #A0C0E8;
     }
 
     #apiKeyPopupContent p {
-        font-family: 'Open Sans', sans-serif; 
-        font-size: 1.1em; 
-        margin-bottom: 5px; 
-        line-height: 1.6; 
-        color: #CAD8E8; 
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+        line-height: 1.6;
+        color: #CAD8E8;
         word-break: break-all;
     }
 
@@ -410,22 +410,22 @@
     }
 
     #apiKeyPopupContent .status-clean {
-        color: #66BB6A; 
+        color: #66BB6A;
         font-weight: bold;
     }
 
     #apiKeyPopupContent .status-blocked {
-        color: #EF5350; 
+        color: #EF5350;
         font-weight: bold;
     }
 
     #apiKeyPopupContent .status-no-permission {
-        color: #EF5350; 
+        color: #EF5350;
         font-weight: bold;
     }
 
     #apiKeyPopupContent .status-granted {
-        color: #66BB6A; 
+        color: #66BB6A;
         font-weight: bold;
     }
 
@@ -433,7 +433,7 @@
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         padding: 10px;
-        margin-top: 10px; 
+        margin-top: 10px;
         max-height: 150px;
         overflow-y: auto;
         text-align: left;
@@ -450,21 +450,21 @@
     }
 
     #apiKeyPopupContent .generation-log-container {
-        scrollbar-width: none; 
+        scrollbar-width: none;
     }
 
     #apiKeyPopupButton {
         background: linear-gradient(180deg, #6CACE4, #4A8CD4);
         color: #0B1738;
         border: none;
-        padding: 16px 35px; 
-        border-radius: 10px; 
-        font-size: 1.3em; 
+        padding: 16px 35px;
+        border-radius: 10px;
+        font-size: 1.3em;
         cursor: pointer;
         transition: all 0.3s ease;
         margin-top: 20px;
         font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
     #apiKeyPopupButton:hover {
@@ -556,35 +556,35 @@
         }
 
         #apiKeyPopupContent {
-            padding: 10px; 
-            width: 96%; 
-            max-width: none; 
-            min-height: 40vh; 
-            border-radius: 0; 
-            border-top-left-radius: 25px; 
-            border-top-right-radius: 25px; 
-            position: static; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            margin: auto; 
-            padding-top: 10px; 
-            zoom: 1; 
+            padding: 10px;
+            width: 96%;
+            max-width: none;
+            min-height: 40vh;
+            border-radius: 0;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            padding-top: 10px;
+            zoom: 1;
         }
         #apiKeyPopupContent h3 {
-            font-size: clamp(1.8em, 5vw, 2.2em); 
-            margin-bottom: 1.5vh; 
-            margin-top: 0; 
+            font-size: clamp(1.8em, 5vw, 2.2em);
+            margin-bottom: 1.5vh;
+            margin-top: 0;
         }
         #apiKeyPopupContent p {
-            font-size: clamp(0.9em, 3.5vw, 1.1em); 
-            margin-bottom: 0.5vh; 
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin-bottom: 0.5vh;
         }
         #apiKeyPopupButton {
-            padding: 1.5vh 3vw; 
-            font-size: clamp(1em, 4vw, 1.2em); 
-            margin: 1.5vh auto; 
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+            margin: 1.5vh auto;
         }
     }
 
@@ -600,7 +600,7 @@
         }
 
         .logo-verf {
-            position: static; 
+            position: static;
             margin-bottom: 2vh;
             width: clamp(70px, 20vw, 120px);
             top: auto;
@@ -608,7 +608,7 @@
             transform: none;
         }
         .motto-verf {
-            position: static; 
+            position: static;
             font-size: clamp(0.8em, 3.5vw, 1.2em);
             margin-bottom: 2.5vh;
             top: auto;
@@ -655,9 +655,9 @@
         }
 
         #apiKeyPopupContent {
-            border-top-left-radius: 20px; 
-            border-top-right-radius: 20px; 
-            padding-top: 10px; 
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding-top: 10px;
         }
     }
   </style>
@@ -665,7 +665,7 @@
 <body class="modal-open">
   <script>
     const blacklistedIPsEncoded = [
-      "" 
+      ""
     ];
 
     let isUserIPBlacklisted = false;
@@ -738,8 +738,7 @@
             <div id="loadingBarContainer">
                 <div id="loadingBar"></div>
             </div>
-            <div id="loadingText">Generating API Key- 0%</div> 
-
+            <div id="loadingText">Generating API Key- 0%</div>
         </div>
         <div id="apiKeyDisplay"></div>
       </div>
@@ -762,7 +761,7 @@
         <p><strong>IP:</strong> <span id="popupUserIp"></span></p>
         <p><strong>API Key:</strong> <span id="popupApiKey"></span></p>
         <p><strong>Valid Until:</strong> <span id="popupApiKeyExpiry"></span></p>
-        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION - FOR EVERYONE</span></p>
+        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION/span></p>
         <p><strong>IP Blacklist Status:</strong> <span id="popupBlacklistStatus"></span></p>
         <p><strong>Generation Log:</strong></p>
         <div id="popupGenerationLog" class="generation-log-container"></div>
@@ -780,7 +779,7 @@
     const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
     const loadingContainerInModal = document.getElementById('loadingContainerInModal');
     const loadingBar = document.getElementById('loadingBar');
-    const loadingText = document.getElementById('loadingText'); 
+    const loadingText = document.getElementById('loadingText');
     const apiKeyDisplay = document.getElementById('apiKeyDisplay');
 
     const customMessageBox = document.getElementById('customMessageBox');
@@ -796,10 +795,10 @@
     const apiKeyPopupButton = document.getElementById('apiKeyPopupButton');
 
     let verificationWindow = null;
-    let generationLogMessages = []; 
-    let capturedUserIP = "N/A"; 
+    let generationLogMessages = [];
+    let capturedUserIP = "N/A";
 
-    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; 
+    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000;
 
     function setCookie(name, value, ms) {
         const expires = new Date(Date.now() + ms).toUTCString();
@@ -809,16 +808,24 @@
     function initializeVerificationModal() {
       const apiKey = localStorage.getItem('blubase_api_key');
       const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+      const originalApiKey = localStorage.getItem('blubase_api_key_original'); 
       const currentTime = new Date().getTime();
 
-      if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
-        console.log("User has a valid API key. Redirecting to home.");
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      const isKeyValidFormat = apiKey && uuidRegex.test(apiKey);
+      const isKeyNotTampered = originalApiKey && apiKey === originalApiKey;
+      const isKeyNotExpired = apiKeyExpiry && currentTime < parseInt(apiKeyExpiry);
+
+      if (isKeyValidFormat && isKeyNotTampered && isKeyNotExpired) {
+        console.log("User has a valid, untampered API key. Redirecting to home.");
         window.location.href = '/home';
         return;
-      } else if (apiKey || apiKeyExpiry) {
-        console.log("Expired API key found. Clearing local storage.");
+      } else if (apiKey || apiKeyExpiry || originalApiKey) {
+
+        console.log("Invalid or tampered API key found. Clearing local storage.");
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
+        localStorage.removeItem('blubase_api_key_original'); 
       }
 
       document.body.classList.add('modal-open');
@@ -833,7 +840,7 @@
     }
 
     async function simulateApiKeyGeneration() {
-        generationLogMessages = []; 
+        generationLogMessages = [];
 
         loadingContainerInModal.style.display = 'flex';
         loadingContainerInModal.style.opacity = '1';
@@ -842,7 +849,7 @@
         const updateProgressBar = (percentage) => {
             currentProgress = percentage;
             loadingBar.style.width = `${percentage}%`;
-            loadingText.textContent = `Generating API Key- ${Math.floor(percentage)}%`; 
+            loadingText.textContent = `Generating API Key- ${Math.floor(percentage)}%`;
         };
 
         const addLogMessage = (message) => {
@@ -852,7 +859,7 @@
 
         };
 
-        let ipBlacklistStatus = "UNKNOWN"; 
+        let ipBlacklistStatus = "UNKNOWN";
 
         addLogMessage("Initiating security checks - ");
         updateProgressBar(5);
@@ -864,7 +871,7 @@
         const ipCheckDuration = (performance.now() - ipCheckStartTime).toFixed(2);
 
         if (userIP) {
-            capturedUserIP = userIP; 
+            capturedUserIP = userIP;
             addLogMessage(`User IP: ${userIP} (fetched in ${ipCheckDuration}ms) - `);
             updateProgressBar(20);
             await delay(500);
@@ -887,7 +894,7 @@
             addLogMessage("Failed to retrieve user IP. Proceeding with caution - ");
             ipBlacklistStatus = "FAILED TO RETRIEVE";
             capturedUserIP = "N/A - Failed to retrieve";
-            updateProgressBar(40); 
+            updateProgressBar(40);
             await delay(500);
         }
         addLogMessage("Security checks complete - ");
@@ -908,23 +915,24 @@
         for (const step of generationSteps) {
             addLogMessage(step.msg + " - ");
             updateProgressBar(step.progress);
-            await delay(700); 
+            await delay(700);
         }
 
         updateProgressBar(100);
-        loadingText.textContent = 'API Key Generated!'; 
+        loadingText.textContent = 'API Key Generated!';
         addLogMessage('Finalizing and Redirecting - ');
 
         const generationDuration = (performance.now() - generationStartTime).toFixed(2);
         addLogMessage(`API Key generation completed in ${generationDuration}ms - `);
-        await delay(300);
+        await delay(500);
 
-        const newApiKey = crypto.randomUUID();
+        const newApiKey = crypto.randomUUID(); 
         const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
         const expiryDate = new Date(expiryTime);
 
         localStorage.setItem('blubase_api_key', newApiKey);
         localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
+        localStorage.setItem('blubase_api_key_original', newApiKey); 
 
         addLogMessage(`Generated API Key: ${newApiKey} - `);
         addLogMessage("API key successfully stored in local storage - ");
@@ -932,7 +940,7 @@
 
         verificationModal.style.display = 'none';
 
-        popupUserIp.textContent = capturedUserIP; 
+        popupUserIp.textContent = capturedUserIP;
         popupApiKey.textContent = newApiKey;
 
         const options = {
@@ -943,24 +951,37 @@
             minute: 'numeric',
             second: 'numeric',
             hour12: true,
-            timeZoneName: 'short', 
-            timeZone: 'America/Denver' 
+            timeZoneName: 'short',
+            timeZone: 'America/Denver'
         };
         popupApiKeyExpiry.textContent = expiryDate.toLocaleString('en-US', options);
 
         popupBlacklistStatus.textContent = ipBlacklistStatus;
-        popupBlacklistStatus.className = `status-${ipBlacklistStatus.toLowerCase().replace(/\s/g, '-')}`; 
+        popupBlacklistStatus.className = `status-${ipBlacklistStatus.toLowerCase().replace(/\s/g, '-')}`;
 
         popupGenerationLog.innerHTML = generationLogMessages.join('<br>');
 
-        apiKeyPopupOverlay.classList.add('show'); 
+        apiKeyPopupOverlay.classList.add('show');
 
         apiKeyPopupButton.onclick = () => {
-            window.location.href = '/home';
+
+            if (window.opener && !window.opener.closed) {
+
+                window.close();
+            } else {
+
+                window.location.href = '/home';
+            }
         };
     }
 
     function handleVerificationSuccess() {
+
+        if (window.checkWindowClosedInterval) {
+            clearInterval(window.checkWindowClosedInterval);
+            window.checkWindowClosedInterval = null; 
+            console.log("Cleared existing checkWindowClosedInterval in handleVerificationSuccess.");
+        }
 
         verifyButton.disabled = true;
         verificationTitle.style.display = 'none';
@@ -970,15 +991,16 @@
 
         verificationSuccessMessage.style.display = 'block';
 
-        simulateApiKeyGeneration(); 
+        simulateApiKeyGeneration();
     }
 
     verifyButton.addEventListener('click', () => {
-      console.log("Verify button clicked!"); 
+      console.log("Verify button clicked!");
 
       if (isUserIPBlacklisted) {
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
+        localStorage.removeItem('blubase_api_key_original'); 
         setCookie('blubase_verified', '', -1);
         window.location.replace('blocked.html');
         return;
@@ -986,31 +1008,30 @@
 
       if (window.checkWindowClosedInterval) {
         clearInterval(window.checkWindowClosedInterval);
-        console.log("Cleared existing checkWindowClosedInterval."); 
+        console.log("Cleared existing checkWindowClosedInterval.");
       }
 
       verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
-      console.log("Verification window opened. Reference:", verificationWindow); 
+      console.log("Verification window opened. Reference:", verificationWindow);
 
       if (!verificationWindow || verificationWindow.closed || typeof verificationWindow.closed === 'undefined') {
-
           customMessageBox.textContent = "Pop-up blocked or failed to open! Please allow pop-ups for this site.";
           customMessageBox.style.display = 'block';
           setTimeout(() => {
             customMessageBox.style.display = 'none';
           }, 3000);
           console.error("Pop-up window was blocked or failed to open.");
-          return; 
+          return;
       }
 
       window.checkWindowClosedInterval = setInterval(() => {
-
         if (verificationWindow && verificationWindow.closed) {
           clearInterval(window.checkWindowClosedInterval);
-          console.log("Verification window closed. Calling handleVerificationSuccess."); 
+          window.checkWindowClosedInterval = null; 
+          console.log("Verification window closed. Calling handleVerificationSuccess.");
           handleVerificationSuccess();
         }
-      }, 1000);
+      }, 1000); 
     });
   </script>
 </body>
