@@ -473,6 +473,174 @@
         box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
 
+    #apiKeyDurationPopupOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10004; 
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    #apiKeyDurationPopupOverlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #apiKeyDurationPopupContent {
+        background: rgba(11, 23, 56, 0.95); 
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif;
+        padding: 40px 25px;
+        border-radius: 0; 
+        border-top-left-radius: 30px; 
+        border-top-right-radius: 30px; 
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        width: calc(95% - 20px);
+        max-width: 500px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+        border: 1px solid rgba(44, 72, 124, 0.6); 
+        transform: scale(0.9); 
+        opacity: 0; 
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out; 
+        position: relative; 
+        margin: auto; 
+        min-height: auto; 
+        box-sizing: border-box; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #apiKeyDurationPopupOverlay.show #apiKeyDurationPopupContent {
+        transform: scale(1); 
+        opacity: 1; 
+    }
+
+    #apiKeyDurationPopupContent h3 {
+        font-size: 2em;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #A0C0E8;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    #apiKeyDurationPopupContent .duration-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    #apiKeyDurationPopupContent .duration-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(26, 43, 77, 0.7);
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        border: 1px solid rgba(124, 160, 224, 0.3);
+    }
+
+    #apiKeyDurationPopupContent .duration-option:hover {
+        background-color: rgba(36, 53, 87, 0.9);
+        transform: translateY(-2px);
+    }
+
+    #apiKeyDurationPopupContent .duration-option input[type="radio"] {
+        margin-right: 10px;
+        accent-color: #7CA0E0; 
+        transform: scale(1.2);
+    }
+
+    #apiKeyDurationPopupContent .duration-option label {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #E0E8F0;
+        cursor: pointer;
+    }
+
+    #apiKeyDurationPopupContent button {
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+        color: #0B1738;
+        border: none;
+        padding: 16px 35px;
+        border-radius: 10px;
+        font-size: 1.3em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    #apiKeyDurationPopupContent button:hover {
+        background: linear-gradient(180deg, #5A99D0, #3B75B0);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .custom-duration-input-container {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        gap: 10px; 
+        margin-top: 15px;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease-out, height 0.3s ease-out;
+    }
+
+    .custom-duration-input-container.show {
+        opacity: 1;
+        height: auto; 
+        padding-bottom: 10px; 
+    }
+
+    .custom-duration-input-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .custom-duration-input-group input[type="number"] {
+        background-color: #1A2B4D;
+        border: 1px solid #7CA0E0;
+        border-radius: 8px;
+        color: #E0E8F0;
+        padding: 10px 15px;
+        font-size: 1em;
+        width: 70px; 
+        text-align: center;
+        -moz-appearance: textfield; 
+        appearance: none; 
+    }
+
+    .custom-duration-input-group input[type="number"]::-webkit-outer-spin-button,
+    .custom-duration-input-group input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none; 
+        margin: 0;
+    }
+
+    .custom-duration-input-group label {
+        font-size: 0.9em; 
+        color: #CAD8E8;
+    }
+
     @media (max-width: 768px) {
         .verification-modal-overlay {
             justify-content: center;
@@ -586,6 +754,41 @@
             font-size: clamp(1em, 4vw, 1.2em);
             margin: 1.5vh auto;
         }
+
+        #apiKeyDurationPopupContent {
+            padding: 10px; 
+            width: 96%;
+            max-width: none;
+            border-radius: 0; 
+            border-top-left-radius: 25px; 
+            border-top-right-radius: 25px; 
+        }
+        #apiKeyDurationPopupContent h3 {
+            font-size: clamp(1.5em, 4.5vw, 1.8em);
+            margin-bottom: 15px;
+        }
+        #apiKeyDurationPopupContent .duration-option {
+            padding: 12px;
+        }
+        #apiKeyDurationPopupContent .duration-option label {
+            font-size: clamp(1em, 3.5vw, 1.1em);
+        }
+        #apiKeyDurationPopupContent button {
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+        }
+
+        .custom-duration-input-container.show {
+            height: auto; 
+        }
+        .custom-duration-input-group input[type="number"] {
+            width: 60px; 
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
+        .custom-duration-input-group label {
+            font-size: 0.8em;
+        }
     }
 
     @media (max-width: 480px) {
@@ -659,11 +862,34 @@
             border-top-right-radius: 20px;
             padding-top: 10px;
         }
+
+        #apiKeyDurationPopupContent {
+            padding: 15px 10px;
+            border-top-left-radius: 20px; 
+            border-top-right-radius: 20px; 
+        }
+        #apiKeyDurationPopupContent h3 {
+            font-size: clamp(1.3em, 4vw, 1.6em);
+        }
+        #apiKeyDurationPopupContent .duration-option {
+            padding: 10px;
+        }
+        #apiKeyDurationPopupContent .duration-option label {
+            font-size: clamp(0.9em, 3vw, 1em);
+        }
+        #apiKeyDurationPopupContent button {
+            padding: 1.2vh 2.5vw;
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+        }
+        .custom-duration-input-group input[type="number"] {
+            width: 50px; 
+        }
     }
   </style>
 </head>
 <body class="modal-open">
   <script>
+
     const blacklistedIPsEncoded = [
       ""
     ];
@@ -755,13 +981,61 @@
     </div>
   </div>
 
+  <div id="apiKeyDurationPopupOverlay">
+    <div id="apiKeyDurationPopupContent">
+        <h3>Configure API Key Duration</h3>
+        <p>Choose how long your API key should remain valid:</p>
+        <div class="duration-options">
+            <div class="duration-option">
+                <input type="radio" id="duration2h" name="apiKeyDuration" value="2" checked>
+                <label for="duration2h">2 Hours (Default)</label>
+            </div>
+            <div class="duration-option">
+                <input type="radio" id="duration12h" name="apiKeyDuration" value="12">
+                <label for="duration12h">12 Hours</label>
+            </div>
+            <div class="duration-option">
+                <input type="radio" id="duration24h" name="apiKeyDuration" value="24">
+                <label for="duration24h">24 Hours</label>
+            </div>
+            <div class="duration-option">
+                <input type="radio" id="duration7d" name="apiKeyDuration" value="168">
+                <label for="duration7d">7 Days</label>
+            </div>
+            <div class="duration-option">
+                <input type="radio" id="durationCustom" name="apiKeyDuration" value="custom">
+                <label for="durationCustom">Custom Duration</label>
+            </div>
+            <div class="custom-duration-input-container" id="customDurationContainer">
+                <div class="custom-duration-input-group">
+                    <input type="number" id="customMonthsInput" placeholder="0" min="0" max="120">
+                    <label for="customMonthsInput">Months</label>
+                </div>
+                <div class="custom-duration-input-group">
+                    <input type="number" id="customDaysInput" placeholder="0" min="0" max="365">
+                    <label for="customDaysInput">Days</label>
+                </div>
+                <div class="custom-duration-input-group">
+                    <input type="number" id="customHoursInput" placeholder="0" min="0" max="23">
+                    <label for="customHoursInput">Hours</label>
+                </div>
+                <div class="custom-duration-input-group">
+                    <input type="number" id="customMinutesInput" placeholder="0" min="0" max="59">
+                    <label for="customMinutesInput">Minutes</label>
+                </div>
+            </div>
+        </div>
+        <button id="confirmDurationButton">Confirm Duration</button>
+    </div>
+  </div>
+
   <div id="apiKeyPopupOverlay">
     <div id="apiKeyPopupContent">
         <h3>Verification Aftermath</h3>
         <p><strong>IP:</strong> <span id="popupUserIp"></span></p>
         <p><strong>API Key:</strong> <span id="popupApiKey"></span></p>
         <p><strong>Valid Until:</strong> <span id="popupApiKeyExpiry"></span></p>
-        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION </span></p>
+        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION</span></p>
         <p><strong>IP Blacklist Status:</strong> <span id="popupBlacklistStatus"></span></p>
         <p><strong>Generation Log:</strong></p>
         <div id="popupGenerationLog" class="generation-log-container"></div>
@@ -785,6 +1059,17 @@
     const customMessageBox = document.getElementById('customMessageBox');
     const clearMessagePopup = document.getElementById('clearMessagePopup');
 
+    const apiKeyDurationPopupOverlay = document.getElementById('apiKeyDurationPopupOverlay');
+    const apiKeyDurationPopupContent = document.getElementById('apiKeyDurationPopupContent');
+    const confirmDurationButton = document.getElementById('confirmDurationButton');
+
+    const customMonthsInput = document.getElementById('customMonthsInput');
+    const customDaysInput = document.getElementById('customDaysInput');
+    const customHoursInput = document.getElementById('customHoursInput');
+    const customMinutesInput = document.getElementById('customMinutesInput');
+    const customDurationContainer = document.getElementById('customDurationContainer');
+    const durationRadioButtons = document.querySelectorAll('input[name="apiKeyDuration"]');
+
     const apiKeyPopupOverlay = document.getElementById('apiKeyPopupOverlay');
     const popupUserIp = document.getElementById('popupUserIp');
     const popupApiKey = document.getElementById('popupApiKey');
@@ -797,9 +1082,7 @@
     let verificationWindow = null;
     let generationLogMessages = [];
     let capturedUserIP = "N/A";
-
-    const API_KEY_EXPIRY_MS = 4 * 60 * 1000; // test expiry
-
+    let selectedApiKeyDurationHours = 2; 
 
     function setCookie(name, value, ms) {
         const expires = new Date(Date.now() + ms).toUTCString();
@@ -809,7 +1092,7 @@
     function initializeVerificationModal() {
       const apiKey = localStorage.getItem('blubase_api_key');
       const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
-      const originalApiKey = localStorage.getItem('blubase_api_key_original'); 
+      const originalApiKey = localStorage.getItem('blubase_api_key_original');
       const currentTime = new Date().getTime();
 
       const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -826,7 +1109,7 @@
         console.log("Invalid or tampered API key found. Clearing local storage.");
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
-        localStorage.removeItem('blubase_api_key_original'); 
+        localStorage.removeItem('blubase_api_key_original');
       }
 
       document.body.classList.add('modal-open');
@@ -840,7 +1123,7 @@
       verifyButton.disabled = false;
     }
 
-    async function simulateApiKeyGeneration() {
+    async function simulateApiKeyGeneration(durationHours) {
         generationLogMessages = [];
 
         loadingContainerInModal.style.display = 'flex';
@@ -927,19 +1210,20 @@
         addLogMessage(`API Key generation completed in ${generationDuration}ms - `);
         await delay(500);
 
-        const newApiKey = crypto.randomUUID(); 
-        const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
+        const newApiKey = crypto.randomUUID();
+
+        const expiryTime = new Date().getTime() + (durationHours * 60 * 60 * 1000);
         const expiryDate = new Date(expiryTime);
 
         localStorage.setItem('blubase_api_key', newApiKey);
         localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
-        localStorage.setItem('blubase_api_key_original', newApiKey); 
+        localStorage.setItem('blubase_api_key_original', newApiKey);
 
         addLogMessage(`Generated API Key: ${newApiKey} - `);
         addLogMessage("API key successfully stored in local storage - ");
         await delay(500);
 
-        verificationModal.style.display = 'none';
+        verificationModal.style.display = 'none'; 
 
         popupUserIp.textContent = capturedUserIP;
         popupApiKey.textContent = newApiKey;
@@ -976,24 +1260,78 @@
         };
     }
 
-    function handleVerificationSuccess() {
+    function showApiKeyDurationPopup() {
 
-        if (window.checkWindowClosedInterval) {
-            clearInterval(window.checkWindowClosedInterval);
-            window.checkWindowClosedInterval = null; 
-            console.log("Cleared existing checkWindowClosedInterval in handleVerificationSuccess.");
-        }
-
-        verifyButton.disabled = true;
         verificationTitle.style.display = 'none';
         verificationInstruction.style.display = 'none';
         verificationNote.style.display = 'none';
         verifyButton.style.display = 'none';
 
         verificationSuccessMessage.style.display = 'block';
+        loadingContainerInModal.style.display = 'none'; 
 
-        simulateApiKeyGeneration();
+        apiKeyDurationPopupOverlay.classList.add('show');
+        customDurationContainer.classList.remove('show'); 
+
+        customMonthsInput.value = '';
+        customDaysInput.value = '';
+        customHoursInput.value = '';
+        customMinutesInput.value = '';
+        document.getElementById('duration2h').checked = true; 
     }
+
+    function handleVerificationSuccess() {
+        if (window.checkWindowClosedInterval) {
+            clearInterval(window.checkWindowClosedInterval);
+            window.checkWindowClosedInterval = null;
+            console.log("Cleared existing checkWindowClosedInterval in handleVerificationSuccess.");
+        }
+        verifyButton.disabled = true;
+        showApiKeyDurationPopup(); 
+    }
+
+    durationRadioButtons.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'custom') {
+                customDurationContainer.classList.add('show');
+
+                customMonthsInput.focus();
+            } else {
+                customDurationContainer.classList.remove('show');
+            }
+        });
+    });
+
+    confirmDurationButton.addEventListener('click', () => {
+        const selectedDurationRadio = document.querySelector('input[name="apiKeyDuration"]:checked');
+        let totalDurationHours = 0;
+
+        if (selectedDurationRadio) {
+            if (selectedDurationRadio.value === 'custom') {
+                const months = parseInt(customMonthsInput.value) || 0;
+                const days = parseInt(customDaysInput.value) || 0;
+                const hours = parseInt(customHoursInput.value) || 0;
+                const minutes = parseInt(customMinutesInput.value) || 0;
+
+                totalDurationHours = (months * 30 * 24) + (days * 24) + hours + (minutes / 60);
+
+                if (totalDurationHours <= 0 || totalDurationHours > (365 * 5 * 24)) { 
+                    customMessageBox.textContent = "Please enter a valid custom duration. Max is 5 years.";
+                    customMessageBox.style.display = 'block';
+                    setTimeout(() => {
+                        customMessageBox.style.display = 'none';
+                    }, 4000);
+                    return; 
+                }
+            } else {
+                totalDurationHours = parseInt(selectedDurationRadio.value);
+            }
+        }
+
+        selectedApiKeyDurationHours = totalDurationHours;
+        apiKeyDurationPopupOverlay.classList.remove('show'); 
+        simulateApiKeyGeneration(selectedApiKeyDurationHours); 
+    });
 
     verifyButton.addEventListener('click', () => {
       console.log("Verify button clicked!");
@@ -1001,7 +1339,7 @@
       if (isUserIPBlacklisted) {
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
-        localStorage.removeItem('blubase_api_key_original'); 
+        localStorage.removeItem('blubase_api_key_original');
         setCookie('blubase_verified', '', -1);
         window.location.replace('blocked.html');
         return;
@@ -1028,11 +1366,11 @@
       window.checkWindowClosedInterval = setInterval(() => {
         if (verificationWindow && verificationWindow.closed) {
           clearInterval(window.checkWindowClosedInterval);
-          window.checkWindowClosedInterval = null; 
+          window.checkWindowClosedInterval = null;
           console.log("Verification window closed. Calling handleVerificationSuccess.");
           handleVerificationSuccess();
         }
-      }, 1000); 
+      }, 1000);
     });
   </script>
 </body>
