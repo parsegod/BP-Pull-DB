@@ -761,7 +761,7 @@
         <p><strong>IP:</strong> <span id="popupUserIp"></span></p>
         <p><strong>API Key:</strong> <span id="popupApiKey"></span></p>
         <p><strong>Valid Until:</strong> <span id="popupApiKeyExpiry"></span></p>
-        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION</span></p>
+        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION </span></p>
         <p><strong>IP Blacklist Status:</strong> <span id="popupBlacklistStatus"></span></p>
         <p><strong>Generation Log:</strong></p>
         <div id="popupGenerationLog" class="generation-log-container"></div>
@@ -798,7 +798,8 @@
     let generationLogMessages = [];
     let capturedUserIP = "N/A";
 
-    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000;
+    const API_KEY_EXPIRY_MS = 4 * 60 * 1000; // test expiry
+
 
     function setCookie(name, value, ms) {
         const expires = new Date(Date.now() + ms).toUTCString();
