@@ -58,7 +58,7 @@
       width: 100%;
       height: 100%;
       background-color: transparent;
-      display: flex;
+      display: flex; 
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -66,8 +66,8 @@
       color: #D0D8E8;
       font-family: 'Open Sans', sans-serif;
       font-size: 1.2em;
-      opacity: 1;
-      visibility: visible;
+      opacity: 1; 
+      visibility: visible; 
       transition: opacity 1s ease-out, visibility 1s ease-out;
       overflow: hidden;
     }
@@ -186,8 +186,8 @@
     }
 
     #mainContent {
-      display: none;
-      opacity: 0;
+      display: none; 
+      opacity: 0; 
       transition: opacity 1s ease-in-out;
     }
 
@@ -640,8 +640,6 @@
   </style>
   <script>
 
-    document.documentElement.style.display = 'none';
-
     const blacklistedIPsEncoded = [
       ""
     ];
@@ -684,6 +682,9 @@
         const isCorrupted = !apiKey || !uuidRegex.test(apiKey) || (originalApiKey && apiKey !== originalApiKey);
         const isExpired = !apiKeyExpiry || isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry);
 
+        const loadingScreen = document.getElementById('loadingScreen');
+        const mainContent = document.getElementById('mainContent');
+
         if (isCorrupted || isExpired) {
             console.log("Index.html: API key corrupted or expired. Clearing local storage.");
             localStorage.removeItem('blubase_api_key');
@@ -699,7 +700,19 @@
             }
         } else {
             console.log("Index.html: Valid and untampered API key found. Displaying content.");
-            document.documentElement.style.display = 'block';
+
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+            }
+
+            if (mainContent) {
+                mainContent.style.display = 'block';
+
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 10);
+            }
         }
     }
 
@@ -720,9 +733,23 @@
             console.warn("Index.html: Could not get user IP. Proceeding without blacklist check.");
         }
 
-        checkAPIKeyAndRedirect(true);
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAPIKeyAndRedirect(true);
+        });
 
-        setInterval(() => checkAPIKeyAndRedirect(false), 17000);
+        window.addEventListener('storage', (event) => {
+            console.log("Index.html: Storage event detected for key:", event.key);
+
+            if (event.key === 'blubase_api_key' || event.key === 'blubase_api_key_expiry' || event.key === 'blubase_api_key_original') {
+                checkAPIKeyAndRedirect(false);
+            }
+        });
+
+        window.addEventListener('focus', () => {
+            console.log("Index.html: Window focus detected. Re-checking API key status.");
+            checkAPIKeyAndRedirect(false);
+        });
+
     })();
   </script>
 </head>
@@ -848,7 +875,7 @@
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣ool 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗔𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣ool 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗼𝗼𝗹 𝟭𝟱 (i.e 𝗧𝗧𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -930,8 +957,11 @@
   <script src="script.js"></script>
   <script>
     window.addEventListener('load', () => {
+
       if (window.va && typeof window.va.track === 'function') {
+
       } else {
+
       }
 
       const searchInput = document.getElementById('search');
@@ -951,16 +981,17 @@
       document.getElementById('confirmClearStorageBtn').addEventListener('click', () => {
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
+        localStorage.removeItem('blubase_api_key_original'); 
 
         document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
         document.getElementById('clearStorageModal').classList.add('hidden');
-        document.getElementById('clearMessagePopup').classList.remove('hidden');
 
         setTimeout(() => {
           window.location.replace('/endkey');
         }, 2000);
       });
+
     });
   </script>
 </body>
