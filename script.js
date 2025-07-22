@@ -70,7 +70,7 @@ const changelogEntries = [
   {
     "date": "2025-07-22 01:25AM MST",
     "changes": [
-      "Overall Site Additions",
+      "↷ Overall Site Adds ↶",
       "Revamped Homepage (Bug Finder, Custom Mobile Local, etc.)",
       "Added End Key (API Key Status)",
       "Simplified Loading Logic",
@@ -82,7 +82,7 @@ const changelogEntries = [
   {
     "date": "2025-07-21 03:30AM MST",
     "changes": [
-      "Major Security Additions",
+      "↷ Major Security Adds ↶",
       "Added Blocked Page (Blacklisted Home)",
       "Added Verify Page (IP Blacklist Check)",
       "Revamped The Loading Page for Mobile",
@@ -94,7 +94,7 @@ const changelogEntries = [
   {
     "date": "2025-07-21 03:30AM MST",
     "changes": [
-      "Major Security Additions",
+      "↷ Major Security Adds ↶",
       "Added Blocked Page (Blacklisted Home)",
       "Added Verify Page (IP Blacklist Check)",
       "Revamped The Loading Page for Mobile",
@@ -106,7 +106,7 @@ const changelogEntries = [
   {
     "date": "2025-07-12 02:43PM MST",
     "changes": [
-      "Update To UI",
+      "↷ Update To UI ↶",
       "Added Page Loader",
       "Added Contributions Page",
       "Revamped Search-Filter-Section",
@@ -118,28 +118,28 @@ const changelogEntries = [
   {
     "date": "2025-06-11 10:23PM MST",
     "changes": [
-      "Update to Guide",
-      "Added a Multiplayer Exploit Section, as well as some adjustments to the main How To UI."
+      "↷ Update to Guide ↶",
+      "Added a Multiplayer Exploit Section. As well as some adjustments to the main How To UI."
     ]
   },
   {
     "date": "2025-06-11 06:13AM MST",
     "changes": [
-      "Added New Prints",
+      "↷ Added New Prints ↶",
       "ASG-89: PERSONAL DETECTIVE (Pool 22)"
     ]
   },
   {
     "date": "2025-06-10 10:38AM MST",
     "changes": [
-      "Removed Print",
+      "↷ Removed Print ↶",
       "HDR: NAUTILOID (Pool 2)"
     ]
   },
   {
     "date": "2025-06-09 04:06PM MST",
     "changes": [
-      "Added New Prints",
+      "↷ Added New Prints ↶",
       "LW31A1 FROSTLINE: THUNDERHEAD (Pool 7)",
       "KOMPAKT 92: PRINTED END (Pool 13)"
     ]
@@ -147,7 +147,7 @@ const changelogEntries = [
   {
     "date": "2025-06-08 07:48AM MST",
     "changes": [
-      "Added New Prints",
+      "↷ Added New Prints ↶",
       "MAELSTROM: DARK ENDING (Pool 15)",
       "KRIG C: DE-ANIMATOR (Pool 12)"
     ]
@@ -155,7 +155,7 @@ const changelogEntries = [
   {
     "date": "2025-06-07 09:48AM MST",
     "changes": [
-      "Added New Prints",
+      "↷ Added New Prints ↶",
       "LC10: STORM RAGE (Pool 1)",
       "LC10: BLACKCELL HULL BUSTER (Pool 2)"
     ]
@@ -163,14 +163,14 @@ const changelogEntries = [
   {
     "date": "2025-06-06 08:51PM MST",
     "changes": [
-      "Added How To Guide",
-      "Added a section that helps new users understand how the site/method works."
+      "↷ Added How To Guide ↶",
+      "Added a Section that helps new users understand how the site/method works."
     ]
   },
   {
     "date": "2025-06-06 07:34PM MST",
     "changes": [
-      "Added New Prints",
+      "↷ Added New Prints ↶",
       "CR-56 AMAX: DATA BREACHER (Pool 2)",
       "LADRA: HELLBLOCK (Pool 2)",
       "FENG 82: LOCK UP (Pool 7)",
@@ -203,21 +203,21 @@ const changelogEntries = [
   {
     "date": "2025-06-02 08:07AM MST",
     "changes": [
-      "Fixed Dupe",
+      "↷ Fixed Dupe ↶",
       "Fixed the error causing the modal to dupe twice."
     ]
   },
   {
     "date": "2025-06-02 06:50AM MST",
     "changes": [
-      "Removed Scroll Bar Visibility",
+      "↷ Removed Scroll Bar Visibility ↶",
       "I didn't like how the scroll bar was looking so I removed its visibility."
     ]
   },
   {
     "date": "2025-06-01 11:32PM MST",
     "changes": [
-      "Added New Prints",
+      "↷ Added New Prints ↶",
       "MODEL L: NO PAROLE (Pool 17)",
       "XM4: THERMOPLASTIC (Pool 20)",
       "9MM PM: ARABESQUE (Pool 8)",
