@@ -474,7 +474,7 @@
     }
 
     function checkApiKeyStatus() {
-        console.log("checkApiKeyStatus: Running...");
+        console.log("checkApiKeyStatus: Running.");
         const modalTitle = document.getElementById('modalTitle');
         const modalMessage = document.getElementById('modalMessage');
         const keyDetails = document.getElementById('keyDetails');
@@ -557,25 +557,25 @@
         if (currentStatus === "valid") {
             redirectToVerifyBtn.textContent = "Go to Home Page";
             redirectToVerifyBtn.onclick = () => {
-                console.log("endkey.html: 'Go to Home Page' button clicked.");
+                console.log("/endkey: 'Go to Home Page' button clicked.");
                 window.location.replace('/home'); 
             };
         } else {
             redirectToVerifyBtn.textContent = "Go to Verification Page";
             redirectToVerifyBtn.onclick = () => {
-                console.log("endkey.html: 'Go to Verification Page' button clicked.");
+                console.log("/endkey: 'Go to Verification Page' button clicked.");
                 addLogEntry("FIX_ATTEMPT", "User initiated re-verification.", "N/A");
-                window.location.replace('verify.html'); 
+                window.location.replace('/verify'); 
             };
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        console.log("endkey.html: DOMContentLoaded fired.");
+        console.log("/endkey: DOMContentLoaded fired.");
         checkApiKeyStatus();
 
         window.addEventListener('storage', (event) => {
-            console.log("endkey.html: Storage event detected for key:", event.key);
+            console.log("/endkey: Storage event detected for key:", event.key);
 
             if (event.key === 'blubase_api_key' || event.key === 'blubase_api_key_expiry' || event.key === 'blubase_api_key_original') {
                 checkApiKeyStatus();
@@ -583,13 +583,13 @@
         });
 
         window.addEventListener('focus', () => {
-            console.log("endkey.html: Window focus detected. Re-checking API key status.");
+            console.log("/endkey: Window focus detected. Re-checking API key status.");
             checkApiKeyStatus();
         });
 
         const refreshPageBtn = document.getElementById('refreshPageBtn');
         refreshPageBtn.addEventListener('click', () => {
-            console.log("endkey.html: 'Refresh Page' button clicked.");
+            console.log("/endkey: 'Refresh Page' button clicked.");
             window.location.reload(); 
         });
 
