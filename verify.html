@@ -97,6 +97,8 @@
       min-height: 2.8em;
       width: 90%;
       max-width: 500px;
+      opacity: 1; 
+      transition: opacity 0.3s ease-in-out;
     }
 
     .video-background {
@@ -241,9 +243,23 @@
         animation: bounceIn 0.6s ease-out forwards;
     }
 
+    #apiKeyDisplay {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1em;
+        color: #BCC7D8;
+        margin-top: 15px;
+        word-break: break-all; 
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid rgba(44, 72, 124, 0.6);
+        display: none; 
+    }
+
     @keyframes fadeInScale {
         from { opacity: 0; transform: scale(0.8); }
-        to { opacity: 1; transform: scale(1); }
+        to { transform: scale(1); opacity: 1; }
     }
 
     @keyframes bounceIn {
@@ -340,7 +356,6 @@
       text-align: center;
       white-space: nowrap;
       z-index: 10;
-      width: 100%;
       font-weight: bold;
       text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
     }
@@ -356,7 +371,7 @@
             padding: 10px;
             margin: auto;
             min-height: 40vh;
-            
+
             border-radius: 0;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
@@ -416,6 +431,11 @@
             margin-bottom: 1vh;
         }
 
+        #apiKeyDisplay {
+            font-size: 0.9em;
+            padding: 8px;
+        }
+
         #clearMessagePopup > div {
             max-width: 90%;
             padding: 30px;
@@ -470,6 +490,11 @@
             margin-bottom: 0.8vh;
         }
 
+        #apiKeyDisplay {
+            font-size: 0.8em;
+            padding: 6px;
+        }
+
         #clearMessagePopup > div {
             max-width: 95%;
             padding: 20px;
@@ -481,10 +506,42 @@
 <body class="modal-open">
   <script>
     const blacklistedIPsEncoded = [
-      "" //test ip
+      "" 
     ];
 
     let isUserIPBlacklisted = false;
+
+    let verificationModal;
+    let verifyButton;
+    let loadingScreen;
+    let loadingText;
+    let loadingBar;
+    let loadingAssetText;
+
+    let verificationTitle;
+    let verificationInstruction;
+    let verificationNote;
+    let verificationSuccessMessage;
+
+    let customMessageBox;
+    let clearMessagePopup;
+
+    let verificationWindow = null;
+
+    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; 
+
+    function showCustomMessage(message) {
+        customMessageBox.textContent = message;
+        customMessageBox.style.display = 'block';
+        setTimeout(() => {
+            customMessageBox.style.display = 'none';
+        }, 3000);
+    }
+
+    function setCookie(name, value, ms) {
+        const expires = new Date(Date.now() + ms).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    }
 
     function decodeBase64(encodedString) {
         try {
@@ -511,102 +568,139 @@
         return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
     }
 
-    async function checkUserAccess() {
+    async function startPostVerificationLoading(finalCallback) {
+        let currentProgress = 0;
+        const totalSteps = 4; 
+        const stepIncrement = 100 / totalSteps;
+
+        verificationModal.style.display = 'none';
+        loadingScreen.style.display = 'flex';
+        loadingScreen.style.opacity = '1';
+        loadingText.textContent = 'Verification Successful!';
+        loadingBar.style.width = '0%';
+
+        loadingAssetText.textContent = 'Checking IP status...';
+        currentProgress += stepIncrement;
+        loadingBar.style.width = `${currentProgress}%`;
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+
         const userIP = await getUserIP();
-        if (!userIP) {
+        if (userIP && isIPBlacklisted(userIP)) {
+            loadingAssetText.textContent = 'IP blacklisted! Redirecting to blocked page.';
+            loadingBar.style.width = '100%';
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            window.location.replace('/blocked');
+            return;
         } else {
-            isUserIPBlacklisted = isIPBlacklisted(userIP);
-            if (isUserIPBlacklisted) {
-            }
+            loadingAssetText.textContent = 'IP status confirmed: Not blacklisted.';
+            currentProgress += stepIncrement;
+            loadingBar.style.width = `${currentProgress}%`;
+            await new Promise(resolve => setTimeout(resolve, 1000));
         }
-        initializeVerificationModal();
+
+        loadingAssetText.textContent = 'Generating unique API Key...';
+        currentProgress += stepIncrement;
+        loadingBar.style.width = `${currentProgress}%`;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        const newApiKey = crypto.randomUUID();
+        const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
+        const expiryDate = new Date(expiryTime);
+
+        loadingAssetText.textContent = 'Storing key in local storage...';
+        currentProgress += stepIncrement;
+        loadingBar.style.width = `${currentProgress}%`;
+        localStorage.setItem('blubase_api_key', newApiKey);
+        localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        loadingText.textContent = 'API Key Ready!';
+        loadingAssetText.innerHTML = `
+            Your temporary API Key: <br><strong>${newApiKey}</strong><br>
+            This key is valid until: <br><strong>${expiryDate.toLocaleString()}</strong><br>
+            Redirecting to Blu Base...
+        `;
+        loadingBar.style.width = '100%';
+
+        await new Promise(resolve => setTimeout(resolve, 3000)); 
+
+        finalCallback(); 
     }
 
-    checkUserAccess();
-  </script>
+    function handleVerificationSuccess() {
 
-  <div class="video-background">
-    <video id="backgroundVideo" autoplay loop muted playsinline>
-      <source src="assets/wallpaper.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
+        verifyButton.disabled = true;
+        verificationTitle.style.display = 'none';
+        verificationInstruction.style.display = 'none';
+        verificationNote.style.display = 'none';
+        verificationSuccessMessage.style.display = 'none'; 
 
-  <div id="verificationModal" class="verification-modal-overlay">
-    <div class="verification-modal-content scale-in">
-      <h2 id="verificationTitle">Account Verification Required</h2>
-      <p id="verificationInstruction">
-        To maintain the integrity of our database and prevent spam entries, we require a quick verification.
-      </p>
-      <p id="verificationNote" class="glowing-red-text">
-        A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
-      </p>
-      <div id="verificationSuccessMessage">
-        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
-        Verification Successful!
-        <br>Redirecting to Blu Base...
-      </div>
-      <button id="verifyButton">Verify Your IP</button>
-      
-    </div>
-  </div>
-
-  <div id="customMessageBox"></div>
-
-  <div id="clearMessagePopup" class="hidden">
-    <div>
-        Local storage cleared. You will be redirected to the verification page.
-    </div>
-  </div>
-
-  <div id="loadingScreen">
-    <div id="loadingBarContainer">
-      <div id="loadingBar"></div>
-    </div>
-    <div id="loadingText">Loading... 0%</div>
-    <div id="loadingAssetText"></div>
-  </div>
-
-  <script>
-    const verificationModal = document.getElementById('verificationModal');
-    const verifyButton = document.getElementById('verifyButton');
-    const loadingScreen = document.getElementById('loadingScreen');
-    const loadingLogo = document.getElementById('loadingLogo');
-
-    const verificationTitle = document.getElementById('verificationTitle');
-    const verificationInstruction = document.getElementById('verificationInstruction');
-    const verificationNote = document.getElementById('verificationNote');
-    const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
-
-    const customMessageBox = document.getElementById('customMessageBox');
-    const clearMessagePopup = document.getElementById('clearMessagePopup');
-
-    let verificationWindow = null;
-
-    const EXPIRY_TIME_MS = 2 * 60 * 60 * 1000; 
-
-    function showCustomMessage(message) {
-        customMessageBox.textContent = message;
-        customMessageBox.style.display = 'block';
+        startPostVerificationLoading(() => {
+            document.body.classList.remove('modal-open');
+            window.location.href = '/home';
+        });
     }
 
-    function initializeVerificationModal() {
-      const verifiedTimestamp = localStorage.getItem('blubase_verified_timestamp');
-      const isVerified = localStorage.getItem('blubase_verified') === 'true';
-      const currentTime = new Date().getTime();
+    async function initializeVerificationModal() {
 
-      if (isVerified && verifiedTimestamp) {
-        if (currentTime - verifiedTimestamp < EXPIRY_TIME_MS) {
-          window.location.href = '/home';
-          return;
-        } else {
-          localStorage.removeItem('blubase_verified');
-          localStorage.removeItem('blubase_verified_timestamp');
-        }
+      loadingScreen.style.display = 'flex';
+      loadingScreen.style.opacity = '1';
+      loadingText.textContent = 'Initializing...';
+      loadingAssetText.textContent = 'Checking IP blacklist...';
+      loadingBar.style.width = '10%'; 
+
+      const userIP = await getUserIP();
+      if (!userIP) {
+          loadingAssetText.textContent = 'Could not retrieve IP. Proceeding without blacklist check.';
+          loadingBar.style.width = '20%';
+          await new Promise(resolve => setTimeout(resolve, 1000)); 
+      } else {
+          isUserIPBlacklisted = isIPBlacklisted(userIP);
+          if (isUserIPBlacklisted) {
+              loadingAssetText.textContent = 'IP blacklisted. Redirecting to blocked page.';
+              loadingBar.style.width = '100%';
+              await new Promise(resolve => setTimeout(resolve, 1500)); 
+              window.location.replace('/blocked');
+              return; 
+          } else {
+              loadingAssetText.textContent = 'IP check complete. Your IP is not blacklisted.';
+              loadingBar.style.width = '30%';
+              await new Promise(resolve => setTimeout(resolve, 1000)); 
+          }
       }
 
-      document.body.classList.add('modal-open');
+      loadingAssetText.textContent = 'Checking for existing temporary API key...';
+      loadingBar.style.width = '50%';
+      await new Promise(resolve => setTimeout(resolve, 1000)); 
 
+      const apiKey = localStorage.getItem('blubase_api_key');
+      const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+      const currentTime = new Date().getTime();
+
+      if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
+        loadingAssetText.textContent = 'Valid API key found. Access granted. Redirecting...';
+        loadingBar.style.width = '100%';
+        await new Promise(resolve => setTimeout(resolve, 1500)); 
+        window.location.href = '/home';
+        return;
+      } else if (apiKey || apiKeyExpiry) {
+        loadingAssetText.textContent = 'Expired API key found. Clearing local storage.';
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+        loadingBar.style.width = '70%';
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+      } else {
+        loadingAssetText.textContent = 'No valid API key found.';
+        loadingBar.style.width = '70%';
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+      }
+
+      loadingScreen.style.opacity = '0';
+      loadingScreen.addEventListener('transitionend', () => {
+          loadingScreen.style.display = 'none';
+      }, { once: true });
+
+      document.body.classList.add('modal-open');
       verificationTitle.style.display = 'block';
       verificationInstruction.style.display = 'block';
       verificationNote.style.display = 'block';
@@ -615,45 +709,48 @@
       verifyButton.disabled = false;
     }
 
-    function handleVerificationSuccess() {
-        localStorage.setItem('blubase_verified', 'true');
-        localStorage.setItem('blubase_verified_timestamp', new Date().getTime().toString()); 
+    document.addEventListener('DOMContentLoaded', () => {
 
-        verifyButton.disabled = true;
-        verificationTitle.style.display = 'none';
-        verificationInstruction.style.display = 'none';
-        verificationNote.style.display = 'none';
-        verifyButton.style.display = 'none';
+        verificationModal = document.getElementById('verificationModal');
+        verifyButton = document.getElementById('verifyButton');
+        loadingScreen = document.getElementById('loadingScreen');
+        loadingText = document.getElementById('loadingText');
+        loadingBar = document.getElementById('loadingBar');
+        loadingAssetText = document.getElementById('loadingAssetText');
 
-        verificationSuccessMessage.style.display = 'block';
+        verificationTitle = document.getElementById('verificationTitle');
+        verificationInstruction = document.getElementById('verificationInstruction');
+        verificationNote = document.getElementById('verificationNote');
+        verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
 
-        loadingScreen.style.display = 'flex';
-        setTimeout(() => { loadingScreen.style.opacity = '1'; loadingLogo.style.opacity = '1'; }, 10);
-        document.body.classList.remove('modal-open');
+        customMessageBox = document.getElementById('customMessageBox');
+        clearMessagePopup = document.getElementById('clearMessagePopup');
 
-        window.location.href = '/home';
-    }
+        verifyButton.addEventListener('click', () => {
 
-    verifyButton.addEventListener('click', () => {
-      if (isUserIPBlacklisted) {
-        localStorage.removeItem('blubase_verified');
-        localStorage.removeItem('blubase_verified_timestamp'); 
-        window.location.replace('blocked.html');
-        return;
-      }
+          if (isUserIPBlacklisted) {
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            setCookie('blubase_verified', '', -1); 
+            window.location.replace('blocked.html');
+            return;
+          }
 
-      if (window.checkWindowClosedInterval) {
-        clearInterval(window.checkWindowClosedInterval);
-      }
+          if (window.checkWindowClosedInterval) {
+            clearInterval(window.checkWindowClosedInterval);
+          }
 
-      verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+          verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
 
-      window.checkWindowClosedInterval = setInterval(() => {
-        if (verificationWindow && verificationWindow.closed) {
-          clearInterval(window.checkWindowClosedInterval);
-          handleVerificationSuccess();
-        }
-      }, 1000);
+          window.checkWindowClosedInterval = setInterval(() => {
+            if (verificationWindow && verificationWindow.closed) {
+              clearInterval(window.checkWindowClosedInterval);
+              handleVerificationSuccess(); 
+            }
+          }, 1000); 
+        });
+
+        initializeVerificationModal(); 
     });
   </script>
 </body>
