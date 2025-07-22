@@ -676,12 +676,11 @@
     function checkAPIKeyAndRedirect(isInitialCheck) {
         const apiKey = localStorage.getItem('blubase_api_key');
         const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
-        const originalApiKey = localStorage.getItem('blubase_api_key_original'); // Retrieve the original key
+        const originalApiKey = localStorage.getItem('blubase_api_key_original'); 
         const currentTime = new Date().getTime();
 
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-        // Determine if the key is corrupted or invalid
         const isCorrupted = !apiKey || !uuidRegex.test(apiKey) || (originalApiKey && apiKey !== originalApiKey);
         const isExpired = !apiKeyExpiry || isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry);
 
@@ -689,14 +688,14 @@
             console.log("Index.html: API key corrupted or expired. Clearing local storage.");
             localStorage.removeItem('blubase_api_key');
             localStorage.removeItem('blubase_api_key_expiry');
-            localStorage.removeItem('blubase_api_key_original'); // Ensure original key is also cleared
+            localStorage.removeItem('blubase_api_key_original'); 
 
             if (isInitialCheck) {
                 console.log("Index.html: Initial load, API key corrupted/expired. Redirecting to /verify.");
-                window.location.replace('/verify'); // Redirect to verify.html for a new key
+                window.location.replace('/verify'); 
             } else {
                 console.log("Index.html: API key corrupted/expired during runtime. Redirecting to endkey.html.");
-                window.location.replace('endkey.html'); // Redirect to endkey.html for status display
+                window.location.replace('endkey.html'); 
             }
         } else {
             console.log("Index.html: Valid and untampered API key found. Displaying content.");
@@ -712,7 +711,7 @@
             console.warn("Index.html: Blacklisted IP detected. Redirecting to blocked.html.");
             localStorage.removeItem('blubase_api_key');
             localStorage.removeItem('blubase_api_key_expiry');
-            localStorage.removeItem('blubase_api_key_original'); // Clear original key on blacklist
+            localStorage.removeItem('blubase_api_key_original'); 
             window.location.replace('/blocked');
             return;
         } else if (userIP) {

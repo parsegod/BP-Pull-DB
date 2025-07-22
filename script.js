@@ -28,18 +28,15 @@ const closeHowToUseModalBtn = document.getElementById('closeHowToUseModal');
 const howToUseButton = document.getElementById('howToUseButton');
 const howToUseContentDiv = document.getElementById('howToUseContent');
 
-// Bug Log Modal Elements
 const bugLogModal = document.getElementById('bugLogModal');
 const closeBugLogModalBtn = document.getElementById('closeBugLogModal');
 const bugLogButton = document.getElementById('bugLogButton');
 const bugLogContentDiv = document.getElementById('bugLogContent');
 
-// Custom Clear Storage Modal Elements
 const clearStorageModal = document.getElementById('clearStorageModal');
 const closeClearStorageModalBtn = document.getElementById('closeClearStorageModal');
 const confirmClearStorageBtn = document.getElementById('confirmClearStorageBtn');
 const cancelClearStorageBtn = document.getElementById('cancelClearStorageBtn');
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
@@ -215,7 +212,6 @@ const changelogEntries = [
   }
 ];
 
-// New array for bug log entries
 const bugLogEntries = [
     {
         date: "2025-07-21 11:30AM 𝗠𝗗𝗧",
@@ -233,7 +229,6 @@ const bugLogEntries = [
         ]
     }
 ];
-
 
 function loadAppData() {
   fetch('assets/weapon.json')
@@ -866,9 +861,6 @@ function showChangelogOnPageLoad() {
   showChangelogModal();
 }
 
-// Commented out to prevent changelog from showing on every page load
-// document.addEventListener('DOMContentLoaded', showChangelogOnPageLoad);
-
 function adjustTableContainerHeight() {
   const fixedTopHeader = document.querySelector('.announcement-banner');
   const tableContainer = document.querySelector('.table-container');
@@ -892,7 +884,6 @@ function adjustTableContainerHeight() {
 
 window.addEventListener('resize', adjustTableContainerHeight);
 
-// Functions for the new Bug Log Modal
 function populateBugLog() {
   bugLogContentDiv.innerHTML = '';
 
@@ -922,7 +913,6 @@ function hideBugLogModal() {
   bugLogModal.classList.remove('visible');
 }
 
-// Event listeners for the Bug Log Modal
 bugLogButton.addEventListener('click', showBugLogModal);
 
 closeBugLogModalBtn.addEventListener('click', hideBugLogModal);
@@ -933,7 +923,6 @@ bugLogModal.addEventListener('click', (e) => {
   }
 });
 
-// Custom Clear Storage Modal Functions
 function showClearStorageModal() {
     clearStorageModal.classList.add('visible');
 }
@@ -950,10 +939,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
             if (isMobile) {
-                // Show custom modal for mobile
+
                 showClearStorageModal();
             } else {
-                // Keep original behavior for desktop (using browser's confirm)
+
                 const confirmationMessage = 'Thank your for using Parsed.top created by parse... The page will reload.';
                 if (confirm(confirmationMessage)) {
                     localStorage.removeItem('blubase_verified');
@@ -963,7 +952,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listeners for the custom clear storage modal buttons
     confirmClearStorageBtn.addEventListener('click', () => {
         localStorage.removeItem('blubase_verified');
         window.location.replace('/verify');
