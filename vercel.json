@@ -38,11 +38,6 @@
           "value": "true"
         }
       ]
-    },
-  
-    {
-      "source": "/(.*)",
-      "destination": "/verify.html"
     }
   ]
 }
