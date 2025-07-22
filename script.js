@@ -70,7 +70,7 @@ const changelogEntries = [
       {
     date: "2025-07-22 1:25AM 𝗠𝗦𝗧",
     changes: [
-      "↷ Major Security adds ↶",
+      "↷ Overall Site adds ↶",
       " - Revamped HomePage (bugFinder, CustomMobile_local; etc)",
       " - Added EndKey (APIKey_Status)",
       " - Simplified The Loading Logic",
