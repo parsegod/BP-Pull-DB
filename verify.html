@@ -34,33 +34,13 @@
         overflow: hidden;
     }
 
-    #loadingScreen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(11, 23, 56, 0.9);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      color: #D0D8E8;
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.2em;
-      transition: opacity 1s ease-out;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    #loadingLogo {
-      display: block;
-      margin: 150px auto 50px auto;
-      width: 200px;
-      height: auto;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+    #loadingContainerInModal {
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px; 
+        transition: opacity 0.5s ease-out; 
     }
 
     #loadingBarContainer {
@@ -74,29 +54,23 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
       margin-left: auto;
       margin-right: auto;
+      border: 1px solid #7CA0E0; 
     }
 
     #loadingBar {
       height: 100%;
       width: 0%;
-      background-color: #7CA0E0;
+      background: linear-gradient(90deg, #7CA0E0, #A0C0E8); 
       border-radius: 10px;
       transition: width 0.3s ease-out;
+      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7); 
     }
 
-    #loadingText {
+    #loadingText { 
       margin-top: 10px;
       font-weight: bold;
-    }
-
-    #loadingAssetText {
-      font-size: 0.9em;
-      margin-top: 5px;
-      text-align: center;
-      line-height: 1.4;
-      min-height: 2.8em;
-      width: 90%;
-      max-width: 500px;
+      font-size: 1.1em; 
+      color: #A0C0E8;
     }
 
     .video-background {
@@ -142,7 +116,7 @@
       background: rgba(11, 23, 56, 0.95);
       color: #E0E8F0;
       font-family: 'Oswald', sans-serif;
-      padding: 25px;
+      padding: 40px 25px; 
       border-radius: 0;
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
@@ -157,13 +131,13 @@
       transition: transform 0.3s ease-out;
       position: relative;
       margin: auto;
-      min-height: calc(100vh - 40px);
-      padding-top: 250px;
+      min-height: auto; 
+
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center; 
     }
 
     .verification-modal-content.scale-in {
@@ -246,13 +220,13 @@
         font-size: 1em;
         color: #BCC7D8;
         margin-top: 15px;
-        word-break: break-all; /* Ensures long keys wrap */
+        word-break: break-all; 
         text-align: center;
         background-color: rgba(0, 0, 0, 0.2);
         padding: 10px;
         border-radius: 5px;
         border: 1px solid rgba(44, 72, 124, 0.6);
-        display: none; /* Hidden by default */
+        display: none; 
     }
 
     @keyframes fadeInScale {
@@ -358,6 +332,147 @@
       text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
     }
 
+    #apiKeyPopupOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10003;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    #apiKeyPopupOverlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #apiKeyPopupContent {
+        background: rgba(11, 23, 56, 0.95); 
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif; 
+        padding: 40px 25px; 
+        border-radius: 0;
+        border-top-left-radius: 30px; 
+        border-top-right-radius: 30px; 
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        width: calc(95% - 20px); 
+        max-width: 855px; 
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+        border: 1px solid rgba(44, 72, 124, 0.6); 
+        transform: scale(1);
+        opacity: 0; 
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        position: relative; 
+        margin: auto; 
+        min-height: auto; 
+
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+        zoom: 0.85; 
+    }
+
+    #apiKeyPopupOverlay.show #apiKeyPopupContent {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    #apiKeyPopupContent h3 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 1.8em;
+        margin-top: 0; 
+        margin-bottom: 10px; 
+        color: #A0C0E8;
+    }
+
+    #apiKeyPopupContent p {
+        font-family: 'Open Sans', sans-serif; 
+        font-size: 1.1em; 
+        margin-bottom: 5px; 
+        line-height: 1.6; 
+        color: #CAD8E8; 
+        word-break: break-all;
+    }
+
+    #apiKeyPopupContent strong {
+        color: #7CA0E0;
+    }
+
+    #apiKeyPopupContent .status-clean {
+        color: #66BB6A; 
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-blocked {
+        color: #EF5350; 
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-no-permission {
+        color: #EF5350; 
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-granted {
+        color: #66BB6A; 
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .generation-log-container {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 10px; 
+        max-height: 150px;
+        overflow-y: auto;
+        text-align: left;
+        font-size: 0.8em;
+        border: 1px solid rgba(124, 160, 224, 0.2);
+    }
+
+    #apiKeyPopupContent .generation-log-container::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    #apiKeyPopupContent .generation-log-container::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    #apiKeyPopupContent .generation-log-container {
+        scrollbar-width: none; 
+    }
+
+    #apiKeyPopupButton {
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+        color: #0B1738;
+        border: none;
+        padding: 16px 35px; 
+        border-radius: 10px; 
+        font-size: 1.3em; 
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    }
+
+    #apiKeyPopupButton:hover {
+        background: linear-gradient(180deg, #5A99D0, #3B75B0);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
     @media (max-width: 768px) {
         .verification-modal-overlay {
             justify-content: center;
@@ -369,7 +484,7 @@
             padding: 10px;
             margin: auto;
             min-height: 40vh;
-            
+
             border-radius: 0;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
@@ -439,6 +554,38 @@
             padding: 30px;
             font-size: 1.1em;
         }
+
+        #apiKeyPopupContent {
+            padding: 10px; 
+            width: 96%; 
+            max-width: none; 
+            min-height: 40vh; 
+            border-radius: 0; 
+            border-top-left-radius: 25px; 
+            border-top-right-radius: 25px; 
+            position: static; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            margin: auto; 
+            padding-top: 10px; 
+            zoom: 1; 
+        }
+        #apiKeyPopupContent h3 {
+            font-size: clamp(1.8em, 5vw, 2.2em); 
+            margin-bottom: 1.5vh; 
+            margin-top: 0; 
+        }
+        #apiKeyPopupContent p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em); 
+            margin-bottom: 0.5vh; 
+        }
+        #apiKeyPopupButton {
+            padding: 1.5vh 3vw; 
+            font-size: clamp(1em, 4vw, 1.2em); 
+            margin: 1.5vh auto; 
+        }
     }
 
     @media (max-width: 480px) {
@@ -453,12 +600,20 @@
         }
 
         .logo-verf {
+            position: static; 
             margin-bottom: 2vh;
             width: clamp(70px, 20vw, 120px);
+            top: auto;
+            left: auto;
+            transform: none;
         }
         .motto-verf {
+            position: static; 
             font-size: clamp(0.8em, 3.5vw, 1.2em);
             margin-bottom: 2.5vh;
+            top: auto;
+            left: auto;
+            transform: none;
         }
 
         .verification-modal-content h2 {
@@ -498,16 +653,24 @@
             padding: 20px;
             font-size: 1em;
         }
+
+        #apiKeyPopupContent {
+            border-top-left-radius: 20px; 
+            border-top-right-radius: 20px; 
+            padding-top: 10px; 
+        }
     }
   </style>
 </head>
 <body class="modal-open">
   <script>
     const blacklistedIPsEncoded = [
-      "" //test ip
+      "" 
     ];
 
     let isUserIPBlacklisted = false;
+
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     function decodeBase64(encodedString) {
         try {
@@ -570,10 +733,18 @@
         <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         Verification Successful!
         <br>
+
+        <div id="loadingContainerInModal" style="display: none;">
+            <div id="loadingBarContainer">
+                <div id="loadingBar"></div>
+            </div>
+            <div id="loadingText">Generating API Key- 0%</div> 
+
+        </div>
         <div id="apiKeyDisplay"></div>
       </div>
       <button id="verifyButton">Verify Your IP</button>
-      
+
     </div>
   </div>
 
@@ -585,64 +756,56 @@
     </div>
   </div>
 
-  <div id="loadingScreen">
-    <div id="loadingBarContainer">
-      <div id="loadingBar"></div>
+  <div id="apiKeyPopupOverlay">
+    <div id="apiKeyPopupContent">
+        <h3>Verification Aftermath</h3>
+        <p><strong>IP:</strong> <span id="popupUserIp"></span></p>
+        <p><strong>API Key:</strong> <span id="popupApiKey"></span></p>
+        <p><strong>Valid Until:</strong> <span id="popupApiKeyExpiry"></span></p>
+        <p><strong>API Login:</strong> <span id="popupApiLoginStatus" class="status-no-permission">NO PERMISSION - FOR EVERYONE</span></p>
+        <p><strong>IP Blacklist Status:</strong> <span id="popupBlacklistStatus"></span></p>
+        <p><strong>Generation Log:</strong></p>
+        <div id="popupGenerationLog" class="generation-log-container"></div>
+        <button id="apiKeyPopupButton">Proceed to Home</button>
     </div>
-    <div id="loadingText">Loading... 0%</div>
-    <div id="loadingAssetText"></div>
   </div>
 
   <script>
     const verificationModal = document.getElementById('verificationModal');
     const verifyButton = document.getElementById('verifyButton');
-    const loadingScreen = document.getElementById('loadingScreen');
-    const loadingLogo = document.getElementById('loadingLogo');
 
     const verificationTitle = document.getElementById('verificationTitle');
     const verificationInstruction = document.getElementById('verificationInstruction');
     const verificationNote = document.getElementById('verificationNote');
     const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
-    const loadingText = document.getElementById('loadingText');
+    const loadingContainerInModal = document.getElementById('loadingContainerInModal');
     const loadingBar = document.getElementById('loadingBar');
-    const loadingAssetText = document.getElementById('loadingAssetText'); // New element for detailed messages
-    const apiKeyDisplay = document.getElementById('apiKeyDisplay'); // New element to display API key info
+    const loadingText = document.getElementById('loadingText'); 
+    const apiKeyDisplay = document.getElementById('apiKeyDisplay');
 
     const customMessageBox = document.getElementById('customMessageBox');
     const clearMessagePopup = document.getElementById('clearMessagePopup');
 
+    const apiKeyPopupOverlay = document.getElementById('apiKeyPopupOverlay');
+    const popupUserIp = document.getElementById('popupUserIp');
+    const popupApiKey = document.getElementById('popupApiKey');
+    const popupApiKeyExpiry = document.getElementById('popupApiKeyExpiry');
+    const popupApiLoginStatus = document.getElementById('popupApiLoginStatus');
+    const popupBlacklistStatus = document.getElementById('popupBlacklistStatus');
+    const popupGenerationLog = document.getElementById('popupGenerationLog');
+    const apiKeyPopupButton = document.getElementById('apiKeyPopupButton');
+
     let verificationWindow = null;
+    let generationLogMessages = []; 
+    let capturedUserIP = "N/A"; 
 
-    // Define the expiration time for the temporary API key (e.g., 2 hours)
-    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; // 2 hours
+    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; 
 
-    /**
-     * Shows a custom message box instead of alert().
-     * @param {string} message - The message to display.
-     */
-    function showCustomMessage(message) {
-        customMessageBox.textContent = message;
-        customMessageBox.style.display = 'block';
-        setTimeout(() => {
-            customMessageBox.style.display = 'none';
-        }, 3000);
-    }
-
-    /**
-     * Sets a cookie with a given name, value, and expiration time.
-     * This function is retained for general utility, though the primary focus is localStorage for API keys.
-     * @param {string} name - The name of the cookie.
-     * @param {string} value - The value of the cookie.
-     * @param {number} ms - The expiration time in milliseconds from now.
-     */
     function setCookie(name, value, ms) {
         const expires = new Date(Date.now() + ms).toUTCString();
         document.cookie = `${name}=${value}; expires=${expires}; path=/`;
     }
 
-    /**
-     * Initializes the verification modal based on local storage and redirects if a valid API key exists.
-     */
     function initializeVerificationModal() {
       const apiKey = localStorage.getItem('blubase_api_key');
       const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
@@ -653,133 +816,201 @@
         window.location.href = '/home';
         return;
       } else if (apiKey || apiKeyExpiry) {
-        // If key exists but is expired, clear it
         console.log("Expired API key found. Clearing local storage.");
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
       }
 
-      // If no valid key, display the verification modal
       document.body.classList.add('modal-open');
       verificationTitle.style.display = 'block';
       verificationInstruction.style.display = 'block';
       verificationNote.style.display = 'block';
       verifyButton.style.display = 'inline-block';
       verificationSuccessMessage.style.display = 'none';
-      apiKeyDisplay.style.display = 'none'; // Ensure API key display is hidden initially
+      apiKeyDisplay.style.display = 'none';
+      loadingContainerInModal.style.display = 'none';
       verifyButton.disabled = false;
     }
 
-    /**
-     * Simulates a loading process for API key generation with detailed steps.
-     * @param {function} callback - Function to call after loading is complete.
-     */
-    function simulateApiKeyGeneration(callback) {
-        let progress = 0;
-        const intervalTime = 100; // milliseconds
-        const totalDuration = 3000; // 3 seconds for more detailed steps
-        const steps = totalDuration / intervalTime;
-        const increment = 100 / steps;
+    async function simulateApiKeyGeneration() {
+        generationLogMessages = []; 
 
-        const messages = [
-            "Connecting to secure servers...", // 0-25%
-            "Authenticating your session...",   // 25-50%
-            "Encrypting data for your key...", // 50-75%
-            "Finalizing API Key generation..." // 75-100%
+        loadingContainerInModal.style.display = 'flex';
+        loadingContainerInModal.style.opacity = '1';
+
+        let currentProgress = 0;
+        const updateProgressBar = (percentage) => {
+            currentProgress = percentage;
+            loadingBar.style.width = `${percentage}%`;
+            loadingText.textContent = `Generating API Key- ${Math.floor(percentage)}%`; 
+        };
+
+        const addLogMessage = (message) => {
+            const timestamp = new Date().toLocaleTimeString();
+            const fullMessage = `[${timestamp}] ${message}`;
+            generationLogMessages.push(fullMessage);
+
+        };
+
+        let ipBlacklistStatus = "UNKNOWN"; 
+
+        addLogMessage("Initiating security checks - ");
+        updateProgressBar(5);
+        await delay(300);
+
+        const ipCheckStartTime = performance.now();
+        addLogMessage("Fetching user IP address - ");
+        const userIP = await getUserIP();
+        const ipCheckDuration = (performance.now() - ipCheckStartTime).toFixed(2);
+
+        if (userIP) {
+            capturedUserIP = userIP; 
+            addLogMessage(`User IP: ${userIP} (fetched in ${ipCheckDuration}ms) - `);
+            updateProgressBar(20);
+            await delay(500);
+
+            const blacklistCheckStartTime = performance.now();
+            addLogMessage("Checking IP against blacklist database - ");
+            const isBlacklisted = isIPBlacklisted(userIP);
+            const blacklistCheckDuration = (performance.now() - blacklistCheckStartTime).toFixed(2);
+
+            if (isBlacklisted) {
+                addLogMessage(`IP Blacklist Status: BLOCKED! (check in ${blacklistCheckDuration}ms) - `);
+                ipBlacklistStatus = "BLOCKED";
+            } else {
+                addLogMessage(`IP Blacklist Status: CLEAN (check in ${blacklistCheckDuration}ms) - `);
+                ipBlacklistStatus = "CLEAN";
+            }
+            updateProgressBar(40);
+            await delay(500);
+        } else {
+            addLogMessage("Failed to retrieve user IP. Proceeding with caution - ");
+            ipBlacklistStatus = "FAILED TO RETRIEVE";
+            capturedUserIP = "N/A - Failed to retrieve";
+            updateProgressBar(40); 
+            await delay(500);
+        }
+        addLogMessage("Security checks complete - ");
+        await delay(300);
+
+        addLogMessage("Beginning API Key generation process - ");
+        const generationStartTime = performance.now();
+        updateProgressBar(45);
+        await delay(300);
+
+        const generationSteps = [
+            { msg: "Establishing secure connection to key server", progress: 60 },
+            { msg: "Authenticating session for key request", progress: 75 },
+            { msg: "Processing unique identifier for key creation", progress: 85 },
+            { msg: "Encrypting and finalizing key data", progress: 95 }
         ];
 
-        loadingScreen.style.display = 'flex';
-        setTimeout(() => { loadingScreen.style.opacity = '1'; }, 10); // Fade in loading screen
+        for (const step of generationSteps) {
+            addLogMessage(step.msg + " - ");
+            updateProgressBar(step.progress);
+            await delay(700); 
+        }
 
-        const loadingInterval = setInterval(() => {
-            progress += increment;
-            let currentMessage = "";
+        updateProgressBar(100);
+        loadingText.textContent = 'API Key Generated!'; 
+        addLogMessage('Finalizing and Redirecting - ');
 
-            if (progress < 25) {
-                currentMessage = messages[0];
-            } else if (progress < 50) {
-                currentMessage = messages[1];
-            } else if (progress < 75) {
-                currentMessage = messages[2];
-            } else {
-                currentMessage = messages[3];
-            }
+        const generationDuration = (performance.now() - generationStartTime).toFixed(2);
+        addLogMessage(`API Key generation completed in ${generationDuration}ms - `);
+        await delay(300);
 
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(loadingInterval);
-                loadingText.textContent = 'API Key Generated!';
-                loadingAssetText.textContent = 'Redirecting to Blu Base...';
-                loadingBar.style.width = '100%';
-                setTimeout(callback, 500); // Small delay after 100% before redirect
-            } else {
-                loadingText.textContent = `Generating API Key... ${Math.floor(progress)}%`;
-                loadingAssetText.textContent = currentMessage;
-                loadingBar.style.width = `${progress}%`;
-            }
-        }, intervalTime);
+        const newApiKey = crypto.randomUUID();
+        const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
+        const expiryDate = new Date(expiryTime);
+
+        localStorage.setItem('blubase_api_key', newApiKey);
+        localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
+
+        addLogMessage(`Generated API Key: ${newApiKey} - `);
+        addLogMessage("API key successfully stored in local storage - ");
+        await delay(500);
+
+        verificationModal.style.display = 'none';
+
+        popupUserIp.textContent = capturedUserIP; 
+        popupApiKey.textContent = newApiKey;
+
+        const options = {
+            month: 'numeric',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true,
+            timeZoneName: 'short', 
+            timeZone: 'America/Denver' 
+        };
+        popupApiKeyExpiry.textContent = expiryDate.toLocaleString('en-US', options);
+
+        popupBlacklistStatus.textContent = ipBlacklistStatus;
+        popupBlacklistStatus.className = `status-${ipBlacklistStatus.toLowerCase().replace(/\s/g, '-')}`; 
+
+        popupGenerationLog.innerHTML = generationLogMessages.join('<br>');
+
+        apiKeyPopupOverlay.classList.add('show'); 
+
+        apiKeyPopupButton.onclick = () => {
+            window.location.href = '/home';
+        };
     }
 
-    /**
-     * Handles the successful verification process, generates and stores API key, then redirects.
-     */
     function handleVerificationSuccess() {
-        // Hide verification modal content
+
         verifyButton.disabled = true;
         verificationTitle.style.display = 'none';
         verificationInstruction.style.display = 'none';
         verificationNote.style.display = 'none';
         verifyButton.style.display = 'none';
 
-        // Show "Verification Successful!" message
         verificationSuccessMessage.style.display = 'block';
 
-        // Simulate API key generation and then redirect
-        simulateApiKeyGeneration(() => {
-            const newApiKey = crypto.randomUUID(); // Generate a unique API key
-            const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
-            const expiryDate = new Date(expiryTime);
-
-            localStorage.setItem('blubase_api_key', newApiKey);
-            localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
-            
-            // Display the generated API key and its expiry
-            apiKeyDisplay.innerHTML = `
-                Your temporary API Key: <br><strong>${newApiKey}</strong><br>
-                This key is valid until: <br><strong>${expiryDate.toLocaleString()}</strong>
-            `;
-            apiKeyDisplay.style.display = 'block'; // Show the API key info
-
-            // This cookie is no longer strictly necessary for verification but kept for potential other uses.
-            setCookie('blubase_verified', 'true', API_KEY_EXPIRY_MS);
-
-            document.body.classList.remove('modal-open');
-            window.location.href = '/home';
-        });
+        simulateApiKeyGeneration(); 
     }
 
-    // Event listener for the verification button click
     verifyButton.addEventListener('click', () => {
+      console.log("Verify button clicked!"); 
+
       if (isUserIPBlacklisted) {
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
-        setCookie('blubase_verified', '', -1); // Clear cookie as well
+        setCookie('blubase_verified', '', -1);
         window.location.replace('blocked.html');
         return;
       }
 
       if (window.checkWindowClosedInterval) {
         clearInterval(window.checkWindowClosedInterval);
+        console.log("Cleared existing checkWindowClosedInterval."); 
       }
 
       verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+      console.log("Verification window opened. Reference:", verificationWindow); 
+
+      if (!verificationWindow || verificationWindow.closed || typeof verificationWindow.closed === 'undefined') {
+
+          customMessageBox.textContent = "Pop-up blocked or failed to open! Please allow pop-ups for this site.";
+          customMessageBox.style.display = 'block';
+          setTimeout(() => {
+            customMessageBox.style.display = 'none';
+          }, 3000);
+          console.error("Pop-up window was blocked or failed to open.");
+          return; 
+      }
 
       window.checkWindowClosedInterval = setInterval(() => {
+
         if (verificationWindow && verificationWindow.closed) {
           clearInterval(window.checkWindowClosedInterval);
+          console.log("Verification window closed. Calling handleVerificationSuccess."); 
           handleVerificationSuccess();
         }
-      }, 1000); // Check every second
+      }, 1000);
     });
   </script>
 </body>
