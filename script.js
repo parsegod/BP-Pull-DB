@@ -67,171 +67,171 @@ let Weapons = [];
 let currentData = [];
 
 const changelogEntries = [
-      {
-    date: "2025-07-22 1:25AM 𝗠𝗦𝗧",
-    changes: [
-      "↷ Overall Site adds ↶",
-      " - Revamped HomePage (bugFinder, CustomMobile_local; etc)",
-      " - Added EndKey (APIKey_Status)",
-      " - Simplified The Loading Logic",
-      " - Revamped BlockedPage (MobileUi, Information and Contact)",
-      " - Revamped VerifyPage (TempAPIKey, `/` Redirect Logic, Info ; ETC)",
-      " - Edited VercelRules (`/` Redirects, (*) Redirects ; ETC)",
-    ]
-  },
-    {
-    date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
-    changes: [
-      "↷ Major Security adds ↶",
-      " - Added BlockedPage (blacklisted_home)",
-      " - Added VerifyPage  (ipBlacklistCheck)",
-      " - Revamped The Loading Page for Mobile",
-      " - Added 2H LocalStroage (keys)",
-      " - Added Button To Clear LocalStorage Items",
-      " - Linked All Files Correctly"
+  {
+    "date": "2025-07-22 01:25AM MST",
+    "changes": [
+      "Overall Site Additions",
+      "Revamped Homepage (Bug Finder, Custom Mobile Local, etc.)",
+      "Added End Key (API Key Status)",
+      "Simplified Loading Logic",
+      "Revamped Blocked Page (Mobile UI, Information and Contact)",
+      "Revamped Verify Page (Temporary API Key, '/' Redirect Logic, Info, etc.)",
+      "Edited Vercel Rules ('/' Redirects, '*' Redirects, etc.)"
     ]
   },
   {
-    date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
-    changes: [
-      "↷ Major Security adds ↶",
-      " - Added BlockedPage (blacklisted_home)",
-      " - Added VerifyPage  (ipBlacklistCheck",
-      " - Revamped The Loading Page for Mobile",
-      " - Added 2H LocalStroage (keys)",
-      " - Added Button To Clear LocalStorage Items",
-      " - Linked All Files Correctly"
-    ]
-  },
-    {
-    date: "2025-07-12 2:43PM 𝗠𝗦𝗧",
-    changes: [
-      "↷ Update To UI ↶",
-      " - Added PageLoader",
-      " - Added Contributions Page",
-      " - Revamped Search-Filter-Section",
-      " - Revamped Main Container",
-      " - Added Mobile Responsive Browsing",
-      " - Minor CSS Adjustments"
-    ]
-  },
-    {
-    date: "2025-06-11 10:23PM 𝗠𝗦𝗧",
-    changes: [
-      "↷ 𝗨�𝗱𝗮𝘁𝗲 𝘁𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
-      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗮𝘆𝗲𝗿 𝗘𝘅𝗽𝗹𝗼𝗶𝘁 𝗦𝗲𝗰𝘁𝗶𝗼𝗻. 𝗮𝘀𝘄𝗲𝗹𝗹 𝗮𝘀 𝘀𝗼𝗺𝗲 𝗮𝗱𝗷𝘂𝘀𝘁𝗺𝗲𝗻𝘁𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗺𝗮𝗶𝗻 𝗛𝗼𝘄 𝗧𝗼 𝗨𝗶."
-    ]
-  },
-    {
-    date: "2025-06-11 6:13AM 𝗠𝗦𝗧",
-    changes: [
-            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "ASG-89: PERSONAL DETECTIVE (Pool 22)"
-    ]
-  },
-    {
-    date: "2025-06-10 10:38AM 𝗠𝗦𝗧",
-    changes: [
-            "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗣𝗿𝗶𝗻𝘁 ↶",
-            "HDR: NAUTILOID (Pool 2)"
-    ]
-  },
-    {
-    date: "2025-06-09 4:06PM 𝗠𝗦𝗧",
-    changes: [
-            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "LW31A1 FROSTLINE: THUNDERHEAD (Pool 7)",
-            "KOMPAKT 92: PRINTED END (Pool 13)"
-    ]
-  },
-    {
-    date: "2025-06-08 7:48AM 𝗠𝗦𝗧",
-    changes: [
-            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "MAELSTROM: DARK ENDING (Pool 15)",
-            "KRIG C: DE-ANIMATOR (Pool 12)"
-    ]
-  },
-    {
-    date: "2025-06-07 9:48AM 𝗠𝗦𝗧",
-    changes: [
-            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "LC10: STORM RAGE (Pool 1)",
-            "LC10: BLACKCELL HULL BUSTER  (Pool 2)"
-    ]
-  },
-    {
-    date: "2025-06-06 8:51PM 𝗠𝗦𝗧",
-    changes: [
-      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗛𝗼𝘄 𝗧𝗼 𝗚𝘂𝗶𝗱𝗲 ↶",
-      " 𝗮𝗱𝗱𝗲𝗱 𝗮 𝗦𝗲𝗰𝘁𝗶𝗼𝗻 𝘁𝗵𝗮𝘁 𝗵𝗲𝗹𝗽𝘀 𝗻𝗲𝘄 𝘂𝘀𝗲𝗿𝘀 𝘂𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗶𝘁𝗲/𝗺𝗲𝘁𝗵𝗼𝗱 𝘄𝗼𝗿𝗸𝘀."
-    ]
-  },
-    {
-        date: "2025-06-06 7:34 PM 𝗠𝗦𝗧",
-        changes: [
-            "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-            "CR-56 AMAX: DATA BREACHER (Pool 2)",
-            "LADRA: HELLBLOCK (Pool 2)",
-            "FENG 82: LOCK UP (Pool 7)",
-            "LW31A1 FROSTLINE: SNITCH UP (Pool 15)",
-            "KRIG C: IED (Pool 17)",
-            "KRIG C: IED BLACKCELL (Pool 20)",
-            "STRYDER .22: HOT FRANK (Pool 6)",
-            "MARINE SP: GEN POP PROP (Pool 12)",
-            "KOMPAKT 92: PRE OWNED (Pool 10)",
-            "AMR MOD 4: MAKESHIFT (Pool 7)",
-            "GS45: HOMESPUN (Pool 8)",
-            "AS VAL: SECURITY DETAIL (Pool 10)",
-            "ASG-89: ESCAPE PLAN (Pool 18)",
-            "ASG-89: ESCAPE PLAN BLACKCELL (Pool 21)",
-            "GPMG-7: CROWD CONTROL (Pool 17)",
-            "FFAR 1: COMBO BASH (Pool 9)",
-            "FFAR 1: PUNISHING BLOWS (Pool 1)",
-            "LC10: HULL BUSTER (Pool 5)",
-            "LC10: BYTE BLASTER (Pool 9)",
-            "AMES 85: LETHAL INSPECTION (Pool 26)",
-            "AMES 85: SCALES (Pool 27)",
-            "AMES 86: PRO REISSUE (Pool 28)",
-            "HDR: HYDRATOR (Pool 6)",
-            "DM-10: MUCKER (Pool 12)",
-            "MODEL L: DRAIN HAZARD (Pool 22)",
-            "MODEL L: DRAIN HAZARD BLACKCELL (Pool 12)",
-            "SAUG: OVERFLOW (Pool 20)"
-    ]
-  },
-    {
-    date: "2025-06-02 8:07AM 𝗠𝗦𝗧",
-    changes: [
-      "↷ 𝗙𝗶𝘅𝗲𝗱 𝗗𝘂𝗽𝗲 ↶",
-      " 𝗙𝗶𝘅𝗲𝗱 𝘁𝗵𝗲 𝗲𝗿𝗿𝗼𝗿 𝗰𝗮𝘂𝘀𝗶𝗻𝗴 𝘁𝗵𝗲 𝗺𝗼𝗱𝗮𝗹 𝘁𝗼 𝗱𝘂𝗽𝗲 𝘁𝘄𝗶𝗰𝗲. "
-    ]
-  },
-    {
-    date: "2025-06-02 6:50AM 𝗠𝗦𝗧",
-    changes: [
-      "↷ 𝗥𝗲𝗺𝗼𝘃𝗲𝗱 𝗦𝗰𝗿𝗼𝗹𝗹 𝗕𝗮𝗿 𝗩𝗶𝘀𝗶𝗯𝗹𝗶𝘁𝘆 ↶",
-      " 𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗹𝗶𝗸𝗲 𝗵𝗼𝘄 𝘁𝗵𝗲 𝘀𝗰𝗿𝗼𝗹𝗹 𝗯𝗮𝗿 𝘄𝗮𝘀 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝘀𝗼 𝗜 𝗿𝗲𝗺𝗼𝘃𝗲𝗱 𝗶𝘁𝘀 𝘃𝗶𝘀𝗮𝗯𝗶𝗹𝗶𝘁𝘆 "
+    "date": "2025-07-21 03:30AM MST",
+    "changes": [
+      "Major Security Additions",
+      "Added Blocked Page (Blacklisted Home)",
+      "Added Verify Page (IP Blacklist Check)",
+      "Revamped The Loading Page for Mobile",
+      "Added 2-Hour Local Storage (Keys)",
+      "Added Button to Clear Local Storage Items",
+      "Linked All Files Correctly"
     ]
   },
   {
-    date: "2025-06-01 11:32PM 𝗠𝗦𝗧",
-    changes: [
-      "↷ 𝗔𝗱𝗱𝗲𝗱 𝗡𝗲𝘄 𝗣𝗿𝗶𝗻𝘁𝘀 ↶",
-      " MODEL L: NO PAROLE (Pool 17)",
-      " XM4: THERMOPLASTIC (Pool 20)",
-      " 9MM PM: ARABESQUE (Pool 8)",
-      " SAUG: PILE (Pool 13)",
-      " JACKAL PDW: SWORN RIVALS (Blackcell 26)",
-      " AMES 85: LETHAL INSPECTION (Pool 26)",
-      " C9: THE PAINTSTORM (Pool 15)",
-      " CYPHER 091: THE PAINTBURST (Pool 7)",
-      " CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
-      " CR-56 AMAX: SEA CHOMPER (Pool 4)",
-      " PPSH-41: SHRILL BLEAATER (Pool 8)",
-      " TR2: BEAT `EM UP (Pool 2)",
-      " GPMG-7: HEAD FIRST (Pool 13)",
-      " MAELSTROM: BARRAINA (Pool 13)"
+    "date": "2025-07-21 03:30AM MST",
+    "changes": [
+      "Major Security Additions",
+      "Added Blocked Page (Blacklisted Home)",
+      "Added Verify Page (IP Blacklist Check)",
+      "Revamped The Loading Page for Mobile",
+      "Added 2-Hour Local Storage (Keys)",
+      "Added Button to Clear Local Storage Items",
+      "Linked All Files Correctly"
+    ]
+  },
+  {
+    "date": "2025-07-12 02:43PM MST",
+    "changes": [
+      "Update To UI",
+      "Added Page Loader",
+      "Added Contributions Page",
+      "Revamped Search-Filter-Section",
+      "Revamped Main Container",
+      "Added Mobile Responsive Browsing",
+      "Minor CSS Adjustments"
+    ]
+  },
+  {
+    "date": "2025-06-11 10:23PM MST",
+    "changes": [
+      "Update to Guide",
+      "Added a Multiplayer Exploit Section, as well as some adjustments to the main How To UI."
+    ]
+  },
+  {
+    "date": "2025-06-11 06:13AM MST",
+    "changes": [
+      "Added New Prints",
+      "ASG-89: PERSONAL DETECTIVE (Pool 22)"
+    ]
+  },
+  {
+    "date": "2025-06-10 10:38AM MST",
+    "changes": [
+      "Removed Print",
+      "HDR: NAUTILOID (Pool 2)"
+    ]
+  },
+  {
+    "date": "2025-06-09 04:06PM MST",
+    "changes": [
+      "Added New Prints",
+      "LW31A1 FROSTLINE: THUNDERHEAD (Pool 7)",
+      "KOMPAKT 92: PRINTED END (Pool 13)"
+    ]
+  },
+  {
+    "date": "2025-06-08 07:48AM MST",
+    "changes": [
+      "Added New Prints",
+      "MAELSTROM: DARK ENDING (Pool 15)",
+      "KRIG C: DE-ANIMATOR (Pool 12)"
+    ]
+  },
+  {
+    "date": "2025-06-07 09:48AM MST",
+    "changes": [
+      "Added New Prints",
+      "LC10: STORM RAGE (Pool 1)",
+      "LC10: BLACKCELL HULL BUSTER (Pool 2)"
+    ]
+  },
+  {
+    "date": "2025-06-06 08:51PM MST",
+    "changes": [
+      "Added How To Guide",
+      "Added a section that helps new users understand how the site/method works."
+    ]
+  },
+  {
+    "date": "2025-06-06 07:34PM MST",
+    "changes": [
+      "Added New Prints",
+      "CR-56 AMAX: DATA BREACHER (Pool 2)",
+      "LADRA: HELLBLOCK (Pool 2)",
+      "FENG 82: LOCK UP (Pool 7)",
+      "LW31A1 FROSTLINE: SNITCH UP (Pool 15)",
+      "KRIG C: IED (Pool 17)",
+      "KRIG C: IED BLACKCELL (Pool 20)",
+      "STRYDER .22: HOT FRANK (Pool 6)",
+      "MARINE SP: GEN POP PROP (Pool 12)",
+      "KOMPAKT 92: PRE OWNED (Pool 10)",
+      "AMR MOD 4: MAKESHIFT (Pool 7)",
+      "GS45: HOMESPUN (Pool 8)",
+      "AS VAL: SECURITY DETAIL (Pool 10)",
+      "ASG-89: ESCAPE PLAN (Pool 18)",
+      "ASG-89: ESCAPE PLAN BLACKCELL (Pool 21)",
+      "GPMG-7: CROWD CONTROL (Pool 17)",
+      "FFAR 1: COMBO BASH (Pool 9)",
+      "FFAR 1: PUNISHING BLOWS (Pool 1)",
+      "LC10: HULL BUSTER (Pool 5)",
+      "LC10: BYTE BLASTER (Pool 9)",
+      "AMES 85: LETHAL INSPECTION (Pool 26)",
+      "AMES 85: SCALES (Pool 27)",
+      "AMES 86: PRO REISSUE (Pool 28)",
+      "HDR: HYDRATOR (Pool 6)",
+      "DM-10: MUCKER (Pool 12)",
+      "MODEL L: DRAIN HAZARD (Pool 22)",
+      "MODEL L: DRAIN HAZARD BLACKCELL (Pool 12)",
+      "SAUG: OVERFLOW (Pool 20)"
+    ]
+  },
+  {
+    "date": "2025-06-02 08:07AM MST",
+    "changes": [
+      "Fixed Dupe",
+      "Fixed the error causing the modal to dupe twice."
+    ]
+  },
+  {
+    "date": "2025-06-02 06:50AM MST",
+    "changes": [
+      "Removed Scroll Bar Visibility",
+      "I didn't like how the scroll bar was looking so I removed its visibility."
+    ]
+  },
+  {
+    "date": "2025-06-01 11:32PM MST",
+    "changes": [
+      "Added New Prints",
+      "MODEL L: NO PAROLE (Pool 17)",
+      "XM4: THERMOPLASTIC (Pool 20)",
+      "9MM PM: ARABESQUE (Pool 8)",
+      "SAUG: PILE (Pool 13)",
+      "JACKAL PDW: SWORN RIVALS (Blackcell 26)",
+      "AMES 85: LETHAL INSPECTION (Pool 26)",
+      "C9: THE PAINTSTORM (Pool 15)",
+      "CYPHER 091: THE PAINTBURST (Pool 7)",
+      "CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
+      "CR-56 AMAX: SEA CHOMPER (Pool 4)",
+      "PPSH-41: SHRILL BLEAATER (Pool 8)",
+      "TR2: BEAT 'EM UP (Pool 2)",
+      "GPMG-7: HEAD FIRST (Pool 13)",
+      "MAELSTROM: BARRAINA (Pool 13)"
     ]
   }
 ];
