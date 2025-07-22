@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blu Base - API Key Status</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Blu Base - API Key Status" />
+  <meta property="og:description" content="Checking your API key status for Blu Base." />
+  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/endkey.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
+
+  <style>
+    body {
+      background-color: #0B1738;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+      color: #E0E8F0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .video-background video {
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        filter: brightness(0.6); 
+    }
+
+    #apiKeyErrorModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+
+    #apiKeyErrorModal .modal-content {
+        padding: 40px 25px; 
+        border-radius: 0;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        background: rgba(11, 23, 56, 0.95); 
+        border: 1px solid rgba(44, 72, 124, 0.6); 
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+        text-align: center;
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif; 
+        max-width: 855px; 
+        width: calc(95% - 20px); 
+        box-sizing: border-box;
+        overflow: hidden;
+        animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        zoom: 0.85; 
+    }
+
+    @keyframes popIn {
+        from { transform: scale(0.5); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    #apiKeyErrorModal .modal-content h2 {
+        font-family: 'Oswald', sans-serif;
+        background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+        font-size: 2.5em; 
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1.5px; 
+    }
+
+    #apiKeyErrorModal .modal-content p {
+        font-size: 1.1em; 
+        line-height: 1.6; 
+        margin-top: 15px;
+        margin-bottom: 25px;
+        font-weight: normal; 
+        color: #CAD8E8; 
+    }
+
+    #apiKeyErrorModal .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    #apiKeyErrorModal .modal-buttons button {
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4); 
+        color: #0B1738; 
+        padding: 16px 35px; 
+        border: none;
+        border-radius: 10px; 
+        font-size: 1.3em; 
+        font-weight: 600; 
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+        max-width: none; 
+        text-transform: none; 
+        letter-spacing: normal; 
+    }
+
+    #apiKeyErrorModal .modal-buttons button:hover {
+        background: linear-gradient(180deg, #5A99D0, #3B75B0); 
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); 
+    }
+
+    #keyDetails {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 15px;
+        border: 1px solid rgba(44, 72, 124, 0.6);
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #keyDetails p {
+        margin: 5px 0;
+        font-size: 1em;
+        color: #BCC7D8;
+    }
+
+    #keyDetails strong {
+        color: #7CA0E0;
+    }
+
+    #keyStatusText {
+        font-weight: bold;
+    }
+
+    .status-missing, .status-corrupted, .status-expired {
+        color: #EF5350; 
+    }
+
+    .status-valid_unexpected {
+        color: #66BB6A; 
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #apiKeyErrorModal .modal-content {
+            width: 96%;
+            padding: 10px;
+            margin: auto;
+            min-height: 40vh;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            max-width: none;
+            zoom: 1; 
+        }
+
+        #apiKeyErrorModal .modal-content h2 {
+            font-size: clamp(1.8em, 5vw, 2.2em);
+            margin-bottom: 1.5vh;
+        }
+
+        #apiKeyErrorModal .modal-content p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin-bottom: 0.5vh;
+        }
+
+        #apiKeyErrorModal .modal-buttons {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #apiKeyErrorModal .modal-buttons button {
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+            margin: 1.5vh auto;
+            width: 80%;
+        }
+
+        #keyDetails {
+            padding: 10px;
+            width: 90%;
+        }
+        #keyDetails p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+        }
+    }
+
+    @media (max-width: 480px) {
+        #apiKeyErrorModal .modal-content {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        #apiKeyErrorModal .modal-content h2 {
+            font-size: clamp(1.5em, 4.5vw, 2em);
+            margin-bottom: 1.5vh;
+        }
+        #apiKeyErrorModal .modal-content p {
+            font-size: clamp(0.8em, 3vw, 1em);
+            margin-bottom: 1.5vh;
+        }
+        #apiKeyErrorModal .modal-buttons button {
+            padding: 1.2vh 2.5vw;
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin: 1vh auto;
+        }
+        #keyDetails p {
+            font-size: clamp(0.8em, 3vw, 1em);
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-background">
+    <video id="backgroundVideo" autoplay loop muted playsinline>
+      <source src="assets/wallpaper.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div id="apiKeyErrorModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">API Key Issue!</h2>
+      <p id="modalMessage">The API Key that was detected in your LocalStorage Either expired or Was Corrupted/Tampered With. Please re-verify to continue using the site.</p>
+      <div id="keyDetails" style="display: none;">
+          <p><strong>Detected Key:</strong> <span id="detectedKey">N/A</span></p>
+          <p><strong>Expiry:</strong> <span id="detectedExpiry">N/A</span></p>
+          <p><strong>Status:</strong> <span id="keyStatusText">N/A</span></p>
+      </div>
+      <div class="modal-buttons">
+        <button id="redirectToVerifyBtn">Go to Verification Page</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const keyDetails = document.getElementById('keyDetails');
+        const detectedKey = document.getElementById('detectedKey');
+        const detectedExpiry = document.getElementById('detectedExpiry');
+        const keyStatusText = document.getElementById('keyStatusText');
+        const redirectToVerifyBtn = document.getElementById('redirectToVerifyBtn');
+
+        const apiKey = localStorage.getItem('blubase_api_key');
+        const apiKeyExpiry = parseInt(localStorage.getItem('blubase_api_key_expiry'), 10);
+        const currentTime = new Date().getTime();
+
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+        let status = "unknown"; 
+
+        if (!apiKey) {
+            status = "missing";
+            modalTitle.textContent = "API Key Missing!";
+            modalMessage.textContent = "No API Key was found in your local storage. Please verify to continue using the site.";
+            keyDetails.style.display = 'none';
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        } else if (!uuidRegex.test(apiKey)) {
+            status = "corrupted";
+            modalTitle.textContent = "API Key Corrupted!";
+            modalMessage.textContent = "The detected API Key is corrupted or in an invalid format. Please re-verify to continue using the site.";
+            detectedKey.textContent = apiKey;
+            detectedExpiry.textContent = "N/A";
+            keyStatusText.textContent = "CORRUPTED / INVALID FORMAT";
+            keyStatusText.className = 'status-corrupted';
+            keyDetails.style.display = 'block';
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        } else if (isNaN(apiKeyExpiry) || currentTime >= apiKeyExpiry) {
+            status = "expired";
+            modalTitle.textContent = "API Key Expired!";
+            modalMessage.textContent = "Your API Key has expired. Please re-verify to continue using the site.";
+            detectedKey.textContent = apiKey;
+            const expiryDate = new Date(apiKeyExpiry);
+            const options = { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true, timeZoneName: 'short', timeZone: 'America/Denver' };
+            detectedExpiry.textContent = expiryDate.toLocaleString('en-US', options);
+            keyStatusText.textContent = "EXPIRED";
+            keyStatusText.className = 'status-expired';
+            keyDetails.style.display = 'block';
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        } else {
+
+            status = "valid_unexpected";
+            modalTitle.textContent = "Redirecting...";
+            modalMessage.textContent = "A valid API Key was detected. Redirecting you to the home page.";
+            keyDetails.style.display = 'none';
+            redirectToVerifyBtn.style.display = 'none'; 
+            keyStatusText.className = 'status-valid_unexpected';
+            setTimeout(() => {
+                window.location.replace('/home');
+            }, 1000); 
+        }
+
+        redirectToVerifyBtn.addEventListener('click', () => {
+            window.location.replace('/verify');
+        });
+
+        const backgroundVideo = document.getElementById('backgroundVideo');
+        if (backgroundVideo) {
+            backgroundVideo.load();
+            backgroundVideo.play().catch(error => {
+                console.warn("Video autoplay failed:", error);
+            });
+        }
+    });
+  </script>
+</body>
+</html>
