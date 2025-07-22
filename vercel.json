@@ -12,14 +12,7 @@
 
     {
       "source": "/home",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "cookie",
-          "key": "blubase_verified",
-          "value": "true"
-        }
-      ]
+      "destination": "/index.html"
     },
 
     {
