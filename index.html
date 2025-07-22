@@ -526,7 +526,7 @@
 
         if (localStorage.getItem('blubase_verified') !== 'true') {
             console.log("Index.html: User not verified. Redirecting to verf.html.");
-            window.location.replace('verify.html');
+            window.location.replace('/verify');
         } else {
             console.log("Index.html: User verified. Displaying content.");
             document.documentElement.style.display = 'block';
