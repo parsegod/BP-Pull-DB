@@ -1,36 +1,9 @@
 {
   "rewrites": [
-    {
-      "source": "/HAH",
-      "destination": "/helpers/helpers.html"
-    },
+    { "source": "/verify", "destination": "/verify.html" },
+    { "source": "/endkey", "destination": "/endkey.html" },
+    { "source": "/blocked", "destination": "/blocked.html" },
+    { "source": "/home", "destination": "/index.html" }
 
-    {
-      "source": "/blocked",
-      "destination": "/blocked.html"
-    },
-
-    {
-      "source": "/home",
-      "destination": "/index.html"
-    },
-
-    {
-      "source": "/verify",
-      "destination": "/verify.html"
-    },
-
-
-    {
-      "source": "/(.*)",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "cookie",
-          "key": "blubase_verified",
-          "value": "true"
-        }
-      ]
-    }
   ]
 }
