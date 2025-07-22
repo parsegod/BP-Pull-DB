@@ -3,7 +3,7 @@
     { "source": "/verify", "destination": "/verify.html" },
     { "source": "/endkey", "destination": "/endkey.html" },
     { "source": "/blocked", "destination": "/blocked.html" },
-    { "source": "/home", "destination": "/index.html" }
-
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/HAH", "destination": "helpers/helpers.html" }
   ]
 }
