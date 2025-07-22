@@ -97,8 +97,6 @@
       min-height: 2.8em;
       width: 90%;
       max-width: 500px;
-      opacity: 1; 
-      transition: opacity 0.3s ease-in-out;
     }
 
     .video-background {
@@ -248,18 +246,18 @@
         font-size: 1em;
         color: #BCC7D8;
         margin-top: 15px;
-        word-break: break-all; 
+        word-break: break-all; /* Ensures long keys wrap */
         text-align: center;
         background-color: rgba(0, 0, 0, 0.2);
         padding: 10px;
         border-radius: 5px;
         border: 1px solid rgba(44, 72, 124, 0.6);
-        display: none; 
+        display: none; /* Hidden by default */
     }
 
     @keyframes fadeInScale {
         from { opacity: 0; transform: scale(0.8); }
-        to { transform: scale(1); opacity: 1; }
+        to { opacity: 1; transform: scale(1); }
     }
 
     @keyframes bounceIn {
@@ -371,7 +369,7 @@
             padding: 10px;
             margin: auto;
             min-height: 40vh;
-
+            
             border-radius: 0;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
@@ -506,42 +504,10 @@
 <body class="modal-open">
   <script>
     const blacklistedIPsEncoded = [
-      "" 
+      "" //test ip
     ];
 
     let isUserIPBlacklisted = false;
-
-    let verificationModal;
-    let verifyButton;
-    let loadingScreen;
-    let loadingText;
-    let loadingBar;
-    let loadingAssetText;
-
-    let verificationTitle;
-    let verificationInstruction;
-    let verificationNote;
-    let verificationSuccessMessage;
-
-    let customMessageBox;
-    let clearMessagePopup;
-
-    let verificationWindow = null;
-
-    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; 
-
-    function showCustomMessage(message) {
-        customMessageBox.textContent = message;
-        customMessageBox.style.display = 'block';
-        setTimeout(() => {
-            customMessageBox.style.display = 'none';
-        }, 3000);
-    }
-
-    function setCookie(name, value, ms) {
-        const expires = new Date(Date.now() + ms).toUTCString();
-        document.cookie = `${name}=${value}; expires=${expires}; path=/`;
-    }
 
     function decodeBase64(encodedString) {
         try {
@@ -568,189 +534,252 @@
         return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
     }
 
-    async function startPostVerificationLoading(finalCallback) {
-        let currentProgress = 0;
-        const totalSteps = 4; 
-        const stepIncrement = 100 / totalSteps;
-
-        verificationModal.style.display = 'none';
-        loadingScreen.style.display = 'flex';
-        loadingScreen.style.opacity = '1';
-        loadingText.textContent = 'Verification Successful!';
-        loadingBar.style.width = '0%';
-
-        loadingAssetText.textContent = 'Checking IP status...';
-        currentProgress += stepIncrement;
-        loadingBar.style.width = `${currentProgress}%`;
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
-
+    async function checkUserAccess() {
         const userIP = await getUserIP();
-        if (userIP && isIPBlacklisted(userIP)) {
-            loadingAssetText.textContent = 'IP blacklisted! Redirecting to blocked page.';
-            loadingBar.style.width = '100%';
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            window.location.replace('/blocked');
-            return;
+        if (!userIP) {
+            console.error("Could not retrieve user IP.");
         } else {
-            loadingAssetText.textContent = 'IP status confirmed: Not blacklisted.';
-            currentProgress += stepIncrement;
-            loadingBar.style.width = `${currentProgress}%`;
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            isUserIPBlacklisted = isIPBlacklisted(userIP);
+            if (isUserIPBlacklisted) {
+                console.warn("User IP is blacklisted.");
+            }
         }
-
-        loadingAssetText.textContent = 'Generating unique API Key...';
-        currentProgress += stepIncrement;
-        loadingBar.style.width = `${currentProgress}%`;
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        const newApiKey = crypto.randomUUID();
-        const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
-        const expiryDate = new Date(expiryTime);
-
-        loadingAssetText.textContent = 'Storing key in local storage...';
-        currentProgress += stepIncrement;
-        loadingBar.style.width = `${currentProgress}%`;
-        localStorage.setItem('blubase_api_key', newApiKey);
-        localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        loadingText.textContent = 'API Key Ready!';
-        loadingAssetText.innerHTML = `
-            Your temporary API Key: <br><strong>${newApiKey}</strong><br>
-            This key is valid until: <br><strong>${expiryDate.toLocaleString()}</strong><br>
-            Redirecting to Blu Base...
-        `;
-        loadingBar.style.width = '100%';
-
-        await new Promise(resolve => setTimeout(resolve, 3000)); 
-
-        finalCallback(); 
+        initializeVerificationModal();
     }
 
-    function handleVerificationSuccess() {
+    checkUserAccess();
+  </script>
 
-        verifyButton.disabled = true;
-        verificationTitle.style.display = 'none';
-        verificationInstruction.style.display = 'none';
-        verificationNote.style.display = 'none';
-        verificationSuccessMessage.style.display = 'none'; 
+  <div class="video-background">
+    <video id="backgroundVideo" autoplay loop muted playsinline>
+      <source src="assets/wallpaper.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-        startPostVerificationLoading(() => {
-            document.body.classList.remove('modal-open');
-            window.location.href = '/home';
-        });
+  <div id="verificationModal" class="verification-modal-overlay">
+    <div class="verification-modal-content scale-in">
+      <h2 id="verificationTitle">Account Verification Required</h2>
+      <p id="verificationInstruction">
+        To maintain the integrity of our database and prevent spam entries, we require a quick verification.
+      </p>
+      <p id="verificationNote" class="glowing-red-text">
+        A new tab will open for the verification. If the modal doesn't close automatically, please close the verification tab.
+      </p>
+      <div id="verificationSuccessMessage">
+        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        Verification Successful!
+        <br>
+        <div id="apiKeyDisplay"></div>
+      </div>
+      <button id="verifyButton">Verify Your IP</button>
+      
+    </div>
+  </div>
+
+  <div id="customMessageBox"></div>
+
+  <div id="clearMessagePopup" class="hidden">
+    <div>
+        Local storage cleared. You will be redirected to the verification page.
+    </div>
+  </div>
+
+  <div id="loadingScreen">
+    <div id="loadingBarContainer">
+      <div id="loadingBar"></div>
+    </div>
+    <div id="loadingText">Loading... 0%</div>
+    <div id="loadingAssetText"></div>
+  </div>
+
+  <script>
+    const verificationModal = document.getElementById('verificationModal');
+    const verifyButton = document.getElementById('verifyButton');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingLogo = document.getElementById('loadingLogo');
+
+    const verificationTitle = document.getElementById('verificationTitle');
+    const verificationInstruction = document.getElementById('verificationInstruction');
+    const verificationNote = document.getElementById('verificationNote');
+    const verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
+    const loadingText = document.getElementById('loadingText');
+    const loadingBar = document.getElementById('loadingBar');
+    const loadingAssetText = document.getElementById('loadingAssetText'); // New element for detailed messages
+    const apiKeyDisplay = document.getElementById('apiKeyDisplay'); // New element to display API key info
+
+    const customMessageBox = document.getElementById('customMessageBox');
+    const clearMessagePopup = document.getElementById('clearMessagePopup');
+
+    let verificationWindow = null;
+
+    // Define the expiration time for the temporary API key (e.g., 2 hours)
+    const API_KEY_EXPIRY_MS = 2 * 60 * 60 * 1000; // 2 hours
+
+    /**
+     * Shows a custom message box instead of alert().
+     * @param {string} message - The message to display.
+     */
+    function showCustomMessage(message) {
+        customMessageBox.textContent = message;
+        customMessageBox.style.display = 'block';
+        setTimeout(() => {
+            customMessageBox.style.display = 'none';
+        }, 3000);
     }
 
-    async function initializeVerificationModal() {
+    /**
+     * Sets a cookie with a given name, value, and expiration time.
+     * This function is retained for general utility, though the primary focus is localStorage for API keys.
+     * @param {string} name - The name of the cookie.
+     * @param {string} value - The value of the cookie.
+     * @param {number} ms - The expiration time in milliseconds from now.
+     */
+    function setCookie(name, value, ms) {
+        const expires = new Date(Date.now() + ms).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    }
 
-      loadingScreen.style.display = 'flex';
-      loadingScreen.style.opacity = '1';
-      loadingText.textContent = 'Initializing...';
-      loadingAssetText.textContent = 'Checking IP blacklist...';
-      loadingBar.style.width = '10%'; 
-
-      const userIP = await getUserIP();
-      if (!userIP) {
-          loadingAssetText.textContent = 'Could not retrieve IP. Proceeding without blacklist check.';
-          loadingBar.style.width = '20%';
-          await new Promise(resolve => setTimeout(resolve, 1000)); 
-      } else {
-          isUserIPBlacklisted = isIPBlacklisted(userIP);
-          if (isUserIPBlacklisted) {
-              loadingAssetText.textContent = 'IP blacklisted. Redirecting to blocked page.';
-              loadingBar.style.width = '100%';
-              await new Promise(resolve => setTimeout(resolve, 1500)); 
-              window.location.replace('/blocked');
-              return; 
-          } else {
-              loadingAssetText.textContent = 'IP check complete. Your IP is not blacklisted.';
-              loadingBar.style.width = '30%';
-              await new Promise(resolve => setTimeout(resolve, 1000)); 
-          }
-      }
-
-      loadingAssetText.textContent = 'Checking for existing temporary API key...';
-      loadingBar.style.width = '50%';
-      await new Promise(resolve => setTimeout(resolve, 1000)); 
-
+    /**
+     * Initializes the verification modal based on local storage and redirects if a valid API key exists.
+     */
+    function initializeVerificationModal() {
       const apiKey = localStorage.getItem('blubase_api_key');
       const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
       const currentTime = new Date().getTime();
 
       if (apiKey && apiKeyExpiry && currentTime < parseInt(apiKeyExpiry)) {
-        loadingAssetText.textContent = 'Valid API key found. Access granted. Redirecting...';
-        loadingBar.style.width = '100%';
-        await new Promise(resolve => setTimeout(resolve, 1500)); 
+        console.log("User has a valid API key. Redirecting to home.");
         window.location.href = '/home';
         return;
       } else if (apiKey || apiKeyExpiry) {
-        loadingAssetText.textContent = 'Expired API key found. Clearing local storage.';
+        // If key exists but is expired, clear it
+        console.log("Expired API key found. Clearing local storage.");
         localStorage.removeItem('blubase_api_key');
         localStorage.removeItem('blubase_api_key_expiry');
-        loadingBar.style.width = '70%';
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
-      } else {
-        loadingAssetText.textContent = 'No valid API key found.';
-        loadingBar.style.width = '70%';
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
       }
 
-      loadingScreen.style.opacity = '0';
-      loadingScreen.addEventListener('transitionend', () => {
-          loadingScreen.style.display = 'none';
-      }, { once: true });
-
+      // If no valid key, display the verification modal
       document.body.classList.add('modal-open');
       verificationTitle.style.display = 'block';
       verificationInstruction.style.display = 'block';
       verificationNote.style.display = 'block';
       verifyButton.style.display = 'inline-block';
       verificationSuccessMessage.style.display = 'none';
+      apiKeyDisplay.style.display = 'none'; // Ensure API key display is hidden initially
       verifyButton.disabled = false;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Simulates a loading process for API key generation with detailed steps.
+     * @param {function} callback - Function to call after loading is complete.
+     */
+    function simulateApiKeyGeneration(callback) {
+        let progress = 0;
+        const intervalTime = 100; // milliseconds
+        const totalDuration = 3000; // 3 seconds for more detailed steps
+        const steps = totalDuration / intervalTime;
+        const increment = 100 / steps;
 
-        verificationModal = document.getElementById('verificationModal');
-        verifyButton = document.getElementById('verifyButton');
-        loadingScreen = document.getElementById('loadingScreen');
-        loadingText = document.getElementById('loadingText');
-        loadingBar = document.getElementById('loadingBar');
-        loadingAssetText = document.getElementById('loadingAssetText');
+        const messages = [
+            "Connecting to secure servers...", // 0-25%
+            "Authenticating your session...",   // 25-50%
+            "Encrypting data for your key...", // 50-75%
+            "Finalizing API Key generation..." // 75-100%
+        ];
 
-        verificationTitle = document.getElementById('verificationTitle');
-        verificationInstruction = document.getElementById('verificationInstruction');
-        verificationNote = document.getElementById('verificationNote');
-        verificationSuccessMessage = document.getElementById('verificationSuccessMessage');
+        loadingScreen.style.display = 'flex';
+        setTimeout(() => { loadingScreen.style.opacity = '1'; }, 10); // Fade in loading screen
 
-        customMessageBox = document.getElementById('customMessageBox');
-        clearMessagePopup = document.getElementById('clearMessagePopup');
+        const loadingInterval = setInterval(() => {
+            progress += increment;
+            let currentMessage = "";
 
-        verifyButton.addEventListener('click', () => {
-
-          if (isUserIPBlacklisted) {
-            localStorage.removeItem('blubase_api_key');
-            localStorage.removeItem('blubase_api_key_expiry');
-            setCookie('blubase_verified', '', -1); 
-            window.location.replace('blocked.html');
-            return;
-          }
-
-          if (window.checkWindowClosedInterval) {
-            clearInterval(window.checkWindowClosedInterval);
-          }
-
-          verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
-
-          window.checkWindowClosedInterval = setInterval(() => {
-            if (verificationWindow && verificationWindow.closed) {
-              clearInterval(window.checkWindowClosedInterval);
-              handleVerificationSuccess(); 
+            if (progress < 25) {
+                currentMessage = messages[0];
+            } else if (progress < 50) {
+                currentMessage = messages[1];
+            } else if (progress < 75) {
+                currentMessage = messages[2];
+            } else {
+                currentMessage = messages[3];
             }
-          }, 1000); 
-        });
 
-        initializeVerificationModal(); 
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                loadingText.textContent = 'API Key Generated!';
+                loadingAssetText.textContent = 'Redirecting to Blu Base...';
+                loadingBar.style.width = '100%';
+                setTimeout(callback, 500); // Small delay after 100% before redirect
+            } else {
+                loadingText.textContent = `Generating API Key... ${Math.floor(progress)}%`;
+                loadingAssetText.textContent = currentMessage;
+                loadingBar.style.width = `${progress}%`;
+            }
+        }, intervalTime);
+    }
+
+    /**
+     * Handles the successful verification process, generates and stores API key, then redirects.
+     */
+    function handleVerificationSuccess() {
+        // Hide verification modal content
+        verifyButton.disabled = true;
+        verificationTitle.style.display = 'none';
+        verificationInstruction.style.display = 'none';
+        verificationNote.style.display = 'none';
+        verifyButton.style.display = 'none';
+
+        // Show "Verification Successful!" message
+        verificationSuccessMessage.style.display = 'block';
+
+        // Simulate API key generation and then redirect
+        simulateApiKeyGeneration(() => {
+            const newApiKey = crypto.randomUUID(); // Generate a unique API key
+            const expiryTime = new Date().getTime() + API_KEY_EXPIRY_MS;
+            const expiryDate = new Date(expiryTime);
+
+            localStorage.setItem('blubase_api_key', newApiKey);
+            localStorage.setItem('blubase_api_key_expiry', expiryTime.toString());
+            
+            // Display the generated API key and its expiry
+            apiKeyDisplay.innerHTML = `
+                Your temporary API Key: <br><strong>${newApiKey}</strong><br>
+                This key is valid until: <br><strong>${expiryDate.toLocaleString()}</strong>
+            `;
+            apiKeyDisplay.style.display = 'block'; // Show the API key info
+
+            // This cookie is no longer strictly necessary for verification but kept for potential other uses.
+            setCookie('blubase_verified', 'true', API_KEY_EXPIRY_MS);
+
+            document.body.classList.remove('modal-open');
+            window.location.href = '/home';
+        });
+    }
+
+    // Event listener for the verification button click
+    verifyButton.addEventListener('click', () => {
+      if (isUserIPBlacklisted) {
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+        setCookie('blubase_verified', '', -1); // Clear cookie as well
+        window.location.replace('blocked.html');
+        return;
+      }
+
+      if (window.checkWindowClosedInterval) {
+        clearInterval(window.checkWindowClosedInterval);
+      }
+
+      verificationWindow = window.open('https://vdax.rf.gd/', '_blank');
+
+      window.checkWindowClosedInterval = setInterval(() => {
+        if (verificationWindow && verificationWindow.closed) {
+          clearInterval(window.checkWindowClosedInterval);
+          handleVerificationSuccess();
+        }
+      }, 1000); // Check every second
     });
   </script>
 </body>
