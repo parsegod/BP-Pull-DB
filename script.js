@@ -67,7 +67,31 @@ let Weapons = [];
 let currentData = [];
 
 const changelogEntries = [
+      {
+    date: "2025-07-22 1:25AM 𝗠𝗦𝗧",
+    changes: [
+      "↷ Major Security adds ↶",
+      " - Revamped HomePage (bugFinder, CustomMobile_local; etc)",
+      " - Added EndKey (APIKey_Status)",
+      " - Simplified The Loading Logic",
+      " - Revamped BlockedPage (MobileUi, Information and Contact)",
+      " - Revamped VerifyPage (TempAPIKey, `/` Redirect Logic, Info ; ETC)",
+      " - Edited VercelRules (`/` Redirects, (*) Redirects ; ETC)",
+    ]
+  },
     {
+    date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
+    changes: [
+      "↷ Major Security adds ↶",
+      " - Added BlockedPage (blacklisted_home)",
+      " - Added VerifyPage  (ipBlacklistCheck)",
+      " - Revamped The Loading Page for Mobile",
+      " - Added 2H LocalStroage (keys)",
+      " - Added Button To Clear LocalStorage Items",
+      " - Linked All Files Correctly"
+    ]
+  },
+  {
     date: "2025-07-21 3:30AM 𝗠𝗦𝗧",
     changes: [
       "↷ Major Security adds ↶",
