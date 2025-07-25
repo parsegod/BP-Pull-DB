@@ -39,7 +39,7 @@
             transition: opacity 1s ease-in-out;
         }
 
-        .video-background video { /* Changed back to video */
+        .video-background video {
             min-width: 100%;
             min-height: 100%;
             width: auto;
@@ -52,7 +52,7 @@
             filter: brightness(0.6);
         }
 
-        /* Styles for the outer modal container, matching #apiKeyErrorModal */
+        /* Styles for the outer modal container, matching #apiKeyErrorModal from endkey.html */
         #updateModalContainer {
             position: fixed;
             top: 0;
@@ -82,7 +82,7 @@
             box-sizing: border-box;
             overflow: hidden;
             animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-            zoom: 0.85; /* Added zoom property */
+            zoom: 0.85; /* Match zoom from endkey.html */
         }
 
         @keyframes popIn {
@@ -90,7 +90,7 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        #updateModalContainer .modal-content h2 { /* Changed from h1 to h2 */
+        #updateModalContainer .modal-content h2 { /* Matching h2 from endkey.html */
             font-family: 'Oswald', sans-serif;
             background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
             -webkit-background-clip: text;
@@ -101,12 +101,12 @@
             font-size: 2.5em;
             margin-top: 0;
             margin-bottom: 20px;
-            text-transform: uppercase; /* Added text-transform */
+            text-transform: uppercase;
             font-weight: bold;
-            letter-spacing: 1.5px; /* Added letter-spacing */
+            letter-spacing: 1.5px;
         }
 
-        #updateModalContainer .modal-content p {
+        #updateModalContainer .modal-content p { /* Matching p from endkey.html */
             font-size: 1.1em;
             line-height: 1.6;
             margin-top: 15px;
@@ -122,43 +122,48 @@
             margin-top: 10px;
             border: 1px solid rgba(44, 72, 124, 0.2);
             font-weight: 600;
-            color: #7CA0E0; /* Default status text color */
             font-size: 1.25rem;
             word-break: break-all;
+            /* Default text color for status box - will be overridden by update-needed/no-update-needed */
+            color: #7CA0E0;
         }
         .status-box p { /* Ensure paragraph inside status-box matches status-box color */
             margin: 0;
-            color: inherit;
             font-family: 'Open Sans', sans-serif; /* Ensure font consistency */
         }
 
-        .status-box.update-needed {
+        .status-box.update-needed p { /* Apply gradient and shadow to the text inside the p tag */
             background: linear-gradient(to right, #EF5350, #C62828); /* Red gradient */
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
             text-shadow: 0 0 8px rgba(239, 83, 80, 0.7), 0 0 15px rgba(198, 40, 40, 0.7);
+        }
+        .status-box.update-needed {
             border-color: #EF5350; /* Red border */
         }
-        .status-box.no-update-needed {
+
+        .status-box.no-update-needed p { /* Apply gradient and shadow to the text inside the p tag */
             background: linear-gradient(to right, #4CAF50, #2E7D32); /* Green gradient */
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
             text-shadow: 0 0 8px rgba(76, 175, 80, 0.7), 0 0 15px rgba(46, 125, 50, 0.7);
+        }
+        .status-box.no-update-needed {
             border-color: #4CAF50; /* Green border */
         }
 
-        .modal-buttons {
+        .modal-buttons { /* Matching button container from endkey.html */
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
         }
 
-        .modal-buttons button {
+        .modal-buttons button { /* Matching button styles from endkey.html */
             background: linear-gradient(180deg, #6CACE4, #4A8CD4);
             color: #0B1738;
             padding: 16px 35px;
@@ -180,9 +185,9 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Mobile-specific styles */
+        /* Mobile-specific styles, matching endkey.html */
         @media (max-width: 768px) {
-            #updateModalContainer .modal-content { /* Specificity for the modal content */
+            #updateModalContainer .modal-content {
                 width: 96%;
                 padding: 20px 15px;
                 min-height: 50vh;
@@ -196,15 +201,15 @@
                 justify-content: center;
                 box-sizing: border-box;
                 max-width: none;
-                zoom: 1;
+                zoom: 1; /* Reset zoom for mobile */
             }
 
-            #updateModalContainer .modal-content h2 { /* Specificity for h2 */
+            #updateModalContainer .modal-content h2 {
                 font-size: clamp(1.8em, 7vw, 2.2em);
                 margin-bottom: 2vh;
             }
 
-            #updateModalContainer .modal-content p { /* Specificity for p */
+            #updateModalContainer .modal-content p {
                 font-size: clamp(0.9em, 3.8vw, 1.1em);
                 margin-bottom: 1.5vh;
             }
@@ -234,17 +239,17 @@
         }
 
         @media (max-width: 480px) {
-            #updateModalContainer .modal-content { /* Specificity for the modal content */
+            #updateModalContainer .modal-content {
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
                 padding: 15px 10px;
                 min-height: 55vh;
             }
-            #updateModalContainer .modal-content h2 { /* Specificity for h2 */
+            #updateModalContainer .modal-content h2 {
                 font-size: clamp(1.5em, 6vw, 2em);
                 margin-bottom: 1.2vh;
             }
-            #updateModalContainer .modal-content p { /* Specificity for p */
+            #updateModalContainer .modal-content p {
                 font-size: clamp(0.8em, 3.5vw, 1em);
                 margin-bottom: 1vh;
             }
@@ -266,8 +271,8 @@
 </head>
 <body>
     <div class="video-background">
-        <!-- Replace with your actual video if you host it (e.g., src="assets/wallpaper.mp4"). -->
-        <!-- The video tag is commented out by default as the asset is not provided. -->
+        <!-- Using a placeholder video as the asset is not provided. -->
+        <!-- If you have "assets/wallpaper.mp4", uncomment the source tag below. -->
         <video id="backgroundVideo" autoplay loop muted playsinline>
             <!-- <source src="assets/wallpaper.mp4" type="video/mp4"> -->
             Your browser does not support the video tag.
@@ -276,7 +281,7 @@
 
     <div id="updateModalContainer">
         <div class="modal-content">
-            <h2>Bot Update Status</h2> <!-- Changed from h1 to h2 -->
+            <h2>Bot Update Status</h2>
             <p>
                 This page is used by the bot to determine if a script update is required.
                 The bot looks for a specific string within the content of this page.
@@ -296,6 +301,7 @@
                 <button id="signalUpdateBtn">Signal Update Required</button>
                 <button id="signalNoUpdateBtn">Signal No Update</button>
             </div>
+
         </div>
     </div>
 
@@ -335,10 +341,16 @@
             // Auto-play video if available (similar to endkey.html)
             const backgroundVideo = document.getElementById('backgroundVideo');
             if (backgroundVideo) {
-                backgroundVideo.load();
-                backgroundVideo.play().catch(error => {
-                    console.warn("Video autoplay failed:", error);
-                });
+                // Check if the video source is actually set to a local asset
+                const videoSource = backgroundVideo.querySelector('source');
+                if (videoSource && videoSource.src.includes('assets/wallpaper.mp4')) {
+                    backgroundVideo.load();
+                    backgroundVideo.play().catch(error => {
+                        console.warn("Video autoplay failed:", error);
+                    });
+                } else {
+                    console.warn("Video source not found or not 'assets/wallpaper.mp4'. Autoplay skipped.");
+                }
             }
         });
     </script>
