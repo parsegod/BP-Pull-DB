@@ -39,7 +39,7 @@
             transition: opacity 1s ease-in-out;
         }
 
-        .video-background img { /* Changed from video to img for static display */
+        .video-background video { /* Changed back to video */
             min-width: 100%;
             min-height: 100%;
             width: auto;
@@ -52,7 +52,21 @@
             filter: brightness(0.6);
         }
 
-        .modal-content {
+        /* Styles for the outer modal container, matching #apiKeyErrorModal */
+        #updateModalContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        #updateModalContainer .modal-content {
             padding: 40px 25px;
             border-radius: 0;
             border-top-left-radius: 30px;
@@ -68,7 +82,7 @@
             box-sizing: border-box;
             overflow: hidden;
             animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-            zoom: 0.85;
+            zoom: 0.85; /* Added zoom property */
         }
 
         @keyframes popIn {
@@ -76,7 +90,7 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        .modal-content h1 { /* Styled to match h2 in endkey.html */
+        #updateModalContainer .modal-content h2 { /* Changed from h1 to h2 */
             font-family: 'Oswald', sans-serif;
             background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
             -webkit-background-clip: text;
@@ -87,12 +101,12 @@
             font-size: 2.5em;
             margin-top: 0;
             margin-bottom: 20px;
-            text-transform: uppercase;
+            text-transform: uppercase; /* Added text-transform */
             font-weight: bold;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.5px; /* Added letter-spacing */
         }
 
-        .modal-content p {
+        #updateModalContainer .modal-content p {
             font-size: 1.1em;
             line-height: 1.6;
             margin-top: 15px;
@@ -119,14 +133,22 @@
         }
 
         .status-box.update-needed {
-            background-color: rgba(239, 83, 80, 0.1); /* Red-tinted background */
+            background: linear-gradient(to right, #EF5350, #C62828); /* Red gradient */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(239, 83, 80, 0.7), 0 0 15px rgba(198, 40, 40, 0.7);
             border-color: #EF5350; /* Red border */
-            color: #EF5350; /* Red text */
         }
         .status-box.no-update-needed {
-            background-color: rgba(76, 175, 80, 0.1); /* Green-tinted background */
+            background: linear-gradient(to right, #4CAF50, #2E7D32); /* Green gradient */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(76, 175, 80, 0.7), 0 0 15px rgba(46, 125, 50, 0.7);
             border-color: #4CAF50; /* Green border */
-            color: #4CAF50; /* Green text */
         }
 
         .modal-buttons {
@@ -160,7 +182,7 @@
 
         /* Mobile-specific styles */
         @media (max-width: 768px) {
-            .modal-content {
+            #updateModalContainer .modal-content { /* Specificity for the modal content */
                 width: 96%;
                 padding: 20px 15px;
                 min-height: 50vh;
@@ -177,12 +199,12 @@
                 zoom: 1;
             }
 
-            .modal-content h1 {
+            #updateModalContainer .modal-content h2 { /* Specificity for h2 */
                 font-size: clamp(1.8em, 7vw, 2.2em);
                 margin-bottom: 2vh;
             }
 
-            .modal-content p {
+            #updateModalContainer .modal-content p { /* Specificity for p */
                 font-size: clamp(0.9em, 3.8vw, 1.1em);
                 margin-bottom: 1.5vh;
             }
@@ -212,17 +234,17 @@
         }
 
         @media (max-width: 480px) {
-            .modal-content {
+            #updateModalContainer .modal-content { /* Specificity for the modal content */
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
                 padding: 15px 10px;
                 min-height: 55vh;
             }
-            .modal-content h1 {
+            #updateModalContainer .modal-content h2 { /* Specificity for h2 */
                 font-size: clamp(1.5em, 6vw, 2em);
                 margin-bottom: 1.2vh;
             }
-            .modal-content p {
+            #updateModalContainer .modal-content p { /* Specificity for p */
                 font-size: clamp(0.8em, 3.5vw, 1em);
                 margin-bottom: 1vh;
             }
@@ -244,37 +266,36 @@
 </head>
 <body>
     <div class="video-background">
-        <!-- Using a placeholder image as a static background to match the theme. -->
-        <!-- Replace with your actual video if you host it, and uncomment the video tag. -->
-        <img src="https://placehold.co/1920x1080/0B1738/E0E8F0?text=BLU+BASE+BACKGROUND" alt="Background Placeholder">
-        <!--
+        <!-- Replace with your actual video if you host it (e.g., src="assets/wallpaper.mp4"). -->
+        <!-- The video tag is commented out by default as the asset is not provided. -->
         <video id="backgroundVideo" autoplay loop muted playsinline>
-            <source src="assets/wallpaper.mp4" type="video/mp4">
+            <!-- <source src="assets/wallpaper.mp4" type="video/mp4"> -->
             Your browser does not support the video tag.
         </video>
-        -->
     </div>
 
-    <div class="modal-content">
-        <h1>Bot Update Status</h1>
-        <p>
-            This page is used by the bot to determine if a script update is required.
-            The bot looks for a specific string within the content of this page.
-        </p>
-        <div id="status" class="status-box">
-            <!--
-                IMPORTANT: To signal an update is required, change the text below to:
-                UPDATE_REQUIRED: YES
+    <div id="updateModalContainer">
+        <div class="modal-content">
+            <h2>Bot Update Status</h2> <!-- Changed from h1 to h2 -->
+            <p>
+                This page is used by the bot to determine if a script update is required.
+                The bot looks for a specific string within the content of this page.
+            </p>
+            <div id="status" class="status-box">
+                <!--
+                    IMPORTANT: To signal an update is required, change the text below to:
+                    UPDATE_REQUIRED: YES
 
-                To signal no update is required, change the text below to:
-                UPDATE_REQUIRED: NO
-            -->
-            <p>UPDATE_REQUIRED: NO</p>
-        </div>
+                    To signal no update is required, change the text below to:
+                    UPDATE_REQUIRED: NO
+                -->
+                <p>UPDATE_REQUIRED: NO</p>
+            </div>
 
-        <div class="modal-buttons">
-            <button id="signalUpdateBtn">Signal Update Required</button>
-            <button id="signalNoUpdateBtn">Signal No Update</button>
+            <div class="modal-buttons">
+                <button id="signalUpdateBtn">Signal Update Required</button>
+                <button id="signalNoUpdateBtn">Signal No Update</button>
+            </div>
         </div>
     </div>
 
@@ -289,6 +310,7 @@
                 const statusText = statusParagraph.innerText.trim();
                 statusDiv.classList.remove('update-needed', 'no-update-needed'); // Clear previous classes
 
+                // Apply gradient text and shadow based on status
                 if (statusText.includes('UPDATE_REQUIRED: YES')) {
                     statusDiv.classList.add('update-needed');
                 } else {
@@ -309,6 +331,15 @@
                 statusParagraph.innerText = 'UPDATE_REQUIRED: NO';
                 updateStatusDisplay();
             });
+
+            // Auto-play video if available (similar to endkey.html)
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            if (backgroundVideo) {
+                backgroundVideo.load();
+                backgroundVideo.play().catch(error => {
+                    console.warn("Video autoplay failed:", error);
+                });
+            }
         });
     </script>
 </body>
