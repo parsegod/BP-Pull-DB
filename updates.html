@@ -294,7 +294,7 @@
                     To signal no update is required, change the text below to:
                     UPDATE_REQUIRED: NO
                 -->
-                <p>UPDATE_REQUIRED: NO</p>
+                <p id="status-text">UPDATE_REQUIRED: NO</p>
             </div>
 
             <div class="modal-buttons">
@@ -308,7 +308,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const statusDiv = document.getElementById('status');
-            const statusParagraph = statusDiv.querySelector('p');
+            const statusParagraph = document.getElementById('status-text'); // Changed to use the new ID
             const signalUpdateBtn = document.getElementById('signalUpdateBtn');
             const signalNoUpdateBtn = document.getElementById('signalNoUpdateBtn');
 
