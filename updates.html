@@ -287,14 +287,8 @@
                 The bot looks for a specific string within the content of this page.
             </p>
             <div id="status" class="status-box">
-                <!--
-                    IMPORTANT: To signal an update is required, change the text below to:
-                    UPDATE_REQUIRED: YES
-
-                    To signal no update is required, change the text below to:
-                    UPDATE_REQUIRED: NO
-                -->
-                <p>UPDATE_REQUIRED: NO</p>
+                <!-- The content of this paragraph will be dynamically updated by JavaScript -->
+                <p>Loading status...</p>
             </div>
 
             <div class="modal-buttons">
@@ -312,42 +306,87 @@
             const signalUpdateBtn = document.getElementById('signalUpdateBtn');
             const signalNoUpdateBtn = document.getElementById('signalNoUpdateBtn');
 
-            // Function to update the display and store the status in localStorage
-            function updateStatusAndStore(status) {
-                statusParagraph.innerText = `UPDATE_REQUIRED: ${status}`;
-                localStorage.setItem('botUpdateStatus', status); // Store the status
-                updateStatusDisplay();
-            }
+            // IMPORTANT: Replace these with your actual jsonbin.io credentials
+            const JSONBIN_BIN_ID = 'YOUR_JSONBIN_BIN_ID'; // e.g., '65b7c8d9e0f1a2b3c4d5e6f7'
+            const JSONBIN_SECRET_KEY = 'YOUR_JSONBIN_SECRET_KEY'; // Your Master Key from jsonbin.io
+
+            const JSONBIN_API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`;
 
             // Function to update the visual display based on the current status text
-            function updateStatusDisplay() {
-                const statusText = statusParagraph.innerText.trim();
+            function updateStatusDisplay(statusText) {
+                statusParagraph.innerText = `UPDATE_REQUIRED: ${statusText}`;
                 statusDiv.classList.remove('update-needed', 'no-update-needed'); // Clear previous classes
 
-                // Apply gradient text and shadow based on status
-                if (statusText.includes('UPDATE_REQUIRED: YES')) {
+                if (statusText === 'YES') {
                     statusDiv.classList.add('update-needed');
                 } else {
                     statusDiv.classList.add('no-update-needed');
                 }
             }
 
-            // On initial load, check localStorage for a saved status
-            const savedStatus = localStorage.getItem('botUpdateStatus');
-            if (savedStatus) {
-                statusParagraph.innerText = `UPDATE_REQUIRED: ${savedStatus}`;
+            // Function to fetch the current status from jsonbin.io
+            async function fetchStatus() {
+                try {
+                    const response = await fetch(JSONBIN_API_URL, {
+                        headers: {
+                            'X-Master-Key': JSONBIN_SECRET_KEY,
+                            'X-Bin-Meta': 'false' // To get only the content, not metadata
+                        }
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if (data && data.update_required) {
+                        updateStatusDisplay(data.update_required);
+                    } else {
+                        console.warn("jsonbin.io data format unexpected or missing 'update_required'. Defaulting to NO.");
+                        updateStatusDisplay('NO');
+                    }
+                } catch (error) {
+                    console.error("Error fetching status from jsonbin.io:", error);
+                    statusParagraph.innerText = 'Error loading status.';
+                    statusDiv.classList.remove('update-needed', 'no-update-needed');
+                }
             }
 
-            // Initial display update based on current (or loaded) status
-            updateStatusDisplay();
+            // Function to update the status on jsonbin.io
+            async function setStatus(status) {
+                try {
+                    const response = await fetch(JSONBIN_API_URL, {
+                        method: 'PUT', // Use PUT to update the existing bin
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': JSONBIN_SECRET_KEY,
+                            'X-Bin-Meta': 'false'
+                        },
+                        body: JSON.stringify({ update_required: status })
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if (data && data.update_required) {
+                        updateStatusDisplay(data.update_required);
+                    } else {
+                        console.warn("jsonbin.io response format unexpected after update.");
+                    }
+                } catch (error) {
+                    console.error("Error setting status on jsonbin.io:", error);
+                    // Optionally, revert UI or show an error message to the user
+                }
+            }
+
+            // Initial fetch of status when the page loads
+            fetchStatus();
 
             // Event listeners for buttons
             signalUpdateBtn.addEventListener('click', () => {
-                updateStatusAndStore('YES'); // Call the new function to update and store
+                setStatus('YES');
             });
 
             signalNoUpdateBtn.addEventListener('click', () => {
-                updateStatusAndStore('NO'); // Call the new function to update and store
+                setStatus('NO');
             });
 
             // Auto-play video if available (similar to endkey.html)
