@@ -294,7 +294,7 @@
                     To signal no update is required, change the text below to:
                     UPDATE_REQUIRED: NO
                 -->
-                <p id="status-text">UPDATE_REQUIRED: NO</p>
+                <p>UPDATE_REQUIRED: NO</p>
             </div>
 
             <div class="modal-buttons">
@@ -308,10 +308,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const statusDiv = document.getElementById('status');
-            const statusParagraph = document.getElementById('status-text'); // Changed to use the new ID
+            const statusParagraph = statusDiv.querySelector('p');
             const signalUpdateBtn = document.getElementById('signalUpdateBtn');
             const signalNoUpdateBtn = document.getElementById('signalNoUpdateBtn');
 
+            // Function to update the display and store the status in localStorage
+            function updateStatusAndStore(status) {
+                statusParagraph.innerText = `UPDATE_REQUIRED: ${status}`;
+                localStorage.setItem('botUpdateStatus', status); // Store the status
+                updateStatusDisplay();
+            }
+
+            // Function to update the visual display based on the current status text
             function updateStatusDisplay() {
                 const statusText = statusParagraph.innerText.trim();
                 statusDiv.classList.remove('update-needed', 'no-update-needed'); // Clear previous classes
@@ -324,18 +332,22 @@
                 }
             }
 
-            // Initial display update
+            // On initial load, check localStorage for a saved status
+            const savedStatus = localStorage.getItem('botUpdateStatus');
+            if (savedStatus) {
+                statusParagraph.innerText = `UPDATE_REQUIRED: ${savedStatus}`;
+            }
+
+            // Initial display update based on current (or loaded) status
             updateStatusDisplay();
 
             // Event listeners for buttons
             signalUpdateBtn.addEventListener('click', () => {
-                statusParagraph.innerText = 'UPDATE_REQUIRED: YES';
-                updateStatusDisplay();
+                updateStatusAndStore('YES'); // Call the new function to update and store
             });
 
             signalNoUpdateBtn.addEventListener('click', () => {
-                statusParagraph.innerText = 'UPDATE_REQUIRED: NO';
-                updateStatusDisplay();
+                updateStatusAndStore('NO'); // Call the new function to update and store
             });
 
             // Auto-play video if available (similar to endkey.html)
