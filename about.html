@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueprint Discord Bot - README</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+
+    <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
+    <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
+
+    <meta property="og:title" content="Blueprint Discord Bot - README" />
+    <meta property="og:description" content="The official Discord bot for Parsed.top - README" />
+    <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+    <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/readme.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Blueprint Discord Bot" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blueprint Discord Bot - README">
+    <meta name="twitter:description" content="The official Discord bot for Parsed.top - README">
+    <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
+    <script src="/_vercel/insights/script.js"></script>
+    <style>
+        /* Scrollbar styles (from index.html) */
+        ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+            background: transparent;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: transparent;
+        }
+        html {
+            scrollbar-width: none;
+            scroll-behavior: smooth; /* Keep smooth scroll */
+        }
+
+        /* Body styles (merged from both) */
+        body {
+            background-color: #0B1738; /* Main dark background */
+            color: #D0D8E8; /* Light text color */
+            font-family: 'Open Sans', sans-serif; /* Consistent font */
+            margin: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+        }
+
+        /* Video Background (from index.html) */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 1s ease-in-out;
+        }
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.6); /* Consistent with other pages */
+        }
+
+        /* Announcement Banner */
+        .announcement-banner {
+            background: rgba(11, 23, 56, 0.7);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1000;
+            display: flex; /* Use flexbox for button alignment */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+        }
+        .announcement-banner p {
+            margin: 0;
+            flex-grow: 1; /* Allow text to take available space */
+        }
+        .gradient-heart {
+            background: linear-gradient(to right, #059695, #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-size: 1.2em;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .announcement-banner a {
+            color: #059695;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+        .announcement-banner a:hover {
+            color: #059695;
+            font-weight: bold;
+        }
+
+        /* Main content container */
+        .main-content {
+            width: calc(100% - 20px); /* Consistent width with other pages */
+            max-width: 900px; /* Max width for content */
+            min-width: 320px; /* Ensure minimum width for mobile */
+            margin: 20px auto; /* Center horizontally with margin */
+            padding: 25px; /* Consistent padding */
+            background: rgba(11, 23, 56, 0.95); /* Consistent background with other pages */
+            border-radius: 0;
+            border-top-left-radius: 30px; /* Consistent top radius */
+            border-top-right-radius: 30px; /* Consistent top radius */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Consistent shadow */
+            border: 1px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+            position: relative;
+            z-index: 2;
+            min-height: calc(100vh - 40px); /* Fill screen height minus margins */
+            padding-top: 250px; /* Space for logo and motto above content */
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+
+        /* Logo and Motto */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: auto;
+            z-index: 10;
+        }
+        .motto {
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
+            text-align: center;
+            white-space: normal; /* Allow wrapping */
+            z-index: 10;
+            width: 100%; /* Take full width for centering */
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+        }
+
+        /* Buttons on Announcement Banner (Desktop) */
+        .announcement-buttons-desktop {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+            margin-left: 20px; /* Space from text */
+        }
+        .announcement-buttons-desktop .utility-button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%; /* Circular shape */
+            background: none;
+            border: 2px solid #2C487C; /* Consistent border */
+            color: #D0D8E8; /* Consistent icon color */
+            box-shadow: none;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Remove underline for links */
+        }
+        .announcement-buttons-desktop .utility-button:hover {
+            border-color: #7CA0E0; /* Consistent hover border color */
+        }
+        .announcement-buttons-desktop .utility-button i {
+            font-size: 24px;
+        }
+
+        /* Side Navigation Bar (Overlay) */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background: rgba(11, 23, 56, 0.95); /* Matches main content/modals */
+            border-right: 1px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+            padding-top: 2rem;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(-100%); /* Hidden by default */
+            transition: transform 0.3s ease-in-out;
+        }
+        .side-nav.active {
+            transform: translateX(0); /* Show when active */
+        }
+
+        /* Overlay for side nav */
+        #sideNavOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark overlay */
+            z-index: 999; /* Below side nav, above content */
+            display: none; /* Hidden by default */
+        }
+        #sideNavOverlay.active {
+            display: block;
+        }
+
+        /* Header section within main content */
+        header {
+            background-color: transparent; /* No background, as main-content has it */
+            border-bottom: none; /* Remove border from header, use section dividers */
+            padding-bottom: 0; /* Remove padding, sections will handle it */
+            margin-bottom: 0; /* Remove margin, sections will handle it */
+        }
+        header h1 {
+            color: #e0e0e0; /* Light text for main title */
+            font-family: 'Oswald', sans-serif; /* Consistent font */
+            font-size: 2.5em; /* Adjusted to match other h2s */
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        header p {
+            color: #CAD8E8; /* Slightly muted text for descriptions */
+            font-family: 'Open Sans', sans-serif; /* Consistent font */
+            font-size: 1.1em; /* Adjusted to match other p tags */
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        header strong {
+            color: #7CA0E0; /* Consistent with other pages */
+            font-weight: bold;
+        }
+        header hr {
+            border-color: #282828; /* Consistent border color */
+            margin-top: 0; /* Remove default margin */
+            margin-bottom: 0;
+        }
+
+        /* Section titles */
+        h2 {
+            color: #A0C0E8; /* A subtle blue/purple for headings from other pages */
+            font-family: 'Oswald', sans-serif; /* Consistent font */
+            font-size: 2.5em; /* Consistent size */
+            margin-top: 40px; /* Spacing between sections */
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding-bottom: 10px; /* Space for border */
+            border-bottom: 2px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+        }
+        h3 {
+            color: #E0E8F0; /* Light text for subheadings */
+            font-family: 'Oswald', sans-serif; /* Consistent font */
+            font-size: 1.8em; /* Consistent size */
+            margin-top: 30px; /* Spacing */
+            margin-bottom: 10px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Links in content */
+        a {
+            color: #7CA0E0; /* A light blue for links from other pages */
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #5A99D0; /* Darker blue on hover */
+            text-decoration: underline;
+        }
+
+        /* Code block styling */
+        pre {
+            background-color: rgba(0, 0, 0, 0.1); /* Consistent with other pages */
+            color: #E0E8F0;
+            padding: 1rem;
+            border-radius: 8px; /* Consistent with other pages */
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; /* Maintain code font */
+            border: 1px solid rgba(44, 72, 124, 0.2); /* Consistent border */
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        code {
+            background-color: rgba(0, 0, 0, 0.1); /* Consistent with other pages */
+            color: #E0E8F0;
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+        }
+
+        /* List Styling */
+        ul.space-y-4 li, ol.list-decimal li, ul.list-disc li {
+            color: #CAD8E8; /* Consistent text color for lists */
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        ul.list-disc { /* For nested lists */
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Themed Buttons */
+        .themed-button {
+            background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+            color: #0B1738;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 10px;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0; /* Add some vertical margin */
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: inline-flex; /* Ensure it respects padding and sizing */
+            align-items: center;
+            justify-content: center;
+            text-decoration: none; /* For anchor tags acting as buttons */
+        }
+        .themed-button:hover {
+            background: linear-gradient(180deg, #5A99D0, #3B75B0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Specific styling for the creator names */
+        .creator-name {
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            display: inline-block;
+            color: #E0E8F0; /* Default color */
+        }
+        .creator-name:hover {
+            transform: scale(1.05);
+            color: #7CA0E0 !important; /* Blue on hover */
+            text-shadow: 0 0 8px rgba(124, 160, 224, 0.8), 0 0 15px rgba(124, 160, 224, 0.6), 0 0 20px rgba(124, 160, 224, 0.4) !important;
+        }
+
+        /* Custom HR for visual separation */
+        hr.section-divider {
+            border: none;
+            border-top: 2px dashed rgba(124, 160, 224, 0.3); /* Dotted line with blue tint */
+            margin: 3em 0;
+            box-shadow: 0 0 10px rgba(124, 160, 224, 0.2), 0 0 20px rgba(124, 160, 224, 0.1); /* Subtle glow */
+        }
+
+        /* Modal Overlay and Content */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: rgba(11, 23, 56, 0.95);
+            padding: 25px;
+            border-radius: 0;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(44, 72, 124, 0.6);
+            position: relative;
+            max-width: 800px;
+            width: calc(100% - 40px);
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #D0D8E8;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .modal-close-button:hover {
+            color: #7CA0E0;
+        }
+        .modal-content h2 {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+            letter-spacing: 1px;
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments for mobile devices */
+        @media (max-width: 768px) {
+            .main-content {
+                width: 96%; /* Use 96% width for better mobile fit */
+                max-width: none; /* Ensure it doesn't exceed screen width */
+                padding: 10px; /* Adjusted padding for mobile to match other files */
+                margin: 10px auto; /* Center horizontally with margin */
+                min-height: 40vh; /* Adjusted for mobile */
+                border-radius: 0;
+                border-top-left-radius: 25px; /* Consistent top radius for mobile */
+                border-top-right-radius: 25px; /* Consistent top radius for mobile */
+                border-bottom-left-radius: 0; /* Consistent with other modals */
+                border-bottom-right-radius: 0; /* Consistent with other modals */
+                position: static; /* No absolute positioning for mobile content */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start; /* Align content to top for document flow */
+                padding-top: 10px; /* Adjusted padding-top to account for static logo/motto */
+                box-sizing: border-box; /* Include padding in width/height */
+                zoom: 1; /* Reset zoom for mobile */
+            }
+
+            .logo {
+                position: static; /* Change to static positioning */
+                margin-bottom: 3vh; /* Add margin below logo */
+                width: clamp(80px, 25vw, 150px);
+                top: auto;
+                left: auto;
+                transform: none; /* Remove transform */
+            }
+            .motto {
+                position: static; /* Change to static positioning */
+                font-size: clamp(0.9em, 4vw, 1.5em);
+                margin-top: 1vh;
+                margin-bottom: 4vh;
+                white-space: normal; /* Allow wrapping */
+                top: auto;
+                left: auto;
+                transform: none; /* Remove transform */
+                width: auto; /* Allow content to dictate width */
+                padding: 0 10px; /* Add horizontal padding to motto */
+            }
+
+            h1 {
+                font-size: clamp(1.8em, 5vw, 2.2em); /* Adjusted to match other h2s */
+                margin-bottom: 2vh;
+            }
+            p {
+                font-size: clamp(0.9em, 3.5vw, 1.1em);
+                margin-bottom: 0.5vh;
+            }
+            h2 {
+                font-size: clamp(1.8em, 5vw, 2.2em);
+                margin-top: 30px;
+                margin-bottom: 15px;
+                text-align: center; /* Center align headings on mobile */
+            }
+            h3 {
+                font-size: clamp(1.4em, 4vw, 1.8em);
+                margin-top: 20px;
+                margin-bottom: 8px;
+            }
+            ul.space-y-4 li, ol.list-decimal li, ul.list-disc li {
+                font-size: clamp(0.9em, 3.5vw, 1.1em);
+            }
+            pre {
+                padding: 0.8rem;
+                font-size: 0.9em;
+                word-wrap: break-word; /* Ensure long lines wrap */
+                white-space: pre-wrap; /* Preserve whitespace and wrap */
+            }
+            code {
+                font-size: 0.9em;
+            }
+            .themed-button {
+                padding: 1.5vh 3vw;
+                font-size: clamp(1em, 4vw, 1.2em);
+                margin: 1.5vh auto;
+                width: 90%; /* Make buttons full width on mobile */
+                max-width: 300px; /* Limit max width */
+            }
+
+            /* Hide desktop fixed buttons on mobile */
+            .announcement-buttons-desktop {
+                display: none;
+            }
+
+            /* Mobile buttons container */
+            .mobile-buttons-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px; /* Space between buttons */
+                margin-top: 20px; /* Space from creators list */
+                margin-bottom: 20px; /* Space below buttons */
+            }
+            .mobile-buttons-container .utility-button {
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                background: none;
+                border: 2px solid #2C487C;
+                color: #D0D8E8;
+                box-shadow: none;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+            .mobile-buttons-container .utility-button:hover {
+                border-color: #7CA0E0;
+            }
+            .mobile-buttons-container .utility-button i {
+                font-size: 24px;
+            }
+
+
+            .nav-toggle-button i {
+                margin-right: 0; /* Remove margin for icon on mobile */
+            }
+            .nav-toggle-button span {
+                display: none; /* Hide text on mobile */
+            }
+            .changelog-button, #howToUseButton, #contributionsButton {
+                font-size: clamp(0.8em, 3vw, 1em);
+                padding: 6px 10px;
+                margin: 3px;
+            }
+            .how-to-tabs {
+                flex-direction: column;
+                align-items: center; /* Center tabs when stacked */
+            }
+            .tab-button {
+                padding: 8px 15px;
+                font-size: 1em;
+                width: 100%; /* Make tab buttons full width */
+                text-align: center;
+            }
+            .modal-content {
+                width: calc(100% - 30px); /* Adjust modal width for mobile */
+                padding: 15px; /* Adjust modal padding */
+                border-top-left-radius: 20px; /* Consistent with other modals */
+                border-top-right-radius: 20px; /* Consistent with other modals */
+            }
+            .modal-content h2 {
+                font-size: 1.5em; /* Smaller modal titles */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                padding-top: 10px; /* Consistent padding-top for all mobile */
+                padding-left: 10px; /* Further adjust padding */
+                padding-right: 10px; /* Further adjust padding */
+            }
+            .logo {
+                width: clamp(70px, 20vw, 120px);
+                margin-bottom: 2vh;
+            }
+            .motto {
+                font-size: clamp(0.8em, 3.5vw, 1.2em);
+                margin-bottom: 2.5vh;
+                padding: 0 5px; /* Even less horizontal padding for motto */
+            }
+            h1 {
+                font-size: clamp(1.5em, 4.5vw, 2em);
+                margin-bottom: 1.5vh;
+            }
+            p {
+                font-size: clamp(0.8em, 3vw, 1em);
+                margin-bottom: 1vh;
+            }
+            h2 {
+                font-size: clamp(1.5em, 4.5vw, 2em);
+                margin-top: 25px;
+                margin-bottom: 10px;
+            }
+            h3 {
+                font-size: clamp(1.2em, 3.5vw, 1.6em);
+                margin-top: 15px;
+                margin-bottom: 5px;
+            }
+            ul.space-y-4 li, ol.list-decimal li, ul.list-disc li {
+                font-size: clamp(0.8em, 3vw, 1em);
+            }
+            pre {
+                padding: 0.6rem;
+                font-size: 0.85em;
+            }
+            code {
+                font-size: 0.85em;
+            }
+            .themed-button {
+                padding: 1.2vh 2.5vw;
+                font-size: clamp(0.9em, 3.5vw, 1.1em);
+                margin: 1vh auto;
+                width: 95%;
+            }
+            /* Mobile buttons container adjustments for smaller screens */
+            .mobile-buttons-container {
+                gap: 8px; /* Slightly less gap for very small screens */
+            }
+            .mobile-buttons-container .utility-button {
+                width: 35px; /* Slightly smaller buttons */
+                height: 35px;
+            }
+            .mobile-buttons-container .utility-button i {
+                font-size: 20px; /* Smaller icon size */
+            }
+
+            .changelog-button, #howToUseButton, #contributionsButton {
+                font-size: clamp(0.7em, 2.5vw, 0.9em);
+                padding: 5px 8px;
+                margin: 2px;
+            }
+            .modal-content {
+                width: calc(100% - 20px); /* Even narrower modal for very small screens */
+                padding: 10px; /* Less padding for modal */
+            }
+            .modal-content h2 {
+                font-size: 1.3em; /* Even smaller modal titles */
+            }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay loop muted playsinline>
+            <source src="assets/wallpaper.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+      <!-- Buttons on Announcement Banner (Desktop Only) -->
+      <div class="announcement-buttons-desktop hidden md:flex">
+          <a href="break.html" class="utility-button" id="breakdownButtonDesktop">📕</a>
+          <button class="utility-button" id="toggleNavBtnDesktop">
+              <i class="fas fa-bars"></i>
+          </button>
+      </div>
+    </div>
+
+    <!-- Mobile Buttons Container (Mobile Only) -->
+    <div class="mobile-buttons-container hidden sm:flex md:hidden">
+        <a href="break.html" class="utility-button" id="breakdownButtonMobile">📕</a>
+        <button class="utility-button" id="toggleNavBtnMobile">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+
+    <!-- Side Navigation Bar (Overlay) -->
+    <nav class="side-nav" id="sideNav">
+        <div class="p-4 text-center">
+            <a href="#top" class="text-2xl font-bold text-white mb-4 block">Blueprint Bot</a>
+            <hr class="border-gray-700 my-4">
+        </div>
+        <ul class="flex flex-col space-y-2 px-4">
+            <li><a href="#features" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">✨ Features</a></li>
+            <li><a href="#self-updating" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">🔄 Self-Updating Mechanism</a></li>
+            <li><a href="#setup" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">🚀 Setup</a></li>
+            <li><a href="#commands" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">🤖 Commands</a></li>
+            <li><a href="#configuration" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">⚙️ Configuration</a></li>
+            <li><a href="#file-structure" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">📁 File Structure</a></li>
+            <li><a href="#contributing" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">🤝 Contributing</a></li>
+        </ul>
+    </nav>
+
+    <!-- Overlay for side navigation -->
+    <div id="sideNavOverlay"></div>
+
+    <!-- Main Content Container -->
+    <div class="main-content">
+
+
+        <!-- Header Section (Content starts after logo/motto space) -->
+        <header id="top" class="text-center mb-12 py-8">
+            <p class="text-lg text-gray-400 italic">The official Discord bot for <a href="https://parsed.top/" class="text-blue-400 hover:underline">Parsed.top</a></p>
+            <p class="text-md text-gray-500 mt-4">lovingly crafted by</p>
+            <ul class="list-none p-0 flex justify-center space-x-6 mt-2">
+                <li><span class="text-2xl">🐼</span> <strong class="creator-name">Panda</strong></li>
+                <li><span class="text-2xl">📊</span> <strong class="creator-name">Parse</strong></li>
+            </ul>
+        </header>
+
+        <!-- Features Section -->
+        <section id="features" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">✨ Features</h2>
+            <p class="text-lg text-gray-300 mb-6">This bot comes packed with functionalities to enhance your blueprint management and knowledge:</p>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong>🔍 Blueprint Lookup:</strong> Quickly find details about any specific blueprint by its name.</li>
+                <li><strong>📦 Pool Exploration:</strong> Dive into specific blueprint "pools" and view all associated blueprints, with an option to filter by weapon type.</li>
+                <li><strong>📜 Status Search:</strong> Filter blueprints based on their release status (e.g., <strong>RELEASED</strong>, <strong>UNRELEASED</strong>, <strong>NOTHING</strong>, <strong>NOTEXTURE</strong>).</li>
+                <li><strong>📖 Blueprint Pulling Guides:</strong> Comprehensive explanations on how the blueprint pulling exploit works for different game modes like Warzone/Multiplayer and Zombies.</li>
+                <li><strong>💡 Pool Pulling Explanation:</strong> A dedicated guide explaining the nuances of blueprint pulling specifically within the context of weapon pools.</li>
+                <li><strong>🌐 Website Link:</strong> Get a direct link to the full Blueprint Database website for a more extensive browsing experience.</li>
+                <li><strong>❓ Help Command:</strong> Access an organized list of all available bot commands and their usage.</li>
+                <li><strong>⏱️ Smart Rate Limiting:</strong> Prevents command spam by implementing a cooldown mechanism for embeds.</li>
+                <li><strong>🧹 Ephemeral Message Management:</strong> Automatically cleans up previous ephemeral messages to maintain a tidy chat interface.</li>
+                <li><strong>🎨 Themed Logging:</strong> Enjoy a cleaner and more visually appealing console output with custom-themed log messages.</li>
+                <li><strong>💬 Configurable Channels:</strong> Administrators can designate specific text channels where bot commands are allowed. This helps in keeping your server organized by restricting bot interactions to designated areas.</li>
+                <li><strong>👥 Configurable Roles:</strong> Administrators can define specific roles that are permitted to use bot commands. This provides granular control over who can interact with the bot's features.</li>
+                <li><strong>🌟 Dynamic Bot Presence:</strong> The bot's status (online, idle, dnd), activity type (playing, streaming, listening, watching, competing), and rich presence details (such as custom text, image URLs, and timestamps) can be configured via an external `bot_config.json` file. The bot automatically reloads these settings when changes are detected in the file, allowing for dynamic updates without needing to restart the entire script.</li>
+            </ul>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Self-Updating Mechanism Section -->
+        <section id="self-updating" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">🔄 Self-Updating Mechanism</h2>
+            <p class="text-lg text-gray-300 mb-6">The bot is equipped with a self-updating mechanism to ensure it always runs the latest version. It works by periodically checking a remote JSONBin for an update signal.</p>
+
+            <h3 class="text-2xl font-semibold text-white mb-4">How it works:</h3>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong>Credential Fetching:</strong> The bot first attempts to fetch the `JSONBIN_BIN_ID` from a list of fallback URLs. This ID is crucial for accessing the public JSONBin where the update signal is stored.
+                    <pre><code class="language-python">async def fetch_jsonbin_credentials():
+    global JSONBIN_BIN_ID
+
+    FALLBACK_CREDS_URLS = [
+        "https://www.updatesignal.xyz/check",
+        "https://gist.githubusercontent.com/parsegod/b68b820bb7de3fdfbc89c5b6ab4de534/raw/jsonbin.json",
+        "https://parsed.top/jsonbin.json",
+        "https://botdates.vercel.app/check",
+        "https://botdates-parsegods-projects.vercel.app/check"
+    ]
+
+    for CREDS_URL in FALLBACK_CREDS_URLS:
+        # ... (error handling and request logic) ...
+        try:
+            response = requests.get(CREDS_URL, timeout=15)
+            response.raise_for_status()
+            creds_data = response.json()
+
+            if 'JSONBIN_BIN_ID' in creds_data:
+                JSONBIN_BIN_ID = creds_data['JSONBIN_BIN_ID']
+                print(f"✅ JSONBIN_ID linked from {CREDS_URL}")
+                return True
+            # ... (error handling) ...
+        except Exception as e:
+            print(f"❌ An unexpected error occurred during credential fetch from {CREDS_URL}: {e}. Trying next URL.")
+    print("⚠️ All fallback URLs failed to provide JSONBin BIN_ID.")
+    return False</code></pre>
+                </li>
+                <li><strong>Update Check:</strong> Once the `JSONBIN_BIN_ID` is obtained, the bot makes a request to the jsonbin.io API. If the `update_required` field in the JSON response is "YES", the bot prints a message and initiates a graceful shutdown, prompting users to update the script.
+                    <pre><code class="language-python">async def check_for_updates():
+    global JSONBIN_BIN_ID
+    if not await fetch_jsonbin_credentials():
+        print("⚠️ Could not retrieve JSONBin BIN_ID. Skipping update check.")
+        return
+
+    if not JSONBIN_BIN_ID:
+        print("⚠️ JSONBin BIN_ID is still missing after fetch attempt. Skipping update check.")
+        return
+
+    JSONBIN_API_URL = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}/latest"
+
+    try:
+        response = requests.get(JSONBIN_API_URL, headers={'X-Bin-Meta': 'false'}, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        status_text = data.get("update_required", "NO")
+
+        if status_text == "YES":
+            print("❌ JSON says Update Required at this time ")
+            print("❌ Please update the script to the latest version.")
+            print("❌ The bot will shut down gracefully in 15 seconds.\n")
+            await asyncio.sleep(15)
+            print("✅ Script Closing")
+            await bot.close()
+        else:
+            print("\n✅ JSON says No update required at this time")
+            print("✅ Bot starting normally")
+    except Exception as e:
+        print(f"⚠️ Error checking for updates from jsonbin.io: {e}")
+        print("Continuing without update check. Please ensure jsonbin.io is reachable and your bin is publicly readable.")</code></pre>
+                    <p class="text-gray-300 mt-4">This ensures you always have the most current features and fixes with minimal manual intervention.</p>
+                </li>
+            </ul>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Setup Section -->
+        <section id="setup" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">🚀 Setup</h2>
+            <p class="text-lg text-gray-300 mb-6">Follow these steps to get your Blueprint Discord Bot up and running.</p>
+
+            <h3 class="text-2xl font-semibold text-white mb-4">📋 Prerequisites</h3>
+            <p class="text-gray-300 mb-4">Ensure you have the following installed on your system:</p>
+            <ul class="space-y-2 text-gray-300">
+                <li><strong>Python 3.8 or higher:</strong>
+                    <pre><code class="language-bash">python --version</code></pre>
+                </li>
+            </ul>
+
+            <h3 class="text-2xl font-semibold text-white mb-4 mt-8">📦 Installation</h3>
+            <p class="text-gray-300 mb-6">The bot automatically installs all necessary Python libraries on its first run. You only need to ensure Python is installed and prepare your bot's files.</p>
+
+            <h3 class="text-2xl font-semibold text-white mb-4">Automatic Dependency Installation</h3>
+            <p class="text-gray-300 mb-4">On its very first run, the bot automatically checks for and installs all necessary Python libraries. This means you don't need to manually run `pip install` commands, simplifying the setup process significantly.</p>
+            <h4 class="text-xl font-semibold text-white mb-2">How it works:</h4>
+            <p class="text-gray-300 mb-4">The `install_dependencies_sync()` function is called at the beginning of the script's execution. It iterates through a list of `required_packages`, checks if each package's corresponding module is already installed using `importlib.util.find_spec`. If a package is not found, it uses `subprocess.run` to execute `pip install` for that package. This process includes visual feedback in the console, indicating which libraries are being checked and installed.</p>
+            <pre><code class="language-python">def install_dependencies_sync():
+    """
+    Checks for and installs required Python packages synchronously.
+    Provides visual feedback during the installation process.
+    This function is called before the bot starts.
+    """
+    required_packages = ["discord.py", "python-dotenv", "beautifulsoup4", "requests", "aiohttp"] # Added aiohttp
+    print("\n⚙️ Initializing Bot.")
+    print("📚 Checking and installing required Python libraries..\n")
+
+    install_animation_chars = itertools.cycle(['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'])
+
+    installed_any = False
+    newly_installed_packages = []
+
+    module_name_map = {
+        "discord.py": "discord",
+        "python-dotenv": "dotenv",
+        "beautifulsoup4": "bs4",
+        "requests": "requests",
+        "aiohttp": "aiohttp" # Added aiohttp to map
+    }
+
+    for package in required_packages:
+        package_name_base = package.split("==")[0].split(">=")[0].split("<=")[0].split("~=")[0]
+        module_to_check = module_name_map.get(package_name_base, package_name_base.replace("-", "_"))
+
+        spec = importlib.util.find_spec(module_to_check)
+        if spec is not None:
+            sys.stdout.write(f"  ✅ {package_name_base} is already installed.\n")
+            sys.stdout.flush()
+            continue
+
+        sys.stdout.write(f"  {next(install_animation_chars)} Installing {package}...\r")
+        sys.stdout.flush()
+        time.sleep(0.1)
+        try:
+            subprocess.run(
+                [sys.executable, "-m", "pip", "install", package],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            sys.stdout.write(f"  ✅ Installed {package_name_base}        \n")
+            sys.stdout.flush()
+            installed_any = True
+            newly_installed_packages.append(package_name_base)
+        except subprocess.CalledProcessError as e:
+            sys.stdout.write(f"  ❌ Failed to install {package_name_base}        \n")
+            sys.stdout.flush()
+            print(f"    Error: {e.stderr.strip()}")
+            sys.exit(1)
+        except Exception as e:
+            sys.stdout.write(f"  ⚠️ An unexpected error occurred while installing {package_name_base}: {e}        \n")
+            sys.stdout.flush()
+            sys.exit(1)
+
+    if installed_any:
+        print("✅ All required libraries are installed.")
+        print("Newly Installed Libraries:")
+        for pkg in newly_installed_packages:
+            print(f"- {pkg}")
+    else:
+        print("✅ All required libraries are installed. No new libraries were installed.")
+    time.sleep(1.5)
+    clear_previous_lines(10)
+    time.sleep(0.5)</code></pre>
+            <p class="text-gray-300 mt-4">You only need to ensure Python is installed and prepare your bot's files as described below.</p>
+
+            <ol class="list-decimal space-y-6 text-gray-300">
+                <li>
+                    <p><strong>Clone the Repository (or download the script):</strong></p>
+                    <p class="mb-2">If you're using Git, clone the repository:</p>
+                    <pre><code class="language-bash">git clone https://github.com/your-username/blueprint-discord-bot.git
+cd blueprint-discord-bot</code></pre>
+                    <p class="mt-2">If you've only downloaded the <strong>testbot.py</strong> file, navigate to the directory where you saved it.</p>
+                </li>
+                <li>
+                    <p><strong>Prepare <strong>blueprints.json</strong>:</strong></p>
+                    <p class="mb-2">The bot relies on a <strong>blueprints.json</strong> file for all blueprint data. This file should be placed in the <strong>same directory</strong> as <strong>testbot.py</strong>. The structure of this JSON file should be an array of "Weapons", where each weapon object contains a "Category" and an array of "Blueprints". Each blueprint object should have "Name", "Pool", and optionally "status" fields.</p>
+                    <p class="font-semibold mt-4 mb-2 text-white">Example <strong>blueprints.json</strong> structure:</p>
+                    <pre><code class="language-json">{
+  "Weapons": [
+    {
+      "Name": "M4",
+      "Category": "1",
+      "Blueprints": [
+        {
+          "Name": "Storm Rage",
+          "Pool": "1",
+          "status": "RELEASED"
+        },
+        {
+          "Name": "Blue Streak",
+          "Pool": "2",
+          "status": "UNRELEASED"
+        }
+      ]
+    },
+    {
+      "Name": "MP5",
+      "Category": "2",
+      "Blueprints": [
+        {
+          "Name": "The Fixer",
+          "Pool": "1",
+          "status": "RELEASED"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+                </li>
+                <li>
+                    <p><strong>Create an <strong>assets</strong> directory and <strong>logo.png</strong>:</strong></p>
+                    <p class="mb-2">The bot expects an <strong>assets</strong> folder at the root level, containing a <strong>logo.png</strong> file for embeds. Additionally, blueprint images are expected within <strong>assets/blueprints/images/</strong>.</p>
+                    <p class="mb-2">Create the following directory structure:</p>
+                    <pre><code class="language-text">.
+├── testbot.py            # The main bot script
+├── blueprints.json       # JSON database of blueprints
+├── .env                  # Environment variables (e.g., DISCORD_BOT_TOKEN)
+└── assets/               # Directory for bot assets
+    ├── logo.png          # Bot's logo for embeds
+    └── blueprints/       # Blueprint-related assets
+        └── images/       # Blueprint image files
+            ├── WeaponName1/
+            │   └── BlueprintNameA.jpg
+            │   └── BlueprintNameB.jpg
+            ├── WeaponName2/
+            │   └── BlueprintNameC.jpg
+            └── ...</code></pre>
+                </li>
+            </ol>
+
+            <h3 class="text-2xl font-semibold text-white mb-4 mt-8">▶️ Running the Bot</h3>
+            <p class="text-gray-300 mb-2">Once everything is set up, you can run the bot:</p>
+            <pre><code class="language-bash">python testbot.py</code></pre>
+            <p class="text-gray-300 mt-2">You should see output similar to this, indicating the bot has successfully logged in and synced commands:</p>
+            <pre><code class="language-text">
+✅ Logged in using static token
+✅ Shard ID 0 has connected to Gateway (Session ID: [your-session-id])
+✅ Logged in as YourBotName#1234
+✅ Slash commands synced.
+✅ Bot status set to 'Playing with Blueprints'.</code></pre>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Commands Section -->
+        <section id="commands" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">🤖 Commands</h2>
+            <p class="text-lg text-gray-300 mb-6">The Blueprint Discord Bot uses slash commands for easy interaction.</p>
+
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/blueprint &lt;nameid&gt;</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> Look up a specific blueprint by its full name.</li>
+                        <li><strong>Parameter:</strong>
+                            <ul class="list-disc ml-6">
+                                <li><code>nameid</code> (string, required): The exact name of the blueprint (e.g., <strong>STORM RAGE</strong>, <strong>The Fixer</strong>). Case-insensitive.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Example:</strong>
+                            <pre><code class="language-bash">/blueprint STORM RAGE</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> An embed showing the blueprint's <strong>name</strong>, <strong>weapon</strong>, <strong>pool</strong>, <strong>status</strong>, and an image if available.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/pool &lt;number&gt; [weapontype]</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> View all blueprints within a specified pool. Optionally filter by weapon type.</li>
+                        <li><strong>Parameters:</strong>
+                            <ul class="list-disc ml-6">
+                                <li><code>number</code> (integer, required): The pool number (e.g., <strong>1</strong>, <strong>15</strong>).</li>
+                                <li><code>weapontype</code> (string, optional): Filter by weapon category (e.g., <strong>smgs</strong>, <strong>assault rifles</strong>, <strong>snipers</strong>, <strong>all</strong>). Autocomplete is available.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Example:</strong>
+                            <pre><code class="language-bash">/pool 1 smgs
+/pool 15</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> A paginated embed listing blueprints in the pool, with buttons to navigate pages and a dropdown to select a blueprint for detailed viewing.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/search_status &lt;status&gt;</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> Find blueprints based on their release status.</li>
+                        <li><strong>Parameter:</strong>
+                            <ul class="list-disc ml-6">
+                                <li><code>status</code> (choice, required): Select from <strong>RELEASED</strong>, <strong>UNRELEASED</strong>, <strong>NOTHING</strong>, or <strong>NOTEXTURE</strong>.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Example::</strong>
+                            <pre><code class="language-bash">/search_status UNRELEASED</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> A paginated embed listing all blueprints matching the selected status.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/howto &lt;gamemode&gt;</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> Learn how blueprint pulling works for specific game modes.</li>
+                        <li><strong>Parameter:</strong>
+                            <ul class="list-disc ml-6">
+                                <li><code>gamemode</code> (choice, required): Choose between <code>Warzone / Multiplayer</code> (<strong>wz</strong>) or <code>Zombies</code> (<strong>zombies</strong>).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Example:</strong>
+                            <pre><code class="language-bash">/howto wz</code></pre>
+                            <pre><code class="language-bash">/howto zombies</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> A detailed ephemeral embed explaining the pulling method for the chosen game mode.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/pool-explain</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> Get a specific explanation on how blueprint pulling interacts with weapon pools.</li>
+                        <li><strong>Example:</strong>
+                            <pre><code class="language-bash">/pool-explain</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> An ephemeral embed detailing the pool pulling concept with an example.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/website</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> Provides a link to the full Blueprint Database website.</li>
+                        <li><strong>Example:</strong>
+                            <pre><code class="language-bash">/website</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> An ephemeral embed with a clickable link to the website.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-2"><code>/help</code></h3>
+                    <ul class="list-none p-0 space-y-1 text-gray-300">
+                        <li><strong>Description:</strong> Displays a comprehensive list of all available bot commands and their usage.</li>
+                        <li><strong>Example:</strong>
+                            <pre><code class="language-bash">/help</code></pre>
+                        </li>
+                        <li><strong>Output:</strong> An ephemeral embed listing all commands.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Configuration Section -->
+        <section id="configuration" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">⚙️ Configuration</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong><code>DISCORD_BOT_TOKEN</code>:</strong> This environment variable, loaded from the <strong>.env</strong> file, is crucial for the bot to authenticate with Discord.</li>
+                <li><strong><strong>blueprints.json</strong>:</strong> This file serves as the bot's database. Ensure its structure matches the example provided in the <a href="#installation" class="text-blue-400 hover:underline">Installation</a> section for proper functionality.</li>
+                <li><strong><strong>assets/</strong> directory:</strong> Contains <strong>logo.png</strong> for embeds and <strong>assets/blueprints/images/</strong> for blueprint image previews.</li>
+                <li><strong><strong>bot_config.json</strong>:</strong> (Optional, used with <strong>ud_center.py</strong>) This file holds various customizable settings for your bot's presence, logging, welcome messages, and rate limits. It's managed via the <strong>ud_center.py</strong> tool.</li>
+                <li><strong><strong>credentials.json</strong>:</strong> (Optional, used with <strong>ud_center.py</strong>) This file is where <strong>ud_center.py</strong> can optionally store your obfuscated GitHub PAT and JSONBin keys for convenience. Remember the security note in the <a href="#update-center-section" class="text-blue-400 hover:underline">Update Center</a> section!</li>
+            </ul>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- File Structure Section -->
+        <section id="file-structure" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">📁 File Structure</h2>
+            <p class="text-lg text-gray-300 mb-4">Example of file structure.</p>
+            <pre><code class="language-text">blueprint-discord-bot/
+├── <strong>testbot.py</strong>            # The main bot script
+├── <strong>ud_center.py</strong>          # The graphical Update Center utility
+├── <strong>blueprints.json</strong>       # JSON database of blueprints
+├── <strong>bot_config.json</strong>       # (Optional) Bot's configuration file
+├── <strong>credentials.json</strong>      # (Optional) Saved credentials for ud_center.py
+├── <strong>.env</strong>                  # Environment variables (e.g., DISCORD_BOT_TOKEN)
+└── <strong>assets/</strong>               # Directory for bot assets
+    ├── <strong>logo.png</strong>          # Bot's logo for embeds
+    └── <strong>blueprints/</strong>       # Blueprint-related assets
+        └── <strong>images/</strong>       # Blueprint image files
+            ├── WeaponName1/
+            │   └── BlueprintNameA.jpg
+            │   └── BlueprintNameB.jpg
+            ├── WeaponName2/
+            │   └── BlueprintNameC.jpg
+            └── ...</code></pre>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Contributing Section -->
+        <section id="contributing" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">🤝 Contributing</h2>
+            <p class="text-lg text-gray-300 mb-4">Contributions are welcome! If you have suggestions for improvements, bug fixes, or new features, please feel free to:</p>
+            <ol class="list-decimal space-y-4 text-gray-300">
+                <li>Fork the repository.</li>
+                <li>Create a new branch (<code class="bg-gray-700 text-gray-100 px-2 py-1 rounded">git checkout -b feature/your-feature-name</code>).</li>
+                <li>Make your changes.</li>
+                <li>Commit your changes (<code class="bg-gray-700 text-gray-100 px-2 py-1 rounded">git commit -m 'Add new feature'</code>).</li>
+                <li>Push to the branch (<code class="bg-gray-700 text-gray-100 px-2 py-1 rounded">git push origin feature/your-feature-name</code>).</li>
+                <li>Open a Pull Request.</li>
+            </ol>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleNavBtnDesktop = document.getElementById('toggleNavBtnDesktop');
+            const breakdownButtonDesktop = document.getElementById('breakdownButtonDesktop');
+            const toggleNavBtnMobile = document.getElementById('toggleNavBtnMobile');
+            const breakdownButtonMobile = document.getElementById('breakdownButtonMobile');
+
+            const sideNav = document.getElementById('sideNav');
+            const sideNavOverlay = document.getElementById('sideNavOverlay');
+
+            // Function to open the side navigation
+            function openNav() {
+                sideNav.classList.add('active');
+                sideNavOverlay.classList.add('active');
+            }
+
+            // Function to close the side navigation
+            function closeNav() {
+                sideNav.classList.remove('active');
+                sideNavOverlay.classList.remove('active');
+            }
+
+            // Desktop button event listeners
+            if (toggleNavBtnDesktop) {
+                toggleNavBtnDesktop.addEventListener('click', openNav);
+            }
+            // Breakdown button is a link, so no special JS needed for click, just the href
+
+            // Mobile button event listeners
+            if (toggleNavBtnMobile) {
+                toggleNavBtnMobile.addEventListener('click', openNav);
+            }
+            // Breakdown button is a link, so no special JS needed for click, just the href
+
+
+            // Close nav when clicking on the overlay
+            sideNavOverlay.addEventListener('click', () => {
+                closeNav();
+            });
+
+            // Close nav when a link inside the nav is clicked
+            sideNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeNav();
+                });
+            });
+
+            // Auto-play video if available
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            if (backgroundVideo) {
+                const videoSource = backgroundVideo.querySelector('source');
+                if (videoSource && videoSource.src.includes('assets/wallpaper.mp4')) {
+                    backgroundVideo.load();
+                    backgroundVideo.play().catch(error => {
+                        console.warn("Video autoplay failed:", error);
+                    });
+                } else {
+                    console.warn("Video source not found or not 'assets/wallpaper.mp4'. Autoplay skipped.");
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

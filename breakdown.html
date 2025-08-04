@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Breakdown and Security Analysis</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter (for general text) and Oswald/Open Sans/Dancing Script (for specific elements) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+
+    <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
+
+    <style>
+        /* Scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+            background: transparent;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: transparent;
+        }
+        html {
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        /* Body styles */
+        body {
+            background-color: #0B1738; /* Main dark background */
+            color: #D0D8E8; /* Light text color */
+            font-family: 'Open Sans', sans-serif; /* Consistent font */
+            margin: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 1s ease-in-out;
+        }
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.6); /* Consistent with other pages */
+        }
+
+        /* Announcement Banner */
+        .announcement-banner {
+            background: rgba(11, 23, 56, 0.7);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1000;
+            display: flex; /* Use flexbox for button alignment */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+        }
+        .announcement-banner p {
+            margin: 0;
+            flex-grow: 1; /* Allow text to take available space */
+        }
+        .gradient-heart {
+            background: linear-gradient(to right, #059695, #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-size: 1.2em;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .announcement-banner a {
+            color: #059695;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+        .announcement-banner a:hover {
+            color: #059695;
+            font-weight: bold;
+        }
+
+        /* Main content container */
+        .main-content {
+            width: calc(100% - 20px); /* Consistent width with readme.html */
+            max-width: 900px; /* Max width for content */
+            min-width: 320px; /* Ensure minimum width for mobile */
+            margin: 20px auto; /* Center horizontally with margin */
+            padding: 25px; /* Consistent padding */
+            background: rgba(11, 23, 56, 0.95); /* Consistent background with readme.html */
+            border-radius: 0;
+            border-top-left-radius: 30px; /* Consistent top radius */
+            border-top-right-radius: 30px; /* Consistent top radius */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Consistent shadow */
+            border: 1px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+            position: relative; /* Keep relative for logo/motto positioning */
+            z-index: 2;
+            min-height: calc(100vh - 40px); /* Fill screen height minus margins */
+            padding-top: 250px; /* Space for logo and motto above content */
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+
+        /* Logo and Motto */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: auto;
+            z-index: 10;
+        }
+        .motto {
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
+            text-align: center;
+            white-space: normal; /* Allow wrapping */
+            z-index: 10;
+            width: 100%; /* Take full width for centering */
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+        }
+
+        /* Buttons on Announcement Banner (Desktop) */
+        .announcement-buttons-desktop {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+            margin-left: 20px; /* Space from text */
+        }
+        .announcement-buttons-desktop .utility-button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%; /* Circular shape */
+            background: none;
+            border: 2px solid #2C487C; /* Consistent border */
+            color: #D0D8E8; /* Consistent icon color */
+            box-shadow: none;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Remove underline for links */
+        }
+        .announcement-buttons-desktop .utility-button:hover {
+            border-color: #7CA0E0; /* Consistent hover border color */
+        }
+        .announcement-buttons-desktop .utility-button i {
+            font-size: 24px;
+        }
+
+        /* Side Navigation Bar (Overlay) */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background: rgba(11, 23, 56, 0.95); /* Matches main content/modals */
+            border-right: 1px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+            padding-top: 2rem;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(-100%); /* Hidden by default */
+            transition: transform 0.3s ease-in-out;
+        }
+        .side-nav.active {
+            transform: translateX(0); /* Show when active */
+        }
+
+        /* Overlay for side nav */
+        #sideNavOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark overlay */
+            z-index: 999; /* Below side nav, above content */
+            display: none; /* Hidden by default */
+        }
+        #sideNavOverlay.active {
+            display: block;
+        }
+
+        /* Header section within main content */
+        header {
+            background-color: transparent; /* No background, as main-content has it */
+            border-bottom: none; /* Remove border from header, use section dividers */
+            padding-bottom: 0; /* Remove padding, sections will handle it */
+            margin-bottom: 0; /* Remove margin, sections will handle it */
+        }
+        header h1 {
+            color: #e0e0e0; /* Light text for main title */
+            font-family: 'Oswald', sans-serif; /* Consistent font */
+            font-size: 2.5em; /* Adjusted to match other h2s */
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        header p {
+            color: #CAD8E8; /* Slightly muted text for descriptions */
+            font-family: 'Open Sans', sans-serif; /* Consistent font */
+            font-size: 1.1em; /* Adjusted to match other p tags */
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        header strong {
+            color: #7CA0E0; /* Consistent with other pages */
+            font-weight: bold;
+        }
+        header hr {
+            border-color: #282828; /* Consistent border color */
+            margin-top: 0; /* Remove default margin */
+            margin-bottom: 0;
+        }
+
+        /* Section titles */
+        h2 {
+            color: #A0C0E8; /* A subtle blue/purple for headings from other pages */
+            font-family: 'Oswald', sans-serif; /* Consistent font */
+            font-size: 2.5em; /* Consistent size */
+            margin-top: 40px; /* Spacing between sections */
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding-bottom: 10px; /* Space for border */
+            border-bottom: 2px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+        }
+        h3 {
+            color: #E0E8F0; /* Light text for subheadings */
+            font-family: 'Oswald', sans-serif; /* Consistent font */
+            font-size: 1.8em; /* Consistent size */
+            margin-top: 30px; /* Spacing */
+            margin-bottom: 10px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Links in content */
+        a {
+            color: #7CA0E0; /* A light blue for links from other pages */
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #5A99D0; /* Darker blue on hover */
+            text-decoration: underline;
+        }
+
+        /* Code block styling */
+        pre {
+            background-color: rgba(0, 0, 0, 0.1); /* Consistent with other pages */
+            color: #E0E8F0;
+            padding: 1rem;
+            border-radius: 8px; /* Consistent with other pages */
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; /* Maintain code font */
+            border: 1px solid rgba(44, 72, 124, 0.2); /* Consistent border */
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        code {
+            background-color: rgba(0, 0, 0, 0.1); /* Consistent with other pages */
+            color: #E0E8F0;
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+        }
+
+        /* List Styling */
+        ul.space-y-4 li, ol.list-decimal li, ul.list-disc li {
+            color: #CAD8E8; /* Consistent text color for lists */
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        ul.list-disc { /* For nested lists */
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Themed Buttons */
+        .themed-button {
+            background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+            color: #0B1738;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 10px;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0; /* Add some vertical margin */
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: inline-flex; /* Ensure it respects padding and sizing */
+            align-items: center;
+            justify-content: center;
+            text-decoration: none; /* For anchor tags acting as buttons */
+        }
+        .themed-button:hover {
+            background: linear-gradient(180deg, #5A99D0, #3B75B0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Specific styling for the creator names */
+        .creator-name {
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            display: inline-block;
+            color: #E0E8F0; /* Default color */
+        }
+        .creator-name:hover {
+            transform: scale(1.05);
+            color: #7CA0E0 !important; /* Blue on hover */
+            text-shadow: 0 0 8px rgba(124, 160, 224, 0.8), 0 0 15px rgba(124, 160, 224, 0.6), 0 0 20px rgba(124, 160, 224, 0.4) !important;
+        }
+
+        /* Custom HR for visual separation */
+        hr.section-divider {
+            border: none;
+            border-top: 2px dashed rgba(124, 160, 224, 0.3); /* Dotted line with blue tint */
+            margin: 3em 0;
+            box-shadow: 0 0 10px rgba(124, 160, 224, 0.2), 0 0 20px rgba(124, 160, 224, 0.1); /* Subtle glow */
+        }
+
+        /* Vulnerability section styling (specific to break.html) */
+        .vulnerability-section {
+            background-color: rgba(11, 23, 56, 0.85); /* Slightly lighter card background, consistent */
+            border: 1px solid rgba(44, 72, 124, 0.6); /* Consistent border */
+            border-radius: 0.5em;
+            padding: 1.5em;
+            margin-bottom: 2em;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover */
+        }
+        .vulnerability-section:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.2), 0 0 15px rgba(255, 107, 107, 0.1); /* Red glow on hover */
+        }
+        .vulnerability-section h3 {
+            color: #FF6B6B; /* Reddish hue for vulnerability headings */
+            border-bottom: 1px solid rgba(255, 107, 107, 0.2);
+        }
+        .vulnerability-section p, .vulnerability-section li {
+            color: #d0d0d0;
+        }
+        .vulnerability-section strong {
+            color: #FFBABA; /* Lighter red for emphasis in vulnerabilities */
+        }
+
+        /* Modal Overlay and Content */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: rgba(11, 23, 56, 0.95);
+            padding: 25px;
+            border-radius: 0;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(44, 72, 124, 0.6);
+            position: relative;
+            max-width: 800px;
+            width: calc(100% - 40px);
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #D0D8E8;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .modal-close-button:hover {
+            color: #7CA0E0;
+        }
+        .modal-content h2 {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+            letter-spacing: 1px;
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments for mobile devices */
+        @media (max-width: 768px) {
+            .main-content {
+                width: 96%; /* Use 96% width for better mobile fit */
+                max-width: none; /* Ensure it doesn't exceed screen width */
+                padding: 10px; /* Adjusted padding for mobile to match other files */
+                margin: 10px auto; /* Center horizontally with margin */
+                min-height: 40vh; /* Adjusted for mobile */
+                border-radius: 0;
+                border-top-left-radius: 25px; /* Consistent top radius for mobile */
+                border-top-right-radius: 25px; /* Consistent top radius for mobile */
+                border-bottom-left-radius: 0; /* Consistent with other modals */
+                border-bottom-right-radius: 0; /* Consistent with other modals */
+                position: static; /* No absolute positioning for mobile content */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start; /* Align content to top for document flow */
+                padding-top: 10px; /* Adjusted padding-top to account for static logo/motto */
+                box-sizing: border-box; /* Include padding in width/height */
+                zoom: 1; /* Reset zoom for mobile */
+            }
+
+            .logo {
+                position: static; /* Change to static positioning */
+                margin-bottom: 3vh; /* Add margin below logo */
+                width: clamp(80px, 25vw, 150px);
+                top: auto;
+                left: auto;
+                transform: none; /* Remove transform */
+            }
+            .motto {
+                position: static; /* Change to static positioning */
+                font-size: clamp(0.9em, 4vw, 1.5em);
+                margin-top: 1vh;
+                margin-bottom: 4vh;
+                white-space: normal; /* Allow wrapping */
+                top: auto;
+                left: auto;
+                transform: none; /* Remove transform */
+                width: auto; /* Allow content to dictate width */
+                padding: 0 10px; /* Add horizontal padding to motto */
+            }
+
+            h1 {
+                font-size: clamp(1.8em, 5vw, 2.2em); /* Adjusted to match other h2s */
+                margin-bottom: 2vh;
+            }
+            p {
+                font-size: clamp(0.9em, 3.5vw, 1.1em);
+                margin-bottom: 0.5vh;
+            }
+            h2 {
+                font-size: clamp(1.8em, 5vw, 2.2em);
+                margin-top: 30px;
+                margin-bottom: 15px;
+                text-align: center; /* Center align headings on mobile */
+            }
+            h3 {
+                font-size: clamp(1.4em, 4vw, 1.8em);
+                margin-top: 20px;
+                margin-bottom: 8px;
+            }
+            ul.space-y-4 li, ol.list-decimal li, ul.list-disc li {
+                font-size: clamp(0.9em, 3.5vw, 1.1em);
+            }
+            pre {
+                padding: 0.8rem;
+                font-size: 0.9em;
+                word-wrap: break-word; /* Ensure long lines wrap */
+                white-space: pre-wrap; /* Preserve whitespace and wrap */
+            }
+            code {
+                font-size: 0.9em;
+            }
+            .themed-button {
+                padding: 1.5vh 3vw;
+                font-size: clamp(1em, 4vw, 1.2em);
+                margin: 1.5vh auto;
+                width: 90%; /* Make buttons full width on mobile */
+                max-width: 300px; /* Limit max width */
+            }
+
+            /* Hide desktop fixed buttons on mobile */
+            .announcement-buttons-desktop {
+                display: none;
+            }
+
+            /* Mobile buttons container */
+            .mobile-buttons-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px; /* Space between buttons */
+                margin-top: 20px; /* Space from creators list */
+                margin-bottom: 20px; /* Space below buttons */
+            }
+            .mobile-buttons-container .utility-button {
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                background: none;
+                border: 2px solid #2C487C;
+                color: #D0D8E8;
+                box-shadow: none;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+            .mobile-buttons-container .utility-button:hover {
+                border-color: #7CA0E0;
+            }
+            .mobile-buttons-container .utility-button i {
+                font-size: 24px;
+            }
+
+
+            .nav-toggle-button i {
+                margin-right: 0; /* Remove margin for icon on mobile */
+            }
+            .nav-toggle-button span {
+                display: none; /* Hide text on mobile */
+            }
+            .changelog-button, #howToUseButton, #contributionsButton {
+                font-size: clamp(0.8em, 3vw, 1em);
+                padding: 6px 10px;
+                margin: 3px;
+            }
+            .how-to-tabs {
+                flex-direction: column;
+                align-items: center; /* Center tabs when stacked */
+            }
+            .tab-button {
+                padding: 8px 15px;
+                font-size: 1em;
+                width: 100%; /* Make tab buttons full width */
+                text-align: center;
+            }
+            .modal-content {
+                width: calc(100% - 30px); /* Adjust modal width for mobile */
+                padding: 15px; /* Adjust modal padding */
+                border-top-left-radius: 20px; /* Consistent with other modals */
+                border-top-right-radius: 20px; /* Consistent with other modals */
+            }
+            .modal-content h2 {
+                font-size: 1.5em; /* Smaller modal titles */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                padding-top: 10px; /* Consistent padding-top for all mobile */
+                padding-left: 10px; /* Further adjust padding */
+                padding-right: 10px; /* Further adjust padding */
+            }
+            .logo {
+                width: clamp(70px, 20vw, 120px);
+                margin-bottom: 2vh;
+            }
+            .motto {
+                font-size: clamp(0.8em, 3.5vw, 1.2em);
+                margin-bottom: 2.5vh;
+                padding: 0 5px; /* Even less horizontal padding for motto */
+            }
+            h1 {
+                font-size: clamp(1.5em, 4.5vw, 2em);
+                margin-bottom: 1.5vh;
+            }
+            p {
+                font-size: clamp(0.8em, 3vw, 1em);
+                margin-bottom: 1vh;
+            }
+            h2 {
+                font-size: clamp(1.5em, 4.5vw, 2em);
+                margin-top: 25px;
+                margin-bottom: 10px;
+            }
+            h3 {
+                font-size: clamp(1.2em, 3.5vw, 1.6em);
+                margin-top: 15px;
+                margin-bottom: 5px;
+            }
+            ul.space-y-4 li, ol.list-decimal li, ul.list-disc li {
+                font-size: clamp(0.8em, 3vw, 1em);
+            }
+            pre {
+                padding: 0.6rem;
+                font-size: 0.85em;
+            }
+            code {
+                font-size: 0.85em;
+            }
+            .themed-button {
+                padding: 1.2vh 2.5vw;
+                font-size: clamp(0.9em, 3.5vw, 1.1em);
+                margin: 1vh auto;
+                width: 95%;
+            }
+            /* Mobile buttons container adjustments for smaller screens */
+            .mobile-buttons-container {
+                gap: 8px; /* Slightly less gap for very small screens */
+            }
+            .mobile-buttons-container .utility-button {
+                width: 35px; /* Slightly smaller buttons */
+                height: 35px;
+            }
+            .mobile-buttons-container .utility-button i {
+                font-size: 20px; /* Smaller icon size */
+            }
+
+            .changelog-button, #howToUseButton, #contributionsButton {
+                font-size: clamp(0.7em, 2.5vw, 0.9em);
+                padding: 5px 8px;
+                margin: 2px;
+            }
+            .modal-content {
+                width: calc(100% - 20px); /* Even narrower modal for very small screens */
+                padding: 10px; /* Less padding for modal */
+            }
+            .modal-content h2 {
+                font-size: 1.3em; /* Even smaller modal titles */
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay loop muted playsinline>
+            <source src="assets/wallpaper.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+      <p><span class="gradient-heart">🖤</span> we are now live at <a href="http://parsed.top/" target="_blank" rel="noopener noreferrer">parsed.top</a>!</p>
+      <!-- Buttons on Announcement Banner (Desktop Only) -->
+      <div class="announcement-buttons-desktop hidden md:flex">
+          <a href="readme.html" class="utility-button" id="readmeButtonDesktop">📕</a>
+          <button class="utility-button" id="toggleNavBtnDesktop">
+              <i class="fas fa-bars"></i>
+          </button>
+      </div>
+    </div>
+
+    <!-- Mobile Buttons Container (Mobile Only) -->
+    <div class="mobile-buttons-container hidden sm:flex md:hidden">
+        <a href="readme.html" class="utility-button" id="readmeButtonMobile">📕</a>
+        <button class="utility-button" id="toggleNavBtnMobile">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <!-- Side Navigation Bar (Overlay) -->
+    <nav class="side-nav" id="sideNav">
+        <div class="p-4 text-center">
+            <a href="#top" class="text-2xl font-bold text-white mb-4 block">Code Breakdown</a>
+            <hr class="border-gray-700 my-4">
+        </div>
+        <ul class="flex flex-col space-y-2 px-4">
+            <li><a href="#ud-center-analysis" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">🛠️ ud_center.py Analysis</a></li>
+            <li><a href="#testbot-analysis" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">🤖 testbot.py Analysis</a></li>
+            <li><a href="#conclusion" class="block py-2 px-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200">✅ Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <!-- Overlay for side navigation -->
+    <div id="sideNavOverlay"></div>
+
+    <!-- Main Content Container -->
+    <div class="main-content">
+
+        <!-- Logo and Motto -->
+        <img src="https://files.catbox.moe/pucbmh.png" alt="Logo" class="logo">
+        <h1 class="motto">your no.1 bp pull db</h1>
+
+        <!-- Header Section -->
+        <header id="top" class="text-center mb-12 py-8">
+            <p class="text-lg text-gray-400 italic">A detailed look into the project's core files.</p>
+            <p class="text-md text-gray-500 mt-4">lovingly crafted by</p>
+            <ul class="list-none p-0 flex justify-center space-x-6 mt-2">
+                <li><span class="text-2xl">🐼</span> <strong class="creator-name">Panda</strong></li>
+                <li><span class="text-2xl">📊</span> <strong class="creator-name">Parse</strong></li>
+            </ul>
+        </header>
+
+        <!-- ud_center.py Analysis Section -->
+        <section id="ud-center-analysis" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2"style="text-align: center;">🛠️ `ud_center.py` Analysis</h2>
+            <h3 class="text-2xl font-semibold text-white mb-4">Purpose</h3>
+            <p class="text-lg text-gray-300 mb-4"><code>ud_center.py</code> is a Tkinter-based graphical user interface (GUI) utility designed to manage various configuration and data files used by the Discord bot. It acts as a local control panel, allowing users to interact with remote data sources (like GitHub Gists, GitHub Repositories, and JSONBin.io) and local bot configuration files without direct command-line interaction.</p>
+
+            <h3 class="text-2xl font-semibold text-white mb-4 mt-8">Capabilities and Utilities</h3>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong>Credential Management (Local Storage):</strong>
+                    <ul>
+                        <li>Allows users to input and optionally "remember" GitHub Personal Access Tokens (PATs) and JSONBin Master Keys.</li>
+                        <li>These credentials are saved locally in <code>credentials.json</code> using a simple XOR obfuscation.</li>
+                    </ul>
+                </li>
+                <li><strong>JSONBin Credential Tester (Signal Tester):</strong>
+                    <ul>
+                        <li>Fetches JSON content from a specified URL (e.g., a raw GitHub Gist).</li>
+                        <li>Parses the JSON to check for a <code>JSONBIN_BIN_ID</code> key, useful for verifying external configuration sources.</li>
+                    </ul>
+                </li>
+                <li><strong>GitHub Gist Editor:</strong>
+                    <ul>
+                        <li>Enables fetching a list of the user's GitHub Gists.</li>
+                        <li>Allows selection of a specific Gist and a file within that Gist.</li>
+                        <li>Provides a text editor to modify the content of the selected Gist file.</li>
+                        <li>Supports saving (patching) changes back to the GitHub Gist.</li>
+                    </ul>
+                </li>
+                <li><strong>JSONBin Editor:</strong>
+                    <ul>
+                        <li>Facilitates fetching and editing content of a JSONBin.io bin using its ID and Master Key.</li>
+                        <li>Provides a text area for editing the JSON content.</li>
+                        <li>Supports saving (putting) updated content back to JSONBin.io.</li>
+                    </ul>
+                </li>
+                <li><strong>GitHub Repository JSON Editor:</strong>
+                    <ul>
+                        <li>Lists the user's GitHub repositories.</li>
+                        <li>Allows selection of a repository, a branch within that repository, and a JSON file within the selected branch.</li>
+                        <li>Fetches the content and SHA (for version control) of the selected JSON file.</li>
+                        <li>Provides an editor to modify the file content and a field for a commit message.</li>
+                        <li>Supports committing changes back to the GitHub repository.</li>
+                    </ul>
+                </li>
+                <li><strong>Bot Editor (Local File):</strong>
+                    <ul>
+                        <li>Designed for editing the bot's local configuration file (<code>bot_config.json</code>).</li>
+                        <li>Provides dedicated input fields and dropdowns for:
+                            <ul>
+                                <li><strong>Basic Presence:</strong> Bot profile picture URL, online status, activity type (playing, streaming, etc.), and activity name.</li>
+                                <li><strong>Rich Presence (Advanced):</strong> Details, state, large/small image URLs and text, and start/end timestamps.</li>
+                                <li><strong>General Settings:</strong> Command prefix and log channel ID.</li>
+                                <li><strong>Welcome Message:</strong> Enable/disable, channel ID, and message content (with <code>{member}</code> placeholder).</li>
+                                <li><strong>Rate Limits:</strong> Maximum embeds per period and the period duration in seconds.</li>
+                            </ul>
+                        </li>
+                        <li>Loads existing configuration from the specified file and saves changes back to it.</li>
+                    </ul>
+                </li>
+                <li><strong>Multi-threading:</strong> Uses <code>concurrent.futures.ThreadPoolExecutor</code> to perform network operations (fetching/saving data from APIs) in separate threads, preventing the GUI from freezing.</li>
+            </ul>
+
+            <h3 class="text-2xl font-semibold text-white mb-4 mt-8">Security Analysis / Potential Vulnerabilities</h3>
+
+            <div class="vulnerability-section">
+                <h3>1. Obfuscation, Not Encryption (<code>ENCRYPTION_KEY</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The code explicitly states that the <code>_xor_encrypt_decrypt</code> function uses a "simple XOR cipher for obfuscation, NOT cryptographic security." The <code>ENCRYPTION_KEY</code> is hardcoded. This means that anyone with access to the <code>ud_center.py</code> script can easily reverse the obfuscation and retrieve stored GitHub PATs and JSONBin Master Keys.</li>
+                    <li><strong>Exploit Potential:</strong> If this utility is distributed or used on a system where other users might gain access to the script, their stored credentials could be trivially exposed.</li>
+                    <li><strong>Mitigation:</strong> For any sensitive data, proper cryptographic encryption (e.g., using a library like <code>cryptography</code> with a securely managed key) should be used, or better yet, avoid storing such credentials directly in a client-side application. Environment variables or secure key vaults are preferred for production.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>2. Local Storage of Credentials (<code>credentials.json</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> Even with obfuscation, storing sensitive API keys (GitHub PAT, JSONBin Master Key) in a local file (<code>credentials.json</code>) on the user's machine is inherently risky. If the machine is compromised, or if the file is accidentally shared, these keys are exposed.</li>
+                    <li><strong>Exploit Potential:</strong> A malicious actor gaining access to the user's system could extract these keys and gain unauthorized access to their GitHub account (with <code>gist</code> or <code>repo</code> scope) and JSONBin.io data.</li>
+                    <li><strong>Mitigation:</strong> Users should be strongly advised against using this feature for highly sensitive accounts. For production or shared environments, credentials should be managed via environment variables, secure input prompts (without saving), or dedicated secrets management services.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>3. Direct API Calls from Client-Side:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The application makes direct API calls to GitHub and JSONBin.io using the user's PAT/Master Key. While common for personal tools, this means the keys are present on the client machine during API requests.</li>
+                    <li><strong>Exploit Potential:</strong> If the user's network traffic is intercepted (e.g., via a Man-in-the-Middle attack on an insecure network, though HTTPS mitigates this), or if the application itself is compromised, the keys could be exposed.</li>
+                    <li><strong>Mitigation:</strong> For more secure applications, API calls involving sensitive keys are typically proxied through a backend server, where the keys are stored securely and never exposed to the client.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>4. Input Validation (JSON Content):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> While <code>json.loads</code> and <code>json.dumps</code> handle basic JSON parsing errors, the application relies on the user providing valid JSON for saving. If a user inputs malformed JSON, it will result in an error, but it's not a direct security vulnerability unless the error handling itself could be exploited (which is not apparent here).</li>
+                    <li><strong>Mitigation:</strong> Robust input validation and sanitization are always good practices, especially when dealing with data that will be written back to external services.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- testbot.py Analysis Section -->
+        <section id="testbot-analysis" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2" style="text-align: center;">🤖 `testbot.py` Analysis</h2>
+
+            <h3 class="text-2xl font-semibold text-white mb-4">Purpose</h3>
+            <p class="text-lg text-gray-300 mb-4"><code>testbot.py</code> is the core Discord bot application. It provides various functionalities for managing and querying blueprint data, interacting with Discord users via slash commands, and includes administrative features for bot configuration and updates.</p>
+
+            <h3 class="text-2xl font-semibold text-white mb-4">Capabilities and Utilities</h3>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong>Dependency Management:</strong>
+                    <ul>
+                        <li><code>install_dependencies_sync()</code>: Checks for and synchronously installs required Python packages (<code>discord.py</code>, <code>python-dotenv</code>, <code>beautifulsoup4</code>, <code>requests</code>) using <code>pip</code>. Provides console feedback.</li>
+                    </ul>
+                </li>
+                <li><strong>Themed Logging:</strong>
+                    <ul>
+                        <li>Custom <code>DiscordThemeFormatter</code> for <code>logging</code> to provide cleaner, more visually appealing console output for Discord-related messages (e.g., login success, gateway connection).</li>
+                    </ul>
+                </li>
+                <li><strong>Data Loading:</strong>
+                    <ul>
+                        <li>Loads blueprint data from <code>blueprints.json</code>.</li>
+                        <li>Loads guild-specific configuration (allowed channels, roles) from <code>config.json</code>.</li>
+                        <li>Loads bot-wide configuration (presence, activity, rate limits, welcome messages) from <code>bot_config.json</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>External Credential Fetching (JSONBin ID):</strong>
+                    <ul>
+                        <li><code>fetch_jsonbin_credentials()</code>: Attempts to retrieve the <code>JSONBIN_BIN_ID</code> from a list of fallback URLs. This ID is used for the update check.</li>
+                    </ul>
+                </li>
+                <li><strong>Update Mechanism:</strong>
+                    <ul>
+                        <li><code>check_for_updates()</code>: Periodically checks a public JSONBin.io bin (using the fetched <code>JSONBIN_BIN_ID</code>) for an "update_required" signal. If "YES", the bot gracefully shuts down, prompting the user to update.</li>
+                    </ul>
+                </li>
+                <li><strong>Dynamic Bot Presence and Activity:</strong>
+                    <ul>
+                        <li><code>apply_bot_config()</code>: Configures the bot's online status, activity type (playing, streaming, listening, watching, competing), activity name, and advanced rich presence details (images, timestamps, state) based on <code>bot_config.json</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Periodic Configuration Reload:</strong>
+                    <ul>
+                        <li><code>check_bot_config_for_restart()</code>: A background task that periodically checks <code>bot_config.json</code> for changes using an MD5 hash. If changes are detected, it triggers a graceful bot shutdown and restart (<code>_should_restart</code> flag and <code>os.execl</code>).</li>
+                    </ul>
+                </li>
+                <li><strong>Welcome Messages:</strong>
+                    <ul>
+                        <li><code>on_member_join()</code>: Sends a customizable welcome message to a designated channel when a new member joins, with an option to mention the new user.</li>
+                    </ul>
+                </li>
+                <li><strong>Ephemeral Message Management:</strong>
+                    <ul>
+                        <li><code>send_and_manage_ephemeral()</code>: A utility to send ephemeral (only visible to the user) Discord messages, automatically deleting previous ephemeral messages from the bot to keep the chat tidy.</li>
+                    </ul>
+                </li>
+                <li><strong>Command Permissions:</strong>
+                    <ul>
+                        <li><code>check_command_permissions()</code>: Verifies if a user has permission to use a command based on configured allowed channels and roles for their guild.</li>
+                    </ul>
+                </li>
+                <li><strong>Blueprint Query Commands:</strong>
+                    <ul>
+                        <li><code>/blueprint &lt;nameid&gt;</code>: Looks up and displays details for a specific blueprint by name, including its pool, weapon, status, and a local image if available.</li>
+                        <li><code>/pool &lt;number&gt; [weapontype]</code>: Lists all blueprints within a given pool, with optional filtering by weapon type. Includes pagination and a dropdown for detailed blueprint selection.</li>
+                        <li><code>/search_status &lt;status&gt;</code>: Filters and displays blueprints based on their release status (RELEASED, UNRELEASED, NOTHING, NOTEXTURE).</li>
+                    </ul>
+                </li>
+                <li><strong>Informational Commands:</strong>
+                    <ul>
+                        <li><code>/howto &lt;gamemode&gt; &lt;tutorial&gt;</code>: Explains blueprint pulling methods for Warzone/Multiplayer or Zombies, with an option to include a video tutorial.</li>
+                        <li><code>/pool-explain</code>: Provides a specific explanation of blueprint pulling in relation to weapon pools.</li>
+                        <li><code>/website</code>: Provides a link to the external Blueprint Database website.</li>
+                        <li><code>/help</code>: Displays a comprehensive list of all available bot commands.</li>
+                    </ul>
+                </li>
+                <li><strong>Administrative Commands:</strong>
+                    <ul>
+                        <li><code>/setchannel</code>: Allows administrators to designate specific text channels where bot commands can be used, using an interactive dropdown.</li>
+                        <li><code>/setroles</code>: Allows administrators to designate specific roles that are allowed to use bot commands, using an interactive dropdown.</li>
+                        <li><code>/checkchannel</code>: Displays the currently configured designated channels and allowed roles for the bot.</li>
+                        <li><code>/clearchannel</code>: Clears all designated channels, allowing commands in any channel.</li>
+                        <li><code>/clearroles</code>: Clears all allowed roles, allowing any user to use commands.</li>
+                        <li><code>/update_bot_config</code>: Forces a reload and re-application of the bot's presence and activity settings from <code>bot_config.json</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Rate Limiting:</strong>
+                    <ul>
+                        <li><code>check_and_apply_rate_limit()</code>: Implements a basic rate-limiting mechanism to prevent command spam by limiting the number of embeds sent within a configurable time period.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 class="text-2xl font-semibold text-white mb-4 mt-8"style="text-align: center;">Security Analysis / Potential Vulnerabilities</h3>
+
+            <div class="vulnerability-section">
+                <h3>1. Discord Bot Token Management (<code>DISCORD_BOT_TOKEN</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The bot token is loaded from an environment variable (<code>.env</code> file). While this is a standard and generally secure practice for Discord bots, the <code>.env</code> file itself is a local file.</li>
+                    <li><strong>Exploit Potential:</strong> If the <code>.env</code> file is accidentally committed to a public repository, or if the server/machine hosting the bot is compromised, the bot token can be stolen. A stolen bot token grants full control over the bot account.</li>
+                    <li><strong>Mitigation:</strong> Emphasize strict <code>.gitignore</code> rules for <code>.env</code> files. Secure the host environment. Educate users on the dangers of exposing bot tokens.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>2. Configuration File Integrity (<code>blueprints.json</code>, <code>config.json</code>, <code>bot_config.json</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> These JSON files store critical data and configurations locally. The bot relies on their integrity. While <code>json.JSONDecodeError</code> is handled, malicious modification of these files is a concern.</li>
+                    <li><strong>Exploit Potential:</strong>
+                        <ul>
+                            <li><strong><code>blueprints.json</code>:</strong> If modified by an attacker, it could lead to incorrect blueprint data being displayed, potentially misleading users.</li>
+                            <li><strong><code>config.json</code>:</strong> If modified, an attacker could change allowed channels or roles, potentially bypassing command restrictions.</li>
+                            <li><strong><code>bot_config.json</code>:</strong> If modified, an attacker could change the bot's presence (e.g., to display malicious messages), command prefix, or log channels.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mitigation:</strong> Ensure file permissions are restrictive. Implement checksums or digital signatures for critical configuration files if integrity is paramount (though this adds complexity). The <code>check_bot_config_for_restart</code> using MD5 hashing is a good step towards detecting <em>changes</em>, but doesn't prevent malicious changes if the attacker can modify the file.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>3. External Credential Fetching (<code>fetch_jsonbin_credentials</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The bot attempts to fetch its <code>JSONBIN_BIN_ID</code> from a list of hardcoded external URLs. While the intent is to make the bot easily configurable for updates, this introduces a supply chain risk.</li>
+                    <li><strong>Exploit Potential:</strong> If any of the <code>FALLBACK_CREDS_URLS</code> were compromised and returned a malicious <code>JSONBIN_BIN_ID</code> pointing to an attacker-controlled bin, the bot's <code>check_for_updates</code> mechanism could be manipulated. An attacker could then force a "shutdown" or display arbitrary messages.</li>
+                    <li><strong>Mitigation:</strong> Reduce reliance on external, hardcoded URLs for configuration. If dynamic configuration is needed, use a trusted, secure source with proper authentication and integrity checks (e.g., signed configurations).</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>4. <code>subprocess.run</code> in <code>install_dependencies_sync</code>:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The <code>install_dependencies_sync</code> function executes <code>pip install</code> commands using <code>subprocess.run</code>.</li>
+                    <li><strong>Exploit Potential:</strong> In a theoretical scenario where <code>required_packages</code> could be influenced by an attacker (e.g., if it were loaded from an insecure external source or user input), this could lead to arbitrary code execution by installing malicious packages.</li>
+                    <li><strong>Mitigation:</strong> In this specific code, <code>required_packages</code> is hardcoded, which significantly reduces the risk. However, it's a general security principle to be cautious with <code>subprocess</code> calls, especially with user-controlled input.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>5. Role/Channel ID Validation and Persistence:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The <code>/setroles</code> and <code>/setchannel</code> commands attempt to clean up "invalid" (non-existent) channel/role IDs from the <code>config.json</code>. While this is good for data hygiene, it relies on the bot being able to fetch current guild roles/channels. If Discord API issues prevent this, or if a role/channel is deleted while the bot is offline, the stored IDs might become stale.</li>
+                    <li><strong>Exploit Potential:</strong> Not a direct exploit, but could lead to misconfigurations or unexpected behavior if roles/channels are frequently deleted or renamed. The current implementation handles this gracefully by marking them as "Invalid" and removing them on save.</li>
+                    <li><strong>Mitigation:</strong> The current approach is reasonable for a Discord bot. Consistent logging of invalid IDs helps administrators debug.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>6. Rate Limiting (Denial of Service):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The rate limiting (<code>check_and_apply_rate_limit</code>) is designed to prevent spam. Without it, a user could potentially spam the bot with commands, leading to a self-inflicted denial of service (DoS) by hitting Discord's API rate limits.</li>
+                    <li><strong>Exploit Potential:</strong> While the current implementation prevents this, a poorly configured or absent rate limit could allow a malicious user to overwhelm the bot or Discord's API for the bot.</li>
+                    <li><strong>Mitigation:</strong> The existing rate limiting is a good defensive measure. Ensure <code>max_embeds_per_period</code> and <code>period_seconds</code> are set appropriately.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>7. Error Handling and Logging:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The bot uses <code>print()</code> statements for many errors and warnings. While effective for console debugging, it's less robust for long-term monitoring.</li>
+                    <li><strong>Exploit Potential:</strong> Critical errors might be missed if not properly logged to a persistent system (e.g., a file, a dedicated logging service, or a specific Discord log channel).</li>
+                    <li><strong>Mitigation:</strong> The <code>log_channel_id</code> in <code>bot_config.json</code> is a good step. Implement more comprehensive logging to a file or external service for production environments.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="mb-12 px-4">
+            <h2 class="text-3xl font-bold mb-6 pb-2"style="text-align: center;">✅ Conclusion</h2>
+            <p class="text-lg text-gray-300 mb-4">The project demonstrates a well-structured Discord bot and a supporting GUI utility. The bot offers extensive features for managing blueprint data and interacting with Discord. The <code>ud_center.py</code> utility provides a convenient way to configure and update bot-related data.</p>
+            <p class="text-lg text-gray-300 mb-4">The primary security concern lies within <code>ud_center.py</code>'s handling of sensitive credentials (GitHub PATs, JSONBin Master Keys) using a weak obfuscation method and local file storage. This is explicitly warned against in the code itself, indicating awareness, but it remains a critical point for users to understand.</p>
+            <p class="text-lg text-gray-300 mb-4">For <code>testbot.py</code>, the use of environment variables for the Discord token and the implementation of administrative permission checks are good practices. The reliance on external URLs for fetching the <code>JSONBIN_BIN_ID</code> introduces a minor supply chain risk, but for its intended purpose, it's a common pattern.</p>
+            <p class="text-lg text-gray-300 mb-4">Overall, the project is functional and well-commented. Users should be made aware of the security implications of storing credentials, especially when using <code>ud_center.py</code>, and prioritize securing their bot token and configuration files.</p>
+        </section>
+
+    </div>
+
+    <!-- Modals (kept for aesthetic, though not directly used for main content now) -->
+    <div id="udCenterCapabilitiesModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4"style="text-align: center;">🛠️ `ud_center.py` Capabilities and Utilities</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong>Credential Management (Local Storage):</strong>
+                    <ul>
+                        <li>Allows users to input and optionally "remember" GitHub Personal Access Tokens (PATs) and JSONBin Master Keys.</li>
+                        <li>These credentials are saved locally in <code>credentials.json</code> using a simple XOR obfuscation.</li>
+                    </ul>
+                </li>
+                <li><strong>JSONBin Credential Tester (Signal Tester):</strong>
+                    <ul>
+                        <li>Fetches JSON content from a specified URL (e.g., a raw GitHub Gist).</li>
+                        <li>Parses the JSON to check for a <code>JSONBIN_BIN_ID</code> key, useful for verifying external configuration sources.</li>
+                    </ul>
+                </li>
+                <li><strong>GitHub Gist Editor:</strong>
+                    <ul>
+                        <li>Enables fetching a list of the user's GitHub Gists.</li>
+                        <li>Allows selection of a specific Gist and a file within that Gist.</li>
+                        <li>Provides a text editor to modify the content of the selected Gist file.</li>
+                        <li>Supports saving (patching) changes back to the GitHub Gist.</li>
+                    </ul>
+                </li>
+                <li><strong>JSONBin Editor:</strong>
+                    <ul>
+                        <li>Facilitates fetching and editing content of a JSONBin.io bin using its ID and Master Key.</li>
+                        <li>Provides a text area for editing the JSON content.</li>
+                        <li>Supports saving (putting) updated content back to JSONBin.io.</li>
+                    </ul>
+                </li>
+                <li><strong>GitHub Repository JSON Editor:</strong>
+                    <ul>
+                        <li>Lists the user's GitHub repositories.</li>
+                        <li>Allows selection of a repository, a branch within that repository, and a JSON file within the selected branch.</li>
+                        <li>Fetches the content and SHA (for version control) of the selected JSON file.</li>
+                        <li>Provides an editor to modify the file content and a field for a commit message.</li>
+                        <li>Supports committing changes back to the GitHub repository.</li>
+                    </ul>
+                </li>
+                <li><strong>Bot Editor (Local File):</strong>
+                    <ul>
+                        <li>Designed for editing the bot's local configuration file (<code>bot_config.json</code>).</li>
+                        <li>Provides dedicated input fields and dropdowns for:
+                            <ul>
+                                <li><strong>Basic Presence:</strong> Bot profile picture URL, online status, activity type (playing, streaming, etc.), and activity name.</li>
+                                <li><strong>Rich Presence (Advanced):</strong> Details, state, large/small image URLs and text, and start/end timestamps.</li>
+                                <li><strong>General Settings:</strong> Command prefix and log channel ID.</li>
+                                <li><strong>Welcome Message:</strong> Enable/disable, channel ID, and message content (with <code>{member}</code> placeholder).</li>
+                                <li><strong>Rate Limits:</strong> Maximum embeds per period and the period duration in seconds.</li>
+                            </ul>
+                        </li>
+                        <li>Loads existing configuration from the specified file and saves changes back to it.</li>
+                    </ul>
+                </li>
+                <li><strong>Multi-threading:</strong> Uses <code>concurrent.futures.ThreadPoolExecutor</code> to perform network operations (fetching/saving data from APIs) in separate threads, preventing the GUI from freezing.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="udCenterVulnerabilitiesModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4"style="text-align: center;">⚠️ `ud_center.py` Security Analysis / Potential Vulnerabilities</h2>
+            <div class="vulnerability-section">
+                <h3>1. Obfuscation, Not Encryption (<code>ENCRYPTION_KEY</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The code explicitly states that the <code>_xor_encrypt_decrypt</code> function uses a "simple XOR cipher for obfuscation, NOT cryptographic security." The <code>ENCRYPTION_KEY</code> is hardcoded. This means that anyone with access to the <code>ud_center.py</code> script can easily reverse the obfuscation and retrieve stored GitHub PATs and JSONBin Master Keys.</li>
+                    <li><strong>Exploit Potential:</strong> If this utility is distributed or used on a system where other users might gain access to the script, their stored credentials could be trivially exposed.</li>
+                    <li><strong>Mitigation:</strong> For any sensitive data, proper cryptographic encryption (e.g., using a library like <code>cryptography</code> with a securely managed key) should be used, or better yet, avoid storing such credentials directly in a client-side application. Environment variables or secure key vaults are preferred for production.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>2. Local Storage of Credentials (<code>credentials.json</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> Even with obfuscation, storing sensitive API keys (GitHub PAT, JSONBin Master Key) in a local file (<code>credentials.json</code>) on the user's machine is inherently risky. If the machine is compromised, or if the file is accidentally shared, these keys are exposed.</li>
+                    <li><strong>Exploit Potential:</strong> A malicious actor gaining access to the user's system could extract these keys and gain unauthorized access to their GitHub account (with <code>gist</code> or <code>repo</code> scope) and JSONBin.io data.</li>
+                    <li><strong>Mitigation:</strong> Users should be strongly advised against using this feature for highly sensitive accounts. For production or shared environments, credentials should be managed via environment variables, secure input prompts (without saving), or dedicated secrets management services.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>3. Direct API Calls from Client-Side:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The application makes direct API calls to GitHub and JSONBin.io using the user's PAT/Master Key. While common for personal tools, this means the keys are present on the client machine during API requests.</li>
+                    <li><strong>Exploit Potential:</strong> If the user's network traffic is intercepted (e.g., via a Man-in-the-Middle attack on an insecure network, though HTTPS mitigates this), or if the application itself is compromised, the keys could be exposed.</li>
+                    <li><strong>Mitigation:</strong> For more secure applications, API calls involving sensitive keys are typically proxied through a backend server, where the keys are stored securely and never exposed to the client.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>4. Input Validation (JSON Content):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> While <code>json.loads</code> and <code>json.dumps</code> handle basic JSON parsing errors, the application relies on the user providing valid JSON for saving. If a user inputs malformed JSON, it will result in an error, but it's not a direct security vulnerability unless the error handling itself could be exploited (which is not apparent here).</li>
+                    <li><strong>Mitigation:</strong> Robust input validation and sanitization are always good practices, especially when dealing with data that will be written back to external services.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="testBotCapabilitiesModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4"style="text-align: center;">🤖 `testbot.py` Capabilities and Utilities</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li><strong>Dependency Management:</strong>
+                    <ul>
+                        <li><code>install_dependencies_sync()</code>: Checks for and synchronously installs required Python packages (<code>discord.py</code>, <code>python-dotenv</code>, <code>beautifulsoup4</code>, <code>requests</code>) using <code>pip</code>. Provides console feedback.</li>
+                    </ul>
+                </li>
+                <li><strong>Themed Logging:</strong>
+                    <ul>
+                        <li>Custom <code>DiscordThemeFormatter</code> for <code>logging</code> to provide cleaner, more visually appealing console output for Discord-related messages (e.g., login success, gateway connection).</li>
+                    </ul>
+                </li>
+                <li><strong>Data Loading:</strong>
+                    <ul>
+                        <li>Loads blueprint data from <code>blueprints.json</code>.</li>
+                        <li>Loads guild-specific configuration (allowed channels, roles) from <code>config.json</code>.</li>
+                        <li>Loads bot-wide configuration (presence, activity, rate limits, welcome messages) from <code>bot_config.json</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>External Credential Fetching (JSONBin ID):</strong>
+                    <ul>
+                        <li><code>fetch_jsonbin_credentials()</code>: Attempts to retrieve the <code>JSONBIN_BIN_ID</code> from a list of fallback URLs. This ID is used for the update check.</li>
+                    </ul>
+                </li>
+                <li><strong>Update Mechanism:</strong>
+                    <ul>
+                        <li><code>check_for_updates()</code>: Periodically checks a public JSONBin.io bin (using the fetched <code>JSONBIN_BIN_ID</code>) for an "update_required" signal. If "YES", the bot gracefully shuts down, prompting the user to update.</li>
+                    </ul>
+                </li>
+                <li><strong>Dynamic Bot Presence and Activity:</strong>
+                    <ul>
+                        <li><code>apply_bot_config()</code>: Configures the bot's online status, activity type (playing, streaming, listening, watching, competing), activity name, and advanced rich presence details (images, timestamps, state) based on <code>bot_config.json</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Periodic Configuration Reload:</strong>
+                    <ul>
+                        <li><code>check_bot_config_for_restart()</code>: A background task that periodically checks <code>bot_config.json</code> for changes using an MD5 hash. If changes are detected, it triggers a graceful bot shutdown and restart (<code>_should_restart</code> flag and <code>os.execl</code>).</li>
+                    </ul>
+                </li>
+                <li><strong>Welcome Messages:</strong>
+                    <ul>
+                        <li><code>on_member_join()</code>: Sends a customizable welcome message to a designated channel when a new member joins, with an option to mention the new user.</li>
+                    </ul>
+                </li>
+                <li><strong>Ephemeral Message Management:</strong>
+                    <ul>
+                        <li><code>send_and_manage_ephemeral()</code>: A utility to send ephemeral (only visible to the user) Discord messages, automatically deleting previous ephemeral messages from the bot to keep the chat tidy.</li>
+                    </ul>
+                </li>
+                <li><strong>Command Permissions:</strong>
+                    <ul>
+                        <li><code>check_command_permissions()</code>: Verifies if a user has permission to use a command based on configured allowed channels and roles for their guild.</li>
+                    </ul>
+                </li>
+                <li><strong>Blueprint Query Commands:</strong>
+                    <ul>
+                        <li><code>/blueprint &lt;nameid&gt;</code>: Looks up and displays details for a specific blueprint by name, including its pool, weapon, status, and a local image if available.</li>
+                        <li><code>/pool &lt;number&gt; [weapontype]</code>: Lists all blueprints within a given pool, with optional filtering by weapon type. Includes pagination and a dropdown for detailed blueprint selection.</li>
+                        <li><code>/search_status &lt;status&gt;</code>: Filters and displays blueprints based on their release status (RELEASED, UNRELEASED, NOTHING, NOTEXTURE).</li>
+                    </ul>
+                </li>
+                <li><strong>Informational Commands:</strong>
+                    <ul>
+                        <li><code>/howto &lt;gamemode&gt; &lt;tutorial&gt;</code>: Explains blueprint pulling methods for Warzone/Multiplayer or Zombies, with an option to include a video tutorial.</li>
+                        <li><code>/pool-explain</code>: Provides a specific explanation of blueprint pulling in relation to weapon pools.</li>
+                        <li><code>/website</code>: Provides a link to the external Blueprint Database website.</li>
+                        <li><code>/help</code>: Displays a comprehensive list of all available bot commands.</li>
+                    </ul>
+                </li>
+                <li><strong>Administrative Commands:</strong>
+                    <ul>
+                        <li><code>/setchannel</code>: Allows administrators to designate specific text channels where bot commands can be used, using an interactive dropdown.</li>
+                        <li><code>/setroles</code>: Allows administrators to designate specific roles that are allowed to use bot commands, using an interactive dropdown.</li>
+                        <li><code>/checkchannel</code>: Displays the currently configured designated channels and allowed roles for the bot.</li>
+                        <li><code>/clearchannel</code>: Clears all designated channels, allowing commands in any channel.</li>
+                        <li><code>/clearroles</code>: Clears all allowed roles, allowing any user to use commands.</li>
+                        <li><code>/update_bot_config</code>: Forces a reload and re-application of the bot's presence and activity settings from <code>bot_config.json</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Rate Limiting:</strong>
+                    <ul>
+                        <li><code>check_and_apply_rate_limit()</code>: Implements a basic rate-limiting mechanism to prevent command spam by limiting the number of embeds sent within a configurable time period.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="testBotVulnerabilitiesModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4"style="text-align: center;">⚠️ `testbot.py` Security Analysis / Potential Vulnerabilities</h2>
+            <div class="vulnerability-section">
+                <h3>1. Discord Bot Token Management (<code>DISCORD_BOT_TOKEN</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The bot token is loaded from an environment variable (<code>.env</code> file). While this is a standard and generally secure practice for Discord bots, the <code>.env</code> file itself is a local file.</li>
+                    <li><strong>Exploit Potential:</strong> If the <code>.env</code> file is accidentally committed to a public repository, or if the server/machine hosting the bot is compromised, the bot token can be stolen. A stolen bot token grants full control over the bot account.</li>
+                    <li><strong>Mitigation:</strong> Emphasize strict <code>.gitignore</code> rules for <code>.env</code> files. Secure the host environment. Educate users on the dangers of exposing bot tokens.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>2. Configuration File Integrity (<code>blueprints.json</code>, <code>config.json</code>, <code>bot_config.json</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> These JSON files store critical data and configurations locally. The bot relies on their integrity. While <code>json.JSONDecodeError</code> is handled, malicious modification of these files is a concern.</li>
+                    <li><strong>Exploit Potential:</strong>
+                        <ul>
+                            <li><strong><code>blueprints.json</code>:</strong> If modified by an attacker, it could lead to incorrect blueprint data being displayed, potentially misleading users.</li>
+                            <li><strong><code>config.json</code>:</strong> If modified, an attacker could change allowed channels or roles, potentially bypassing command restrictions.</li>
+                            <li><strong><code>bot_config.json</code>:</strong> If modified, an attacker could change the bot's presence (e.g., to display malicious messages), command prefix, or log channels.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mitigation:</strong> Ensure file permissions are restrictive. Implement checksums or digital signatures for critical configuration files if integrity is paramount (though this adds complexity). The <code>check_bot_config_for_restart</code> using MD5 hashing is a good step towards detecting <em>changes</em>, but doesn't prevent malicious changes if the attacker can modify the file.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>3. External Credential Fetching (<code>fetch_jsonbin_credentials</code>):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The bot attempts to fetch its <code>JSONBIN_BIN_ID</code> from a list of hardcoded external URLs. While the intent is to make the bot easily configurable for updates, this introduces a supply chain risk.</li>
+                    <li><strong>Exploit Potential:</strong> If any of the <code>FALLBACK_CREDS_URLS</code> were compromised and returned a malicious <code>JSONBIN_BIN_ID</code> pointing to an attacker-controlled bin, the bot's <code>check_for_updates</code> mechanism could be manipulated. An attacker could then force a "shutdown" or display arbitrary messages.</li>
+                    <li><strong>Mitigation:</strong> Reduce reliance on external, hardcoded URLs for configuration. If dynamic configuration is needed, use a trusted, secure source with proper authentication and integrity checks (e.g., signed configurations).</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>4. <code>subprocess.run</code> in <code>install_dependencies_sync</code>:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The <code>install_dependencies_sync</code> function executes <code>pip install</code> commands using <code>subprocess.run</code>.</li>
+                    <li><strong>Exploit Potential:</strong> In a theoretical scenario where <code>required_packages</code> could be influenced by an attacker (e.g., if it were loaded from an insecure external source or user input), this could lead to arbitrary code execution by installing malicious packages.</li>
+                    <li><strong>Mitigation:</strong> In this specific code, <code>required_packages</code> is hardcoded, which significantly reduces the risk. However, it's a general security principle to be cautious with <code>subprocess</code> calls, especially with user-controlled input.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>5. Role/Channel ID Validation and Persistence:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The <code>/setroles</code> and <code>/setchannel</code> commands attempt to clean up "invalid" (non-existent) channel/role IDs from the <code>config.json</code>. While this is good for data hygiene, it relies on the bot being able to fetch current guild roles/channels. If Discord API issues prevent this, or if a role/channel is deleted while the bot is offline, the stored IDs might become stale.</li>
+                    <li><strong>Exploit Potential:</strong> Not a direct exploit, but could lead to misconfigurations or unexpected behavior if roles/channels are frequently deleted or renamed. The current implementation handles this gracefully by marking them as "Invalid" and removing them on save.</li>
+                    <li><strong>Mitigation:</strong> The current approach is reasonable for a Discord bot. Consistent logging of invalid IDs helps administrators debug.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>6. Rate Limiting (Denial of Service):</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The rate limiting (<code>check_and_apply_rate_limit</code>) is designed to prevent spam. Without it, a user could potentially spam the bot with commands, leading to a self-inflicted denial of service (DoS) by hitting Discord's API rate limits.</li>
+                    <li><strong>Exploit Potential:</strong> While the current implementation prevents this, a poorly configured or absent rate limit could allow a malicious user to overwhelm the bot or Discord's API for the bot.</li>
+                    <li><strong>Mitigation:</strong> The existing rate limiting is a good defensive measure. Ensure <code>max_embeds_per_period</code> and <code>period_seconds</code> are set appropriately.</li>
+                </ul>
+            </div>
+
+            <div class="vulnerability-section">
+                <h3>7. Error Handling and Logging:</h3>
+                <ul>
+                    <li><strong>Vulnerability:</strong> The bot uses <code>print()</code> statements for many errors and warnings. While effective for console debugging, it's less robust for long-term monitoring.</li>
+                    <li><strong>Exploit Potential:</strong> Critical errors might be missed if not properly logged to a persistent system (e.g., a file, a dedicated logging service, or a specific Discord log channel).</li>
+                    <li><strong>Mitigation:</strong> The <code>log_channel_id</code> in <code>bot_config.json</code> is a good step. Implement more comprehensive logging to a file or external service for production environments.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleNavBtnDesktop = document.getElementById('toggleNavBtnDesktop');
+            const readmeButtonDesktop = document.getElementById('readmeButtonDesktop'); // Changed ID
+            const toggleNavBtnMobile = document.getElementById('toggleNavBtnMobile');
+            const readmeButtonMobile = document.getElementById('readmeButtonMobile'); // Changed ID
+
+            const sideNav = document.getElementById('sideNav');
+            const sideNavOverlay = document.getElementById('sideNavOverlay');
+
+            // Function to open the side navigation
+            function openNav() {
+                sideNav.classList.add('active');
+                sideNavOverlay.classList.add('active');
+            }
+
+            // Function to close the side navigation
+            function closeNav() {
+                sideNav.classList.remove('active');
+                sideNavOverlay.classList.remove('active');
+            }
+
+            // Desktop button event listeners
+            if (toggleNavBtnDesktop) {
+                toggleNavBtnDesktop.addEventListener('click', openNav);
+            }
+            // Readme button is a link, so no special JS needed for click, just the href
+
+            // Mobile button event listeners
+            if (toggleNavBtnMobile) {
+                toggleNavBtnMobile.addEventListener('click', openNav);
+            }
+            // Readme button is a link, so no special JS needed for click, just the href
+
+
+            // Close nav when clicking on the overlay
+            sideNavOverlay.addEventListener('click', () => {
+                closeNav();
+            });
+
+            // Close nav when a link inside the nav is clicked
+            sideNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeNav();
+                });
+            });
+
+            // Auto-play video if available
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            if (backgroundVideo) {
+                const videoSource = backgroundVideo.querySelector('source');
+                if (videoSource && videoSource.src.includes('assets/wallpaper.mp4')) {
+                    backgroundVideo.load();
+                    backgroundVideo.play().catch(error => {
+                        console.warn("Video autoplay failed:", error);
+                    });
+                } else {
+                    console.warn("Video source not found or not 'assets/wallpaper.mp4'. Autoplay skipped.");
+                }
+            }
+
+            // Modal functionality (kept for aesthetic, though not directly used for main content now)
+            const modalButtons = document.querySelectorAll('.view-details-button');
+            const closeButtons = document.querySelectorAll('.modal-close-button');
+            const modalOverlays = document.querySelectorAll('.modal-overlay');
+
+            modalButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const modalId = event.target.dataset.modalTarget || event.target.closest('button').dataset.modalTarget;
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        modal.classList.add('active');
+                    }
+                });
+            });
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const modal = event.target.closest('.modal-overlay');
+                    if (modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+
+            modalOverlays.forEach(overlay => {
+                overlay.addEventListener('click', (event) => {
+                    if (event.target === overlay) { // Only close if clicking on the overlay itself, not content
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
