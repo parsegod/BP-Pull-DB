@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blu Base - Site Moved</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Blu Base" />
+  <meta property="og:description" content="your no.1 bp pull db!" />
+  <meta property="og:image" content="https://files.catbox.moe/pucbmh.png" />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blu Base">
+  <meta name="twitter:description" content="your no.1 bp pull db!">
+  <meta name="twitter:image" content="https://files.catbox.moe/pucbmh.png">
+
+  <style>
+    /* Base styles from original index.html and style.css */
+    ::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+
+    html {
+      scrollbar-width: none;
+      box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      background-color: #0B1738;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif; /* Consistent with your modal styles */
+      color: #D0D8E8;
+      font-weight: bold;
+      line-height: 1.6;
+      animation: gradientAnimation 15s ease infinite;
+      list-style: none;
+      display: flex; /* Use flexbox to center content */
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Ensure body takes full viewport height */
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .video-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.6);
+    }
+
+    /* Modal styles adapted from verify.html and endkey.html */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent; /* Background handled by body/video */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 1; /* Always visible */
+      visibility: visible; /* Always visible */
+    }
+
+    .modal-content {
+      background: rgba(11, 23, 56, 0.95); /* Dark blue background with transparency */
+      color: #E0E8F0;
+      font-family: 'Oswald', sans-serif;
+      padding: 40px 25px; /* Generous padding */
+      border-radius: 0;
+      border-top-left-radius: 30px; /* Rounded top corners */
+      border-top-right-radius: 30px;
+      border-bottom-left-radius: 0; /* Sharp bottom corners */
+      border-bottom-right-radius: 0;
+      text-align: center;
+      width: calc(95% - 20px); /* Responsive width */
+      max-width: 855px; /* Max width for larger screens */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Deep shadow */
+      border: 1px solid rgba(44, 72, 124, 0.6); /* Subtle border */
+      transform: scale(1); /* Initial scale */
+      transition: transform 0.3s ease-out; /* Smooth transition */
+      position: relative;
+      margin: auto;
+      min-height: auto;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Pop-in animation */
+    }
+
+    @keyframes popIn {
+        from { transform: scale(0.5); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      /* Styles for glowing text from image_592b32.png (API KEY CORRUPTED!) */
+      font-family: 'Oswald', sans-serif;
+      background: linear-gradient(to right, #FFD700, #DAA520); /* Gold gradient for glowing effect */
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent; /* Fallback for browsers not supporting text-fill-color */
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 15px rgba(218, 165, 32, 0.7); /* Matching glow */
+      font-size: 2.5em; /* Large heading */
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+    }
+
+    .modal-content p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #CAD8E8; /* Slightly lighter text color */
+      font-weight: normal; /* Override bold from body */
+      margin-top: 15px; /* Adjust spacing */
+      margin-bottom: 25px; /* Adjust spacing */
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .modal-buttons button {
+      background: linear-gradient(180deg, #6CACE4, #4A8CD4); /* Blue gradient button */
+      color: #0B1738; /* Dark text on button */
+      border: none;
+      padding: 16px 35px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      text-transform: uppercase; /* Uppercase button text */
+      letter-spacing: 0.8px;
+    }
+
+    .modal-buttons button:hover {
+      background: linear-gradient(180deg, #5A99D0, #3B75B0); /* Darker gradient on hover */
+      transform: translateY(-2px); /* Slight lift on hover */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .modal-content {
+        padding: 30px; /* Reduced padding for smaller screens */
+        border-top-left-radius: 25px; /* Slightly less rounded */
+        border-top-right-radius: 25px;
+        width: 96%; /* Slightly wider on mobile */
+        min-height: 40vh; /* Ensure enough height */
+      }
+      .modal-content h2 {
+        font-size: clamp(1.8em, 5vw, 2.2em); /* Responsive font size */
+        margin-bottom: 2vh;
+      }
+      .modal-content p {
+        font-size: clamp(0.9em, 3.5vw, 1.1em);
+        margin-bottom: 2vh;
+      }
+      .modal-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center;
+      }
+      .modal-buttons button {
+        padding: 1.5vh 3vw; /* Responsive padding */
+        font-size: clamp(1em, 4vw, 1.2em);
+        margin: 1.5vh auto;
+        width: 90%; /* Make buttons fill more width */
+        max-width: 300px; /* Max width for stacked buttons */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .modal-content {
+        padding: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        min-height: 45vh;
+      }
+      .modal-content h2 {
+        font-size: clamp(1.5em, 4.5vw, 2em);
+        margin-bottom: 1.5vh;
+      }
+      .modal-content p {
+        font-size: clamp(0.8em, 3vw, 1em);
+        margin-bottom: 1.5vh;
+      }
+      .modal-buttons button {
+        padding: 1.2vh 2.5vw;
+        font-size: clamp(0.9em, 3.5vw, 1.1em);
+        margin: 1vh auto;
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-background">
+    <video id="backgroundVideo" autoplay loop muted playsinline>
+      <source src="https://parsegod.github.io/BP-Pull-DB/assets/wallpaper.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div id="domainMovedModal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Important Announcement!</h2>
+      <p>Our website has officially moved domains. This move allows us to provide a more stable and efficient experience for all users.</p>
+      <p>Please update your bookmarks to our new address to ensure you always access the latest version of Blu Base.</p>
+      <p>Your data and settings should remain unaffected, but if you encounter any issues or have questions, please don't hesitate to reach out to our support team.</p>
+      <div class="modal-buttons">
+        <button id="goToNewDomainBtn">Go to parsed.top</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const goToNewDomainBtn = document.getElementById('goToNewDomainBtn');
+      if (goToNewDomainBtn) {
+        goToNewDomainBtn.addEventListener('click', () => {
+          // Replace with your actual new domain
+          window.location.href = 'http://parsed.top/';
+        });
+      }
+
+      // Optional: Ensure video loads and plays
+      const video = document.getElementById('backgroundVideo');
+      if (video) {
+        video.load();
+        video.play().catch(error => {
+          console.log('Video autoplay prevented:', error);
+          // Fallback if autoplay is blocked (e.g., show a static image or a play button)
+        });
+      }
+    });
+  </script>
+</body>
+</html>
