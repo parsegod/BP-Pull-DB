@@ -18,6 +18,10 @@
         {
           "type": "host",
           "value": "parsed.top"
+        },
+        {
+          "type": "host",
+          "value": "www.parsed.top"
         }
       ],
       "destination": "https://parsed.top/moved",
