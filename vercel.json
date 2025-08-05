@@ -6,17 +6,6 @@
       "has": [
         {
           "type": "host",
-          "value": "parsed.top"
-        }
-      ],
-      "statusCode": 301
-    },
-    { 
-      "source": "/(.*)", 
-      "destination": "/moved", 
-      "has": [
-        {
-          "type": "host",
           "value": "www.parsed.top"
         }
       ],
