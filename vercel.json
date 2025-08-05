@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     { "source": "/verify", "destination": "/verify.html" },
     { "source": "/check", "destination": "/jsonbin.json" },
@@ -9,5 +10,29 @@
     { "source": "/home", "destination": "/index.html" },
     { "source": "/HAH", "destination": "helpers/helpers.html" },
     { "source": "/Updates", "destination": "updates.html" }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "parsed.top"
+        }
+      ],
+      "destination": "https://parsed.top/moved",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "blunet.wtf"
+        }
+      ],
+      "destination": "/home",
+      "permanent": true
+    }
   ]
 }
