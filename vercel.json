@@ -32,6 +32,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/moved", "destination": "/moved.html" },
     { "source": "/verify", "destination": "/verify.html" },
     { "source": "/check", "destination": "/jsonbin.json" },
     { "source": "/read", "destination": "/about.html" },
