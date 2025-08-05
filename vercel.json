@@ -6,7 +6,7 @@
       "has": [
         {
           "type": "host",
-          "value": "parsed.top"
+          "value": "www.parsed.top"
         }
       ],
       "statusCode": 301
