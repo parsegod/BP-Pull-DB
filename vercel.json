@@ -30,7 +30,7 @@
           "value": "parsed.top"
         }
       ],
-      "destination": "moved.html",
+      "destination": "/moved.html",
       "permanent": true
     }
   ]
