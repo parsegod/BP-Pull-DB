@@ -9,29 +9,5 @@
     { "source": "/home", "destination": "/index.html" },
     { "source": "/HAH", "destination": "helpers/helpers.html" },
     { "source": "/Updates", "destination": "updates.html" }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "blunet.wtf"
-        }
-      ],
-      "destination": "/home",
-      "permanent": false
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "parsed.top"
-        }
-      ],
-      "destination": "/moved.html",
-      "permanent": true
-    }
   ]
 }
