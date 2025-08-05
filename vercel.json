@@ -1,18 +1,26 @@
 {
+  "rewrites": [
+    { "source": "/verify", "destination": "/verify.html" },
+    { "source": "/check", "destination": "/jsonbin.json" },
+    { "source": "/read", "destination": "/about.html" },
+    { "source": "/breakdown", "destination": "/breakdown.html" },
+    { "source": "/endkey", "destination": "/endkey.html" },
+    { "source": "/blocked", "destination": "/blocked.html" },
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/HAH", "destination": "helpers/helpers.html" },
+    { "source": "/Updates", "destination": "updates.html" }
+  ],
   "redirects": [
-    { 
-      "source": "/:path*", 
-      "destination": "/moved", 
-      "permanent": true,
+    {
+      "source": "/:path*",
       "has": [
         {
           "type": "host",
-          "value": "(www\\.)?parsed\\.top"
+          "value": "blunet.wtf"
         }
-      ]
+      ],
+      "destination": "/home",
+      "permanent": false
     }
-  ],
-  "rewrites": [
-    { "source": "/moved", "destination": "/moved.html" }
   ]
 }
