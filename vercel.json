@@ -1,8 +1,8 @@
 {
   "redirects": [
-    {
-      "source": "^/(?!moved$)(.*)$",
-      "destination": "/moved",
+    { 
+      "source": "/(.*)", 
+      "destination": "/moved", 
       "has": [
         {
           "type": "host",
@@ -10,19 +10,9 @@
         }
       ]
     },
-    {
-      "source": "^/(?!moved$)(.*)$",
-      "destination": "/moved",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.parsed.top"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/home",
+    { 
+      "source": "/(.*)", 
+      "destination": "/home", 
       "has": [
         {
           "type": "host",
