@@ -1,26 +1,26 @@
 {
   "redirects": [
     { 
-      "source": "/(.*)", 
+      "source": "/:path*", 
       "destination": "/moved", 
+      "permanent": true,
       "has": [
         {
           "type": "host",
-          "value": "www.parsed.top"
+          "value": "parsed.top"
         }
-      ],
-      "statusCode": 301
+      ]
     },
     { 
-      "source": "/(.*)", 
+      "source": "/:path*", 
       "destination": "/home", 
+      "permanent": true,
       "has": [
         {
           "type": "host",
           "value": "blunet.wtf"
         }
-      ],
-      "statusCode": 301
+      ]
     }
   ],
   "rewrites": [
