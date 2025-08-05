@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "/(?!(moved$))(.*)",
+      "source": "^/(?!moved$)(.*)$",
       "destination": "/moved",
       "has": [
         {
@@ -11,7 +11,7 @@
       ]
     },
     {
-      "source": "/(?!(moved$))(.*)",
+      "source": "^/(?!moved$)(.*)$",
       "destination": "/moved",
       "has": [
         {
