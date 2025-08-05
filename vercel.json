@@ -21,6 +21,17 @@
       ],
       "destination": "/home",
       "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "parsed.top"
+        }
+      ],
+      "destination": "moved.html",
+      "permanent": true
     }
   ]
 }
