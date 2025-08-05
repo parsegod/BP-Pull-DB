@@ -10,29 +10,9 @@
           "value": "(www\\.)?parsed\\.top"
         }
       ]
-    },
-    { 
-      "source": "/:path*", 
-      "destination": "/home", 
-      "permanent": true,
-      "has": [
-        {
-          "type": "host",
-          "value": "blunet.wtf"
-        }
-      ]
     }
   ],
   "rewrites": [
-    { "source": "/moved", "destination": "/moved.html" },
-    { "source": "/verify", "destination": "/verify.html" },
-    { "source": "/check", "destination": "/jsonbin.json" },
-    { "source": "/read", "destination": "/about.html" },
-    { "source": "/breakdown", "destination": "/breakdown.html" },
-    { "source": "/endkey", "destination": "/endkey.html" },
-    { "source": "/blocked", "destination": "/blocked.html" },
-    { "source": "/home", "destination": "/index.html" },
-    { "source": "/HAH", "destination": "helpers/helpers.html" },
-    { "source": "/Updates", "destination": "updates.html" }
+    { "source": "/moved", "destination": "/moved.html" }
   ]
 }
