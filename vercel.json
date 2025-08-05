@@ -1,26 +1,34 @@
 {
   "redirects": [
-    { 
-      "source": "/(.*)", 
-      "destination": "/moved", 
+    {
+      "source": "/(?!(moved$))(.*)",
+      "destination": "/moved",
+      "has": [
+        {
+          "type": "host",
+          "value": "parsed.top"
+        }
+      ]
+    },
+    {
+      "source": "/(?!(moved$))(.*)",
+      "destination": "/moved",
       "has": [
         {
           "type": "host",
           "value": "www.parsed.top"
         }
-      ],
-      "statusCode": 301
+      ]
     },
-    { 
-      "source": "/(.*)", 
-      "destination": "/home", 
+    {
+      "source": "/(.*)",
+      "destination": "/home",
       "has": [
         {
           "type": "host",
           "value": "blunet.wtf"
         }
-      ],
-      "statusCode": 301
+      ]
     }
   ],
   "rewrites": [
