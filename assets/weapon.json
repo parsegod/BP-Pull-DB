@@ -1250,7 +1250,7 @@
       "Category": "8",
       "Blueprints": [
         { "Name": "SLICED", "Pool": "1", "status": "RELEASED" },
-        { "Name": "UNRELEASED", "Pool": "2", "status": "NOTEXTURE" },
+        { "Name": "RING OUT", "Pool": "2", "status": "RELEASED" },
         { "Name": "NOTHING", "Pool": "3", "status": "NOTHING" },
         { "Name": "NOTHING", "Pool": "4", "status": "NOTHING" },
         { "Name": "UNCONSCIOUS", "Pool": "5", "status": "RELEASED" },
