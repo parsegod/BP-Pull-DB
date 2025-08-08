@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
         contributionsButton.addEventListener('click', function() {
-            window.location.href = 'https://parsed.top/HAH';
+            window.location.href = 'https://blunet.wtf/HOH';
         });
     }
 });
