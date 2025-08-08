@@ -1006,7 +1006,7 @@
         { "Name": "CRACK SHOT", "Pool": "5", "status": "RELEASED" },
         { "Name": "BACON COVERED", "Pool": "6", "status": "RELEASED" },
         { "Name": "THUNDERHEAD", "Pool": "7", "status": "RELEASED" },
-        { "Name": "THREAT RESPONSE", "Pool": "8", "status": "NOTHING" },
+        { "Name": "THREAT RESPONSE", "Pool": "8", "status": "RELEASED" },
         { "Name": "HELM", "Pool": "9", "status": "RELEASED" },
         { "Name": "NOTHING", "Pool": "10", "status": "NOTHING" },
         { "Name": "NOTHING", "Pool": "11", "status": "NOTHING" },
