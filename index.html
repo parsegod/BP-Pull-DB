@@ -716,7 +716,7 @@ body {
 @media (min-width: 768px) {
   .discord-embed-header {
     flex-direction: row;
-    padding: 10px;
+    padding: 20px;
     justify-content: space-between;
     align-items: center;
   }
@@ -727,6 +727,7 @@ body {
     gap: 20px;
   }
 }
+
 
 @media (max-width: 480px) {
   #loadingScreen {
@@ -800,6 +801,7 @@ body {
   }
   .discord-embed-card {
     max-width: 280px;
+    padding: 10px; /* Adjusted padding for smaller screens */
   }
   .discord-embed-avatar-container {
     top: 25px;
@@ -812,12 +814,23 @@ body {
   }
   .discord-embed-header {
     padding-top: 20px;
+    flex-direction: column; /* Stack elements vertically on small screens */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text */
   }
   .discord-embed-guild-name {
     font-size: 1.1em;
+    margin-bottom: 5px; /* Adjusted margin */
   }
+  .discord-embed-member-counts {
+    flex-direction: column; /* Stack member counts vertically */
+    gap: 5px; /* Reduced gap */
+    margin-top: 5px; /* Adjusted margin */
+  }
+  .discord-embed-member-online,
   .discord-embed-member-total {
     font-size: 0.8em;
+    justify-content: center; /* Center the text and dot */
   }
   #goToDiscordEmbedBtn {
     padding: 8px 15px;
@@ -1065,7 +1078,7 @@ body {
               <li>
             <h3>Exploit Explanation</h3>
                 <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
-                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣ool 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in �𝗹 𝟭𝟱 (i.e 𝗧?𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣ool 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗹 𝟭𝟱 (i.e 𝗧?𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
               </li>
             </ul>
           </div>
@@ -1219,7 +1232,7 @@ body {
 
       // Event listener for the "Go to Server" button inside the Discord embed
       document.getElementById('goToDiscordEmbedBtn').addEventListener('click', () => {
-        window.open('https://discord.gg/notpublicyet', '_blank');
+        window.open('https://discord.gg/7mfEwgUT8H', '_blank');
       });
 
       // New script for fetching Discord server data
