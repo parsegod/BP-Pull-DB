@@ -496,148 +496,183 @@ body {
 }
 
 
-/* ================== Discord Embed Styles ================== */
+/* ================== Discord Embed Styles (Updated) ================== */
+    .discord-embed-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 95%;
+    }
 
-.discord-embed-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+    .discord-embed-card {
+      background-color: rgba(44, 72, 124, 0.6);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(74, 140, 212, 0.5);
+      padding: 16px;
+      box-sizing: border-box;
+      position: relative;
+    }
 
-.discord-embed-card {
-  background-color: rgba(44, 72, 124, 0.6);
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(74, 140, 212, 0.5);
-  position: relative;
-  padding: 20px;
-  box-sizing: border-box;
-  margin: 10px;
-}
+    .discord-embed-banner {
+      height: 80px;
+      width: calc(100% + 32px);
+      margin: -16px -16px 0 -16px;
+      background: radial-gradient(105.43% 127.05% at 50.1% 127.05%, rgb(31, 190, 190) 20.65%, #0B1738 85.16%);
+    }
 
-.discord-embed-banner {
-  height: 60px;
-  width: 100%;
-  background: radial-gradient(105.43% 127.05% at 50.1% 127.05%, rgb(31, 190, 190) 20.65%, #0B1738 85.16%);
-}
+    .discord-embed-avatar-container {
+      position: absolute;
+      top: 40px;
+      left: 20px;
+      border-radius: 50%;
+      background-color: #0B1738;
+      padding: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      border: 3px solid rgba(44, 72, 124, 0.8);
+      z-index: 2;
+    }
 
-.discord-embed-avatar-container {
-  position: absolute;
-  top: 30px;
-  left: 15px;
-  border-radius: 50%;
-  background-color: #0B1738;
-  padding: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
+    .discord-embed-guild-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: block;
+      object-fit: cover;
+    }
 
-.discord-embed-guild-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: block;
-}
+    .discord-embed-header {
+      padding-top: 30px;
+      text-align: center;
+      color: #E0E8F0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
 
-.discord-embed-header {
-  padding-top: 20px;
-  text-align: left;
-  color: #E0E8F0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-}
+    .discord-embed-guild-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #7CA0E0;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      margin: 0;
+      line-height: 1.2;
+    }
 
-.discord-embed-guild-name {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.3em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #7CA0E0;
-}
+    .discord-embed-info-and-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
 
-.discord-embed-info-and-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-}
+    .discord-embed-member-counts {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-.discord-embed-member-counts {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
+    .discord-embed-member-online,
+    .discord-embed-member-total {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #BCC7D8;
+      font-weight: 500;
+    }
 
-.discord-embed-member-online,
-.discord-embed-member-total {
-  display: flex;
-  align-items: center;
-  font-size: 0.9em;
-  color: #BCC7D8;
-}
+    #goToDiscordEmbedBtn {
+      background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 250px;
+      margin: 5px 0;
+    }
 
-#goToDiscordEmbedBtn {
-  background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
-  color: #FFFFFF;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
+    #goToDiscordEmbedBtn:hover {
+      box-shadow: 0 0 15px rgba(124, 160, 224, 0.9);
+      transform: translateY(-2px);
+    }
 
-#goToDiscordEmbedBtn:hover {
-  box-shadow: 0 0 15px rgba(124, 160, 224, 0.9);
-  transform: translateY(-2px);
-}
+    .discord-embed-dot-online {
+      width: 10px;
+      height: 10px;
+      background-color: #00FF00;
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow: 0 0 5px rgba(0,255,0,0.7);
+    }
 
-.discord-embed-dot-online {
-  width: 8px;
-  height: 8px;
-  background-color: #00FF00;
-  border-radius: 50%;
-  margin-right: 5px;
-}
+    .discord-embed-dot-total {
+      width: 10px;
+      height: 10px;
+      background-color: #BCC7D8;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
 
-.discord-embed-text {
-  font-family: 'Open Sans', sans-serif;
-}
+    .discord-embed-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 250px;
+      margin: 15px auto 0;
+    }
 
-.discord-embed-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.checkbox-controls {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  justify-content: center; /* Center the buttons */
-  gap: 10px; /* Add space between items */
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.checkbox-controls label {
-  display: flex;
-  align-items: center;
-  white-space: nowrap; /* Prevent the label from wrapping */
-}
-
-.changelog-button {
-  white-space: nowrap; /* Prevent the button text from wrapping */
-}
+    /* iPhone 12 Specific Adjustments */
+    @media only screen 
+      and (device-width: 390px) 
+      and (device-height: 844px) 
+      and (-webkit-device-pixel-ratio: 3) {
+        
+        .discord-embed-card {
+          padding: 12px;
+        }
+        
+        .discord-embed-guild-name {
+          font-size: 1.3rem;
+        }
+        
+        .discord-embed-member-online,
+        .discord-embed-member-total {
+          font-size: 0.95rem;
+        }
+        
+        #goToDiscordEmbedBtn {
+          padding: 10px 20px;
+          font-size: 1rem;
+        }
+        
+        .discord-embed-banner {
+          height: 70px;
+        }
+        
+        .discord-embed-avatar-container {
+          top: 35px;
+          left: 15px;
+        }
+        
+        .discord-embed-guild-icon {
+          width: 60px;
+          height: 60px;
+        }
+    }
 
 /* ================== Media Queries (Consolidated) ================== */
 
