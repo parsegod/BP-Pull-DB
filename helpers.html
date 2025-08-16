@@ -798,6 +798,90 @@
                 margin: 1rem auto;
             }
         }
+
+        .panda-themed-card {
+    background: linear-gradient(135deg, #2b2b2b 0%, #000000 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+.panda-themed-card {
+    background: linear-gradient(135deg, #2b2b2b 0%, #000000 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.panda-themed-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+}
+
+.panda-themed-card::before,
+.panda-themed-card::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(5px) saturate(0.5);
+    opacity: 0.8;
+}
+
+.panda-themed-card::before {
+    background-size: 50%;
+    transform: rotate(-15deg) translate(-20px, -20px);
+    opacity: 0.1;
+    animation: panda-float-1 20s ease-in-out infinite alternate;
+}
+
+.panda-themed-card::after {
+    background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 30% 70%, rgba(0, 0, 0, 0.1) 0%, transparent 60%);
+    background-size: 80% 80%;
+    animation: panda-float-2 25s ease-in-out infinite reverse;
+}
+
+@keyframes panda-float-1 {
+    0% { transform: scale(1.0) rotate(-15deg); }
+    100% { transform: scale(1.1) rotate(-18deg); }
+}
+
+@keyframes panda-float-2 {
+    0% { transform: scale(1.0); }
+    100% { transform: scale(1.2); }
+}
+.bw-shuffle-effect {
+    background: linear-gradient(to right, black 0%, white 50%, black 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+    animation: shuffle 3s linear infinite;
+}
+
+@keyframes shuffle {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -831,7 +915,7 @@
 
       <header class="text-center mb-12">
 
-          <p class="text-lg sm:text-xl text-gray-300 centered-paragraph">I'd like to take a moment to express sincere gratitude to the members of this project. Their invaluable assistance was crucial in making this whole thing possible!</p>
+          <p class="text-lg sm:text-xl text-gray-300 centered-paragraph">I'd just like to take a moment to express sincere gratitude to the members of this project. Their invaluable assistance was crucial in making this whole thing possible!</p>
       </header>
 
       <div id="contributors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl justify-items-center">
@@ -858,6 +942,7 @@
                   </div>
               </div>
 
+              
               <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
                   <h3 class="text-xl font-semibold mb-1 contributor-name digital-glitch-text" data-effect="digital-glitch" style="--glitch-color: #00ff00; --glitch-red-offset: hsla(0, 100%, 50%, 0.5); --glitch-blue-offset: hsla(240, 100%, 50%, 0.5);">@retrodaz</h3>
               </a>
@@ -873,6 +958,39 @@
                   <span class="w-4 h-4 rounded-full bg-red-400"></span>
               </div>
           </div>
+
+<div class="contributor-card rounded-lg p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto panda-themed-card">
+    <div class="profile-picture-container">
+        <div class="avatar-decoration-svg">
+            <svg width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="avatarDecoration__44b0c" aria-hidden="true">
+                <defs>
+                    <clipPath id="svg-clip-path-avatar-jd">
+                        <circle cx="50" cy="50" r="40"></circle>
+                    </clipPath>
+                </defs>
+                <image href="https://cdn.discordapp.com/avatars/1343006453736280124/9bfbf1ecd2e7eca60eb5a0078e94ebe0.webp?size=128" x="10" y="10" width="80" height="80"
+                    clip-path="url(#svg-clip-path-avatar-jd)" preserveAspectRatio="xMidYMid slice"
+                    onerror="this.onerror=null; this.href='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b96c3c6d-9dfd-4499-bd39-af01a79d014b.png';" />
+                <image class="decoration-image" href="https://cdn.discordapp.com/avatar-decoration-presets/a_a41b03990d296e4ebb25ac0332e6b893.png?size=240passthrough=true"
+                    x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
+            </svg>
+        </div>
+    </div>
+    <a href="https://discordlookup.com/user/848647666425528371" target="_blank" class="hover:underline">
+        <h3 class="text-xl font-semibold mb-1 contributor-name bw-shuffle-effect">@trashedpandaz</h3>
+    </a>
+    <p class="text-gray-200 text-sm mb-4">The Co-Developer for the BluBot project, aswell as a useful asset to the community.</p>
+    <div class="flex gap-2 mb-4">
+        <span class="w-4 h-4 rounded-full bg-green-400"></span>
+        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
+        <span class="w-4 h-4 rounded-full bg-red-400"></span>
+        <span class="w-4 h-4 rounded-full bg-purple-400"></span>
+        <span class="w-4 h-4 rounded-full bg-blue-400"></span>
+        <span class="w-4 h-4 rounded-full bg-green-400"></span>
+        <span class="w-4 h-4 rounded-full bg-yellow-400"></span>
+        <span class="w-4 h-4 rounded-full bg-red-400"></span>
+    </div>
+</div>
 
           <div class="contributor-card rounded-xl p-6 shadow-md flex flex-col items-center text-center max-w-sm mx-auto deep-ocean-current-card">
               <div class="profile-picture-container">
