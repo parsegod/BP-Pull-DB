@@ -47,197 +47,195 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 const categoryMap = {
-  "0": "ASSAULT RIFLES",
-  "1": "SUBMACHINE GUNS",
-  "2": "SHOTGUNS",
-  "3": "LIGHT MACHINE GUNS",
-  "4": "MARKSMAN RIFLES",
-  "5": "SNIPER RIFLES",
-  "6": "PISTOLS",
-  "7": "LAUNCHERS",
-  "8": "SPECIAL",
-  "9": "MELEE"
+    "0": "ASSAULT RIFLES",
+    "1": "SUBMACHINE GUNS",
+    "2": "SHOTGUNS",
+    "3": "LIGHT MACHINE GUNS",
+    "4": "MARKSMAN RIFLES",
+    "5": "SNIPER RIFLES",
+    "6": "PISTOLS",
+    "7": "LAUNCHERS",
+    "8": "SPECIAL",
+    "9": "MELEE"
 };
 
 const categoryMapReverse = Object.fromEntries(
-  Object.entries(categoryMap).map(([key, val]) => [val, key])
+    Object.entries(categoryMap).map(([key, val]) => [val, key])
 );
 
 let Weapons = [];
 let currentData = [];
 
-const changelogEntries = [
-  {
-    "date": "2025-07-22 01:25AM MST",
-    "changes": [
-      "↷ Overall Site Adds ↶",
-      "Revamped Homepage (Bug Finder, Custom Mobile Local, etc.)",
-      "Added End Key (API Key Status)",
-      "Simplified Loading Logic",
-      "Revamped Blocked Page (Mobile UI, Information and Contact)",
-      "Revamped Verify Page (Temporary API Key, '/' Redirect Logic, Info, etc.)",
-      "Edited Vercel Rules ('/' Redirects, '*' Redirects, etc.)"
-    ]
-  },
-  {
-    "date": "2025-07-21 03:30AM MST",
-    "changes": [
-      "↷ Major Security Adds ↶",
-      "Added Blocked Page (Blacklisted Home)",
-      "Added Verify Page (IP Blacklist Check)",
-      "Revamped The Loading Page for Mobile",
-      "Added 2-Hour Local Storage (Keys)",
-      "Added Button to Clear Local Storage Items",
-      "Linked All Files Correctly"
-    ]
-  },
-  {
-    "date": "2025-07-21 03:30AM MST",
-    "changes": [
-      "↷ Major Security Adds ↶",
-      "Added Blocked Page (Blacklisted Home)",
-      "Added Verify Page (IP Blacklist Check)",
-      "Revamped The Loading Page for Mobile",
-      "Added 2-Hour Local Storage (Keys)",
-      "Added Button to Clear Local Storage Items",
-      "Linked All Files Correctly"
-    ]
-  },
-  {
-    "date": "2025-07-12 02:43PM MST",
-    "changes": [
-      "↷ Update To UI ↶",
-      "Added Page Loader",
-      "Added Contributions Page",
-      "Revamped Search-Filter-Section",
-      "Revamped Main Container",
-      "Added Mobile Responsive Browsing",
-      "Minor CSS Adjustments"
-    ]
-  },
-  {
-    "date": "2025-06-11 10:23PM MST",
-    "changes": [
-      "↷ Update to Guide ↶",
-      "Added a Multiplayer Exploit Section. As well as some adjustments to the main How To UI."
-    ]
-  },
-  {
-    "date": "2025-06-11 06:13AM MST",
-    "changes": [
-      "↷ Added New Prints ↶",
-      "ASG-89: PERSONAL DETECTIVE (Pool 22)"
-    ]
-  },
-  {
-    "date": "2025-06-10 10:38AM MST",
-    "changes": [
-      "↷ Removed Print ↶",
-      "HDR: NAUTILOID (Pool 2)"
-    ]
-  },
-  {
-    "date": "2025-06-09 04:06PM MST",
-    "changes": [
-      "↷ Added New Prints ↶",
-      "LW31A1 FROSTLINE: THUNDERHEAD (Pool 7)",
-      "KOMPAKT 92: PRINTED END (Pool 13)"
-    ]
-  },
-  {
-    "date": "2025-06-08 07:48AM MST",
-    "changes": [
-      "↷ Added New Prints ↶",
-      "MAELSTROM: DARK ENDING (Pool 15)",
-      "KRIG C: DE-ANIMATOR (Pool 12)"
-    ]
-  },
-  {
-    "date": "2025-06-07 09:48AM MST",
-    "changes": [
-      "↷ Added New Prints ↶",
-      "LC10: STORM RAGE (Pool 1)",
-      "LC10: BLACKCELL HULL BUSTER (Pool 2)"
-    ]
-  },
-  {
-    "date": "2025-06-06 08:51PM MST",
-    "changes": [
-      "↷ Added How To Guide ↶",
-      "Added a Section that helps new users understand how the site/method works."
-    ]
-  },
-  {
-    "date": "2025-06-06 07:34PM MST",
-    "changes": [
-      "↷ Added New Prints ↶",
-      "CR-56 AMAX: DATA BREACHER (Pool 2)",
-      "LADRA: HELLBLOCK (Pool 2)",
-      "FENG 82: LOCK UP (Pool 7)",
-      "LW31A1 FROSTLINE: SNITCH UP (Pool 15)",
-      "KRIG C: IED (Pool 17)",
-      "KRIG C: IED BLACKCELL (Pool 20)",
-      "STRYDER .22: HOT FRANK (Pool 6)",
-      "MARINE SP: GEN POP PROP (Pool 12)",
-      "KOMPAKT 92: PRE OWNED (Pool 10)",
-      "AMR MOD 4: MAKESHIFT (Pool 7)",
-      "GS45: HOMESPUN (Pool 8)",
-      "AS VAL: SECURITY DETAIL (Pool 10)",
-      "ASG-89: ESCAPE PLAN (Pool 18)",
-      "ASG-89: ESCAPE PLAN BLACKCELL (Pool 21)",
-      "GPMG-7: CROWD CONTROL (Pool 17)",
-      "FFAR 1: COMBO BASH (Pool 9)",
-      "FFAR 1: PUNISHING BLOWS (Pool 1)",
-      "LC10: HULL BUSTER (Pool 5)",
-      "LC10: BYTE BLASTER (Pool 9)",
-      "AMES 85: LETHAL INSPECTION (Pool 26)",
-      "AMES 85: SCALES (Pool 27)",
-      "AMES 86: PRO REISSUE (Pool 28)",
-      "HDR: HYDRATOR (Pool 6)",
-      "DM-10: MUCKER (Pool 12)",
-      "MODEL L: DRAIN HAZARD (Pool 22)",
-      "MODEL L: DRAIN HAZARD BLACKCELL (Pool 12)",
-      "SAUG: OVERFLOW (Pool 20)"
-    ]
-  },
-  {
-    "date": "2025-06-02 08:07AM MST",
-    "changes": [
-      "↷ Fixed Dupe ↶",
-      "Fixed the error causing the modal to dupe twice."
-    ]
-  },
-  {
-    "date": "2025-06-02 06:50AM MST",
-    "changes": [
-      "↷ Removed Scroll Bar Visibility ↶",
-      "I didn't like how the scroll bar was looking so I removed its visibility."
-    ]
-  },
-  {
-    "date": "2025-06-01 11:32PM MST",
-    "changes": [
-      "↷ Added New Prints ↶",
-      "MODEL L: NO PAROLE (Pool 17)",
-      "XM4: THERMOPLASTIC (Pool 20)",
-      "9MM PM: ARABESQUE (Pool 8)",
-      "SAUG: PILE (Pool 13)",
-      "JACKAL PDW: SWORN RIVALS (Blackcell 26)",
-      "AMES 85: LETHAL INSPECTION (Pool 26)",
-      "C9: THE PAINTSTORM (Pool 15)",
-      "CYPHER 091: THE PAINTBURST (Pool 7)",
-      "CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
-      "CR-56 AMAX: SEA CHOMPER (Pool 4)",
-      "PPSH-41: SHRILL BLEAATER (Pool 8)",
-      "TR2: BEAT 'EM UP (Pool 2)",
-      "GPMG-7: HEAD FIRST (Pool 13)",
-      "MAELSTROM: BARRAINA (Pool 13)"
-    ]
-  }
+const changelogEntries = [{
+        "date": "2025-07-22 01:25AM MST",
+        "changes": [
+            "↷ Overall Site Adds ↶",
+            "Revamped Homepage (Bug Finder, Custom Mobile Local, etc.)",
+            "Added End Key (API Key Status)",
+            "Simplified Loading Logic",
+            "Revamped Blocked Page (Mobile UI, Information and Contact)",
+            "Revamped Verify Page (Temporary API Key, '/' Redirect Logic, Info, etc.)",
+            "Edited Vercel Rules ('/' Redirects, '*' Redirects, etc.)"
+        ]
+    },
+    {
+        "date": "2025-07-21 03:30AM MST",
+        "changes": [
+            "↷ Major Security Adds ↶",
+            "Added Blocked Page (Blacklisted Home)",
+            "Added Verify Page (IP Blacklist Check)",
+            "Revamped The Loading Page for Mobile",
+            "Added 2-Hour Local Storage (Keys)",
+            "Added Button to Clear Local Storage Items",
+            "Linked All Files Correctly"
+        ]
+    },
+    {
+        "date": "2025-07-21 03:30AM MST",
+        "changes": [
+            "↷ Major Security Adds ↶",
+            "Added Blocked Page (Blacklisted Home)",
+            "Added Verify Page (IP Blacklist Check)",
+            "Revamped The Loading Page for Mobile",
+            "Added 2-Hour Local Storage (Keys)",
+            "Added Button to Clear Local Storage Items",
+            "Linked All Files Correctly"
+        ]
+    },
+    {
+        "date": "2025-07-12 02:43PM MST",
+        "changes": [
+            "↷ Update To UI ↶",
+            "Added Page Loader",
+            "Added Contributions Page",
+            "Revamped Search-Filter-Section",
+            "Revamped Main Container",
+            "Added Mobile Responsive Browsing",
+            "Minor CSS Adjustments"
+        ]
+    },
+    {
+        "date": "2025-06-11 10:23PM MST",
+        "changes": [
+            "↷ Update to Guide ↶",
+            "Added a Multiplayer Exploit Section. As well as some adjustments to the main How To UI."
+        ]
+    },
+    {
+        "date": "2025-06-11 06:13AM MST",
+        "changes": [
+            "↷ Added New Prints ↶",
+            "ASG-89: PERSONAL DETECTIVE (Pool 22)"
+        ]
+    },
+    {
+        "date": "2025-06-10 10:38AM MST",
+        "changes": [
+            "↷ Removed Print ↶",
+            "HDR: NAUTILOID (Pool 2)"
+        ]
+    },
+    {
+        "date": "2025-06-09 04:06PM MST",
+        "changes": [
+            "↷ Added New Prints ↶",
+            "LW31A1 FROSTLINE: THUNDERHEAD (Pool 7)",
+            "KOMPAKT 92: PRINTED END (Pool 13)"
+        ]
+    },
+    {
+        "date": "2025-06-08 07:48AM MST",
+        "changes": [
+            "↷ Added New Prints ↶",
+            "MAELSTROM: DARK ENDING (Pool 15)",
+            "KRIG C: DE-ANIMATOR (Pool 12)"
+        ]
+    },
+    {
+        "date": "2025-06-07 09:48AM MST",
+        "changes": [
+            "↷ Added New Prints ↶",
+            "LC10: STORM RAGE (Pool 1)",
+            "LC10: BLACKCELL HULL BUSTER (Pool 2)"
+        ]
+    },
+    {
+        "date": "2025-06-06 08:51PM MST",
+        "changes": [
+            "↷ Added How To Guide ↶",
+            "Added a Section that helps new users understand how the site/method works."
+        ]
+    },
+    {
+        "date": "2025-06-06 07:34PM MST",
+        "changes": [
+            "↷ Added New Prints ↶",
+            "CR-56 AMAX: DATA BREACHER (Pool 2)",
+            "LADRA: HELLBLOCK (Pool 2)",
+            "FENG 82: LOCK UP (Pool 7)",
+            "LW31A1 FROSTLINE: SNITCH UP (Pool 15)",
+            "KRIG C: IED (Pool 17)",
+            "KRIG C: IED BLACKCELL (Pool 20)",
+            "STRYDER .22: HOT FRANK (Pool 6)",
+            "MARINE SP: GEN POP PROP (Pool 12)",
+            "KOMPAKT 92: PRE OWNED (Pool 10)",
+            "AMR MOD 4: MAKESHIFT (Pool 7)",
+            "GS45: HOMESPUN (Pool 8)",
+            "AS VAL: SECURITY DETAIL (Pool 10)",
+            "ASG-89: ESCAPE PLAN (Pool 18)",
+            "ASG-89: ESCAPE PLAN BLACKCELL (Pool 21)",
+            "GPMG-7: CROWD CONTROL (Pool 17)",
+            "FFAR 1: COMBO BASH (Pool 9)",
+            "FFAR 1: PUNISHING BLOWS (Pool 1)",
+            "LC10: HULL BUSTER (Pool 5)",
+            "LC10: BYTE BLASTER (Pool 9)",
+            "AMES 85: LETHAL INSPECTION (Pool 26)",
+            "AMES 85: SCALES (Pool 27)",
+            "AMES 86: PRO REISSUE (Pool 28)",
+            "HDR: HYDRATOR (Pool 6)",
+            "DM-10: MUCKER (Pool 12)",
+            "MODEL L: DRAIN HAZARD (Pool 22)",
+            "MODEL L: DRAIN HAZARD BLACKCELL (Pool 12)",
+            "SAUG: OVERFLOW (Pool 20)"
+        ]
+    },
+    {
+        "date": "2025-06-02 08:07AM MST",
+        "changes": [
+            "↷ Fixed Dupe ↶",
+            "Fixed the error causing the modal to dupe twice."
+        ]
+    },
+    {
+        "date": "2025-06-02 06:50AM MST",
+        "changes": [
+            "↷ Removed Scroll Bar Visibility ↶",
+            "I didn't like how the scroll bar was looking so I removed its visibility."
+        ]
+    },
+    {
+        "date": "2025-06-01 11:32PM MST",
+        "changes": [
+            "↷ Added New Prints ↶",
+            "MODEL L: NO PAROLE (Pool 17)",
+            "XM4: THERMOPLASTIC (Pool 20)",
+            "9MM PM: ARABESQUE (Pool 8)",
+            "SAUG: PILE (Pool 13)",
+            "JACKAL PDW: SWORN RIVALS (Blackcell 26)",
+            "AMES 85: LETHAL INSPECTION (Pool 26)",
+            "C9: THE PAINTSTORM (Pool 15)",
+            "CYPHER 091: THE PAINTBURST (Pool 7)",
+            "CR-56 AMAX: VERDUROUS MENACE (Pool 2)",
+            "CR-56 AMAX: SEA CHOMPER (Pool 4)",
+            "PPSH-41: SHRILL BLEAATER (Pool 8)",
+            "TR2: BEAT 'EM UP (Pool 2)",
+            "GPMG-7: HEAD FIRST (Pool 13)",
+            "MAELSTROM: BARRAINA (Pool 13)"
+        ]
+    }
 ];
 
-const bugLogEntries = [
-    {
+const bugLogEntries = [{
         date: "2025-07-21 11:30AM 𝗠𝗗𝗧",
         fixes: [
             "Fixed an issue where the search input would lose focus on blur.",
@@ -255,296 +253,296 @@ const bugLogEntries = [
 ];
 
 function loadAppData() {
-  fetch('assets/weapon.json')
-    .then(res => res.json())
-    .then(data => {
-      Weapons = data.Weapons;
-      currentData = [...Weapons];
-      populateCategoryFilter();
-      populatePoolFilter();
-      populateStatusFilter();
-      applyFilters();
-      searchView.classList.remove('hidden');
-      showChangelogModal();
-      adjustTableContainerHeight();
-    })
-    .catch(err => console.error("Error on load:", err));
+    fetch('assets/weapon.json')
+        .then(res => res.json())
+        .then(data => {
+            Weapons = data.Weapons;
+            currentData = [...Weapons];
+            populateCategoryFilter();
+            populatePoolFilter();
+            populateStatusFilter();
+            applyFilters();
+            searchView.classList.remove('hidden');
+            showChangelogModal();
+            adjustTableContainerHeight();
+        })
+        .catch(err => console.error("Error on load:", err));
 }
 
 document.addEventListener('DOMContentLoaded', loadAppData);
 
 function renderTable(data) {
-  let totalCount = 0;
-  let normalCount = 0;
-  let unreleasedCount = 0;
-  let nothingCount = 0;
+    let totalCount = 0;
+    let normalCount = 0;
+    let unreleasedCount = 0;
+    let nothingCount = 0;
 
-  data.forEach(weapon => {
-    weapon.Blueprints.forEach(blueprint => {
-      totalCount++;
-      const status = blueprint.status || 'Normal';
-      if (status === "UNRELEASED") {
-        unreleasedCount++;
-      } else if (status === "NOTHING") {
-        nothingCount++;
-      } else {
-        normalCount++;
-      }
-    });
-  });
-
-  totalBlueprintsSpan.textContent = totalCount;
-  normalBlueprintsSpan.textContent = normalCount;
-  unreleasedBlueprintsSpan.textContent = unreleasedCount;
-  nothingBlueprintsSpan.textContent = nothingCount;
-
-  tableBody.innerHTML = '';
-
-  data.forEach((weapon, i) => {
-    weapon.Blueprints.forEach(blueprint => {
-      if (blueprint.Name === "") return;
-
-      const blueprintStatus = blueprint.status || 'Normal';
-      const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
-
-      const row = document.createElement('tr');
-      row.className = i % 2 === 0 ? 'even' : 'odd';
-
-      const nameCell = document.createElement('td');
-      nameCell.textContent = weapon.Name;
-      row.appendChild(nameCell);
-
-      const categoryCell = document.createElement('td');
-      categoryCell.textContent = categoryMap[weapon.Category];
-      row.appendChild(categoryCell);
-
-      const blueprintCell = document.createElement('td');
-
-      const arrow = document.createElement('span');
-      arrow.style.cursor = 'pointer';
-      arrow.textContent = '▶';
-      arrow.style.display = 'inline-block';
-      arrow.style.width = '1.2em';
-      arrow.style.textAlign = 'center';
-      arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden';
-
-      const blueprintNameSpan = document.createElement('span');
-      blueprintNameSpan.textContent = blueprint.Name;
-
-      if (blueprintStatus === "RELEASED") {
-        blueprintNameSpan.classList.add('status-released');
-      } else if (blueprintStatus === "UNRELEASED") {
-        blueprintNameSpan.classList.add('status-unreleased');
-      } else if (blueprintStatus === "NOTHING") {
-        blueprintNameSpan.classList.add('status-nothing');
-      } else if (blueprintStatus === "NOTEXTURE") {
-        blueprintNameSpan.classList.add('status-no-texture');
-      }
-
-      blueprintCell.appendChild(arrow);
-      blueprintCell.appendChild(blueprintNameSpan);
-      row.appendChild(blueprintCell);
-
-      const poolCell = document.createElement('td');
-      poolCell.textContent = blueprint.Pool;
-      row.appendChild(poolCell);
-
-      tableBody.appendChild(row);
-
-      if (canDisplayImage) {
-        const accordionRow = document.createElement('tr');
-        const accordionCell = document.createElement('td');
-        accordionCell.colSpan = 4;
-        accordionCell.style.padding = '0';
-        accordionCell.style.border = 'none';
-
-        const accordionContent = document.createElement('div');
-        accordionContent.className = 'accordion-content';
-
-        const img = document.createElement('img');
-        img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
-        img.alt = blueprint.Name;
-        img.style.maxWidth = '100%';
-        img.style.height = 'auto';
-
-        img.onerror = () => {
-          accordionContent.innerHTML = '<em>No image.</em>';
-          if (img.parentNode) {
-            img.parentNode.removeChild(img);
-          }
-        };
-
-        accordionCell.appendChild(accordionContent);
-        accordionRow.appendChild(accordionCell);
-        tableBody.appendChild(accordionRow);
-
-        let imageLoaded = false;
-
-        arrow.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isVisible = accordionContent.classList.contains('expanded');
-
-          if (!imageCheckbox.checked){
-            document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
-              div.classList.remove('expanded');
-              const parentAccordionRow = div.closest('tr');
-              const dataRow = parentAccordionRow?.previousElementSibling;
-              const associatedArrow = dataRow?.querySelector('span');
-              if (associatedArrow) {
-                associatedArrow.textContent = '▶';
-              }
-            });
-          }
-
-          if (!isVisible) {
-            accordionContent.classList.add('expanded');
-            arrow.textContent = '▼';
-
-            if (!imageLoaded && img.dataset.src) {
-              img.src = img.dataset.src;
-              if (!accordionContent.contains(img)) {
-                accordionContent.appendChild(img);
-              }
-              imageLoaded = true;
-            }
-          } else {
-            accordionContent.classList.remove('expanded');
-            arrow.textContent = '▶';
-          }
-        });
-
-        if (imageCheckbox.checked) {
-          accordionContent.classList.add('expanded');
-          arrow.textContent = '▼';
-          if (img && img.dataset.src && !img.src) {
-            img.src = img.dataset.src;
-          }
-          if (img && !accordionContent.contains(img)) {
-            accordionContent.appendChild(img);
-          } else if (!img && !accordionContent.querySelector('em')) {
-            const tempImg = document.createElement('img');
-            const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
-            if (blueprintName) {
-              tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
-              tempImg.alt = blueprintName;
-              tempImg.style.maxWidth = '100%';
-              tempImg.style.height = 'auto';
-              tempImg.onerror = () => {
-                accordionContent.innerHTML = '<em>No image.</em>';
-              };
-              tempImg.src = tempImg.dataset.src;
-              accordionContent.appendChild(tempImg);
+    data.forEach(weapon => {
+        weapon.Blueprints.forEach(blueprint => {
+            totalCount++;
+            const status = blueprint.status || 'Normal';
+            if (status === "UNRELEASED") {
+                unreleasedCount++;
+            } else if (status === "NOTHING") {
+                nothingCount++;
             } else {
-              accordionContent.innerHTML = '<em>No image.</em>';
+                normalCount++;
             }
-          }
-        }
-      }
+        });
     });
-  });
-  applyImageToggle();
+
+    totalBlueprintsSpan.textContent = totalCount;
+    normalBlueprintsSpan.textContent = normalCount;
+    unreleasedBlueprintsSpan.textContent = unreleasedCount;
+    nothingBlueprintsSpan.textContent = nothingCount;
+
+    tableBody.innerHTML = '';
+
+    data.forEach((weapon, i) => {
+        weapon.Blueprints.forEach(blueprint => {
+            if (blueprint.Name === "") return;
+
+            const blueprintStatus = blueprint.status || 'Normal';
+            const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
+
+            const row = document.createElement('tr');
+            row.className = i % 2 === 0 ? 'even' : 'odd';
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = weapon.Name;
+            row.appendChild(nameCell);
+
+            const categoryCell = document.createElement('td');
+            categoryCell.textContent = categoryMap[weapon.Category];
+            row.appendChild(categoryCell);
+
+            const blueprintCell = document.createElement('td');
+
+            const arrow = document.createElement('span');
+            arrow.style.cursor = 'pointer';
+            arrow.textContent = '▶ ';
+            arrow.style.display = 'inline-block';
+            arrow.style.width = '1.2em';
+            arrow.style.textAlign = 'center';
+            arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden';
+
+            const blueprintNameSpan = document.createElement('span');
+            blueprintNameSpan.textContent = blueprint.Name;
+
+            if (blueprintStatus === "RELEASED") {
+                blueprintNameSpan.classList.add('status-released');
+            } else if (blueprintStatus === "UNRELEASED") {
+                blueprintNameSpan.classList.add('status-unreleased');
+            } else if (blueprintStatus === "NOTHING") {
+                blueprintNameSpan.classList.add('status-nothing');
+            } else if (blueprintStatus === "NOTEXTURE") {
+                blueprintNameSpan.classList.add('status-no-texture');
+            }
+
+            blueprintCell.appendChild(arrow);
+            blueprintCell.appendChild(blueprintNameSpan);
+            row.appendChild(blueprintCell);
+
+            const poolCell = document.createElement('td');
+            poolCell.textContent = blueprint.Pool;
+            row.appendChild(poolCell);
+
+            tableBody.appendChild(row);
+
+            if (canDisplayImage) {
+                const accordionRow = document.createElement('tr');
+                const accordionCell = document.createElement('td');
+                accordionCell.colSpan = 4;
+                accordionCell.style.padding = '0';
+                accordionCell.style.border = 'none';
+
+                const accordionContent = document.createElement('div');
+                accordionContent.className = 'accordion-content';
+
+                const img = document.createElement('img');
+                img.dataset.src = `assets/blueprints/images/${weapon.Name}/${blueprint.Name}.jpg`;
+                img.alt = blueprint.Name;
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+
+                img.onerror = () => {
+                    accordionContent.innerHTML = '<em>No image.</em>';
+                    if (img.parentNode) {
+                        img.parentNode.removeChild(img);
+                    }
+                };
+
+                accordionCell.appendChild(accordionContent);
+                accordionRow.appendChild(accordionCell);
+                tableBody.appendChild(accordionRow);
+
+                let imageLoaded = false;
+
+                arrow.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isVisible = accordionContent.classList.contains('expanded');
+
+                    if (!imageCheckbox.checked) {
+                        document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
+                            div.classList.remove('expanded');
+                            const parentAccordionRow = div.closest('tr');
+                            const dataRow = parentAccordionRow ? .previousElementSibling;
+                            const associatedArrow = dataRow ? .querySelector('span');
+                            if (associatedArrow) {
+                                associatedArrow.textContent = '▶';
+                            }
+                        });
+                    }
+
+                    if (!isVisible) {
+                        accordionContent.classList.add('expanded');
+                        arrow.textContent = '▼';
+
+                        if (!imageLoaded && img.dataset.src) {
+                            img.src = img.dataset.src;
+                            if (!accordionContent.contains(img)) {
+                                accordionContent.appendChild(img);
+                            }
+                            imageLoaded = true;
+                        }
+                    } else {
+                        accordionContent.classList.remove('expanded');
+                        arrow.textContent = '▶';
+                    }
+                });
+
+                if (imageCheckbox.checked) {
+                    accordionContent.classList.add('expanded');
+                    arrow.textContent = '▼';
+                    if (img && img.dataset.src && !img.src) {
+                        img.src = img.dataset.src;
+                    }
+                    if (img && !accordionContent.contains(img)) {
+                        accordionContent.appendChild(img);
+                    } else if (!img && !accordionContent.querySelector('em')) {
+                        const tempImg = document.createElement('img');
+                        const blueprintName = dataRow ? .querySelector('td:nth-child(3)') ? .textContent.replace(/[▶▼]/g, '').trim();
+                        if (blueprintName) {
+                            tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
+                            tempImg.alt = blueprintName;
+                            tempImg.style.maxWidth = '100%';
+                            tempImg.style.height = 'auto';
+                            tempImg.onerror = () => {
+                                accordionContent.innerHTML = '<em>No image.</em>';
+                            };
+                            tempImg.src = tempImg.dataset.src;
+                            accordionContent.appendChild(tempImg);
+                        } else {
+                            accordionContent.innerHTML = '<em>No image.</em>';
+                        }
+                    }
+                }
+            }
+        });
+    });
+    applyImageToggle();
 }
 
 function populateCategoryFilter() {
-  categoryFilterContainer.innerHTML = '';
+    categoryFilterContainer.innerHTML = '';
 
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'filter-buttons';
-  buttonContainer.style.marginBottom = '8px';
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'filter-buttons';
+    buttonContainer.style.marginBottom = '8px';
 
-  const selectAllBtn = document.createElement('button');
-  selectAllBtn.textContent = 'Select All';
-  selectAllBtn.style.marginRight = '6px';
-  selectAllBtn.addEventListener('click', () => {
-    categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
-    applyFilters();
-  });
+    const selectAllBtn = document.createElement('button');
+    selectAllBtn.textContent = 'Select All';
+    selectAllBtn.style.marginRight = '6px';
+    selectAllBtn.addEventListener('click', () => {
+        categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+        applyFilters();
+    });
 
-  const deselectAllBtn = document.createElement('button');
-  deselectAllBtn.textContent = 'Deselect All';
-  deselectAllBtn.addEventListener('click', () => {
-    categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-    applyFilters();
-  });
+    const deselectAllBtn = document.createElement('button');
+    deselectAllBtn.textContent = 'Deselect All';
+    deselectAllBtn.addEventListener('click', () => {
+        categoryFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        applyFilters();
+    });
 
-  buttonContainer.appendChild(selectAllBtn);
-  buttonContainer.appendChild(deselectAllBtn);
-  categoryFilterContainer.appendChild(buttonContainer);
+    buttonContainer.appendChild(selectAllBtn);
+    buttonContainer.appendChild(deselectAllBtn);
+    categoryFilterContainer.appendChild(buttonContainer);
 
-  const uniqueCategories = [...new Set(Weapons.map(w => categoryMap[w.Category]))];
+    const uniqueCategories = [...new Set(Weapons.map(w => categoryMap[w.Category]))];
 
-  uniqueCategories.forEach(cat => {
-    const label = document.createElement('label');
-    label.style.display = 'block';
+    uniqueCategories.forEach(cat => {
+        const label = document.createElement('label');
+        label.style.display = 'block';
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.value = cat;
-    checkbox.checked = true;
-    checkbox.addEventListener('change', applyFilters);
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = cat;
+        checkbox.checked = true;
+        checkbox.addEventListener('change', applyFilters);
 
-    label.appendChild(checkbox);
-    label.appendChild(document.createTextNode(cat));
-    categoryFilterContainer.appendChild(label);
-  });
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(cat));
+        categoryFilterContainer.appendChild(label);
+    });
 }
 
 function populatePoolFilter() {
-  poolFilterContainer.innerHTML = '';
+    poolFilterContainer.innerHTML = '';
 
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'filter-buttons';
-  buttonContainer.style.marginBottom = '8px';
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'filter-buttons';
+    buttonContainer.style.marginBottom = '8px';
 
-  const selectAllBtn = document.createElement('button');
-  selectAllBtn.textContent = 'Select All';
-  selectAllBtn.style.marginRight = '6px';
-  selectAllBtn.addEventListener('click', () => {
-    poolFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
-    applyFilters();
-  });
+    const selectAllBtn = document.createElement('button');
+    selectAllBtn.textContent = 'Select All';
+    selectAllBtn.style.marginRight = '6px';
+    selectAllBtn.addEventListener('click', () => {
+        poolFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+        applyFilters();
+    });
 
-  const deselectAllBtn = document.createElement('button');
-  deselectAllBtn.textContent = 'Deselect All';
-  deselectAllBtn.addEventListener('click', () => {
-    poolFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-    applyFilters();
-  });
+    const deselectAllBtn = document.createElement('button');
+    deselectAllBtn.textContent = 'Deselect All';
+    deselectAllBtn.addEventListener('click', () => {
+        poolFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        applyFilters();
+    });
 
-  buttonContainer.appendChild(selectAllBtn);
-  buttonContainer.appendChild(deselectAllBtn);
-  poolFilterContainer.appendChild(buttonContainer);
+    buttonContainer.appendChild(selectAllBtn);
+    buttonContainer.appendChild(deselectAllBtn);
+    poolFilterContainer.appendChild(buttonContainer);
 
-  const checkboxesContainer = document.createElement('div');
-  checkboxesContainer.className = 'checkboxes-container';
+    const checkboxesContainer = document.createElement('div');
+    checkboxesContainer.className = 'checkboxes-container';
 
-  const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
+    const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
 
-  const half = Math.ceil(uniquePools.length / 2);
-  const left = uniquePools.slice(0, half);
-  const right = uniquePools.slice(half);
+    const half = Math.ceil(uniquePools.length / 2);
+    const left = uniquePools.slice(0, half);
+    const right = uniquePools.slice(half);
 
-  const interleaved = [];
-  for (let i = 0; i < half; i++) {
-    if (left[i]) interleaved.push(left[i]);
-    if (right[i]) interleaved.push(right[i]);
-  }
+    const interleaved = [];
+    for (let i = 0; i < half; i++) {
+        if (left[i]) interleaved.push(left[i]);
+        if (right[i]) interleaved.push(right[i]);
+    }
 
-  interleaved.forEach(pool => {
-    const label = document.createElement('label');
-    label.style.display = 'block';
+    interleaved.forEach(pool => {
+        const label = document.createElement('label');
+        label.style.display = 'block';
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.value = pool;
-    checkbox.checked = true;
-    checkbox.addEventListener('change', applyFilters);
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = pool;
+        checkbox.checked = true;
+        checkbox.addEventListener('change', applyFilters);
 
-    label.appendChild(checkbox);
-    label.appendChild(document.createTextNode(pool));
-    checkboxesContainer.appendChild(label);
-  });
-  poolFilterContainer.appendChild(checkboxesContainer);
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(pool));
+        checkboxesContainer.appendChild(label);
+    });
+    poolFilterContainer.appendChild(checkboxesContainer);
 }
 
 function populateStatusFilter() {
@@ -587,239 +585,239 @@ function populateStatusFilter() {
 
         label.appendChild(checkbox);
         label.appendChild(document.createTextNode(status === 'RELEASED' ? 'Show RELEASED' :
-                                               status === 'UNRELEASED' ? 'Show UNRELEASED' :
-                                               `Show ${status}`));
+            status === 'UNRELEASED' ? 'Show UNRELEASED' :
+            `Show ${status}`));
         statusFilterContainer.appendChild(label);
     });
 }
 
 function applyFilters() {
-  const textFilter = searchInput.value.toLowerCase();
-  const activeCategories = [...categoryFilterContainer.querySelectorAll('input:checked')]
-    .map(cb => cb.value);
-  const activePools = [...poolFilterContainer.querySelectorAll('input:checked')]
-    .map(cb => cb.value);
-  const activeStatuses = [...statusFilterContainer.querySelectorAll('input:checked')]
-    .map(cb => cb.value);
+    const textFilter = searchInput.value.toLowerCase();
+    const activeCategories = [...categoryFilterContainer.querySelectorAll('input:checked')]
+        .map(cb => cb.value);
+    const activePools = [...poolFilterContainer.querySelectorAll('input:checked')]
+        .map(cb => cb.value);
+    const activeStatuses = [...statusFilterContainer.querySelectorAll('input:checked')]
+        .map(cb => cb.value);
 
-  const filtered = Weapons
-    .filter(w => activeCategories.includes(categoryMap[w.Category]))
-    .map(weapon => {
-      const filteredBlueprints = weapon.Blueprints.filter(bp => {
-        const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
-        const inPool = activePools.includes(bp.Pool);
+    const filtered = Weapons
+        .filter(w => activeCategories.includes(categoryMap[w.Category]))
+        .map(weapon => {
+            const filteredBlueprints = weapon.Blueprints.filter(bp => {
+                const inText = bp.Name.toLowerCase().includes(textFilter) || weapon.Name.toLowerCase().includes(textFilter);
+                const inPool = activePools.includes(bp.Pool);
 
-        let inStatus = false;
-        const blueprintStatus = bp.status || 'Normal';
+                let inStatus = false;
+                const blueprintStatus = bp.status || 'Normal';
 
-        if (activeStatuses.includes('RELEASED') && blueprintStatus === "RELEASED") {
-            inStatus = true;
-        }
-        if (activeStatuses.includes('UNRELEASED') && blueprintStatus === "UNRELEASED") {
-            inStatus = true;
-        }
-        if (activeStatuses.includes('NOTHING') && blueprintStatus === "NOTHING") {
-            inStatus = true;
-        }
-        if (activeStatuses.includes('NOTEXTURE') && blueprintStatus === "NOTEXTURE") {
-            inStatus = true;
-        }
-        if (activeStatuses.includes('Normal') &&
-            blueprintStatus !== "NOTHING" &&
-            blueprintStatus !== "NOTEXTURE" &&
-            blueprintStatus !== "RELEASED" &&
-            blueprintStatus !== "UNRELEASED") {
-            inStatus = true;
-        }
+                if (activeStatuses.includes('RELEASED') && blueprintStatus === "RELEASED") {
+                    inStatus = true;
+                }
+                if (activeStatuses.includes('UNRELEASED') && blueprintStatus === "UNRELEASED") {
+                    inStatus = true;
+                }
+                if (activeStatuses.includes('NOTHING') && blueprintStatus === "NOTHING") {
+                    inStatus = true;
+                }
+                if (activeStatuses.includes('NOTEXTURE') && blueprintStatus === "NOTEXTURE") {
+                    inStatus = true;
+                }
+                if (activeStatuses.includes('Normal') &&
+                    blueprintStatus !== "NOTHING" &&
+                    blueprintStatus !== "NOTEXTURE" &&
+                    blueprintStatus !== "RELEASED" &&
+                    blueprintStatus !== "UNRELEASED") {
+                    inStatus = true;
+                }
 
-        if (activeStatuses.length === 0) {
-            inStatus = false;
-        }
+                if (activeStatuses.length === 0) {
+                    inStatus = false;
+                }
 
-        return inText && inPool && inStatus;
-      });
+                return inText && inPool && inStatus;
+            });
 
-      return {
-        ...weapon,
-        Blueprints: filteredBlueprints
-      };
-    })
-    .filter(w => w.Blueprints.length > 0);
+            return {
+                ...weapon,
+                Blueprints: filteredBlueprints
+            };
+        })
+        .filter(w => w.Blueprints.length > 0);
 
-  renderTable(filtered);
+    renderTable(filtered);
 }
 
 searchInput.addEventListener('input', applyFilters);
 
 imageCheckbox.addEventListener('change', () => {
-  applyFilters();
+    applyFilters();
 });
 
 function applyImageToggle() {
-  const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
-    const isAccordionRow = row.querySelector('td[colspan="4"]');
-    if (!isAccordionRow) return false;
+    const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
+        const isAccordionRow = row.querySelector('td[colspan="4"]');
+        if (!isAccordionRow) return false;
 
-    const dataRow = row.previousElementSibling;
-    const blueprintNameCell = dataRow?.querySelector('td:nth-child(3)');
-    const blueprintNameSpan = blueprintNameCell?.querySelector('span:last-child');
-    const blueprintName = blueprintNameSpan ? blueprintNameSpan.textContent.trim() : '';
+        const dataRow = row.previousElementSibling;
+        const blueprintNameCell = dataRow ? .querySelector('td:nth-child(3)');
+        const blueprintNameSpan = blueprintNameCell ? .querySelector('span:last-child');
+        const blueprintName = blueprintNameSpan ? blueprintNameSpan.textContent.trim() : '';
 
-    const hasImageClass = blueprintNameSpan && (
-        blueprintNameSpan.classList.contains('status-released') ||
-        blueprintNameSpan.classList.contains('status-unreleased')
-    );
+        const hasImageClass = blueprintNameSpan && (
+            blueprintNameSpan.classList.contains('status-released') ||
+            blueprintNameSpan.classList.contains('status-unreleased')
+        );
 
-    return hasImageClass;
-  });
+        return hasImageClass;
+    });
 
-  accordionRows.forEach(accordionRow => {
-    const accordionContent = accordionRow.querySelector('div.accordion-content');
-    const dataRow = accordionRow.previousElementSibling;
-    const arrow = dataRow?.querySelector('span');
-    const img = accordionContent?.querySelector('img');
+    accordionRows.forEach(accordionRow => {
+        const accordionContent = accordionRow.querySelector('div.accordion-content');
+        const dataRow = accordionRow.previousElementSibling;
+        const arrow = dataRow ? .querySelector('span');
+        const img = accordionContent ? .querySelector('img');
 
-    if (accordionContent && arrow) {
-      if (imageCheckbox.checked) {
-        accordionContent.classList.add('expanded');
-        arrow.textContent = '▼';
-        if (img && img.dataset.src && !img.src) {
-          img.src = img.dataset.src;
+        if (accordionContent && arrow) {
+            if (imageCheckbox.checked) {
+                accordionContent.classList.add('expanded');
+                arrow.textContent = '▼';
+                if (img && img.dataset.src && !img.src) {
+                    img.src = img.dataset.src;
+                }
+                if (img && !accordionContent.contains(img)) {
+                    accordionContent.appendChild(img);
+                } else if (!img && !accordionContent.querySelector('em')) {
+                    const tempImg = document.createElement('img');
+                    const blueprintName = dataRow ? .querySelector('td:nth-child(3)') ? .textContent.replace(/[▶▼]/g, '').trim();
+                    if (blueprintName) {
+                        tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
+                        tempImg.alt = blueprintName;
+                        tempImg.style.maxWidth = '100%';
+                        tempImg.style.height = 'auto';
+                        tempImg.onerror = () => {
+                            accordionContent.innerHTML = '<em>No image.</em>';
+                        };
+                        tempImg.src = tempImg.dataset.src;
+                        accordionContent.appendChild(tempImg);
+                    } else {
+                        accordionContent.innerHTML = '<em>No image.</em>';
+                    }
+                }
+            } else {
+                accordionContent.classList.remove('expanded');
+                arrow.textContent = '▶';
+            }
         }
-        if (img && !accordionContent.contains(img)) {
-          accordionContent.appendChild(img);
-        } else if (!img && !accordionContent.querySelector('em')) {
-          const tempImg = document.createElement('img');
-          const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
-          if (blueprintName) {
-            tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
-            tempImg.alt = blueprintName;
-            tempImg.style.maxWidth = '100%';
-            tempImg.style.height = 'auto';
-            tempImg.onerror = () => {
-              accordionContent.innerHTML = '<em>No image.</em>';
-            };
-            tempImg.src = tempImg.dataset.src;
-            accordionContent.appendChild(tempImg);
-          } else {
-            accordionContent.innerHTML = '<em>No image.</em>';
-          }
-        }
-      } else {
-        accordionContent.classList.remove('expanded');
-        arrow.textContent = '▶';
-      }
-    }
-  });
+    });
 }
 
 function closeAllDropdowns() {
-  const dropdowns = [categoryFilterContainer, poolFilterContainer, statusFilterContainer];
-  const arrows = [categoryArrow, poolArrow, statusArrow];
+    const dropdowns = [categoryFilterContainer, poolFilterContainer, statusFilterContainer];
+    const arrows = [categoryArrow, poolArrow, statusArrow];
 
-  dropdowns.forEach((dropdown, index) => {
-    if (!dropdown.classList.contains('hidden')) {
-      dropdown.classList.add('hidden');
-      arrows[index].textContent = '▼';
-    }
-  });
+    dropdowns.forEach((dropdown, index) => {
+        if (!dropdown.classList.contains('hidden')) {
+            dropdown.classList.add('hidden');
+            arrows[index].textContent = '▼';
+        }
+    });
 }
 
 toggleCategoryDropdown.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isHidden = categoryFilterContainer.classList.contains('hidden');
-  if (isHidden) {
-    closeAllDropdowns();
-    categoryFilterContainer.classList.remove('hidden');
-    categoryArrow.textContent = '▲';
-  } else {
-    categoryFilterContainer.classList.add('hidden');
-    categoryArrow.textContent = '▼';
-  }
+    e.stopPropagation();
+    const isHidden = categoryFilterContainer.classList.contains('hidden');
+    if (isHidden) {
+        closeAllDropdowns();
+        categoryFilterContainer.classList.remove('hidden');
+        categoryArrow.textContent = '▲';
+    } else {
+        categoryFilterContainer.classList.add('hidden');
+        categoryArrow.textContent = '▼';
+    }
 });
 
 document.addEventListener('click', (e) => {
-  if (!categoryFilterContainer.contains(e.target) &&
-      !toggleCategoryDropdown.contains(e.target)) {
-    if (!categoryFilterContainer.classList.contains('hidden')) {
-      categoryFilterContainer.classList.add('hidden');
-      categoryArrow.textContent = '▼';
+    if (!categoryFilterContainer.contains(e.target) &&
+        !toggleCategoryDropdown.contains(e.target)) {
+        if (!categoryFilterContainer.classList.contains('hidden')) {
+            categoryFilterContainer.classList.add('hidden');
+            categoryArrow.textContent = '▼';
+        }
     }
-  }
 });
 
 togglePoolDropdown.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isHidden = poolFilterContainer.classList.contains('hidden');
-  if (isHidden) {
-    closeAllDropdowns();
-    poolFilterContainer.classList.remove('hidden');
-    poolArrow.textContent = '▲';
-  } else {
-    poolFilterContainer.classList.add('hidden');
-    poolArrow.textContent = '▼';
-  }
+    e.stopPropagation();
+    const isHidden = poolFilterContainer.classList.contains('hidden');
+    if (isHidden) {
+        closeAllDropdowns();
+        poolFilterContainer.classList.remove('hidden');
+        poolArrow.textContent = '▲';
+    } else {
+        poolFilterContainer.classList.add('hidden');
+        poolArrow.textContent = '▼';
+    }
 });
 
 document.addEventListener('click', (e) => {
-  if (!poolFilterContainer.contains(e.target) && !togglePoolDropdown.contains(e.target)) {
-    if (!poolFilterContainer.classList.contains('hidden')) {
-      poolFilterContainer.classList.add('hidden');
-      poolArrow.textContent = '▼';
+    if (!poolFilterContainer.contains(e.target) && !togglePoolDropdown.contains(e.target)) {
+        if (!poolFilterContainer.classList.contains('hidden')) {
+            poolFilterContainer.classList.add('hidden');
+            poolArrow.textContent = '▼';
+        }
     }
-  }
 });
 
 toggleStatusDropdown.addEventListener('click', (e) => {
     e.stopPropagation();
     const isHidden = statusFilterContainer.classList.contains('hidden');
     if (isHidden) {
-      closeAllDropdowns();
-      statusFilterContainer.classList.remove('hidden');
-      statusArrow.textContent = '▲';
+        closeAllDropdowns();
+        statusFilterContainer.classList.remove('hidden');
+        statusArrow.textContent = '▲';
     } else {
-      statusFilterContainer.classList.add('hidden');
-      statusArrow.textContent = '▼';
+        statusFilterContainer.classList.add('hidden');
+        statusArrow.textContent = '▼';
     }
 });
 
 document.addEventListener('click', (e) => {
     if (!statusFilterContainer.contains(e.target) &&
         !toggleStatusDropdown.contains(e.target)) {
-      if (!statusFilterContainer.classList.contains('hidden')) {
-        statusFilterContainer.classList.add('hidden');
-        statusArrow.textContent = '▼';
-      }
+        if (!statusFilterContainer.classList.contains('hidden')) {
+            statusFilterContainer.classList.add('hidden');
+            statusArrow.textContent = '▼';
+        }
     }
 });
 
 function populateChangelog() {
-  changelogContentDiv.innerHTML = '';
+    changelogContentDiv.innerHTML = '';
 
-  changelogEntries.forEach(entry => {
-    const listItem = document.createElement('li');
-    const dateStrong = document.createElement('strong');
-    dateStrong.textContent = `Date: ${entry.date}`;
-    listItem.appendChild(dateStrong);
+    changelogEntries.forEach(entry => {
+        const listItem = document.createElement('li');
+        const dateStrong = document.createElement('strong');
+        dateStrong.textContent = `Date: ${entry.date}`;
+        listItem.appendChild(dateStrong);
 
-    const ul = document.createElement('ul');
-    entry.changes.forEach(change => {
-      const li = document.createElement('li');
-      li.textContent = change;
-      ul.appendChild(li);
+        const ul = document.createElement('ul');
+        entry.changes.forEach(change => {
+            const li = document.createElement('li');
+            li.textContent = change;
+            ul.appendChild(li);
+        });
+        listItem.appendChild(ul);
+        changelogContentDiv.appendChild(listItem);
     });
-    listItem.appendChild(ul);
-    changelogContentDiv.appendChild(listItem);
-  });
 }
 
 function showChangelogModal() {
-  populateChangelog();
-  changelogModal.classList.add('visible');
+    populateChangelog();
+    changelogModal.classList.add('visible');
 }
 
 function hideChangelogModal() {
-  changelogModal.classList.remove('visible');
+    changelogModal.classList.remove('visible');
 }
 
 changelogButton.addEventListener('click', showChangelogModal);
@@ -827,18 +825,18 @@ changelogButton.addEventListener('click', showChangelogModal);
 closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
 
 changelogModal.addEventListener('click', (e) => {
-  if (e.target === changelogModal) {
-    hideChangelogModal();
-  }
+    if (e.target === changelogModal) {
+        hideChangelogModal();
+    }
 });
 
 function showHowToUseModal() {
-  howToUseModal.classList.add('visible');
-  showHowToTab('explanation');
+    howToUseModal.classList.add('visible');
+    showHowToTab('explanation');
 }
 
 function hideHowToUseModal() {
-  howToUseModal.classList.remove('visible');
+    howToUseModal.classList.remove('visible');
 }
 
 howToUseButton.addEventListener('click', showHowToUseModal);
@@ -846,27 +844,27 @@ howToUseButton.addEventListener('click', showHowToUseModal);
 closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
 
 howToUseModal.addEventListener('click', (e) => {
-  if (e.target === howToUseModal) {
-    hideHowToUseModal();
-  }
+    if (e.target === howToUseModal) {
+        hideHowToUseModal();
+    }
 });
 
 function showHowToTab(tabId) {
-  const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
-  const tabContents = document.querySelectorAll('.how-to-sections .tab-content');
+    const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
+    const tabContents = document.querySelectorAll('.how-to-sections .tab-content');
 
-  tabButtons.forEach(button => button.classList.remove('active'));
-  tabContents.forEach(content => content.classList.add('hidden'));
+    tabButtons.forEach(button => button.classList.remove('active'));
+    tabContents.forEach(content => content.classList.add('hidden'));
 
-  const selectedButton = document.querySelector(`.how-to-tabs button[data-tab="${tabId}"]`);
-  const selectedContent = document.getElementById(`${tabId}-content`);
+    const selectedButton = document.querySelector(`.how-to-tabs button[data-tab="${tabId}"]`);
+    const selectedContent = document.getElementById(`${tabId}-content`);
 
-  if (selectedButton) {
-    selectedButton.classList.add('active');
-  }
-  if (selectedContent) {
-    selectedContent.classList.remove('hidden');
-  }
+    if (selectedButton) {
+        selectedButton.classList.add('active');
+    }
+    if (selectedContent) {
+        selectedContent.classList.remove('hidden');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -882,59 +880,59 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function showChangelogOnPageLoad() {
-  showChangelogModal();
+    showChangelogModal();
 }
 
 function adjustTableContainerHeight() {
-  const fixedTopHeader = document.querySelector('.announcement-banner');
-  const tableContainer = document.querySelector('.table-container');
-  const mainContainer = document.querySelector('.container');
+    const fixedTopHeader = document.querySelector('.announcement-banner');
+    const tableContainer = document.querySelector('.table-container');
+    const mainContainer = document.querySelector('.container');
 
-  if (fixedTopHeader && tableContainer && mainContainer) {
-    const fixedHeaderHeight = fixedTopHeader.offsetHeight;
-    const mainContainerPaddingTop = parseFloat(getComputedStyle(mainContainer).paddingTop);
-    const mainContainerPaddingBottom = parseFloat(getComputedStyle(mainContainer).paddingBottom);
-    const mainContainerMarginBottom = parseFloat(getComputedStyle(mainContainer).marginBottom);
+    if (fixedTopHeader && tableContainer && mainContainer) {
+        const fixedHeaderHeight = fixedTopHeader.offsetHeight;
+        const mainContainerPaddingTop = parseFloat(getComputedStyle(mainContainer).paddingTop);
+        const mainContainerPaddingBottom = parseFloat(getComputedStyle(mainContainer).paddingBottom);
+        const mainContainerMarginBottom = parseFloat(getComputedStyle(mainContainer).marginBottom);
 
-    const elementsAboveTableHeight = document.getElementById('searchView').offsetHeight +
-                                    document.querySelector('.checkbox-controls').offsetHeight +
-                                    document.querySelector('.blueprint-counters').offsetHeight;
+        const elementsAboveTableHeight = document.getElementById('searchView').offsetHeight +
+            document.querySelector('.checkbox-controls').offsetHeight +
+            document.querySelector('.blueprint-counters').offsetHeight;
 
-    const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
+        const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
 
-    tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`;
-  }
+        tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`;
+    }
 }
 
 window.addEventListener('resize', adjustTableContainerHeight);
 
 function populateBugLog() {
-  bugLogContentDiv.innerHTML = '';
+    bugLogContentDiv.innerHTML = '';
 
-  bugLogEntries.forEach(entry => {
-    const listItem = document.createElement('li');
-    const dateStrong = document.createElement('strong');
-    dateStrong.textContent = `Date: ${entry.date}`;
-    listItem.appendChild(dateStrong);
+    bugLogEntries.forEach(entry => {
+        const listItem = document.createElement('li');
+        const dateStrong = document.createElement('strong');
+        dateStrong.textContent = `Date: ${entry.date}`;
+        listItem.appendChild(dateStrong);
 
-    const ul = document.createElement('ul');
-    entry.fixes.forEach(fix => {
-      const li = document.createElement('li');
-      li.textContent = fix;
-      ul.appendChild(li);
+        const ul = document.createElement('ul');
+        entry.fixes.forEach(fix => {
+            const li = document.createElement('li');
+            li.textContent = fix;
+            ul.appendChild(li);
+        });
+        listItem.appendChild(ul);
+        bugLogContentDiv.appendChild(listItem);
     });
-    listItem.appendChild(ul);
-    bugLogContentDiv.appendChild(listItem);
-  });
 }
 
 function showBugLogModal() {
-  populateBugLog();
-  bugLogModal.classList.add('visible');
+    populateBugLog();
+    bugLogModal.classList.add('visible');
 }
 
 function hideBugLogModal() {
-  bugLogModal.classList.remove('visible');
+    bugLogModal.classList.remove('visible');
 }
 
 bugLogButton.addEventListener('click', showBugLogModal);
@@ -942,9 +940,9 @@ bugLogButton.addEventListener('click', showBugLogModal);
 closeBugLogModalBtn.addEventListener('click', hideBugLogModal);
 
 bugLogModal.addEventListener('click', (e) => {
-  if (e.target === bugLogModal) {
-    hideBugLogModal();
-  }
+    if (e.target === bugLogModal) {
+        hideBugLogModal();
+    }
 });
 
 function showClearStorageModal() {
