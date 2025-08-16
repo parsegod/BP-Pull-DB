@@ -873,7 +873,16 @@ body {
   }
 }
 
-
+/* Specific iPhone 12 adjustment */
+@media only screen 
+  and (device-width: 390px) 
+  and (device-height: 844px) 
+  and (-webkit-device-pixel-ratio: 3) {
+    .discord-embed-guild-name {
+      left: 25%; /* Slightly less shift for iPhone 12 */
+      width: 75%;
+    }
+}
   </style>
   <script>
 
@@ -1197,12 +1206,11 @@ body {
         <p>Join our community for latest updates on the site, discussions about glitches, and fast support.</p>
         <!-- The discord-embed-container has been removed to make the modal the same size as others -->
         <div class="discord-embed-card">
-          <div id="discord-server-banner" class="discord-embed-banner"></div>
           <div class="discord-embed-avatar-container">
             <img id="discord-server-icon" alt="Discord Server Icon" class="discord-embed-guild-icon" src="https://files.catbox.moe/pucbmh.png">
           </div>
           <div class="discord-embed-header">
-            <h3 id="discord-guild-name" class="discord-embed-guild-name">Loading...</h3>
+            <h3 id="discord-guild-name" class="discord-embed-guild-name">      Loading...</h3>
             <!-- The member counts are now directly in the header -->
             <div class="discord-embed-member-counts">
               <div class="discord-embed-member-online">
