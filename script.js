@@ -38,6 +38,14 @@ const closeClearStorageModalBtn = document.getElementById('closeClearStorageModa
 const confirmClearStorageBtn = document.getElementById('confirmClearStorageBtn');
 const cancelClearStorageBtn = document.getElementById('cancelClearStorageBtn');
 
+// New Discord Announcement Modal elements
+const discordAnnouncementLink = document.getElementById('discordAnnouncementLink');
+const discordAnnouncementModal = document.getElementById('discordAnnouncementModal');
+const closeDiscordAnnouncementModalBtn = document.getElementById('closeDiscordAnnouncementModal');
+const goToDiscordBtn = document.getElementById('goToDiscordBtn');
+const cancelDiscordModalBtn = document.getElementById('cancelDiscordModalBtn');
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const contributionsButton = document.getElementById('contributionsButton');
     if (contributionsButton) {
@@ -45,7 +53,37 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'https://blunet.wtf/HOH';
         });
     }
+
+    // Event listener for the Discord announcement link
+    if (discordAnnouncementLink) {
+        discordAnnouncementLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            showDiscordAnnouncementModal();
+        });
+    }
+
+    // Event listeners for the Discord announcement modal buttons
+    if (closeDiscordAnnouncementModalBtn) {
+        closeDiscordAnnouncementModalBtn.addEventListener('click', hideDiscordAnnouncementModal);
+    }
+    if (goToDiscordBtn) {
+        goToDiscordBtn.addEventListener('click', () => {
+            window.open('https://discord.com/oauth2/authorize?client_id=1397393308086440040&scope=bot&permissions=24', '_blank');
+            hideDiscordAnnouncementModal();
+        });
+    }
+    if (cancelDiscordModalBtn) {
+        cancelDiscordModalBtn.addEventListener('click', hideDiscordAnnouncementModal);
+    }
+    if (discordAnnouncementModal) {
+        discordAnnouncementModal.addEventListener('click', (e) => {
+            if (e.target === discordAnnouncementModal) {
+                hideDiscordAnnouncementModal();
+            }
+        });
+    }
 });
+
 const categoryMap = {
   "0": "ASSAULT RIFLES",
   "1": "SUBMACHINE GUNS",
@@ -391,7 +429,7 @@ function renderTable(data) {
               const dataRow = parentAccordionRow?.previousElementSibling;
               const associatedArrow = dataRow?.querySelector('span');
               if (associatedArrow) {
-                associatedArrow.textContent = '▶ ';
+                associatedArrow.textContent = '▶';
               }
             });
           }
@@ -409,7 +447,7 @@ function renderTable(data) {
             }
           } else {
             accordionContent.classList.remove('expanded');
-            arrow.textContent = '▶ ';
+            arrow.textContent = '▶';
           }
         });
 
@@ -707,7 +745,7 @@ function applyImageToggle() {
         }
       } else {
         accordionContent.classList.remove('expanded');
-        arrow.textContent = '▶ ';
+        arrow.textContent = '▶';
       }
     }
   });
@@ -954,6 +992,16 @@ function showClearStorageModal() {
 function hideClearStorageModal() {
     clearStorageModal.classList.remove('visible');
 }
+
+// New functions for Discord Announcement Modal
+function showDiscordAnnouncementModal() {
+    discordAnnouncementModal.classList.add('visible');
+}
+
+function hideDiscordAnnouncementModal() {
+    discordAnnouncementModal.classList.remove('visible');
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const clearStorageButton = document.getElementById('clearStorageButton');
