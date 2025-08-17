@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Blu Base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles & Scrollbar Hiding */
+        ::-webkit-scrollbar { width: 0px; height: 0px; background: transparent; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: transparent; }
+        html { scrollbar-width: none; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #0B1738;
+            color: #D0D8E8;
+            margin: 0;
+            overflow: hidden;
+            zoom: 0.85; /* Matches the zoom level from the original file */
+        }
+        
+        /* Main Container Styling */
+        .themed-container {
+            background: rgba(11, 23, 56, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(44, 72, 124, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        /* Gradient Text and Glow for Heading */
+        .motto-heading {
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(31, 190, 190, 0.7), 0 0 15px rgba(11, 23, 56, 0.7);
+        }
+
+        /* Gradient for Button */
+        .themed-btn-gradient {
+            background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
+        }
+
+        /* Animation for the spinning cogwheel */
+        .spin-slowly {
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animation for the pulsing text */
+        .pulse-text {
+            animation: pulseText 1.8s infinite alternate;
+        }
+        @keyframes pulseText {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.03); opacity: 0.95; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 overflow-hidden">
+    
+    <div class="relative z-10 text-center themed-container p-8 md:p-12 w-full max-w-lg transition-all duration-500 hover:scale-105">
+        
+        
+        <img src="https://files.catbox.moe/pucbmh.png" alt="Blu Base Logo" class="mx-auto w-[180px] mb-6">
+        
+        
+        <h1 class="text-3xl md:text-5xl mb-4 motto-heading">
+            Blu Base
+        </h1>
+
+        
+        <div class="mb-8">
+            <i class="fas fa-cog text-6xl text-[#7CA0E0] spin-slowly"></i>
+        </div>
+
+        
+        <p class="text-base md:text-lg mb-8 opacity-90">
+            We are working hard to get everything ready for you.
+        </p>
+
+        
+        <div class="flex justify-center">
+            <a href="http://discord.gg/notpublicyet" class="inline-block themed-btn-gradient hover:opacity-90 transition-all duration-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg">
+                <span class="pulse-text">Join Us on Discord for Real-Time Updates on Blubase</span>
+            </a>
+        </div>
+
+        
+        <p class="text-sm opacity-60 mt-8">
+            &copy; 2024 Blu Base. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>
