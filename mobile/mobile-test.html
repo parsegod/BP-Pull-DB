@@ -28,14 +28,14 @@
         const mobileBreakpoint = 768; 
         
         const isMobileSize = window.innerWidth < mobileBreakpoint;
-        const isMobilePage = window.location.href.includes('mobile-test.html');
-        const isDesktopPage = window.location.href.includes('test-index.html');
+        const isMobilePage = window.location.href.includes('/mobile');
+        const isDesktopPage = window.location.href.includes('/home');
 
         if (!isMobileSize && !isDesktopPage) {
-            window.location.href = 'test-index.html';
+            window.location.href = '/home';
         }
         if (isMobileSize && !isMobilePage) {
-            window.location.href = 'mobile-test.html';
+            window.location.href = '/mobile';
         }
     }
 
