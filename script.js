@@ -353,7 +353,7 @@ function checkAPIKeyAndRedirect(isInitialCheck) {
 
 // ================== END ================== //
 
-// ================== Discord Functionality (Updated for Lanyard WebSocket) ================== //
+// ================== Discord Functionality ================== //
 
 const discordGuildId = '1406333070239465572';
 const discordInviteCode = '7mfEwgUT8H';
@@ -362,13 +362,15 @@ const userId = '1285264427540545588';
 let userActivities = [];
 let currentActivityIndex = 0;
 let elapsedTimeInterval;
+let songProgressBarInterval;
 let hasReceivedInitialData = false;
 let ws;
 let heartbeatInterval;
 
 // Function to handle the initial loading state
 function setLoadingState() {
-    const presenceActivityName = document.getElementById('presence-activity-name');
+    const presenceActivityName =
+        document.getElementById('presence-activity-name');
     if (presenceActivityName) {
         presenceActivityName.textContent = 'Loading activity...';
     }
@@ -377,36 +379,49 @@ function setLoadingState() {
 // Function to fetch Discord invite data for the mobile view
 async function fetchDiscordData() {
     try {
-        const response = await fetch(`https://discord.com/api/v9/invites/${discordInviteCode}?with_counts=true`);
+        const response = await fetch(
+            `https://discord.com/api/v9/invites/${discordInviteCode}?with_counts=true`
+        );
         if (!response.ok) {
             throw new Error('Failed to fetch Discord data');
         }
         const data = await response.json();
 
         const guildNameElement = document.getElementById('discord-guild-name');
-        const onlineCountElement = document.getElementById('discord-online-count');
-        const totalMembersElement = document.getElementById('discord-total-members');
-        const serverIconElement = document.getElementById('discord-server-icon');
-        const serverBannerElement = document.getElementById('discord-server-banner');
+        const onlineCountElement =
+            document.getElementById('discord-online-count');
+        const totalMembersElement =
+            document.getElementById('discord-total-members');
+        const serverIconElement =
+            document.getElementById('discord-server-icon');
+        const serverBannerElement =
+            document.getElementById('discord-server-banner');
 
         if (data.guild) {
             guildNameElement.textContent = data.guild.name;
-            onlineCountElement.textContent = `${data.approximate_presence_count} Online`;
-            totalMembersElement.textContent = `${data.approximate_member_count} Members`;
+            onlineCountElement.textContent =
+                `${data.approximate_presence_count} Online`;
+            totalMembersElement.textContent =
+                `${data.approximate_member_count} Members`;
             if (data.guild.icon) {
-                const iconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png`;
+                const iconUrl =
+                    `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png`;
                 serverIconElement.src = iconUrl;
             }
             if (data.guild.banner && serverBannerElement) {
-                const bannerUrl = `https://cdn.discordapp.com/banners/${data.guild.id}/${data.guild.banner}.png?size=1024`;
-                serverBannerElement.style.backgroundImage = `url(${bannerUrl})`;
+                const bannerUrl =
+                    `https://cdn.discordapp.com/banners/${data.guild.id}/${data.guild.banner}.png?size=1024`;
+                serverBannerElement.style.backgroundImage =
+                    `url(${bannerUrl})`;
             }
         }
     } catch (error) {
         console.error('Error fetching Discord data:', error);
         const guildNameElement = document.getElementById('discord-guild-name');
-        const onlineCountElement = document.getElementById('discord-online-count');
-        const totalMembersElement = document.getElementById('discord-total-members');
+        const onlineCountElement =
+            document.getElementById('discord-online-count');
+        const totalMembersElement =
+            document.getElementById('discord-total-members');
         guildNameElement.textContent = 'Blu Base Community';
         onlineCountElement.textContent = '0 Online';
         totalMembersElement.textContent = '0 Members';
@@ -416,31 +431,41 @@ async function fetchDiscordData() {
 // Function to fetch Discord invite data for the desktop view
 async function fetchDiscordInviteForDesktop() {
     try {
-        const response = await fetch(`https://discord.com/api/v9/invites/${discordInviteCode}?with_counts=true`);
+        const response = await fetch(
+            `https://discord.com/api/v9/invites/${discordInviteCode}?with_counts=true`
+        );
         if (!response.ok) {
             throw new Error('Failed to fetch Discord data for desktop invite');
         }
         const data = await response.json();
 
-        const inviteGuildName = document.getElementById('discord-invite-guild-name');
-        const inviteOnlineCount = document.getElementById('discord-invite-online-count');
-        const inviteTotalMembers = document.getElementById('discord-invite-total-members');
-        const inviteServerIcon = document.getElementById('discord-invite-server-icon');
+        const inviteGuildName =
+            document.getElementById('discord-invite-guild-name');
+        const inviteOnlineCount =
+            document.getElementById('discord-invite-online-count');
+        const inviteTotalMembers =
+            document.getElementById('discord-invite-total-members');
+        const inviteServerIcon =
+            document.getElementById('discord-invite-server-icon');
 
         if (data.guild) {
             inviteGuildName.textContent = data.guild.name;
             inviteOnlineCount.textContent = data.approximate_presence_count;
             inviteTotalMembers.textContent = data.approximate_member_count;
             if (data.guild.icon) {
-                const iconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png`;
+                const iconUrl =
+                    `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png`;
                 inviteServerIcon.src = iconUrl;
             }
         }
     } catch (error) {
         console.error('Error fetching Discord invite for desktop:', error);
-        const inviteGuildName = document.getElementById('discord-invite-guild-name');
-        const inviteOnlineCount = document.getElementById('discord-invite-online-count');
-        const inviteTotalMembers = document.getElementById('discord-invite-total-members');
+        const inviteGuildName =
+            document.getElementById('discord-invite-guild-name');
+        const inviteOnlineCount =
+            document.getElementById('discord-invite-online-count');
+        const inviteTotalMembers =
+            document.getElementById('discord-invite-total-members');
         inviteGuildName.textContent = 'Blu Base Community';
         inviteOnlineCount.textContent = 'N/A';
         inviteTotalMembers.textContent = 'N/A';
@@ -448,7 +473,8 @@ async function fetchDiscordInviteForDesktop() {
 }
 
 function updateElapsedTime(startTime) {
-    const presenceElapsedTime = document.getElementById('presence-elapsed-time');
+    const presenceElapsedTime =
+        document.getElementById('presence-elapsed-time');
     if (!presenceElapsedTime) return;
 
     if (elapsedTimeInterval) {
@@ -459,10 +485,14 @@ function updateElapsedTime(startTime) {
         elapsedTimeInterval = setInterval(() => {
             const currentTime = Date.now();
             const elapsedMilliseconds = currentTime - startTime;
-            const hours = Math.floor(elapsedMilliseconds / (1000 * 60 * 60));
-            const minutes = Math.floor((elapsedMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((elapsedMilliseconds % (1000 * 60)) / 1000);
-            presenceElapsedTime.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} elapsed`;
+            const hours =
+                Math.floor(elapsedMilliseconds / (1000 * 60 * 60));
+            const minutes =
+                Math.floor((elapsedMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds =
+                Math.floor((elapsedMilliseconds % (1000 * 60)) / 1000);
+            presenceElapsedTime.textContent =
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} elapsed`;
         }, 1000);
     } else {
         presenceElapsedTime.textContent = '';
@@ -470,13 +500,28 @@ function updateElapsedTime(startTime) {
 }
 
 function displayActivity(activity) {
-    const presenceActivityName = document.getElementById('presence-activity-name');
-    const presenceDetailsText = document.getElementById('presence-details-text');
-    const presenceStateText = document.getElementById('presence-state-text');
-    const presenceLargeImage = document.getElementById('presence-large-image');
+    const presenceActivityName =
+        document.getElementById('presence-activity-name');
+    const presenceDetailsText =
+        document.getElementById('presence-details-text');
+    const presenceStateText =
+        document.getElementById('presence-state-text');
+    const presenceLargeImage =
+        document.getElementById('presence-large-image');
+    const presenceCardContent =
+        document.querySelector('.presence-card-content');
+    
+    // Clear previous progress bar interval
+    if (songProgressBarInterval) {
+        clearInterval(songProgressBarInterval);
+        songProgressBarInterval = null;
+    }
+    const oldProgressBar = document.getElementById('song-progress-bar');
+    if (oldProgressBar) oldProgressBar.remove();
 
     if (activity) {
-        if (presenceActivityName) presenceActivityName.textContent = activity.name;
+        if (presenceActivityName)
+            presenceActivityName.textContent = activity.name;
 
         if (presenceDetailsText && activity.details) {
             presenceDetailsText.textContent = activity.details;
@@ -489,31 +534,76 @@ function displayActivity(activity) {
             presenceStateText.textContent = '';
         }
 
-        if (presenceLargeImage && activity.assets && activity.assets.large_image) {
+        if (presenceLargeImage && activity.assets &&
+            activity.assets.large_image) {
             let largeImageUrl = '';
             if (activity.assets.large_image.startsWith('mp:')) {
-                largeImageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
+                largeImageUrl =
+                    `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
             } else if (activity.assets.large_image.startsWith('spotify:')) {
                 const spotifyId = activity.assets.large_image.split(':')[1];
-                largeImageUrl = `https://i.scdn.co/image/${spotifyId}`;
+                largeImageUrl =
+                    `https://i.scdn.co/image/${spotifyId}`;
             } else if (activity.application_id) {
-                largeImageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+                largeImageUrl =
+                    `https://cdn.discordapp.com/app-assets/${
+                        activity.application_id
+                    }/${
+                        activity.assets.large_image
+                    }.png`;
             } else {
                 largeImageUrl = activity.assets.large_image;
             }
             presenceLargeImage.src = largeImageUrl;
-            presenceLargeImage.alt = activity.assets.large_text || activity.name;
+            presenceLargeImage.alt =
+                activity.assets.large_text || activity.name;
             presenceLargeImage.style.display = 'block';
         } else if (presenceLargeImage) {
             presenceLargeImage.style.display = 'none';
             presenceLargeImage.src = '';
         }
         updateElapsedTime(activity.timestamps?.start);
+
+        // Add progress bar for Spotify songs
+        if (activity.name === 'Spotify' && activity.timestamps) {
+            const progressBarContainer = document.createElement('div');
+            progressBarContainer.id = 'song-progress-container';
+            progressBarContainer.style.cssText =
+                'width: 100%; height: 5px; background-color: #36393f; margin-top: 10px;';
+
+            const progressBar = document.createElement('div');
+            progressBar.id = 'song-progress-bar';
+            progressBar.style.cssText =
+                'height: 100%; background-color: #1DB954; transition: width 1s linear;';
+            
+            progressBarContainer.appendChild(progressBar);
+            presenceCardContent.appendChild(progressBarContainer);
+
+            const updateProgressBar = () => {
+                const now = Date.now();
+                const totalDuration = activity.timestamps.end - activity.timestamps.start;
+                const elapsed = now - activity.timestamps.start;
+                const progressPercentage = (elapsed / totalDuration) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+
+                if (now > activity.timestamps.end) {
+                    clearInterval(songProgressBarInterval);
+                }
+            };
+            
+            songProgressBarInterval = setInterval(updateProgressBar, 1000);
+            updateProgressBar();
+        }
+
     } else {
         if (hasReceivedInitialData) {
-            if (presenceActivityName) presenceActivityName.textContent = 'No active game/stream/listening.';
-            if (presenceDetailsText) presenceDetailsText.textContent = '';
-            if (presenceStateText) presenceStateText.textContent = '';
+            if (presenceActivityName)
+                presenceActivityName.textContent =
+                    'No active game/stream/listening.';
+            if (presenceDetailsText)
+                presenceDetailsText.textContent = '';
+            if (presenceStateText)
+                presenceStateText.textContent = '';
             if (presenceLargeImage) {
                 presenceLargeImage.style.display = 'none';
                 presenceLargeImage.src = '';
@@ -524,11 +614,14 @@ function displayActivity(activity) {
 }
 
 function setupCarouselNavigation() {
-    const presenceCarousel = document.getElementById('presence-carousel');
+    const presenceCarousel =
+        document.getElementById('presence-carousel');
     if (!presenceCarousel) return;
 
-    let prevButton = document.getElementById('presence-carousel-prev');
-    let nextButton = document.getElementById('presence-carousel-next');
+    let prevButton =
+        document.getElementById('presence-carousel-prev');
+    let nextButton =
+        document.getElementById('presence-carousel-next');
     if (prevButton) prevButton.remove();
     if (nextButton) nextButton.remove();
 
@@ -568,46 +661,82 @@ function setupCarouselNavigation() {
 }
 
 function removeCarouselNavigation() {
-    const prevButton = document.getElementById('presence-carousel-prev');
-    const nextButton = document.getElementById('presence-carousel-next');
+    const prevButton =
+        document.getElementById('presence-carousel-prev');
+    const nextButton =
+        document.getElementById('presence-carousel-next');
     if (prevButton) prevButton.remove();
     if (nextButton) nextButton.remove();
 }
 
 function showNextActivity() {
     if (userActivities.length === 0) return;
-    currentActivityIndex = (currentActivityIndex + 1) % userActivities.length;
+    currentActivityIndex =
+        (currentActivityIndex + 1) % userActivities.length;
     displayActivity(userActivities[currentActivityIndex]);
 }
 
 function showPreviousActivity() {
     if (userActivities.length === 0) return;
-    currentActivityIndex = (currentActivityIndex - 1 + userActivities.length) % userActivities.length;
+    currentActivityIndex =
+        (currentActivityIndex - 1 + userActivities.length) %
+        userActivities.length;
     displayActivity(userActivities[currentActivityIndex]);
 }
 
 function updatePresenceUI(user) {
     const presenceAvatar = document.getElementById('presence-avatar');
-    const presenceStatusDot = document.getElementById('presence-status-dot');
-    const presenceUsername = document.getElementById('presence-username');
-    const presenceDiscordLink = document.getElementById('presence-discord-link');
+    const presenceStatusDot =
+        document.getElementById('presence-status-dot');
+    const presenceUsername =
+        document.getElementById('presence-username');
+    const presenceDiscordLink =
+        document.getElementById('presence-discord-link');
 
-    userActivities = user.activities.filter(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
+    const newActivities = user.activities.filter(act =>
+        act.type === 0 ||
+        act.type === 1 ||
+        act.type === 2 ||
+        act.type === 4
+    );
+    
+    // Check if the current activity still exists in the new data
+    let currentActivity = userActivities[currentActivityIndex];
+    let newActivityIndex = newActivities.findIndex(act => 
+        act.name === currentActivity?.name && act.state === currentActivity?.state
+    );
+    
+    userActivities = newActivities;
+    
+    // If the current activity is still present, maintain position
+    if (newActivityIndex !== -1) {
+        currentActivityIndex = newActivityIndex;
+    } else {
+        // Otherwise, reset to the first activity
+        currentActivityIndex = 0;
+    }
 
     if (presenceAvatar && user.discord_user) {
-        presenceAvatar.src = `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.webp`;
+        presenceAvatar.src =
+            `https://cdn.discordapp.com/avatars/${
+                user.discord_user.id
+            }/${
+                user.discord_user.avatar
+            }.webp`;
     } else if (presenceAvatar) {
         presenceAvatar.src = 'assets/logo.png';
     }
 
     if (presenceUsername && user.discord_user) {
-        presenceUsername.textContent = `@${user.discord_user.username}`;
+        presenceUsername.textContent =
+            `@${user.discord_user.username}`;
     } else if (presenceUsername) {
         presenceUsername.textContent = '@UserNotFound';
     }
 
     if (presenceDiscordLink && user.discord_user) {
-        presenceDiscordLink.href = `https://discord.com/users/${user.discord_user.id}`;
+        presenceDiscordLink.href =
+            `https://discord.com/users/${user.discord_user.id}`;
     } else if (presenceDiscordLink) {
         presenceDiscordLink.href = '#';
     }
@@ -631,7 +760,6 @@ function updatePresenceUI(user) {
     }
 
     if (userActivities.length > 0) {
-        currentActivityIndex = 0;
         displayActivity(userActivities[currentActivityIndex]);
         setupCarouselNavigation();
     } else {
@@ -651,10 +779,13 @@ function initializeLanyardWebSocket() {
     ws.onmessage = (event) => {
         const payload = JSON.parse(event.data);
         const { op, t, d } = payload;
-        
+
         // Handle Opcode 1: Hello
         if (op === 1) {
-            console.log("Received Hello payload. Heartbeat interval:", d.heartbeat_interval);
+            console.log(
+                "Received Hello payload. Heartbeat interval:",
+                d.heartbeat_interval
+            );
             // Send heartbeat at the specified interval
             heartbeatInterval = setInterval(() => {
                 ws.send(JSON.stringify({ op: 3 }));
@@ -669,7 +800,7 @@ function initializeLanyardWebSocket() {
             }));
             hasReceivedInitialData = true;
         }
-        
+
         // Handle Opcode 0: Event
         if (op === 0) {
             // Handle INIT_STATE (initial data) and PRESENCE_UPDATE (real-time updates)
@@ -684,7 +815,10 @@ function initializeLanyardWebSocket() {
     };
 
     ws.onclose = (event) => {
-        console.log("WebSocket connection closed. Reconnecting in 5 seconds...", event.reason);
+        console.log(
+            "WebSocket connection closed. Reconnecting in 5 seconds...",
+            event.reason
+        );
         clearInterval(heartbeatInterval);
         setTimeout(initializeLanyardWebSocket, 5000);
     };
@@ -699,21 +833,16 @@ function initializeLanyardWebSocket() {
 // We now run this function when the page loads to ensure the right order.
 
 function init() {
-    // 1. Immediately set a loading state while we fetch data.
     setLoadingState();
 
-    // 2. Start fetching static Discord invite data. This can happen in the background.
     fetchDiscordData();
     fetchDiscordInviteForDesktop();
 
-    // 3. Initialize WebSocket connection for presence data.
     initializeLanyardWebSocket();
 }
 
-// Call the new init function when the page is fully loaded.
 window.onload = init;
 // ================== END ================== //
-
 
 // ================== New Initialization Logic ================== //
 
