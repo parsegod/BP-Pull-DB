@@ -587,17 +587,19 @@ function showPreviousActivity() {
 
 // Function to fetch data from your Vercel proxy
 async function fetchPresenceDataFromProxy() {
-    const proxyEndpoint = '/api/lanyard-proxy'; // The new proxy endpoint
-
+    const proxyEndpoint = '/api/lanyard-proxy';
+    
     try {
         const response = await fetch(proxyEndpoint);
         if (!response.ok) {
             throw new Error(`Proxy error! status: ${response.status}`);
         }
         const data = await response.json();
+
+        // Always update the UI with the latest data
+        hasReceivedInitialData = true;
+        updatePresenceUI(data);
         
-        hasReceivedInitialData = true; // Set this flag once data is received
-        updatePresenceUI(data); // Use the existing UI update function
     } catch (error) {
         console.error('Error fetching presence data from proxy:', error);
         hasReceivedInitialData = true;
@@ -605,14 +607,22 @@ async function fetchPresenceDataFromProxy() {
     }
 }
 
+// Function to update the presence UI without resetting the carousel
 function updatePresenceUI(user) {
     const presenceAvatar = document.getElementById('presence-avatar');
     const presenceStatusDot = document.getElementById('presence-status-dot');
     const presenceUsername = document.getElementById('presence-username');
     const presenceDiscordLink = document.getElementById('presence-discord-link');
 
+    // Update the activities list. This is necessary to keep the data current.
     userActivities = user.activities.filter(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
 
+    // Keep the current index unless it's out of bounds of the new array.
+    if (currentActivityIndex >= userActivities.length) {
+        currentActivityIndex = 0;
+    }
+
+    // Now, update the UI with the new data.
     if (presenceAvatar && user.discord_user) {
         presenceAvatar.src = `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.webp`;
     } else if (presenceAvatar) {
@@ -650,7 +660,6 @@ function updatePresenceUI(user) {
     }
 
     if (userActivities.length > 0) {
-        currentActivityIndex = 0;
         displayActivity(userActivities[currentActivityIndex]);
         setupCarouselNavigation();
     } else {
@@ -660,17 +669,12 @@ function updatePresenceUI(user) {
 }
 
 // ================== New Initialization Logic ================== //
-// We now run this function when the page loads to ensure the right order.
 
 function init() {
-    // 1. Immediately set a loading state while we fetch data.
     setLoadingState();
-
-    // 2. Start fetching static Discord invite data. This can happen in the background.
     fetchDiscordData();
     fetchDiscordInviteForDesktop();
 
-    // 3. Start polling the proxy endpoint for presence data.
     fetchPresenceDataFromProxy();
     setInterval(fetchPresenceDataFromProxy, pollingInterval);
 }
