@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE ahtml>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -12,6 +12,7 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: transparent; }
         html { scrollbar-width: none; }
+        
         body {
             font-family: 'Open Sans', sans-serif;
             background-color: #0B1738;
@@ -57,7 +58,6 @@
         .spin-slowly {
             animation: spin 8s linear infinite;
         }
-
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -69,6 +69,24 @@
         @keyframes pulseText {
             from { transform: scale(1); opacity: 1; }
             to { transform: scale(1.03); opacity: 0.95; }
+        }
+
+        @keyframes floatAndFade {
+            0% {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+        }
+        .float-and-fade {
+            animation: floatAndFade 4s ease-in-out infinite;
         }
 
         @media (max-width: 480px) {
@@ -95,14 +113,11 @@
         <source src="assets/wallpaper.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-
     <div class="relative z-10 text-center themed-container p-6 sm:p-8 md:p-12 w-full max-w-sm sm:max-w-md md:max-w-lg transition-all duration-500 hover:scale-105">
         
-        <img src="https://files.catbox.moe/pucbmh.png" alt="Blu Base Logo" class="mx-auto w-[100px] sm:w-[120px] md:w-[180px] mb-6">
-
         <div class="mb-4">
             <p class="font-bold text-red-500">
-                We have received a lot of suspicious IP activity on our site lately lol. Whoever is trying to infiltrate, please stop trying. 😊
+             We have received a lot of suspicious IP activity on our site lately lol. Whoever is trying to infiltrate, please stop trying. 😊
             </p>
         </div>
 
@@ -112,6 +127,12 @@
 
         <p class="text-sm sm:text-base md:text-lg mb-2 opacity-90">
             I am updating the site as fast as possible, it should be back online soon.
+        </p>
+
+        <p class="float-and-fade font-bold text-xl sm:text-2xl md:text-3xl text-white opacity-80 mb-4" style="font-family: 'Dancing Script', cursive;">- Parse</p>
+
+        <p class="downtime-message mb-4">
+            The site will be offline longer than expected because I am going to sleep.
         </p>
         
         <div id="countdown-timer" class="font-bold text-xl sm:text-2xl mb-8"></div>
@@ -129,7 +150,7 @@
     
     <script>
         const targetTime = new Date();
-        targetTime.setHours(1, 15, 0, 0);
+        targetTime.setHours(10, 30, 69, 69);
         
         if (new Date() > targetTime) {
             targetTime.setDate(targetTime.getDate() + 1);
