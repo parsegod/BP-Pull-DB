@@ -1,3 +1,6 @@
+// FileName: /script.js
+
+// ================== DOM Element Selections ================== //
 const tableBody = document.querySelector('#pullsTable tbody');
 const searchInput = document.getElementById('search');
 const categoryFilterContainer = document.getElementById('categoryCheckboxes');
@@ -45,45 +48,20 @@ const closeDiscordAnnouncementModalBtn = document.getElementById('closeDiscordAn
 const goToDiscordBtn = document.getElementById('goToDiscordBtn');
 const cancelDiscordModalBtn = document.getElementById('cancelDiscordModalBtn');
 
+// Desktop-only buttons
+const clearStorageButtonDesktop = document.getElementById('clearStorageButton');
+const discordButtonDesktop = document.getElementById('discordButton');
+const contributionsButtonDesktop = document.getElementById('contributionsButton');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const contributionsButton = document.getElementById('contributionsButton');
-    if (contributionsButton) {
-        contributionsButton.addEventListener('click', function() {
-            window.location.href = 'https://blunet.wtf/HOH';
-        });
-    }
+// Mobile-only buttons (if they exist, otherwise these will be null)
+const clearStorageButtonMobile = document.getElementById('clearStorageButtonMobile');
+const discordButtonMobile = document.getElementById('discordButtonMobile');
+const contributionsButtonMobile = document.getElementById('contributionsButtonMobile');
 
-    // Event listener for the Discord announcement link
-    if (discordAnnouncementLink) {
-        discordAnnouncementLink.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default link behavior
-            showDiscordAnnouncementModal();
-        });
-    }
+// ================== END ================== //
 
-    // Event listeners for the Discord announcement modal buttons
-    if (closeDiscordAnnouncementModalBtn) {
-        closeDiscordAnnouncementModalBtn.addEventListener('click', hideDiscordAnnouncementModal);
-    }
-    if (goToDiscordBtn) {
-        goToDiscordBtn.addEventListener('click', () => {
-            window.open('https://discord.com/oauth2/authorize?client_id=1397393308086440040&scope=bot&permissions=24', '_blank');
-            hideDiscordAnnouncementModal();
-        });
-    }
-    if (cancelDiscordModalBtn) {
-        cancelDiscordModalBtn.addEventListener('click', hideDiscordAnnouncementModal);
-    }
-    if (discordAnnouncementModal) {
-        discordAnnouncementModal.addEventListener('click', (e) => {
-            if (e.target === discordAnnouncementModal) {
-                hideDiscordAnnouncementModal();
-            }
-        });
-    }
-});
 
+// ================== Global Data & Mappings ================== //
 const categoryMap = {
   "0": "ASSAULT RIFLES",
   "1": "SUBMACHINE GUNS",
@@ -292,6 +270,488 @@ const bugLogEntries = [
     }
 ];
 
+// ================== END ================== //
+
+
+// ================== API Key Management & Security ================== //
+
+const blacklistedIPsEncoded = [
+  ""
+];
+
+function decodeBase64(encodedString) {
+    try {
+        return atob(encodedString);
+    } catch (e) {
+        console.error("Base64 decoding error:", e);
+        return "";
+    }
+}
+
+async function getUserIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data.ip;
+    } catch (error) {
+        console.error("Error fetching IP address:", error);
+        return null;
+    }
+}
+
+function isIPBlacklisted(ip) {
+    return blacklistedIPsEncoded.some(encodedIp => decodeBase64(encodedIp) === ip);
+}
+
+function checkAPIKeyAndRedirect(isInitialCheck) {
+    const apiKey = localStorage.getItem('blubase_api_key');
+    const apiKeyExpiry = localStorage.getItem('blubase_api_key_expiry');
+    const originalApiKey = localStorage.getItem('blubase_api_key_original');
+    const currentTime = new Date().getTime();
+
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+    const isCorrupted = !apiKey || !uuidRegex.test(apiKey) || (originalApiKey && apiKey !== originalApiKey);
+    const isExpired = !apiKeyExpiry || isNaN(parseInt(apiKeyExpiry)) || currentTime >= parseInt(apiKeyExpiry);
+
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainContent = document.getElementById('mainContent');
+
+    if (isCorrupted || isExpired) {
+        console.log("API key corrupted or expired. Clearing local storage.");
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+        localStorage.removeItem('blubase_api_key_original');
+
+        if (isInitialCheck) {
+            console.log("Initial load, API key corrupted/expired. Redirecting to /verify.");
+            window.location.replace('/verify');
+        } else {
+            console.log("API key corrupted/expired during runtime. Redirecting to /endkey.");
+            window.location.replace('/endkey');
+        }
+    } else {
+        console.log("Valid and untampered API key found. Displaying content.");
+
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.visibility = 'hidden';
+        }
+
+        if (mainContent) {
+            mainContent.style.display = 'block';
+
+            setTimeout(() => {
+                mainContent.style.opacity = '1';
+            }, 10);
+        }
+    }
+}
+
+// ================== END ================== //
+
+
+// ================== Discord Functionality ================== //
+
+const discordGuildId = '1406333070239465572';
+const discordInviteCode = '7mfEwgUT8H';
+const userId = '1285264427540545588';
+
+let userActivities = [];
+let currentActivityIndex = 0;
+let elapsedTimeInterval;
+let lanyardWebSocket;
+let heartbeatInterval;
+let hasReceivedInitialData = false; // Track if we've gotten data yet
+
+// Function to handle the initial loading state
+function setLoadingState() {
+    const presenceActivityName = document.getElementById('presence-activity-name');
+    if (presenceActivityName) {
+        presenceActivityName.textContent = 'Loading activity...';
+    }
+}
+
+// Function to fetch Discord invite data for the mobile view
+async function fetchDiscordData() {
+    try {
+        const response = await fetch(`https://discord.com/api/v9/invites/${discordInviteCode}?with_counts=true`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch Discord data');
+        }
+        const data = await response.json();
+
+        const guildNameElement = document.getElementById('discord-guild-name');
+        const onlineCountElement = document.getElementById('discord-online-count');
+        const totalMembersElement = document.getElementById('discord-total-members');
+        const serverIconElement = document.getElementById('discord-server-icon');
+        const serverBannerElement = document.getElementById('discord-server-banner');
+
+        if (data.guild) {
+            guildNameElement.textContent = data.guild.name;
+            onlineCountElement.textContent = `${data.approximate_presence_count} Online`;
+            totalMembersElement.textContent = `${data.approximate_member_count} Members`;
+            if (data.guild.icon) {
+                const iconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png`;
+                serverIconElement.src = iconUrl;
+            }
+            if (data.guild.banner && serverBannerElement) {
+                const bannerUrl = `https://cdn.discordapp.com/banners/${data.guild.id}/${data.guild.banner}.png?size=1024`;
+                serverBannerElement.style.backgroundImage = `url(${bannerUrl})`;
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching Discord data:', error);
+        const guildNameElement = document.getElementById('discord-guild-name');
+        const onlineCountElement = document.getElementById('discord-online-count');
+        const totalMembersElement = document.getElementById('discord-total-members');
+        guildNameElement.textContent = 'Blu Base Community';
+        onlineCountElement.textContent = '0 Online';
+        totalMembersElement.textContent = '0 Members';
+    }
+}
+
+// Function to fetch Discord invite data for the desktop view
+async function fetchDiscordInviteForDesktop() {
+    try {
+        const response = await fetch(`https://discord.com/api/v9/invites/${discordInviteCode}?with_counts=true`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch Discord data for desktop invite');
+        }
+        const data = await response.json();
+
+        const inviteGuildName = document.getElementById('discord-invite-guild-name');
+        const inviteOnlineCount = document.getElementById('discord-invite-online-count');
+        const inviteTotalMembers = document.getElementById('discord-invite-total-members');
+        const inviteServerIcon = document.getElementById('discord-invite-server-icon');
+
+        if (data.guild) {
+            inviteGuildName.textContent = data.guild.name;
+            inviteOnlineCount.textContent = data.approximate_presence_count;
+            inviteTotalMembers.textContent = data.approximate_member_count;
+            if (data.guild.icon) {
+                const iconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png`;
+                inviteServerIcon.src = iconUrl;
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching Discord invite for desktop:', error);
+        const inviteGuildName = document.getElementById('discord-invite-guild-name');
+        const inviteOnlineCount = document.getElementById('discord-invite-online-count');
+        const inviteTotalMembers = document.getElementById('discord-invite-total-members');
+        inviteGuildName.textContent = 'Blu Base Community';
+        inviteOnlineCount.textContent = 'N/A';
+        inviteTotalMembers.textContent = 'N/A';
+    }
+}
+
+// Get immediate presence data via REST API
+async function fetchInitialPresenceData() {
+    try {
+        const response = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch initial presence data');
+        }
+        const data = await response.json();
+        
+        if (data.success && data.data) {
+            hasReceivedInitialData = true;
+            updatePresenceUI(data.data);
+        } else {
+            // If the REST API call succeeds but returns no data,
+            // set the flag to true and display a default message.
+            hasReceivedInitialData = true;
+            displayActivity(null); 
+        }
+    } catch (error) {
+        console.error('Error fetching initial presence:', error);
+        // On error, also set the flag to true and display a default message.
+        hasReceivedInitialData = true;
+        displayActivity(null);
+    }
+}
+
+function updateElapsedTime(startTime) {
+    const presenceElapsedTime = document.getElementById('presence-elapsed-time');
+    if (!presenceElapsedTime) return;
+
+    if (elapsedTimeInterval) {
+        clearInterval(elapsedTimeInterval);
+    }
+
+    if (startTime) {
+        elapsedTimeInterval = setInterval(() => {
+            const currentTime = Date.now();
+            const elapsedMilliseconds = currentTime - startTime;
+            const hours = Math.floor(elapsedMilliseconds / (1000 * 60 * 60));
+            const minutes = Math.floor((elapsedMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((elapsedMilliseconds % (1000 * 60)) / 1000);
+            presenceElapsedTime.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} elapsed`;
+        }, 1000);
+    } else {
+        presenceElapsedTime.textContent = '';
+    }
+}
+
+function displayActivity(activity) {
+    const presenceActivityName = document.getElementById('presence-activity-name');
+    const presenceDetailsText = document.getElementById('presence-details-text');
+    const presenceStateText = document.getElementById('presence-state-text');
+    const presenceLargeImage = document.getElementById('presence-large-image');
+
+    if (activity) {
+        if (presenceActivityName) presenceActivityName.textContent = activity.name;
+
+        if (presenceDetailsText && activity.details) {
+            presenceDetailsText.textContent = activity.details;
+        } else if (presenceDetailsText) {
+            presenceDetailsText.textContent = '';
+        }
+        if (presenceStateText && activity.state) {
+            presenceStateText.textContent = activity.state;
+        } else if (presenceStateText) {
+            presenceStateText.textContent = '';
+        }
+
+        if (presenceLargeImage && activity.assets && activity.assets.large_image) {
+            let largeImageUrl = '';
+            if (activity.assets.large_image.startsWith('mp:')) {
+                largeImageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
+            } else if (activity.assets.large_image.startsWith('spotify:')) {
+                const spotifyId = activity.assets.large_image.split(':')[1];
+                largeImageUrl = `https://i.scdn.co/image/${spotifyId}`;
+            } else if (activity.application_id) {
+                largeImageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+            } else {
+                largeImageUrl = activity.assets.large_image;
+            }
+            presenceLargeImage.src = largeImageUrl;
+            presenceLargeImage.alt = activity.assets.large_text || activity.name;
+            presenceLargeImage.style.display = 'block';
+        } else if (presenceLargeImage) {
+            presenceLargeImage.style.display = 'none';
+            presenceLargeImage.src = '';
+        }
+        updateElapsedTime(activity.timestamps?.start);
+    } else {
+        // Only show "No active game/stream/listening." if we've received initial data
+        if (hasReceivedInitialData) {
+            if (presenceActivityName) presenceActivityName.textContent = 'No active game/stream/listening.';
+            if (presenceDetailsText) presenceDetailsText.textContent = '';
+            if (presenceStateText) presenceStateText.textContent = '';
+            if (presenceLargeImage) {
+                presenceLargeImage.style.display = 'none';
+                presenceLargeImage.src = '';
+            }
+            updateElapsedTime(null);
+        }
+    }
+}
+
+function setupCarouselNavigation() {
+    const presenceCarousel = document.getElementById('presence-carousel');
+    if (!presenceCarousel) return;
+
+    let prevButton = document.getElementById('presence-carousel-prev');
+    let nextButton = document.getElementById('presence-carousel-next');
+    if (prevButton) prevButton.remove();
+    if (nextButton) nextButton.remove();
+
+    if (userActivities.length > 1) {
+        prevButton = document.createElement('button');
+        prevButton.id = 'presence-carousel-prev';
+        prevButton.className = 'carousel-nav-button prev';
+        prevButton.innerHTML = '&#10094;';
+        prevButton.addEventListener('click', showPreviousActivity);
+        presenceCarousel.appendChild(prevButton);
+
+        nextButton = document.createElement('button');
+        nextButton.id = 'presence-carousel-next';
+        nextButton.className = 'carousel-nav-button next';
+        nextButton.innerHTML = '&#10095;';
+        nextButton.addEventListener('click', showNextActivity);
+        presenceCarousel.appendChild(nextButton);
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        presenceCarousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        presenceCarousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                showNextActivity();
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                showPreviousActivity();
+            }
+        });
+    }
+}
+
+function removeCarouselNavigation() {
+    const prevButton = document.getElementById('presence-carousel-prev');
+    const nextButton = document.getElementById('presence-carousel-next');
+    if (prevButton) prevButton.remove();
+    if (nextButton) nextButton.remove();
+}
+
+function showNextActivity() {
+    if (userActivities.length === 0) return;
+    currentActivityIndex = (currentActivityIndex + 1) % userActivities.length;
+    displayActivity(userActivities[currentActivityIndex]);
+}
+
+function showPreviousActivity() {
+    if (userActivities.length === 0) return;
+    currentActivityIndex = (currentActivityIndex - 1 + userActivities.length) % userActivities.length;
+    displayActivity(userActivities[currentActivityIndex]);
+}
+
+function initializeLanyardWebSocket() {
+    if (lanyardWebSocket) {
+        lanyardWebSocket.close();
+    }
+    
+    lanyardWebSocket = new WebSocket('wss://api.lanyard.rest/socket');
+    
+    lanyardWebSocket.onopen = () => {
+        console.log('Lanyard WebSocket connected.');
+        lanyardWebSocket.send(JSON.stringify({
+            op: 2,
+            d: {
+                subscribe_to_ids: [userId]
+            }
+        }));
+    };
+
+    lanyardWebSocket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const { op, t, d } = data;
+
+        switch (op) {
+            case 1: // Heartbeat Opcode
+                if (heartbeatInterval) {
+                    clearInterval(heartbeatInterval);
+                }
+                heartbeatInterval = setInterval(() => {
+                    lanyardWebSocket.send(JSON.stringify({ op: 3 }));
+                }, d.heartbeat_interval);
+                break;
+            case 0: // Event Opcode
+                if (t === 'PRESENCE_UPDATE') {
+                    hasReceivedInitialData = true;
+                    updatePresenceUI(d);
+                }
+                break;
+            default:
+                break;
+        }
+    };
+
+    lanyardWebSocket.onclose = (event) => {
+        console.error('Lanyard WebSocket closed:', event);
+        if (heartbeatInterval) {
+            clearInterval(heartbeatInterval);
+        }
+        // Attempt to reconnect after a short delay
+        setTimeout(initializeLanyardWebSocket, 1000);
+    };
+
+    lanyardWebSocket.onerror = (error) => {
+        console.error('Lanyard WebSocket error:', error);
+        lanyardWebSocket.close();
+    };
+}
+
+function updatePresenceUI(user) {
+    const presenceAvatar = document.getElementById('presence-avatar');
+    const presenceStatusDot = document.getElementById('presence-status-dot');
+    const presenceUsername = document.getElementById('presence-username');
+    const presenceDiscordLink = document.getElementById('presence-discord-link');
+
+    userActivities = user.activities.filter(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
+
+    if (presenceAvatar && user.discord_user) {
+        presenceAvatar.src = `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.webp`;
+    } else if (presenceAvatar) {
+        presenceAvatar.src = 'assets/logo.png';
+    }
+
+    if (presenceUsername && user.discord_user) {
+        presenceUsername.textContent = `@${user.discord_user.username}`;
+    } else if (presenceUsername) {
+        presenceUsername.textContent = '@UserNotFound';
+    }
+
+    if (presenceDiscordLink && user.discord_user) {
+        presenceDiscordLink.href = `https://discord.com/users/${user.discord_user.id}`;
+    } else if (presenceDiscordLink) {
+        presenceDiscordLink.href = '#';
+    }
+
+    let statusColor = '';
+    switch (user.discord_status) {
+        case 'online':
+            statusColor = '#43b581';
+            break;
+        case 'idle':
+            statusColor = '#faa61a';
+            break;
+        case 'dnd':
+            statusColor = '#f04747';
+            break;
+        default:
+            statusColor = '#747f8d';
+    }
+    if (presenceStatusDot) {
+        presenceStatusDot.style.backgroundColor = statusColor;
+    }
+
+    if (userActivities.length > 0) {
+        currentActivityIndex = 0;
+        displayActivity(userActivities[currentActivityIndex]);
+        setupCarouselNavigation();
+    } else {
+        displayActivity(null);
+        removeCarouselNavigation();
+    }
+}
+
+// ================== New Initialization Logic ================== //
+// We now run this function when the page loads to ensure the right order.
+
+function init() {
+    // 1. Immediately set a loading state while we fetch data.
+    setLoadingState();
+
+    // 2. Start fetching static Discord invite data. This can happen in the background.
+    fetchDiscordData();
+    fetchDiscordInviteForDesktop();
+
+    // 3. Crucially, fetch the user's presence data using the faster REST API first.
+    // We use .then() to wait for this to complete.
+    fetchInitialPresenceData().then(() => {
+        // 4. Once the initial data is loaded and displayed,
+        // establish the WebSocket connection for real-time updates.
+        initializeLanyardWebSocket();
+    });
+}
+
+// Call the new init function when the page is fully loaded.
+window.onload = init;
+
+// ================== END ================== //
+
+
+// ================== Data Loading & Table Rendering ================== //
+
 function loadAppData() {
   fetch('assets/weapon.json')
     .then(res => res.json())
@@ -309,13 +769,13 @@ function loadAppData() {
     .catch(err => console.error("Error on load:", err));
 }
 
-document.addEventListener('DOMContentLoaded', loadAppData);
-
 function renderTable(data) {
   let totalCount = 0;
   let normalCount = 0;
   let unreleasedCount = 0;
   let nothingCount = 0;
+
+  tableBody.innerHTML = ''; // Clear table before rendering
 
   data.forEach(weapon => {
     weapon.Blueprints.forEach(blueprint => {
@@ -328,25 +788,14 @@ function renderTable(data) {
       } else {
         normalCount++;
       }
-    });
-  });
 
-  totalBlueprintsSpan.textContent = totalCount;
-  normalBlueprintsSpan.textContent = normalCount;
-  unreleasedBlueprintsSpan.textContent = unreleasedCount;
-  nothingBlueprintsSpan.textContent = nothingCount;
-
-  tableBody.innerHTML = '';
-
-  data.forEach((weapon, i) => {
-    weapon.Blueprints.forEach(blueprint => {
       if (blueprint.Name === "") return;
 
       const blueprintStatus = blueprint.status || 'Normal';
       const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
 
       const row = document.createElement('tr');
-      row.className = i % 2 === 0 ? 'even' : 'odd';
+      row.className = 'data-row'; // Add a class to easily identify data rows
 
       const nameCell = document.createElement('td');
       nameCell.textContent = weapon.Name;
@@ -365,6 +814,7 @@ function renderTable(data) {
       arrow.style.width = '1.2em';
       arrow.style.textAlign = 'center';
       arrow.style.visibility = canDisplayImage ? 'visible' : 'hidden';
+      arrow.style.transition = 'transform 0.2s ease-out'; // Smooth arrow rotation
 
       const blueprintNameSpan = document.createElement('span');
       blueprintNameSpan.textContent = blueprint.Name;
@@ -391,6 +841,7 @@ function renderTable(data) {
 
       if (canDisplayImage) {
         const accordionRow = document.createElement('tr');
+        accordionRow.className = 'accordion-row'; // Add a class to easily identify accordion rows
         const accordionCell = document.createElement('td');
         accordionCell.colSpan = 4;
         accordionCell.style.padding = '0';
@@ -405,13 +856,26 @@ function renderTable(data) {
         img.style.maxWidth = '100%';
         img.style.height = 'auto';
 
+        const blueprintInfo = document.createElement('div');
+        blueprintInfo.className = 'blueprint-info';
+        blueprintInfo.innerHTML = `
+            <p><strong>Blueprint Name:</strong> ${blueprint.Name}</p>
+            <p><strong>Weapon:</strong> ${weapon.Name}</p>
+            <p><strong>Category:</strong> ${categoryMap[weapon.Category]}</p>
+            <p><strong>Pool Number:</strong> ${blueprint.Pool}</p>
+            <p><strong>Bundle Name:</strong> ${blueprint.Bundle || 'N/A'}</p>
+            <p><strong>Release Status:</strong> ${blueprintStatus}</p>
+        `;
+
         img.onerror = () => {
-          accordionContent.innerHTML = '<em>No image.</em>';
-          if (img.parentNode) {
-            img.parentNode.removeChild(img);
-          }
+          img.style.display = 'none'; // Hide broken image
+          const noImageText = document.createElement('em');
+          noImageText.textContent = 'No image available.';
+          accordionContent.prepend(noImageText); // Add "No image" text
         };
 
+        accordionContent.appendChild(img);
+        accordionContent.appendChild(blueprintInfo);
         accordionCell.appendChild(accordionContent);
         accordionRow.appendChild(accordionCell);
         tableBody.appendChild(accordionRow);
@@ -422,14 +886,18 @@ function renderTable(data) {
           e.stopPropagation();
           const isVisible = accordionContent.classList.contains('expanded');
 
-          if (!imageCheckbox.checked){
+          // Close all other expanded accordions if "Show All Previews" is not checked
+          if (!imageCheckbox.checked) {
             document.querySelectorAll('#pullsTable tbody tr div.expanded').forEach(div => {
-              div.classList.remove('expanded');
-              const parentAccordionRow = div.closest('tr');
-              const dataRow = parentAccordionRow?.previousElementSibling;
-              const associatedArrow = dataRow?.querySelector('span');
-              if (associatedArrow) {
-                associatedArrow.textContent = '▶';
+              if (div !== accordionContent) { // Don't collapse the current one
+                div.classList.remove('expanded');
+                const parentAccordionRow = div.closest('tr');
+                const dataRow = parentAccordionRow?.previousElementSibling;
+                const associatedArrow = dataRow?.querySelector('span');
+                if (associatedArrow) {
+                  associatedArrow.textContent = '▶';
+                  associatedArrow.style.transform = 'rotate(0deg)';
+                }
               }
             });
           }
@@ -437,51 +905,45 @@ function renderTable(data) {
           if (!isVisible) {
             accordionContent.classList.add('expanded');
             arrow.textContent = '▼';
+            arrow.style.transform = 'rotate(180deg)'; // Changed from 90deg to 180deg for down arrow
 
             if (!imageLoaded && img.dataset.src) {
               img.src = img.dataset.src;
-              if (!accordionContent.contains(img)) {
-                accordionContent.appendChild(img);
-              }
               imageLoaded = true;
             }
           } else {
             accordionContent.classList.remove('expanded');
             arrow.textContent = '▶';
+            arrow.style.transform = 'rotate(0deg)'; // Reset arrow rotation
           }
         });
 
+        // Initial state for "Show All Previews"
         if (imageCheckbox.checked) {
           accordionContent.classList.add('expanded');
           arrow.textContent = '▼';
-          if (img && img.dataset.src && !img.src) {
+          arrow.style.transform = 'rotate(180deg)'; // Changed from 90deg to 180deg for down arrow
+          if (!imageLoaded && img.dataset.src) {
             img.src = img.dataset.src;
-          }
-          if (img && !accordionContent.contains(img)) {
-            accordionContent.appendChild(img);
-          } else if (!img && !accordionContent.querySelector('em')) {
-            const tempImg = document.createElement('img');
-            const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
-            if (blueprintName) {
-              tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
-              tempImg.alt = blueprintName;
-              tempImg.style.maxWidth = '100%';
-              tempImg.style.height = 'auto';
-              tempImg.onerror = () => {
-                accordionContent.innerHTML = '<em>No image.</em>';
-              };
-              tempImg.src = tempImg.dataset.src;
-              accordionContent.appendChild(tempImg);
-            } else {
-              accordionContent.innerHTML = '<em>No image.</em>';
-            }
+            imageLoaded = true;
           }
         }
       }
     });
   });
-  applyImageToggle();
+
+  totalBlueprintsSpan.textContent = totalCount;
+  normalBlueprintsSpan.textContent = normalCount;
+  unreleasedBlueprintsSpan.textContent = unreleasedCount;
+  nothingBlueprintsSpan.textContent = nothingCount;
+
+  applyImageToggle(); // Re-apply toggle state after rendering
 }
+
+// ================== END ================== //
+
+
+// ================== Filter Functionality ================== //
 
 function populateCategoryFilter() {
   categoryFilterContainer.innerHTML = '';
@@ -509,11 +971,11 @@ function populateCategoryFilter() {
   buttonContainer.appendChild(deselectAllBtn);
   categoryFilterContainer.appendChild(buttonContainer);
 
-  const uniqueCategories = [...new Set(Weapons.map(w => categoryMap[w.Category]))];
+  const uniqueCategories = [...new Set(Weapons.map(w => categoryMap[w.Category]))].sort(); // Sort categories alphabetically
 
   uniqueCategories.forEach(cat => {
     const label = document.createElement('label');
-    label.style.display = 'block';
+    label.className = 'category-checkbox-item'; // Add new class for styling
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -556,7 +1018,7 @@ function populatePoolFilter() {
   const checkboxesContainer = document.createElement('div');
   checkboxesContainer.className = 'checkboxes-container';
 
-  const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))];
+  const uniquePools = [...new Set(Weapons.flatMap(w => w.Blueprints.map(bp => bp.Pool)))].sort((a, b) => a - b); // Sort numerically
 
   const half = Math.ceil(uniquePools.length / 2);
   const left = uniquePools.slice(0, half);
@@ -687,66 +1149,36 @@ function applyFilters() {
   renderTable(filtered);
 }
 
-searchInput.addEventListener('input', applyFilters);
-
-imageCheckbox.addEventListener('change', () => {
-  applyFilters();
-});
-
 function applyImageToggle() {
-  const accordionRows = Array.from(document.querySelectorAll('#pullsTable tbody tr')).filter(row => {
-    const isAccordionRow = row.querySelector('td[colspan="4"]');
-    if (!isAccordionRow) return false;
-
-    const dataRow = row.previousElementSibling;
-    const blueprintNameCell = dataRow?.querySelector('td:nth-child(3)');
-    const blueprintNameSpan = blueprintNameCell?.querySelector('span:last-child');
-    const blueprintName = blueprintNameSpan ? blueprintNameSpan.textContent.trim() : '';
-
-    const hasImageClass = blueprintNameSpan && (
-        blueprintNameSpan.classList.contains('status-released') ||
-        blueprintNameSpan.classList.contains('status-unreleased')
-    );
-
-    return hasImageClass;
-  });
+  const accordionRows = document.querySelectorAll('#pullsTable tbody tr.accordion-row');
 
   accordionRows.forEach(accordionRow => {
     const accordionContent = accordionRow.querySelector('div.accordion-content');
     const dataRow = accordionRow.previousElementSibling;
     const arrow = dataRow?.querySelector('span');
     const img = accordionContent?.querySelector('img');
+    const blueprintNameSpan = dataRow?.querySelector('td:nth-child(3) span:last-child');
+    const blueprintStatus = blueprintNameSpan ? (blueprintNameSpan.classList.contains('status-released') ? 'RELEASED' : (blueprintNameSpan.classList.contains('status-unreleased') ? 'UNRELEASED' : 'Normal')) : 'Normal';
+    const canDisplayImage = blueprintStatus !== "NOTHING" && blueprintStatus !== "NOTEXTURE";
 
-    if (accordionContent && arrow) {
+    if (accordionContent && arrow && canDisplayImage) {
       if (imageCheckbox.checked) {
         accordionContent.classList.add('expanded');
         arrow.textContent = '▼';
+        arrow.style.transform = 'rotate(180deg)';
         if (img && img.dataset.src && !img.src) {
           img.src = img.dataset.src;
-        }
-        if (img && !accordionContent.contains(img)) {
-          accordionContent.appendChild(img);
-        } else if (!img && !accordionContent.querySelector('em')) {
-          const tempImg = document.createElement('img');
-          const blueprintName = dataRow?.querySelector('td:nth-child(3)')?.textContent.replace(/[▶▼]/g, '').trim();
-          if (blueprintName) {
-            tempImg.dataset.src = `assets/blueprints/images/${dataRow.querySelector('td:nth-child(1)').textContent}/${blueprintName}.jpg`;
-            tempImg.alt = blueprintName;
-            tempImg.style.maxWidth = '100%';
-            tempImg.style.height = 'auto';
-            tempImg.onerror = () => {
-              accordionContent.innerHTML = '<em>No image.</em>';
-            };
-            tempImg.src = tempImg.dataset.src;
-            accordionContent.appendChild(tempImg);
-          } else {
-            accordionContent.innerHTML = '<em>No image.</em>';
-          }
         }
       } else {
         accordionContent.classList.remove('expanded');
         arrow.textContent = '▶';
+        arrow.style.transform = 'rotate(0deg)';
       }
+    } else if (arrow) {
+        arrow.style.visibility = 'hidden';
+        if (accordionContent) {
+            accordionContent.classList.remove('expanded');
+        }
     }
   });
 }
@@ -763,73 +1195,10 @@ function closeAllDropdowns() {
   });
 }
 
-toggleCategoryDropdown.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isHidden = categoryFilterContainer.classList.contains('hidden');
-  if (isHidden) {
-    closeAllDropdowns();
-    categoryFilterContainer.classList.remove('hidden');
-    categoryArrow.textContent = '▲';
-  } else {
-    categoryFilterContainer.classList.add('hidden');
-    categoryArrow.textContent = '▼';
-  }
-});
+// ================== END ================== //
 
-document.addEventListener('click', (e) => {
-  if (!categoryFilterContainer.contains(e.target) &&
-      !toggleCategoryDropdown.contains(e.target)) {
-    if (!categoryFilterContainer.classList.contains('hidden')) {
-      categoryFilterContainer.classList.add('hidden');
-      categoryArrow.textContent = '▼';
-    }
-  }
-});
 
-togglePoolDropdown.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isHidden = poolFilterContainer.classList.contains('hidden');
-  if (isHidden) {
-    closeAllDropdowns();
-    poolFilterContainer.classList.remove('hidden');
-    poolArrow.textContent = '▲';
-  } else {
-    poolFilterContainer.classList.add('hidden');
-    poolArrow.textContent = '▼';
-  }
-});
-
-document.addEventListener('click', (e) => {
-  if (!poolFilterContainer.contains(e.target) && !togglePoolDropdown.contains(e.target)) {
-    if (!poolFilterContainer.classList.contains('hidden')) {
-      poolFilterContainer.classList.add('hidden');
-      poolArrow.textContent = '▼';
-    }
-  }
-});
-
-toggleStatusDropdown.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isHidden = statusFilterContainer.classList.contains('hidden');
-    if (isHidden) {
-      closeAllDropdowns();
-      statusFilterContainer.classList.remove('hidden');
-      statusArrow.textContent = '▲';
-    } else {
-      statusFilterContainer.classList.add('hidden');
-      statusArrow.textContent = '▼';
-    }
-});
-
-document.addEventListener('click', (e) => {
-    if (!statusFilterContainer.contains(e.target) &&
-        !toggleStatusDropdown.contains(e.target)) {
-      if (!statusFilterContainer.classList.contains('hidden')) {
-        statusFilterContainer.classList.add('hidden');
-        statusArrow.textContent = '▼';
-      }
-    }
-});
+// ================== Modal & UI Interactions ================== //
 
 function populateChangelog() {
   changelogContentDiv.innerHTML = '';
@@ -860,16 +1229,6 @@ function hideChangelogModal() {
   changelogModal.classList.remove('visible');
 }
 
-changelogButton.addEventListener('click', showChangelogModal);
-
-closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
-
-changelogModal.addEventListener('click', (e) => {
-  if (e.target === changelogModal) {
-    hideChangelogModal();
-  }
-});
-
 function showHowToUseModal() {
   howToUseModal.classList.add('visible');
   showHowToTab('explanation');
@@ -878,16 +1237,6 @@ function showHowToUseModal() {
 function hideHowToUseModal() {
   howToUseModal.classList.remove('visible');
 }
-
-howToUseButton.addEventListener('click', showHowToUseModal);
-
-closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
-
-howToUseModal.addEventListener('click', (e) => {
-  if (e.target === howToUseModal) {
-    hideHowToUseModal();
-  }
-});
 
 function showHowToTab(tabId) {
   const tabButtons = document.querySelectorAll('.how-to-tabs .tab-button');
@@ -907,18 +1256,6 @@ function showHowToTab(tabId) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const howToUseTabs = document.querySelector('.how-to-tabs');
-    if (howToUseTabs) {
-        howToUseTabs.addEventListener('click', (event) => {
-            if (event.target.classList.contains('tab-button')) {
-                const tabId = event.target.dataset.tab;
-                showHowToTab(tabId);
-            }
-        });
-    }
-});
-
 function showChangelogOnPageLoad() {
   showChangelogModal();
 }
@@ -934,17 +1271,31 @@ function adjustTableContainerHeight() {
     const mainContainerPaddingBottom = parseFloat(getComputedStyle(mainContainer).paddingBottom);
     const mainContainerMarginBottom = parseFloat(getComputedStyle(mainContainer).marginBottom);
 
-    const elementsAboveTableHeight = document.getElementById('searchView').offsetHeight +
-                                    document.querySelector('.checkbox-controls').offsetHeight +
-                                    document.querySelector('.blueprint-counters').offsetHeight;
+    let elementsAboveTableHeight = 0;
+    if (window.innerWidth > 768) {
+        const searchViewElement = document.getElementById('searchView');
+        const buttonGroupCentered = document.querySelector('.button-group-centered');
+        const blueprintCounters = document.querySelector('.blueprint-counters');
+
+        if (searchViewElement) elementsAboveTableHeight += searchViewElement.offsetHeight;
+        if (buttonGroupCentered) elementsAboveTableHeight += buttonGroupCentered.offsetHeight;
+        if (blueprintCounters) elementsAboveTableHeight += blueprintCounters.offsetHeight;
+
+    } else {
+        const searchViewElement = document.getElementById('searchView');
+        const mobileCheckboxControls = document.querySelector('.checkbox-controls.mobile-only');
+        const blueprintCounters = document.querySelector('.blueprint-counters');
+
+        if (searchViewElement) elementsAboveTableHeight += searchViewElement.offsetHeight;
+        if (mobileCheckboxControls) elementsAboveTableHeight += mobileCheckboxControls.offsetHeight;
+        if (blueprintCounters) elementsAboveTableHeight += blueprintCounters.offsetHeight;
+    }
 
     const buffer = mainContainerPaddingTop + mainContainerPaddingBottom + mainContainerMarginBottom;
 
     tableContainer.style.maxHeight = `calc(${mainContainer.clientHeight}px - ${elementsAboveTableHeight}px - 30px)`;
   }
 }
-
-window.addEventListener('resize', adjustTableContainerHeight);
 
 function populateBugLog() {
   bugLogContentDiv.innerHTML = '';
@@ -975,16 +1326,6 @@ function hideBugLogModal() {
   bugLogModal.classList.remove('visible');
 }
 
-bugLogButton.addEventListener('click', showBugLogModal);
-
-closeBugLogModalBtn.addEventListener('click', hideBugLogModal);
-
-bugLogModal.addEventListener('click', (e) => {
-  if (e.target === bugLogModal) {
-    hideBugLogModal();
-  }
-});
-
 function showClearStorageModal() {
     clearStorageModal.classList.add('visible');
 }
@@ -993,7 +1334,6 @@ function hideClearStorageModal() {
     clearStorageModal.classList.remove('visible');
 }
 
-// New functions for Discord Announcement Modal
 function showDiscordAnnouncementModal() {
     discordAnnouncementModal.classList.add('visible');
 }
@@ -1002,44 +1342,354 @@ function hideDiscordAnnouncementModal() {
     discordAnnouncementModal.classList.remove('visible');
 }
 
+// ================== END ================== //
 
-document.addEventListener('DOMContentLoaded', () => {
-    const clearStorageButton = document.getElementById('clearStorageButton');
 
-    if (clearStorageButton) {
-        clearStorageButton.addEventListener('click', () => {
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+// ================== UI & Interface Management ================== //
 
+function initializeSearchInput() {
+    const searchInput = document.getElementById('search');
+    let storedValue = '';
+
+    if (searchInput) {
+        searchInput.addEventListener('blur', function() {
+            storedValue = this.value;
+        });
+
+        searchInput.addEventListener('focus', function() {
+            this.value = storedValue;
+        });
+    }
+}
+
+function initializeAnnouncementBanner() {
+  const announcementTextElement = document.getElementById('announcement-text');
+
+  const messages = [
+    { text: 'sorry for the inconvenience on downtime.', duration: 10000 },
+    { text: 'if you encounter any problems', duration: 5000 },
+    { text: 'please contact me on discord <a href="https://discord.com/users/1285264427540545588" style="font-weight: bold; color: #4A8CD4; text-decoration: none;">@Softlist</a>', duration: 10000 } // Set a duration for the last message
+  ];
+
+  let currentIndex = 0;
+
+  function showNextMessage() {
+    const currentMessage = messages[currentIndex];
+    announcementTextElement.innerHTML = currentMessage.text;
+
+    currentIndex = (currentIndex + 1) % messages.length;
+
+    setTimeout(showNextMessage, currentMessage.duration);
+  }
+
+  showNextMessage();
+}
+
+function initializeModalEventListeners() {
+    const confirmClearStorageBtn = document.getElementById('confirmClearStorageBtn');
+    if (confirmClearStorageBtn) {
+        confirmClearStorageBtn.addEventListener('click', () => {
+            localStorage.removeItem('blubase_api_key');
+            localStorage.removeItem('blubase_api_key_expiry');
+            localStorage.removeItem('blubase_api_key_original');
+
+            document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+            const clearStorageModal = document.getElementById('clearStorageModal');
+            if (clearStorageModal) {
+                clearStorageModal.classList.add('hidden');
+            }
+
+            setTimeout(() => {
+                window.location.replace('/endkey');
+            }, 2000);
+        });
+    }
+
+    const goToDiscordEmbedBtn = document.getElementById('goToDiscordEmbedBtn');
+    if (goToDiscordEmbedBtn) {
+        goToDiscordEmbedBtn.addEventListener('click', () => {
+            window.open('https://discord.gg/7mfEwgUT8H', '_blank');
+        });
+    }
+}
+
+// ================== END ================== //
+
+
+// ================== Event Listeners ================== //
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Desktop contributions button
+    if (contributionsButtonDesktop) {
+        contributionsButtonDesktop.addEventListener('click', function() {
+            window.location.href = 'https://blunet.wtf/HOH';
+        });
+    }
+    // Mobile contributions button
+    if (contributionsButtonMobile) {
+        contributionsButtonMobile.addEventListener('click', function() {
+            window.location.href = 'https://blunet.wtf/HOH';
+        });
+    }
+
+    // Event listener for the Discord announcement link
+    if (discordAnnouncementLink) {
+        discordAnnouncementLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showDiscordAnnouncementModal();
+        });
+    }
+
+    // Event listeners for the Discord announcement modal buttons
+    if (closeDiscordAnnouncementModalBtn) {
+        closeDiscordAnnouncementModalBtn.addEventListener('click', hideDiscordAnnouncementModal);
+    }
+    if (goToDiscordBtn) {
+        goToDiscordBtn.addEventListener('click', () => {
+            window.open('https://discord.com/oauth2/authorize?client_id=1397393308086440040&scope=bot&permissions=24', '_blank');
+            hideDiscordAnnouncementModal();
+        });
+    }
+    if (cancelDiscordModalBtn) {
+        cancelDiscordModalBtn.addEventListener('click', hideDiscordAnnouncementModal);
+    }
+    if (discordAnnouncementModal) {
+        discordAnnouncementModal.addEventListener('click', (e) => {
+            if (e.target === discordAnnouncementModal) {
+                hideDiscordAnnouncementModal();
+            }
+        });
+    }
+
+    // Filter dropdown toggles
+    toggleCategoryDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = categoryFilterContainer.classList.contains('hidden');
+        if (isHidden) {
+            closeAllDropdowns();
+            categoryFilterContainer.classList.remove('hidden');
+            categoryArrow.textContent = '▲';
+        } else {
+            categoryFilterContainer.classList.add('hidden');
+            categoryArrow.textContent = '▼';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!categoryFilterContainer.contains(e.target) &&
+            !toggleCategoryDropdown.contains(e.target)) {
+            if (!categoryFilterContainer.classList.contains('hidden')) {
+                categoryFilterContainer.classList.add('hidden');
+                categoryArrow.textContent = '▼';
+            }
+        }
+    });
+
+    togglePoolDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = poolFilterContainer.classList.contains('hidden');
+        if (isHidden) {
+            closeAllDropdowns();
+            poolFilterContainer.classList.remove('hidden');
+            poolArrow.textContent = '▲';
+        } else {
+            poolFilterContainer.classList.add('hidden');
+            poolArrow.textContent = '▼';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!poolFilterContainer.contains(e.target) && !togglePoolDropdown.contains(e.target)) {
+            if (!poolFilterContainer.classList.contains('hidden')) {
+                poolFilterContainer.classList.add('hidden');
+                poolArrow.textContent = '▼';
+            }
+        }
+    });
+
+    toggleStatusDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = statusFilterContainer.classList.contains('hidden');
+        if (isHidden) {
+            closeAllDropdowns();
+            statusFilterContainer.classList.remove('hidden');
+            statusArrow.textContent = '▲';
+        } else {
+            statusFilterContainer.classList.add('hidden');
+            statusArrow.textContent = '▼';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!statusFilterContainer.contains(e.target) &&
+            !toggleStatusDropdown.contains(e.target)) {
+            if (!statusFilterContainer.classList.contains('hidden')) {
+                statusFilterContainer.classList.add('hidden');
+                statusArrow.textContent = '▼';
+            }
+        }
+    });
+
+    // Changelog Modal
+    changelogButton.addEventListener('click', showChangelogModal);
+    closeChangelogModalBtn.addEventListener('click', hideChangelogModal);
+    changelogModal.addEventListener('click', (e) => {
+        if (e.target === changelogModal) {
+            hideChangelogModal();
+        }
+    });
+
+    // How To Use Modal
+    howToUseButton.addEventListener('click', showHowToUseModal);
+    closeHowToUseModalBtn.addEventListener('click', hideHowToUseModal);
+    howToUseModal.addEventListener('click', (e) => {
+        if (e.target === howToUseModal) {
+            hideHowToUseModal();
+        }
+    });
+    const howToUseTabs = document.querySelector('.how-to-tabs');
+    if (howToUseTabs) {
+        howToUseTabs.addEventListener('click', (event) => {
+            if (event.target.classList.contains('tab-button')) {
+                const tabId = event.target.dataset.tab;
+                showHowToTab(tabId);
+            }
+        });
+    }
+
+    // Bug Log Modal
+    bugLogButton.addEventListener('click', showBugLogModal);
+    closeBugLogModalBtn.addEventListener('click', hideBugLogModal);
+    bugLogModal.addEventListener('click', (e) => {
+        if (e.target === bugLogModal) {
+            hideBugLogModal();
+        }
+    });
+
+    // Clear Storage Modal
+    if (clearStorageButtonDesktop) {
+        clearStorageButtonDesktop.addEventListener('click', () => {
+            const isMobile = window.innerWidth <= 768;
             if (isMobile) {
-
                 showClearStorageModal();
             } else {
-
-                const confirmationMessage = 'Thank your for using Parsed.top created by parse... The page will reload.';
+                const confirmationMessage = 'Thank you for using Parsed.top created by parse... The page will reload.';
                 if (confirm(confirmationMessage)) {
-                    localStorage.removeItem('blubase_verified');
+                    // Clear all relevant local storage items for desktop
+                    localStorage.removeItem('blubase_api_key');
+                    localStorage.removeItem('blubase_api_key_expiry');
+                    localStorage.removeItem('blubase_api_key_original');
+                    document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                     window.location.replace('/verify');
                 }
             }
         });
     }
-
+    if (clearStorageButtonMobile) {
+        clearStorageButtonMobile.addEventListener('click', () => {
+            showClearStorageModal();
+        });
+    }
+    // This confirmClearStorageBtn is used by the mobile modal
     confirmClearStorageBtn.addEventListener('click', () => {
-        localStorage.removeItem('blubase_verified');
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+        localStorage.removeItem('blubase_api_key_original');
+        document.cookie = 'blubase_verified=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         window.location.replace('/verify');
     });
-
     cancelClearStorageBtn.addEventListener('click', () => {
         hideClearStorageModal();
     });
-
     closeClearStorageModalBtn.addEventListener('click', () => {
         hideClearStorageModal();
     });
-
     clearStorageModal.addEventListener('click', (e) => {
         if (e.target === clearStorageModal) {
             hideClearStorageModal();
         }
     });
+
+    // Search input and image checkbox
+    searchInput.addEventListener('input', applyFilters);
+    imageCheckbox.addEventListener('change', () => {
+        applyImageToggle();
+    });
+
+    // Adjust table height on resize
+    window.addEventListener('resize', adjustTableContainerHeight);
+
+    // Initial data load
+    loadAppData();
 });
+// ================== END ================== //
+
+
+// ================== Initialization & Main Logic ================== //
+
+async function initializeApp() {
+    const userIP = await getUserIP();
+    console.log("User IP detected:", userIP);
+
+    if (userIP && isIPBlacklisted(userIP)) {
+        console.warn("Blacklisted IP detected. Redirecting to blocked.html.");
+        localStorage.removeItem('blubase_api_key');
+        localStorage.removeItem('blubase_api_key_expiry');
+        localStorage.removeItem('blubase_api_key_original');
+        window.location.replace('/blocked');
+        return;
+    } else if (userIP) {
+        console.log("User IP not blacklisted.");
+    } else {
+        console.warn("Could not get user IP. Proceeding without blacklist check.");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        checkAPIKeyAndRedirect(true);
+    });
+
+    window.addEventListener('storage', (event) => {
+        console.log("Storage event detected for key:", event.key);
+        if (event.key === 'blubase_api_key' || event.key === 'blubase_api_key_expiry' || event.key === 'blubase_api_key_original') {
+            checkAPIKeyAndRedirect(false);
+        }
+    });
+
+    window.addEventListener('focus', () => {
+        console.log("Window focus detected. Re-checking API key status.");
+        checkAPIKeyAndRedirect(false);
+    });
+}
+
+// ================== END ================== //
+
+
+// ================== Window Load Event ================== //
+
+window.addEventListener('load', () => {
+    if (window.va && typeof window.va.track === 'function') {
+        // Analytics tracking code would go here
+    } else {
+        // Fallback or alternative tracking
+    }
+
+    initializeSearchInput();
+    initializeAnnouncementBanner();
+    initializeModalEventListeners();
+
+    fetchDiscordData();
+
+    if (window.innerWidth > 768) {
+        fetchDiscordInviteForDesktop();
+        // REMOVE OR COMMENT OUT THE LINE BELOW
+        // fetchDiscordPresence(); // This line is causing the error
+        initializeLanyardWebSocket(); // Ensure Lanyard WebSocket is initialized for presence
+    }
+    // If you want Lanyard presence on mobile too, move initializeLanyardWebSocket() outside the if (window.innerWidth > 768) block.
+});
+
+// Initialize the app
+initializeApp();
+
+// ================== END ================== //

@@ -1,186 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blu Base</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        ::-webkit-scrollbar { width: 0px; height: 0px; background: transparent; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: transparent; }
-        html { scrollbar-width: none; }
-        
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #0B1738;
-            color: #D0D8E8;
-            margin: 0;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <title>Blu Base | Desktop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/pucbmh.png">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
+  <link rel="preload" href="https://files.catbox.moe/pucbmh.png" as="image">
+  <link rel="preload" href="assets/wallpaper.mp4" as="video" type="video/mp4">
 
-        .themed-container {
-            position: relative;
-            background: rgba(11, 23, 56, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(44, 72, 124, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all 0.5s ease-in-out;
-            zoom:0.8;
-        }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Blu Base" />
+  <meta property="og:description" content="your no.1 bp pull db!" />
+  <meta property="og:image" content= />
+  <meta property="og:url" content="https://parsegod.github.io/BP-Pull-DB/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blu Base" />
 
-        .motto-heading {
-            font-family: 'Dancing Script', cursive;
-            background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            font-weight: bold;
-            text-shadow: 0 0 8px rgba(31, 190, 190, 0.7), 0 0 15px rgba(11, 23, 56, 0.7);
-        }
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blu Base">
+  <meta name="twitter:description" content="your no.1 bp pull db!">
+  <meta name="twitter:image" content=>
 
-        .themed-btn-gradient {
-            background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
-        }
+  <script>
+    function handleRedirect() {
+        const mobileBreakpoint = 768; 
 
-        .spin-slowly {
-            animation: spin 8s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        const isMobileSize = window.innerWidth < mobileBreakpoint;
+        const isMobilePage = window.location.href.includes('mobile-test.html');
+        const isDesktopPage = window.location.href.includes('test-index.html');
 
-        .pulse-text {
-            animation: pulseText 1.8s infinite alternate;
+        if (!isMobileSize && !isDesktopPage) {
+            window.location.href = 'test-index.html';
         }
-        @keyframes pulseText {
-            from { transform: scale(1); opacity: 1; }
-            to { transform: scale(1.03); opacity: 0.95; }
+        if (isMobileSize && !isMobilePage) {
+            window.location.href = 'mobile-test.html';
         }
+    }
 
-        @keyframes floatAndFade {
-            0% {
-                transform: translateY(0);
-                opacity: 0.8;
-            }
-            50% {
-                transform: translateY(-5px);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 0.8;
-            }
-        }
-        .float-and-fade {
-            animation: floatAndFade 4s ease-in-out infinite;
-        }
+    window.onload = handleRedirect;
 
-        @media (max-width: 480px) {
-            .themed-container {
-                padding: 1rem;
-            }
-            .themed-container img {
-                width: 80px;
-            }
-            .motto-heading {
-                font-size: 1.5rem;
-            }
-            .themed-btn-gradient {
-                font-size: 0.875rem;
-                padding: 0.75rem 1.5rem;
-            }
-        }
-    </style>
+    window.addEventListener('resize', handleRedirect);
+  </script>
+
+  <script src="/_vercel/insights/script.js"></script>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 overflow-hidden">
-
-    <video autoplay muted loop playsinline class="video-background">
-        <source src="assets/wallpaper.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+<body>
+  <div class="video-background">
+    <video id="backgroundVideo" autoplay loop muted playsinline>
+      <source src="assets/wallpaper.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
-    <div class="relative z-10 text-center themed-container p-6 sm:p-8 md:p-12 w-full max-w-md transition-all duration-500 hover:scale-105">
-        
-        <div class="mb-4">
-            <p class="font-bold text-red-500">
-             We have received a lot of suspicious IP activity on our site lately lol. Whoever is trying to infiltrate, please stop trying. 😊
-            </p>
-        </div>
+  </div>
 
-        <div class="border-b border-gray-700 w-full mb-4 opacity-50"></div>
-
-        <div class="mb-2">
-            <i class="fas fa-cog text-4xl sm:text-5xl md:text-6xl text-[#7CA0E0] spin-slowly"></i>
-        </div>
-
-        <p class="text-sm sm:text-base md:text-lg mb-2 opacity-90">
-            I am updating the site as fast as possible, it should be back online soon.
-        </p>
-
-        <p class="float-and-fade font-bold text-xl sm:text-2xl md:text-3xl text-white opacity-80 mb-4" style="font-family: 'Dancing Script', cursive;">- Parse (@softlist)</p>
-        
-        <div class="border-b border-gray-700 w-full mb-4 opacity-50"></div>
-        
-        <div id="countdown-timer" class="font-bold text-xl sm:text-2xl mb-2"></div>
-        <p class="text-gray-400 text-sm opacity-80">
-            you can find the alt site <a href="https://liamcky.github.io/BlueprintPulling/" class="text-gray-500 hover:text-white transition-colors duration-200" target="_blank">here</a> if you want out-of-date data or you can just suck it up and wait until tomorrow morning thanks 🫱🏻‍🫲🏼
-        </p>
-        
-        <div class="border-b border-gray-700 w-full mb-4 mt-6 opacity-50"></div>
-
-        <div class="flex justify-center mt-6">
-            <a href="http://discord.gg/notpublicyet" class="inline-block themed-btn-gradient hover:opacity-90 transition-all duration-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg">
-                <span class="pulse-text">Join Us on Discord for Real-Time Updates on Blubase</span>
-            </a>
-        </div>
-
-        <p class="text-xs sm:text-sm opacity-60 mt-8">
-            &copy; 2025 Blu Base. All Rights Reserved.
-        </p>
+  <div id="loadingScreen">
+    <div class="loading-content">
+      <div id="loadingBarContainer">
+        <div id="loadingBar"></div>
+      </div>
+      <div id="loadingText">LOADING ASSETS: <span class="bold-green-percentage">0%</span></div>
+      <div id="loadingAssetText">Initializing.</div>
     </div>
-    
-    <script>
-        const targetTime = new Date();
-        targetTime.setHours(14, 30, 69, 69);
-        
-        if (new Date() > targetTime) {
-            targetTime.setDate(targetTime.getDate() + 1);
-        }
+  </div>
 
-        const countdownElement = document.getElementById('countdown-timer');
+  <div id="mainContent">
+ <div class="announcement-banner">
+      <p> <span id="announcement-text"></span><span class="gradient-heart">🖤</span></p>
+    </div>
 
-        const countdownInterval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetTime - now;
+    <!-- Renamed from discordStatusContainer -->
+    <div id="discordInviteContainer" class="discord-invite-container desktop-only">
+      <div class="discord-invite-header">
+        <img id="discord-invite-server-icon" src="assets/logo.png" alt="Server Icon">
+        <h3 id="discord-invite-guild-name">Loading...</h3>
+      </div>
+      <div class="discord-invite-members">
+        <span class="discord-invite-online"><span class="dot online"></span><span id="discord-invite-online-count">0</span>&nbsp;Online</span>
+        <span class="discord-invite-total"><span class="dot total"></span><span id="discord-invite-total-members">0</span>&nbsp;Members</span>
+      </div>
+      <a href="http://NULL/" target="_blank" class="discord-invite-button">Join Discord</a>
+    </div>
 
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    <!-- New container for Discord Presence -->
+    <div id="discordPresenceContainer" class="discord-presence-container desktop-only">
+      <div class="discord-presence-card">
+        <div class="discord-presence-header-section">
+          <div class="discord-presence-avatar-wrapper">
+            <img id="presence-avatar" src="https://cdn.discordapp.com/avatars/1285264427540545588/ca1fa1155805af3be2c9e8e88ff644cb.webp" alt="User Avatar" class="discord-presence-avatar">
+            <div id="presence-status-dot" class="discord-presence-status-dot"></div>
+          </div>
+          <div class="discord-presence-user-info">
+            <h2 id="presence-username" class="discord-presence-username">@softlist</h2>
+            <p id="presence-activity-name" class="discord-presence-activity-name">Loading activity...</p>
+          </div>
+          <a id="presence-discord-link" href="https://discord.com/users/1285264427540545588" target="_blank" class="discord-presence-add-button">
 
-            countdownElement.innerHTML = `Estimated Downtime: ${hours}h ${minutes}m ${seconds}s`;
+            <svg xmlns="http://www.w3.org/2000/svg" class="discord-presence-arrow-icon" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="discord-presence-divider"></div>
+        <div class="discord-presence-activity-details">
+          <div id="presence-carousel" class="discord-presence-carousel">
+            <div class="discord-presence-carousel-item">
+              <img id="presence-large-image" src="" alt="Large Image" class="discord-presence-large-image" style="display:none;">
+              <div class="discord-presence-text-details">
+                <p id="presence-details-text" class="discord-presence-detail-text"></p>
+                <p id="presence-state-text" class="discord-presence-detail-text"></p>
+                <p id="presence-elapsed-time" class="discord-presence-detail-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                countdownElement.innerHTML = "We're back online!";
-            }
-        }, 1000);
-    </script>
+    <div class="button-group-centered-outer">
+        <div class="button-group-centered desktop-only">
+            <button id="clearStorageButton" class="changelog-button">Clear Local Storage</button>
+            <button id="discordButton" class="changelog-button" onclick="window.open('https://discord.com/oauth2/authorize?client_id=1397393308086440040&scope=bot&permissions=24', '_blank')">Add Our Discord Bot</button>
+            <button id="contributionsButton" class="changelog-button" onclick="window.location.href='/HOH'">HOH</button>
+        </div>
+    </div>
+
+    <div class="container">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+
+      <button id="bugLogButton" class="changelog-button bug-log-button-positioned desktop-only">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
+          <style type="text/css">
+            .st0{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+          </style>
+          <path class="st0" d="M29,15h-5.1c-0.1-1.2-0.5-2.4-1-3.5c1.9-1.5,3.1-3.7,3.1-6.1V5c0-0.6-0.4-1-1-1s-1,0.4-1,1v0.4c0,1.8-0.8,3.4-2.2,4.5 C19.5,8.8,18.8,8.2,18.1,7.7c0-0.1,0-0.1,0-0.2c0-2.2-1.8-4-4-4s-4,1.8-4,4c0,0.1,0,0.1,0,0.2c-0.7,0.5-1.3,1-1.9,1.7 C8.8,8.8,8,7.2,8,5.4V5c0-0.6-0.4-1-1-1S6,4.4,6,5v0.4c0,2.4,1.1,4.7,3.1,6.1c-0.5,1-0.9,2.2-1,3.5H3c-0.6,0-1,0.4-1,1s0.4,1,1,1 h5.1c0.1,1.2,0.5,2.4,1,3.5C7.1,21.9,6,24.2,6,26.6V27c0,0.6,0.4,1,1,1s1-0.4,1-1v-0.4c0-1.8,0.8-3.4,2.2-4.5 c1.5,1.8,3.5,2.9,5.8,2.9s4.4-1.1,5.8-2.9c1.4,1.1,2.2,2.7,2.2,4.5V27c0,0.6,0.4,1,1,1s1-0.4,1-1v-0.4c0-2.4-1.1-4.7-3.1-6.1 c0.5-1,0.9-2.2,1-3.5H29c0.6,0,1-0.4,1-1S29.6,15,29,15z"></path>
+        </svg>
+      </button>
+
+      <div class="search-filter-section">
+        <div id="searchView"> 
+          <div class="search-bar-row">
+            <input type="search" id="search" placeholder="      ..." class="centered-search-input" />
+          </div>
+          <div class="filter-dropdown-group">
+            <div class="filter-dropdown">
+              <button id="toggleCategoryDropdown" type="button">
+                Filter Category <span id="categoryArrow">▼</span>
+              </button>
+              <div id="categoryCheckboxes" class="dropdown-panel hidden"></div>
+            </div>
+
+            <div class="filter-dropdown">
+               <button id="togglePoolDropdown" type="button">
+                 Filter Pool <span id="poolArrow">▼</span>
+               </button>
+               <div id="poolCheckboxes" class="dropdown-panel hidden"></div>
+            </div>
+
+            <div class="filter-dropdown">
+              <button id="toggleStatusDropdown" type="button">
+                Filter Status <span id="statusArrow">▼</span>
+              </button>
+              <div id="statusCheckboxes" class="dropdown-panel hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkbox-controls mobile-only">
+          <label for="imageCheckbox">
+            <input type="checkbox" id="imageCheckbox" name="imageCheckbox" value="">
+            Show All Previews
+          </label>
+          <button id="changelogButton" class="changelog-button">View Changelog</button>
+          <button id="howToUseButton" class="changelog-button">How To Use</button>
+          <button id="clearStorageButtonMobile" class="changelog-button">Clear Local Storage</button>
+          <button id="discordButtonMobile" class="changelog-button" onclick="window.open('https://discord.com/oauth2/authorize?client_id=1397393308086440040&scope=bot&permissions=24', '_blank')">Add Our Discord Bot</button>
+          <button id="contributionsButtonMobile" class="changelog-button" onclick="window.location.href='/HOH'">HOH</button>
+        </div>
+
+        <div class="blueprint-counters">
+          <p>TOTAL Blueprints Displayed: <span id="totalBlueprints">0</span></p>
+          <p>RELEASED Blueprints: <span id="normalBlueprints">0</span></p>
+          <p>UNRELEASED Blueprints: <span id="unreleasedBlueprints">0</span></p>
+          <p>NOTHING Blueprints: <span id="nothingBlueprints">0</span></p>
+        </div>
+      </div> 
+      <table id="pullsTable">
+        <thead>
+          <tr>
+            <th data-key="Weapon">Weapon</th>
+            <th data-key="Category">Category</th>
+            <th data-key="Blueprint">Blueprint</th>
+            <th data-key="Pool">Pool</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="changelogModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeChangelogModal">&times;</button>
+        <h2>Changelog</h2>
+        <div id="changelogContent" class="changelog-entries">
+          </div>
+      </div>
+    </div>
+
+    <div id="howToUseModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeHowToUseModal">&times;</button>
+        <h2>How To Use</h2>
+        <div id="howToUseContent" class="how-to-sections">
+          <div class="how-to-tabs">
+            <button class="tab-button active" data-tab="explanation">Explanation</button>
+            <button class="tab-button" data-tab="zombies">Zombies</button>
+            <button class="tab-button" data-tab="multiplayer">MP/WZ</button>
+          </div>
+
+          <div id="explanation-content" class="tab-content active">
+            <ul>
+              <li>
+            <h3>Exploit Explanation</h3>
+                <p>This method utilizes the way the game organizes weapon blueprints within its files, specifically in designated 𝗣ool𝘀. The method of adding weapon blueprints to the game also involves these pools. What this means is that if you possess any blueprint from a corresponding pool, you can use it to pull another blueprint from that very same pool. We have undertaken the extensive process of entering the game, gathering, and sorting all of these pools based on this blueprint pulling mechanism. Our objective is to meticulously document all blueprints and their corresponding pools. This effort aims to assist the community in efficiently pulling the specific blueprint they are looking for.</p>
+                <p>If you're still unsure how our system works, let's walk through an example. We'll use the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗧𝗢𝗥𝗠" variant, which is stored in 𝗣ool 𝟭𝟱. Assuming you're familiar with the pulling exploit,here's how it would work: You'd transfer the C9 to your alternate account. Then, on your main account, you'd pick any blueprint that's also stored in 𝗹 𝟭𝟱 (i.e 𝗧?𝗢 .22 "𝗙𝗜𝗦𝗦𝗜𝗢𝗡") and perform the pull exploit. You should then successfully pull the 𝗖9 "𝗧𝗛𝗘 𝗔𝗜𝗡𝗧𝗦𝗧𝗢𝗥𝗠".</p>
+              </li>
+            </ul>
+          </div>
+
+          <div id="zombies-content" class="tab-content hidden">
+          <ul>
+            <li>
+            <h3>Zombies Exploit </h3>
+                <p>If you’re still unsure about how this exploit works or how to perform the pulling process, don’t worry — it will become clearer as you follow along.</p>
+                <p>First, it’s important to know that this exploit only works on PS5 and Xbox Series X/S, last-gen consoles and PC players do not have access to split-screen, so this won’t work for you. Also, Player 2 doesn’t need a leveled-up account, but having one makes the pulls easier. If Player 2 uses a fresh account, you may need to perform an extra glitch to equip locked weapons in your Zombies loadout.</p>
+                <p>Now, here’s how it works: start by launching Call of Duty and go into Zombies mode. Connect a second controller and sign in with your secondary profile. Set up Player 2’s loadout with the weapon you want to pull prints for (like the LADRA).
+                Then back out to the screen where you can edit your main loadouts—that will affect Controller 1’s loadouts. On your main account, equip the blueprint you want to use to pull the print. After that, back out to the main menu where you can select Multiplayer, Zombies, or Campaign.
+                With Controller 2, select Zombies mode. Finally, go back to Player 1’s main loadout, and you should see the print you were trying to pull, as long as you’ve followed everything correctly.</p>
+          </li>
+          </ul>
+          </div>
+
+          <div id="multiplayer-content" class="tab-content hidden">
+            <ul>
+              <li>
+                <h3>Setup Build Method</h3>
+                <p><strong>Working Universally through MP and WZ</strong></p>
+                <p>1. <strong>Make a Setup Gun</strong> (base of the gun you want to pull)<br>
+                   (create new -> delete build -> add att [Same As Receiver slots] -> name build Setup)</p>
+                <p>2. <strong>Find A Print</strong> you own <strong>in the same pool as</strong> the print you wanna pull, create new build and then fill the same att slots as the Receiver.<br>
+                   (Optional: Rename to Receiver)</p>
+                <p>3. <strong>Equip the Receiver</strong> and then equip the Unowned Camo<br>
+                   (If you are using DB then this is the same just DB shotgun with only DB)<br>
+                   {RECOMMENDED: DUPE THE UNOWNED CAMO TO PREVENT WIPING!}</p>
+                <p>4. <strong>Kill yourself</strong> and then requip that Build (setup)</p>
+                <p>5. Finally equip the unowned camo again to save it<br>
+                   (or just equip a att 2x on build)</p>
+                <p class="red-announcement">PLEASE KEEP IN MIND IF YOU ARE IN A BROKEN STATE THEN IN ORDER TO SAVE BLUEPRINTS YOU MUST DELETE ANY BUILD AND THEN SAVE IT (THE SAME WAY THE CAMO SWAP SAVE WORKS)</p>
+                <ul>
+                  <li>keep it noted that prints are pulled in half's and currently there is not a way the pull the full prints in one method</li>
+                  <li>if you wish to get the full print you must find the right Receiver attachment combo that pulls the full print (likely hood 1/20 roughly)</li>
+                  <li>but it doesn't matter just throw a nice camo on and you'll be set!</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="bugLogModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeBugLogModal">&times;</button>
+        <h2>Bug Log</h2>
+        <div id="bugLogContent" class="changelog-entries">
+
+        </div>
+      </div>
+    </div>
+
+    <div id="clearStorageModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeClearStorageModal">&times;</button>
+        <h2>Clear Local Storage</h2>
+        <p class="small-dark-red-glowing-text">thank you for using blunet.wtf made by parse
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+        </p>
+        <p class="glowing-green-text">if you clear your LocalStorage items you will have to reverify your IP. Do you wish to continue?</p>
+        <div class="modal-buttons">
+          <button id="confirmClearStorageBtn" class="changelog-button">Yes, Clear</button>
+          <button id="cancelClearStorageBtn" class="changelog-button">No, Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Discord Announcement Modal -->
+    <div id="discordAnnouncementModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-button" id="closeDiscordAnnouncementModal">&times;</button>
+<p class="padded-paragraph">Join our community for latest updates on the site, discussions about glitches, and fast support.</p>
+        <!-- The discord-embed-container has been removed to make the modal the same size as others -->
+        <div class="discord-embed-card">
+          <div class="discord-embed-avatar-container">
+            <img id="discord-server-icon" alt="Discord Server Icon" class="discord-embed-guild-icon" src="assets/logo.png">
+          </div>
+          <div class="discord-embed-header">
+            <h3 id="discord-guild-name" class="discord-embed-guild-name">      Loading...</h3>
+            <!-- The member counts are now directly in the header -->
+            <div class="discord-embed-member-counts">
+              <div class="discord-embed-dot-online"></div>
+              <div id="discord-online-count" class="discord-embed-text">0 Online</div>
+            </div>
+            <div class="discord-embed-member-total">
+              <div class="discord-embed-dot-total"></div>
+              <div id="discord-total-members" class="discord-embed-text">0 Members</div>
+            </div>
+          </div>
+        </div>
+        <!-- The buttons have been moved outside the embed card -->
+        <div class="discord-embed-buttons">
+          <button id="goToDiscordEmbedBtn" class="changelog-button">Go to Server</button>
+          <button id="cancelDiscordModalBtn" class="changelog-button">No Thanks</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="load.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
