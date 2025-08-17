@@ -77,6 +77,24 @@
             from { transform: scale(1); opacity: 1; }
             to { transform: scale(1.03); opacity: 0.95; }
         }
+
+        /* Media query specifically for iPhone and small screens */
+        @media (max-width: 480px) {
+            .themed-container {
+                padding: 1rem; /* More compact padding */
+                width: 95%; /* Use a higher percentage of the screen */
+            }
+            .themed-container img {
+                width: 80px; /* Make the logo smaller */
+            }
+            .motto-heading {
+                font-size: 1.5rem; /* Smaller heading size */
+            }
+            .themed-btn-gradient {
+                font-size: 0.875rem; /* Smaller button text */
+                padding: 0.75rem 1.5rem; /* Smaller button padding */
+            }
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 overflow-hidden">
@@ -115,7 +133,6 @@
             </a>
         </div>
 
-        
         <p class="text-xs sm:text-sm opacity-60 mt-8">
             &copy; 2025 Blu Base. All Rights Reserved.
         </p>
