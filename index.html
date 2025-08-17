@@ -1,7 +1,8 @@
-<!DOCTYPE ahtml>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blu Base</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -92,7 +93,6 @@
         @media (max-width: 480px) {
             .themed-container {
                 padding: 1rem;
-                width: 95%;
             }
             .themed-container img {
                 width: 80px;
@@ -113,7 +113,7 @@
         <source src="assets/wallpaper.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    <div class="relative z-10 text-center themed-container p-6 sm:p-8 md:p-12 w-full max-w-sm sm:max-w-md md:max-w-lg transition-all duration-500 hover:scale-105">
+    <div class="relative z-10 text-center themed-container p-6 sm:p-8 md:p-12 w-full max-w-md transition-all duration-500 hover:scale-105">
         
         <div class="mb-4">
             <p class="font-bold text-red-500">
@@ -150,7 +150,7 @@
     
     <script>
         const targetTime = new Date();
-        targetTime.setHours(10, 30, 69, 69);
+        targetTime.setHours(1, 0, 0, 0);
         
         if (new Date() > targetTime) {
             targetTime.setDate(targetTime.getDate() + 1);
