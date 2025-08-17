@@ -1682,11 +1682,8 @@ window.addEventListener('load', () => {
 
     if (window.innerWidth > 768) {
         fetchDiscordInviteForDesktop();
-        // REMOVE OR COMMENT OUT THE LINE BELOW
-        // fetchDiscordPresence(); // This line is causing the error
-        initializeLanyardWebSocket(); // Ensure Lanyard WebSocket is initialized for presence
+        initializeLanyardWebSocket(); 
     }
-    // If you want Lanyard presence on mobile too, move initializeLanyardWebSocket() outside the if (window.innerWidth > 768) block.
 });
 
 // Initialize the app
