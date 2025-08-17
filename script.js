@@ -353,7 +353,7 @@ function checkAPIKeyAndRedirect(isInitialCheck) {
 
 // ================== END ================== //
 
-// ================== Discord Functionality (Updated for Proxy) ================== //
+// ================== Discord Functionality (Updated for Lanyard WebSocket) ================== //
 
 const discordGuildId = '1406333070239465572';
 const discordInviteCode = '7mfEwgUT8H';
@@ -363,7 +363,8 @@ let userActivities = [];
 let currentActivityIndex = 0;
 let elapsedTimeInterval;
 let hasReceivedInitialData = false;
-const pollingInterval = 5000; // Poll every 5 seconds
+let ws;
+let heartbeatInterval;
 
 // Function to handle the initial loading state
 function setLoadingState() {
@@ -585,44 +586,14 @@ function showPreviousActivity() {
     displayActivity(userActivities[currentActivityIndex]);
 }
 
-// Function to fetch data from your Vercel proxy
-async function fetchPresenceDataFromProxy() {
-    const proxyEndpoint = '/api/lanyard-proxy';
-    
-    try {
-        const response = await fetch(proxyEndpoint);
-        if (!response.ok) {
-            throw new Error(`Proxy error! status: ${response.status}`);
-        }
-        const data = await response.json();
-
-        // Always update the UI with the latest data
-        hasReceivedInitialData = true;
-        updatePresenceUI(data);
-        
-    } catch (error) {
-        console.error('Error fetching presence data from proxy:', error);
-        hasReceivedInitialData = true;
-        displayActivity(null); // Display a default message on error
-    }
-}
-
-// Function to update the presence UI without resetting the carousel
 function updatePresenceUI(user) {
     const presenceAvatar = document.getElementById('presence-avatar');
     const presenceStatusDot = document.getElementById('presence-status-dot');
     const presenceUsername = document.getElementById('presence-username');
     const presenceDiscordLink = document.getElementById('presence-discord-link');
 
-    // Update the activities list. This is necessary to keep the data current.
     userActivities = user.activities.filter(act => act.type === 0 || act.type === 1 || act.type === 2 || act.type === 4);
 
-    // Keep the current index unless it's out of bounds of the new array.
-    if (currentActivityIndex >= userActivities.length) {
-        currentActivityIndex = 0;
-    }
-
-    // Now, update the UI with the new data.
     if (presenceAvatar && user.discord_user) {
         presenceAvatar.src = `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.webp`;
     } else if (presenceAvatar) {
@@ -660,6 +631,7 @@ function updatePresenceUI(user) {
     }
 
     if (userActivities.length > 0) {
+        currentActivityIndex = 0;
         displayActivity(userActivities[currentActivityIndex]);
         setupCarouselNavigation();
     } else {
@@ -667,6 +639,81 @@ function updatePresenceUI(user) {
         removeCarouselNavigation();
     }
 }
+
+function initializeLanyardWebSocket() {
+    console.log("Initializing Lanyard WebSocket connection...");
+    ws = new WebSocket('wss://api.lanyard.rest/socket');
+
+    ws.onopen = () => {
+        console.log("WebSocket connection established.");
+    };
+
+    ws.onmessage = (event) => {
+        const payload = JSON.parse(event.data);
+        const { op, t, d } = payload;
+        
+        // Handle Opcode 1: Hello
+        if (op === 1) {
+            console.log("Received Hello payload. Heartbeat interval:", d.heartbeat_interval);
+            // Send heartbeat at the specified interval
+            heartbeatInterval = setInterval(() => {
+                ws.send(JSON.stringify({ op: 3 }));
+            }, d.heartbeat_interval);
+
+            // Immediately send Opcode 2: Initialize
+            ws.send(JSON.stringify({
+                op: 2,
+                d: {
+                    subscribe_to_ids: [userId]
+                }
+            }));
+            hasReceivedInitialData = true;
+        }
+        
+        // Handle Opcode 0: Event
+        if (op === 0) {
+            // Handle INIT_STATE (initial data) and PRESENCE_UPDATE (real-time updates)
+            if (t === 'INIT_STATE') {
+                console.log("Received initial presence state.");
+                updatePresenceUI(d[userId]);
+            } else if (t === 'PRESENCE_UPDATE') {
+                console.log("Received a presence update.");
+                updatePresenceUI(d);
+            }
+        }
+    };
+
+    ws.onclose = (event) => {
+        console.log("WebSocket connection closed. Reconnecting in 5 seconds...", event.reason);
+        clearInterval(heartbeatInterval);
+        setTimeout(initializeLanyardWebSocket, 5000);
+    };
+
+    ws.onerror = (error) => {
+        console.error("WebSocket error:", error);
+        ws.close();
+    };
+}
+
+// ================== New Initialization Logic ================== //
+// We now run this function when the page loads to ensure the right order.
+
+function init() {
+    // 1. Immediately set a loading state while we fetch data.
+    setLoadingState();
+
+    // 2. Start fetching static Discord invite data. This can happen in the background.
+    fetchDiscordData();
+    fetchDiscordInviteForDesktop();
+
+    // 3. Initialize WebSocket connection for presence data.
+    initializeLanyardWebSocket();
+}
+
+// Call the new init function when the page is fully loaded.
+window.onload = init;
+// ================== END ================== //
+
 
 // ================== New Initialization Logic ================== //
 
