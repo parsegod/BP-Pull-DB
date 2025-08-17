@@ -7,7 +7,7 @@
     { "source": "/endkey", "destination": "misc/endkey.html" },
     { "source": "/blocked", "destination": "misc/blocked.html" },
     { "source": "/home", "destination": "/index.html" },
-    { "source": "/mobile", "destination": "/mobile-test.html" },
+    { "source": "/mobile", "destination": "mobile/mobile-test.html" },
     { "source": "/HOH", "destination": "/helpers.html" },
     { "source": "/Updates", "destination": "/updates.html" }
   ]
