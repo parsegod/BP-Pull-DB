@@ -353,8 +353,7 @@ function checkAPIKeyAndRedirect(isInitialCheck) {
 
 // ================== END ================== //
 
-
-// ================== Discord Functionality ================== //
+// ================== Discord Functionality (Updated for Proxy) ================== //
 
 const discordGuildId = '1406333070239465572';
 const discordInviteCode = '7mfEwgUT8H';
@@ -363,9 +362,8 @@ const userId = '1285264427540545588';
 let userActivities = [];
 let currentActivityIndex = 0;
 let elapsedTimeInterval;
-let lanyardWebSocket;
-let heartbeatInterval;
-let hasReceivedInitialData = false; // Track if we've gotten data yet
+let hasReceivedInitialData = false;
+const pollingInterval = 5000; // Poll every 5 seconds
 
 // Function to handle the initial loading state
 function setLoadingState() {
@@ -448,32 +446,6 @@ async function fetchDiscordInviteForDesktop() {
     }
 }
 
-// Get immediate presence data via REST API
-async function fetchInitialPresenceData() {
-    try {
-        const response = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch initial presence data');
-        }
-        const data = await response.json();
-        
-        if (data.success && data.data) {
-            hasReceivedInitialData = true;
-            updatePresenceUI(data.data);
-        } else {
-            // If the REST API call succeeds but returns no data,
-            // set the flag to true and display a default message.
-            hasReceivedInitialData = true;
-            displayActivity(null); 
-        }
-    } catch (error) {
-        console.error('Error fetching initial presence:', error);
-        // On error, also set the flag to true and display a default message.
-        hasReceivedInitialData = true;
-        displayActivity(null);
-    }
-}
-
 function updateElapsedTime(startTime) {
     const presenceElapsedTime = document.getElementById('presence-elapsed-time');
     if (!presenceElapsedTime) return;
@@ -537,7 +509,6 @@ function displayActivity(activity) {
         }
         updateElapsedTime(activity.timestamps?.start);
     } else {
-        // Only show "No active game/stream/listening." if we've received initial data
         if (hasReceivedInitialData) {
             if (presenceActivityName) presenceActivityName.textContent = 'No active game/stream/listening.';
             if (presenceDetailsText) presenceDetailsText.textContent = '';
@@ -614,60 +585,24 @@ function showPreviousActivity() {
     displayActivity(userActivities[currentActivityIndex]);
 }
 
-function initializeLanyardWebSocket() {
-    if (lanyardWebSocket) {
-        lanyardWebSocket.close();
+// Function to fetch data from your Vercel proxy
+async function fetchPresenceDataFromProxy() {
+    const proxyEndpoint = '/api/lanyard-proxy'; // The new proxy endpoint
+
+    try {
+        const response = await fetch(proxyEndpoint);
+        if (!response.ok) {
+            throw new Error(`Proxy error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        hasReceivedInitialData = true; // Set this flag once data is received
+        updatePresenceUI(data); // Use the existing UI update function
+    } catch (error) {
+        console.error('Error fetching presence data from proxy:', error);
+        hasReceivedInitialData = true;
+        displayActivity(null); // Display a default message on error
     }
-    
-    lanyardWebSocket = new WebSocket('wss://api.lanyard.rest/socket');
-    
-    lanyardWebSocket.onopen = () => {
-        console.log('Lanyard WebSocket connected.');
-        lanyardWebSocket.send(JSON.stringify({
-            op: 2,
-            d: {
-                subscribe_to_ids: [userId]
-            }
-        }));
-    };
-
-    lanyardWebSocket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        const { op, t, d } = data;
-
-        switch (op) {
-            case 1: // Heartbeat Opcode
-                if (heartbeatInterval) {
-                    clearInterval(heartbeatInterval);
-                }
-                heartbeatInterval = setInterval(() => {
-                    lanyardWebSocket.send(JSON.stringify({ op: 3 }));
-                }, d.heartbeat_interval);
-                break;
-            case 0: // Event Opcode
-                if (t === 'PRESENCE_UPDATE') {
-                    hasReceivedInitialData = true;
-                    updatePresenceUI(d);
-                }
-                break;
-            default:
-                break;
-        }
-    };
-
-    lanyardWebSocket.onclose = (event) => {
-        console.error('Lanyard WebSocket closed:', event);
-        if (heartbeatInterval) {
-            clearInterval(heartbeatInterval);
-        }
-        // Attempt to reconnect after a short delay
-        setTimeout(initializeLanyardWebSocket, 1000);
-    };
-
-    lanyardWebSocket.onerror = (error) => {
-        console.error('Lanyard WebSocket error:', error);
-        lanyardWebSocket.close();
-    };
 }
 
 function updatePresenceUI(user) {
@@ -735,13 +670,9 @@ function init() {
     fetchDiscordData();
     fetchDiscordInviteForDesktop();
 
-    // 3. Crucially, fetch the user's presence data using the faster REST API first.
-    // We use .then() to wait for this to complete.
-    fetchInitialPresenceData().then(() => {
-        // 4. Once the initial data is loaded and displayed,
-        // establish the WebSocket connection for real-time updates.
-        initializeLanyardWebSocket();
-    });
+    // 3. Start polling the proxy endpoint for presence data.
+    fetchPresenceDataFromProxy();
+    setInterval(fetchPresenceDataFromProxy, pollingInterval);
 }
 
 // Call the new init function when the page is fully loaded.
