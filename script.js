@@ -353,7 +353,8 @@ function checkAPIKeyAndRedirect(isInitialCheck) {
 
 // ================== END ================== //
 
-// ================== Discord Functionality ================== //
+// ================== Discord Functionality (Updated for Lanyard
+// WebSocket) ================== //
 
 const discordGuildId = '1406333070239465572';
 const discordInviteCode = '7mfEwgUT8H';
@@ -833,31 +834,19 @@ function initializeLanyardWebSocket() {
 // We now run this function when the page loads to ensure the right order.
 
 function init() {
+    // 1. Immediately set a loading state while we fetch data.
     setLoadingState();
 
+    // 2. Start fetching static Discord invite data. This can happen in the background.
     fetchDiscordData();
     fetchDiscordInviteForDesktop();
 
+    // 3. Initialize WebSocket connection for presence data.
     initializeLanyardWebSocket();
-}
-
-window.onload = init;
-// ================== END ================== //
-
-// ================== New Initialization Logic ================== //
-
-function init() {
-    setLoadingState();
-    fetchDiscordData();
-    fetchDiscordInviteForDesktop();
-
-    fetchPresenceDataFromProxy();
-    setInterval(fetchPresenceDataFromProxy, pollingInterval);
 }
 
 // Call the new init function when the page is fully loaded.
 window.onload = init;
-
 // ================== END ================== //
 
 
