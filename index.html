@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* General Styles & Scrollbar Hiding */
         ::-webkit-scrollbar { width: 0px; height: 0px; background: transparent; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: transparent; }
@@ -21,7 +20,6 @@
             overflow: hidden;
         }
 
-        /* Video Background */
         .video-background {
             position: fixed;
             top: 0;
@@ -32,7 +30,6 @@
             z-index: -1;
         }
 
-        /* Main Container with Frosted Glass Effect */
         .themed-container {
             background: rgba(11, 23, 56, 0.95);
             border-radius: 30px;
@@ -42,7 +39,6 @@
             -webkit-backdrop-filter: blur(5px);
         }
 
-        /* Gradient Text and Glow for Heading */
         .motto-heading {
             font-family: 'Dancing Script', cursive;
             background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
@@ -54,12 +50,10 @@
             text-shadow: 0 0 8px rgba(31, 190, 190, 0.7), 0 0 15px rgba(11, 23, 56, 0.7);
         }
 
-        /* Gradient for Button */
         .themed-btn-gradient {
             background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%);
         }
 
-        /* Animation for the spinning cogwheel */
         .spin-slowly {
             animation: spin 8s linear infinite;
         }
@@ -69,7 +63,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Animation for the pulsing text */
         .pulse-text {
             animation: pulseText 1.8s infinite alternate;
         }
@@ -78,55 +71,51 @@
             to { transform: scale(1.03); opacity: 0.95; }
         }
 
-        /* Media query specifically for iPhone and small screens */
         @media (max-width: 480px) {
             .themed-container {
-                padding: 1rem; /* More compact padding */
-                width: 95%; /* Use a higher percentage of the screen */
+                padding: 1rem;
+                width: 95%;
             }
             .themed-container img {
-                width: 80px; /* Make the logo smaller */
+                width: 80px;
             }
             .motto-heading {
-                font-size: 1.5rem; /* Smaller heading size */
+                font-size: 1.5rem;
             }
             .themed-btn-gradient {
-                font-size: 0.875rem; /* Smaller button text */
-                padding: 0.75rem 1.5rem; /* Smaller button padding */
+                font-size: 0.875rem;
+                padding: 0.75rem 1.5rem;
             }
         }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 overflow-hidden">
 
-    
     <video autoplay muted loop playsinline class="video-background">
         <source src="assets/wallpaper.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    
     <div class="relative z-10 text-center themed-container p-6 sm:p-8 md:p-12 w-full max-w-sm sm:max-w-md md:max-w-lg transition-all duration-500 hover:scale-105">
         
-        
         <img src="https://files.catbox.moe/pucbmh.png" alt="Blu Base Logo" class="mx-auto w-[100px] sm:w-[120px] md:w-[180px] mb-6">
-        
-        
-        <h1 class="text-2xl sm:text-3xl md:text-5xl mb-4 motto-heading">
-            Blu Base
-        </h1>
 
-        
-        <div class="mb-8">
+        <div class="mb-4">
+            <p class="font-bold text-red-500">
+                We have received a lot of suspicious IP activity on our site lately lol. Whoever is trying to infiltrate, please stop trying. 😊
+            </p>
+        </div>
+
+        <div class="mb-2">
             <i class="fas fa-cog text-4xl sm:text-5xl md:text-6xl text-[#7CA0E0] spin-slowly"></i>
         </div>
 
-        
-        <p class="text-sm sm:text-base md:text-lg mb-8 opacity-90">
-            We are working hard to get everything ready for you.
+        <p class="text-sm sm:text-base md:text-lg mb-2 opacity-90">
+            I am updating the site as fast as possible, it should be back online soon.
         </p>
-
         
+        <div id="countdown-timer" class="font-bold text-xl sm:text-2xl mb-8"></div>
+
         <div class="flex justify-center">
             <a href="http://discord.gg/notpublicyet" class="inline-block themed-btn-gradient hover:opacity-90 transition-all duration-300 text-white font-bold py-3 px-6 rounded-lg shadow-lg">
                 <span class="pulse-text">Join Us on Discord for Real-Time Updates on Blubase</span>
@@ -137,5 +126,32 @@
             &copy; 2025 Blu Base. All Rights Reserved.
         </p>
     </div>
+    
+    <script>
+        const targetTime = new Date();
+        targetTime.setHours(1, 15, 0, 0);
+        
+        if (new Date() > targetTime) {
+            targetTime.setDate(targetTime.getDate() + 1);
+        }
+
+        const countdownElement = document.getElementById('countdown-timer');
+
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetTime - now;
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `Estimated Downtime: ${hours}h ${minutes}m ${seconds}s`;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                countdownElement.innerHTML = "We're back online!";
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
