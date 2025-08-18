@@ -517,7 +517,7 @@ function displayActivity(activity) {
         clearInterval(songProgressBarInterval);
         songProgressBarInterval = null;
     }
-    const oldProgressBar = document.getElementById('song-progress-bar');
+    const oldProgressBar = document.getElementById('song-progress-container'); // Target the container
     if (oldProgressBar) oldProgressBar.remove();
 
     if (activity) {
@@ -570,15 +570,19 @@ function displayActivity(activity) {
             const progressBarContainer = document.createElement('div');
             progressBarContainer.id = 'song-progress-container';
             progressBarContainer.style.cssText =
-                'width: 100%; height: 5px; background-color: #36393f; margin-top: 10px;';
+                'width: 100%; height: 5px; background-color: #36393f; margin-top: 10px; border-radius: 2.5px; overflow: hidden;'; // Added border-radius and overflow
 
             const progressBar = document.createElement('div');
             progressBar.id = 'song-progress-bar';
             progressBar.style.cssText =
-                'height: 100%; background-color: #1DB954; transition: width 1s linear;';
+                'height: 100%; background-color: #1DB954; transition: width 1s linear; border-radius: 2.5px;'; // Added border-radius
             
             progressBarContainer.appendChild(progressBar);
-            presenceCardContent.appendChild(progressBarContainer);
+            // Append to the correct parent element within the carousel item
+            const carouselItem = document.querySelector('.discord-presence-carousel-item');
+            if (carouselItem) {
+                carouselItem.appendChild(progressBarContainer);
+            }
 
             const updateProgressBar = () => {
                 const now = Date.now();
@@ -701,19 +705,28 @@ function updatePresenceUI(user) {
         act.type === 4
     );
     
-    // Check if the current activity still exists in the new data
-    let currentActivity = userActivities[currentActivityIndex];
-    let newActivityIndex = newActivities.findIndex(act => 
-        act.name === currentActivity?.name && act.state === currentActivity?.state
-    );
+    // Store the currently displayed activity for comparison
+    const currentlyDisplayedActivity = userActivities[currentActivityIndex];
     
+    // Update the userActivities array with the new data
     userActivities = newActivities;
     
-    // If the current activity is still present, maintain position
-    if (newActivityIndex !== -1) {
-        currentActivityIndex = newActivityIndex;
+    // Find the index of the currently displayed activity in the new activities list
+    let newIndexForCurrentActivity = -1;
+    if (currentlyDisplayedActivity) {
+        newIndexForCurrentActivity = userActivities.findIndex(newAct => 
+            newAct.name === currentlyDisplayedActivity.name && 
+            newAct.details === currentlyDisplayedActivity.details &&
+            newAct.state === currentlyDisplayedActivity.state
+        );
+    }
+
+    // If the currently displayed activity is still present, maintain its index
+    if (newIndexForCurrentActivity !== -1) {
+        currentActivityIndex = newIndexForCurrentActivity;
     } else {
-        // Otherwise, reset to the first activity
+        // If the current activity is no longer present, or if there were no activities before,
+        // reset to the first activity (or none if no activities exist).
         currentActivityIndex = 0;
     }
 
