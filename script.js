@@ -353,8 +353,7 @@ function checkAPIKeyAndRedirect(isInitialCheck) {
 
 // ================== END ================== //
 
-// ================== Discord Functionality (Updated for Lanyard
-// WebSocket) ================== //
+// ================== Discord Functionality ================== //
 
 const discordGuildId = '1406333070239465572';
 const discordInviteCode = '7mfEwgUT8H';
@@ -499,39 +498,58 @@ function updateElapsedTime(startTime) {
     }
 }
 
-
 function displayActivity(activity) {
     const presenceActivityName = document.getElementById('presence-activity-name');
     const presenceDetailsText = document.getElementById('presence-details-text');
     const presenceStateText = document.getElementById('presence-state-text');
     const presenceLargeImage = document.getElementById('presence-large-image');
-    const presenceCard = document.querySelector('.discord-presence-card'); 
+    const presenceCard = document.querySelector('.discord-presence-card');
 
     const headerSection = document.querySelector('.discord-presence-header-section');
     const divider = document.querySelector('.discord-presence-divider');
     const activityDetails = document.querySelector('.discord-presence-activity-details');
 
-    presenceCard.classList.remove('spotify-card');
-    if (headerSection) headerSection.style.display = 'flex'; 
-    if (divider) divider.style.display = 'block'; 
-    if (activityDetails) activityDetails.style.display = 'flex'; 
+    // Reset default styles for all cards before applying specific ones
+    presenceCard.classList.remove('spotify-card'); // Ensure spotify-card is removed if not applicable
+    if (headerSection) headerSection.style.display = 'flex'; // Show header by default
+    if (divider) divider.style.display = 'block'; // Show divider by default
+    if (activityDetails) activityDetails.style.display = 'flex'; // Show activity details by default
 
     if (activity) {
-        // Check if the activity is Spotify (type 2)
-        if (activity.name === 'Spotify' && activity.type === 2) { // Explicitly check type 2 for Spotify
-            presenceCard.classList.add('spotify-card');
+        // Define applications that should use the "Spotify-like" display
+        // IMPORTANT: These names must exactly match the 'name' property from Lanyard data.
+        // You can add more app names here if needed.
+        const spotifyLikeApps = ['Spotify', 'Visual Studio Code', 'Minecraft', 'Call of Duty'];
+
+        // Check if the activity is Spotify (type 2) or one of the specified apps
+        if ((activity.name === 'Spotify' && activity.type === 2) || spotifyLikeApps.includes(activity.name)) {
+            presenceCard.classList.add('spotify-card'); // Apply the Spotify styling class
+
+            // Hide header and divider for these specific apps (CSS for .spotify-card also does this)
             if (headerSection) headerSection.style.display = 'none';
             if (divider) divider.style.display = 'none';
 
-            // For Spotify, 'details' is song, 'state' is artist, 'assets.large_text' is album
-            if (presenceActivityName) presenceActivityName.textContent = activity.details; // Song name
-            if (presenceDetailsText) presenceDetailsText.textContent = activity.state; // Artist
-            if (presenceStateText) presenceStateText.textContent = activity.assets?.large_text || ''; // Album (if available)
+            // Content mapping for Spotify-like display
+            // For Spotify: 'details' is song, 'state' is artist, 'assets.large_text' is album
+            // For other apps, 'details' is usually the sub-status, 'state' is the main status, 'assets.large_text' is hover text for large image
+            if (presenceActivityName) presenceActivityName.textContent = activity.details || activity.name; // Song/App Name/Sub-status
+            if (presenceDetailsText) presenceDetailsText.textContent = activity.state || ''; // Artist/Main Status
+            if (presenceStateText) presenceStateText.textContent = activity.assets?.large_text || ''; // Album/Large Image Hover Text (if available)
 
             if (presenceLargeImage && activity.assets && activity.assets.large_image) {
-                const spotifyId = activity.assets.large_image.split(':')[1];
-                presenceLargeImage.src = `https://i.scdn.co/image/${spotifyId}`;
-                presenceLargeImage.alt = activity.assets.large_text || 'Spotify Album Art';
+                let imageUrl = '';
+                if (activity.name === 'Spotify') {
+                    const spotifyId = activity.assets.large_image.split(':')[1];
+                    imageUrl = `https://i.scdn.co/image/${spotifyId}`;
+                } else if (activity.assets.large_image.startsWith('mp:')) {
+                    imageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
+                } else if (activity.application_id) {
+                    imageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+                } else {
+                    imageUrl = activity.assets.large_image;
+                }
+                presenceLargeImage.src = imageUrl;
+                presenceLargeImage.alt = activity.assets.large_text || activity.name;
                 presenceLargeImage.style.display = 'block';
             } else if (presenceLargeImage) {
                 presenceLargeImage.style.display = 'none';
@@ -540,7 +558,7 @@ function displayActivity(activity) {
             updateElapsedTime(activity.timestamps?.start);
 
         } else {
-            // Default display for other activities (games, streaming, custom status)
+            // Default display for all other activities (games, streaming, custom status)
             if (presenceActivityName) presenceActivityName.textContent = activity.name;
 
             if (presenceDetailsText && activity.details) {
@@ -587,6 +605,7 @@ function displayActivity(activity) {
         }
     }
 }
+
 
 function setupCarouselNavigation() {
     const presenceCarousel =
