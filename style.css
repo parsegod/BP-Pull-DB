@@ -1964,7 +1964,7 @@ th.sorted-desc::after {
     width: 100%;
     height: 5px;
     background-color: #36393f;
-    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 2.5px;
     overflow: hidden;
     position: relative;
@@ -1995,7 +1995,7 @@ th.sorted-desc::after {
 @media (max-width: 768px) {
     #song-progress-container {
         height: 4px;
-        margin-top: 8px;
+        margin-bottom: 8px;
     }
     
     #song-progress-bar {
@@ -2015,6 +2015,7 @@ th.sorted-desc::after {
 }
 
 /* ================== END PROGRESS BAR STYLES ================== */
+
 
 
 /* ================== Discord Embed Styles (Basic Visibility) ================== */
