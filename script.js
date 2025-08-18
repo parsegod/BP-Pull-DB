@@ -688,37 +688,39 @@ function updatePresenceUI(user) {
         document.getElementById('presence-discord-link');
 
     const newActivities = user.activities.filter(act =>
-        act.type === 0 ||
-        act.type === 1 ||
-        act.type === 2 ||
-        act.type === 4
+        act.type === 0 || // Game
+        act.type === 1 || // Streaming
+        act.type === 2 || // Listening (Spotify)
+        act.type === 4    // Custom Status
     );
-    
-    // Store the currently displayed activity for comparison
+
+    // Store the currently displayed activity for comparison before updating userActivities
     const currentlyDisplayedActivity = userActivities[currentActivityIndex];
-    
-    // Update the userActivities array with the new data
+
+    // Update the global userActivities array with the new data
     userActivities = newActivities;
-    
-    // Find the index of the currently displayed activity in the new activities list
+
+    // Determine the new index for the currently displayed activity
     let newIndexForCurrentActivity = -1;
     if (currentlyDisplayedActivity) {
-        newIndexForCurrentActivity = userActivities.findIndex(newAct => 
-            newAct.name === currentlyDisplayedActivity.name && 
+        // Try to find the exact same activity in the new list
+        newIndexForCurrentActivity = userActivities.findIndex(newAct =>
+            newAct.name === currentlyDisplayedActivity.name &&
             newAct.details === currentlyDisplayedActivity.details &&
-            newAct.state === currentlyDisplayedActivity.state
+            newAct.state === currentlyDisplayedActivity.state &&
+            newAct.type === currentlyDisplayedActivity.type // Also compare type for better accuracy
         );
     }
 
-    // If the currently displayed activity is still present, maintain its index
+    // If the currently displayed activity is still present, maintain its index.
+    // Otherwise, reset to the first activity (index 0).
     if (newIndexForCurrentActivity !== -1) {
         currentActivityIndex = newIndexForCurrentActivity;
     } else {
-        // If the current activity is no longer present, or if there were no activities before,
-        // reset to the first activity (or none if no activities exist).
-        currentActivityIndex = 0;
+        currentActivityIndex = 0; // Reset to the first activity if the current one is gone or was not found
     }
 
+    // Update user avatar, username, and status dot
     if (presenceAvatar && user.discord_user) {
         presenceAvatar.src =
             `https://cdn.discordapp.com/avatars/${
@@ -727,21 +729,21 @@ function updatePresenceUI(user) {
                 user.discord_user.avatar
             }.webp`;
     } else if (presenceAvatar) {
-        presenceAvatar.src = 'assets/logo.png';
+        presenceAvatar.src = 'assets/logo.png'; // Fallback if user.discord_user is null
     }
 
     if (presenceUsername && user.discord_user) {
         presenceUsername.textContent =
             `@${user.discord_user.username}`;
     } else if (presenceUsername) {
-        presenceUsername.textContent = '@UserNotFound';
+        presenceUsername.textContent = '@UserNotFound'; // Fallback
     }
 
     if (presenceDiscordLink && user.discord_user) {
         presenceDiscordLink.href =
             `https://discord.com/users/${user.discord_user.id}`;
     } else if (presenceDiscordLink) {
-        presenceDiscordLink.href = '#';
+        presenceDiscordLink.href = '#'; // Fallback
     }
 
     let statusColor = '';
@@ -756,81 +758,22 @@ function updatePresenceUI(user) {
             statusColor = '#f04747';
             break;
         default:
-            statusColor = '#747f8d';
+            statusColor = '#747f8d'; // Offline or unknown
     }
     if (presenceStatusDot) {
         presenceStatusDot.style.backgroundColor = statusColor;
     }
 
+    // Display the activity based on the (potentially updated) currentActivityIndex
     if (userActivities.length > 0) {
         displayActivity(userActivities[currentActivityIndex]);
-        setupCarouselNavigation();
+        setupCarouselNavigation(); // Re-setup navigation in case activity count changed
     } else {
-        displayActivity(null);
-        removeCarouselNavigation();
+        displayActivity(null); // No activities to display
+        removeCarouselNavigation(); // Remove navigation if no activities
     }
 }
 
-function initializeLanyardWebSocket() {
-    console.log("Initializing Lanyard WebSocket connection...");
-    ws = new WebSocket('wss://api.lanyard.rest/socket');
-
-    ws.onopen = () => {
-        console.log("WebSocket connection established.");
-    };
-
-    ws.onmessage = (event) => {
-        const payload = JSON.parse(event.data);
-        const { op, t, d } = payload;
-
-        // Handle Opcode 1: Hello
-        if (op === 1) {
-            console.log(
-                "Received Hello payload. Heartbeat interval:",
-                d.heartbeat_interval
-            );
-            // Send heartbeat at the specified interval
-            heartbeatInterval = setInterval(() => {
-                ws.send(JSON.stringify({ op: 3 }));
-            }, d.heartbeat_interval);
-
-            // Immediately send Opcode 2: Initialize
-            ws.send(JSON.stringify({
-                op: 2,
-                d: {
-                    subscribe_to_ids: [userId]
-                }
-            }));
-            hasReceivedInitialData = true;
-        }
-
-        // Handle Opcode 0: Event
-        if (op === 0) {
-            // Handle INIT_STATE (initial data) and PRESENCE_UPDATE (real-time updates)
-            if (t === 'INIT_STATE') {
-                console.log("Received initial presence state.");
-                updatePresenceUI(d[userId]);
-            } else if (t === 'PRESENCE_UPDATE') {
-                console.log("Received a presence update.");
-                updatePresenceUI(d);
-            }
-        }
-    };
-
-    ws.onclose = (event) => {
-        console.log(
-            "WebSocket connection closed. Reconnecting in 5 seconds...",
-            event.reason
-        );
-        clearInterval(heartbeatInterval);
-        setTimeout(initializeLanyardWebSocket, 5000);
-    };
-
-    ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        ws.close();
-    };
-}
 
 // ================== New Initialization Logic ================== //
 // We now run this function when the page loads to ensure the right order.
