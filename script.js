@@ -517,7 +517,7 @@ function displayActivity(activity) {
         clearInterval(songProgressBarInterval);
         songProgressBarInterval = null;
     }
-    const oldProgressBar = document.getElementById('song-progress-container'); // Target the container
+    const oldProgressBar = document.getElementById('song-progress-container');
     if (oldProgressBar) oldProgressBar.remove();
 
     if (activity) {
@@ -570,18 +570,25 @@ function displayActivity(activity) {
             const progressBarContainer = document.createElement('div');
             progressBarContainer.id = 'song-progress-container';
             progressBarContainer.style.cssText =
-                'width: 100%; height: 5px; background-color: #36393f; margin-top: 10px; border-radius: 2.5px; overflow: hidden;'; // Added border-radius and overflow
+                'width: 100%; height: 5px; background-color: #36393f; margin-bottom: 10px; border-radius: 2.5px; overflow: hidden;';
 
             const progressBar = document.createElement('div');
             progressBar.id = 'song-progress-bar';
             progressBar.style.cssText =
-                'height: 100%; background-color: #1DB954; transition: width 1s linear; border-radius: 2.5px;'; // Added border-radius
+                'height: 100%; background-color: #1DB954; transition: width 1s linear; border-radius: 2.5px;';
             
             progressBarContainer.appendChild(progressBar);
-            // Append to the correct parent element within the carousel item
-            const carouselItem = document.querySelector('.discord-presence-carousel-item');
-            if (carouselItem) {
-                carouselItem.appendChild(progressBarContainer);
+            
+            // Insert the progress bar ABOVE the presence-large-image
+            const presenceLargeImage = document.getElementById('presence-large-image');
+            if (presenceLargeImage && presenceLargeImage.parentNode) {
+                presenceLargeImage.parentNode.insertBefore(progressBarContainer, presenceLargeImage);
+            } else {
+                // Fallback: append to carousel item if image not found
+                const carouselItem = document.querySelector('.discord-presence-carousel-item');
+                if (carouselItem) {
+                    carouselItem.appendChild(progressBarContainer);
+                }
             }
 
             const updateProgressBar = () => {
