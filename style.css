@@ -551,10 +551,6 @@ body {
   word-break: break-word; /* Break long words */
 }
 
-/* Hide carousel navigation buttons if they interfere with fixed size */
-.carousel-nav-button {
-  display: none;
-}
 
 
 /* Centered button group for desktop */
