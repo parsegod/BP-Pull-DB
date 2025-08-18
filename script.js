@@ -498,23 +498,25 @@ function updateElapsedTime(startTime) {
     }
 }
 
+
+
 function displayActivity(activity) {
     const presenceActivityName = document.getElementById('presence-activity-name');
     const presenceDetailsText = document.getElementById('presence-details-text');
     const presenceStateText = document.getElementById('presence-state-text');
     const presenceLargeImage = document.getElementById('presence-large-image');
     const presenceCard = document.querySelector('.discord-presence-card');
-    const presenceElapsedTime = document.getElementById('presence-elapsed-time'); // Get elapsed time element
+    const presenceElapsedTime = document.getElementById('presence-elapsed-time');
 
     const headerSection = document.querySelector('.discord-presence-header-section');
     const divider = document.querySelector('.discord-presence-divider');
     const activityDetails = document.querySelector('.discord-presence-activity-details');
 
     // Reset default styles for all cards before applying specific ones
-    presenceCard.classList.remove('spotify-card'); // Ensure spotify-card is removed if not applicable
-    if (headerSection) headerSection.style.display = 'flex'; // Show header by default
-    if (divider) divider.style.display = 'block'; // Show divider by default
-    if (activityDetails) activityDetails.style.display = 'flex'; // Show activity details by default
+    presenceCard.classList.remove('spotify-card');
+    if (headerSection) headerSection.style.display = 'flex';
+    if (divider) divider.style.display = 'block';
+    if (activityDetails) activityDetails.style.display = 'flex';
 
     // Clear previous content
     if (presenceActivityName) presenceActivityName.textContent = '';
@@ -524,16 +526,17 @@ function displayActivity(activity) {
         presenceLargeImage.style.display = 'none';
         presenceLargeImage.src = '';
     }
-    updateElapsedTime(null); // Clear elapsed time
+    updateElapsedTime(null);
 
     if (activity) {
         // Define applications that should use the "Spotify-like" display
-        const spotifyLikeApps = ['Spotify', 'Visual Studio Code', 'Minecraft', 'Call of Duty'];
+        // Removed 'Call of Duty' from here to ensure it uses the default layout
+        const spotifyLikeApps = ['Spotify', 'Visual Studio Code', 'Minecraft'];
 
-        // Determine if it's a Spotify-like app or a default app
-        const isSpotifyLike = (activity.name === 'Spotify' && activity.type === 2) || spotifyLikeApps.includes(activity.name);
+        const isSpotifyActivity = (activity.name === 'Spotify' && activity.type === 2);
+        const isSpotifyLikeApp = spotifyLikeApps.includes(activity.name);
 
-        if (isSpotifyLike) {
+        if (isSpotifyActivity || isSpotifyLikeApp) {
             presenceCard.classList.add('spotify-card');
             if (headerSection) headerSection.style.display = 'none';
             if (divider) divider.style.display = 'none';
@@ -549,59 +552,52 @@ function displayActivity(activity) {
         }
 
         // --- Populate Details and State (Sub-titles/Descriptions) ---
-        let detailLines = [];
-
-        // Prioritize 'details' and 'state'
-        if (activity.details) {
-            detailLines.push(activity.details);
-        }
-        if (activity.state) {
-            detailLines.push(activity.state);
-        }
-
-        // Add small image text if available and not redundant
-        if (activity.assets?.small_text && !detailLines.includes(activity.assets.small_text)) {
-            detailLines.push(activity.assets.small_text);
-        }
-
-        // Add large image text if available and not redundant
-        if (activity.assets?.large_text && !detailLines.includes(activity.assets.large_text)) {
-            detailLines.push(activity.assets.large_text);
-        }
-
-        // For Spotify, 'details' is song, 'state' is artist, 'assets.large_text' is album
-        // We'll try to show all of them.
-        if (activity.name === 'Spotify' && activity.type === 2) {
-            // Re-prioritize for Spotify to ensure song/artist/album are clear
+        if (isSpotifyActivity) {
+            // Specific handling for Spotify to ensure song/artist/album are clear
             if (presenceActivityName) presenceActivityName.textContent = activity.details || 'Spotify'; // Song name
             if (presenceDetailsText) presenceDetailsText.textContent = activity.state || ''; // Artist
             if (presenceStateText) presenceStateText.textContent = activity.assets?.large_text || ''; // Album
         } else {
-            // For other apps, combine details and state into presenceDetailsText
-            // and use presenceStateText for other info or clear it if not enough space
+            // General handling for other activities (including games)
+            let detailLines = [];
+            if (activity.details) {
+                detailLines.push(activity.details);
+            }
+            if (activity.state) {
+                detailLines.push(activity.state);
+            }
+            // Add small image text if available and not redundant
+            if (activity.assets?.small_text && !detailLines.includes(activity.assets.small_text)) {
+                detailLines.push(activity.assets.small_text);
+            }
+            // Add large image text if available and not redundant
+            if (activity.assets?.large_text && !detailLines.includes(activity.assets.large_text)) {
+                detailLines.push(activity.assets.large_text);
+            }
+
             if (presenceDetailsText) {
-                // Join the first two lines into presenceDetailsText
                 presenceDetailsText.textContent = detailLines.slice(0, 2).join(' - ');
             }
             if (presenceStateText) {
-                // Join remaining lines into presenceStateText
                 presenceStateText.textContent = detailLines.slice(2).join(' - ');
             }
         }
 
-
         // --- Populate Images ---
         if (presenceLargeImage && activity.assets && activity.assets.large_image) {
             let largeImageUrl = '';
-            if (activity.name === 'Spotify' && activity.type === 2) {
+            if (isSpotifyActivity) {
                 const spotifyId = activity.assets.large_image.split(':')[1];
                 largeImageUrl = `https://i.scdn.co/image/${spotifyId}`;
             } else if (activity.assets.large_image.startsWith('mp:')) {
+                // This is for custom uploaded images (e.g., from Discord profiles)
                 largeImageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
             } else if (activity.application_id) {
+                // This is the standard way to get application/game assets
                 largeImageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
             } else {
-                largeImageUrl = activity.assets.large_image; // Fallback for direct URLs
+                // Fallback for direct URLs or other unexpected formats
+                largeImageUrl = activity.assets.large_image;
             }
             presenceLargeImage.src = largeImageUrl;
             presenceLargeImage.alt = activity.assets.large_text || activity.name;
