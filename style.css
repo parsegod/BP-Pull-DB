@@ -1957,6 +1957,66 @@ th.sorted-desc::after {
   transform: translate(-50%, -50%); /* Added for centering */
 }
 
+/* ================== PROGRESS BAR STYLES ================== */
+
+/* Progress Bar Styles for Spotify Songs */
+#song-progress-container {
+    width: 100%;
+    height: 5px;
+    background-color: #36393f;
+    margin-top: 10px;
+    border-radius: 2.5px;
+    overflow: hidden;
+    position: relative;
+}
+
+#song-progress-bar {
+    height: 100%;
+    background-color: #1DB954; /* Spotify green */
+    transition: width 1s linear;
+    border-radius: 2.5px;
+    width: 0%;
+    position: relative;
+}
+
+/* Optional: Add a subtle glow effect */
+#song-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.8));
+    border-radius: 0 2.5px 2.5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #song-progress-container {
+        height: 4px;
+        margin-top: 8px;
+    }
+    
+    #song-progress-bar {
+        height: 100%;
+    }
+}
+
+/* Animation for smoother progress updates */
+@keyframes progressPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+#song-progress-bar.playing {
+    animation: progressPulse 2s ease-in-out infinite;
+}
+
+/* ================== END PROGRESS BAR STYLES ================== */
+
+
 /* ================== Discord Embed Styles (Basic Visibility) ================== */
 
 .discord-embed-container {
