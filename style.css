@@ -461,97 +461,231 @@ body {
   gap: 8px;
 }
 
-/* In /style.css */
-
 .discord-presence-card {
   display: flex;
-  flex-direction: column;
-  width: 100%; /* Ensures it takes full width up to max-width */
-  padding: 1.5rem;
-  background: linear-gradient(145deg, rgba(11, 23, 56, 0.98), rgba(11, 23, 56, 0.92));
-  border-radius: 0;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(44, 72, 124, 0.3);
-  border: 1px solid rgba(44, 72, 124, 0.8);
-  box-sizing: border-box;
-  max-width: 300px; /* Your desired max-width */
-  gap: 0.5rem; /* Gap between main sections */
-
-  /* Ensure content fits nicely within the flexible height */
-  justify-content: flex-start; /* Align content to the top */
-  align-items: stretch; /* Stretch items to fill the width */
+  flex-direction: column; /* Default to column for mobile */
+  width: 100%;
+  padding: 1.5rem; /* Increased padding for more space */
+  background: linear-gradient(145deg, rgba(11, 23, 56, 0.98), rgba(11, 23, 56, 0.92)); /* Glossy effect */
+  border-radius: 0; /* Squared */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(44, 72, 124, 0.3); /* Enhanced shadow */
+  border: 1px solid rgba(44, 72, 124, 0.8); /* More prominent border */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  max-width: 300px; /* Increased max-width for desktop */
+  gap: 0.5rem; /* Gap between header, divider, and activity details */
 }
 
-/* Adjust internal elements to fit the constrained width and flexible height */
 .discord-presence-header-section {
-  flex-shrink: 0; /* Prevent header from shrinking */
-  margin-bottom: 0.5rem; /* Adjust margin as needed */
-  /* Ensure items within the header wrap if necessary on smaller widths */
-  flex-wrap: wrap;
-  justify-content: center; /* Center items horizontally if they wrap */
-  text-align: center; /* Center text within the header */
+  display: flex;
+  flex-direction: column; /* Default to column for mobile */
+  gap: 1rem; /* 16px */
+  align-items: center; /* Center items for mobile */
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (min-width: 769px) { /* Apply desktop styles */
+  .discord-presence-card {
+    flex-direction: column; /* Keep column for main sections */
+    padding: 2rem; /* Even more padding for desktop */
+    max-width: 450px; /* Maintain max-width */
+  }
+  .discord-presence-header-section {
+    flex-direction: row; /* Arrange avatar, user info, and button in a row */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Distribute items with space */
+    flex-wrap: nowrap; /* Prevent wrapping in header on desktop */
+  }
+}
+
+.discord-presence-avatar-wrapper {
+  display: flex;
+  position: relative; /* For the status dot positioning */
+  flex-shrink: 0; /* Prevent avatar from shrinking */
+}
+
+.discord-presence-avatar {
+  height: 4.5rem; /* 72px */
+  width: 4.5rem; /* 72px */
+  min-width: 4.5rem;
+  min-height: 4.5rem;
+  border-radius: 1rem; /* 16px */
+  border-color: rgba(124, 160, 224, 0.8); /* Themed border color */
+  border-width: 3px;
+  object-fit: cover; /* Ensure image covers the area */
+}
+
+.discord-presence-status-dot {
+  position: absolute;
+  background-color: red; /* Will be set by JS based on status */
+  width: 1rem; /* 16px */
+  height: 1rem; /* 16px */
+  border-radius: 9999px; /* full rounded */
+  transform: translateX(3.6rem) translateY(3.5rem); /* Adjust position relative to avatar */
+  z-index: 10;
+}
+
+@media (min-width: 769px) {
+  .discord-presence-status-dot {
+    /* Adjust position for row layout */
+    transform: translateX(3.6rem) translateY(3.5rem);
+  }
 }
 
 .discord-presence-user-info {
-  margin-left: 0; /* Remove left margin to allow centering */
-  text-align: center; /* Center username and activity name */
-  flex-grow: 0; /* Don't let it grow, let content dictate size */
-  width: 100%; /* Take full width to center text */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-grow: 1; /* Allow user info to take available space */
+  margin-left: 1rem; /* Add space between avatar and info */
 }
 
-.discord-presence-username,
+.discord-presence-username {
+  font-weight: 600; /* semibold */
+  word-break: break-all;
+  white-space: nowrap;
+  color: #D0D8E8; /* Themed text color */
+  margin: 0; /* Remove default margin */
+  font-size: 1.2rem; /* Slightly larger for desktop */
+}
+
 .discord-presence-activity-name {
-  white-space: normal; /* Allow text to wrap */
-  word-break: break-word; /* Break long words */
+  font-size: 0.95rem; /* text-sm, slightly larger */
+  word-break: break-all;
+  color: #D0D8E8; /* Themed text color */
+  margin: 0; /* Remove default margin */
 }
 
 .discord-presence-add-button {
-  width: 80%; /* Make button take more width for better tap target */
-  margin: 0.5rem auto 0; /* Center button horizontally */
+  padding: 0.2rem 0.2rem; /* Increased padding */
+  transition: all 0.3s ease;
+  left: 54%;
+  display: flex;
+  font-size: 0.5rem; /* text-sm, slightly larger */
+  font-weight: bold; /* semibold */
+  white-space: nowrap;
+  background: linear-gradient(90deg, #7CA0E0 0%, #4A8CD4 100%); /* Themed background */
+  color: #FFFFFF; /* Themed text color */
+  border: 2px solid #2C487C; /* Themed border */
+  border-radius: 2px; /* Themed border-radius */
+  text-decoration: none; /* Remove underline */
+  margin-top: 1rem; /* Add some space for mobile */
+  width: 66%; /* 20% smaller than 95% */
+  flex-shrink: 0; /* Prevent button from shrinking */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Themed shadow */
+}
+
+@media (min-width: 769px) { /* sm:w-fit */
+  .discord-presence-add-button {
+    width: fit-content;
+    margin-top: 0; /* Remove top margin for desktop */
+    margin-left: 1.5rem; /* Add significant space to the left of the button */
+  }
+}
+
+.discord-presence-add-button:hover {
+  box-shadow: 0 0 15px rgba(124, 160, 224, 0.9);
+  transform: translateY(-2px);
+}
+
+.discord-presence-arrow-icon {
+  width: 1.75rem; /* 28px */
+  height: 1.75rem; /* 28px */
+  fill: #FFFFFF; /* Themed fill color */
+  transition: transform 300ms;
+}
+
+.discord-presence-add-button:hover .discord-presence-arrow-icon {
+  transform: translateX(0.25rem); /* group-hover:translate-x-1 */
 }
 
 .discord-presence-divider {
-  flex-shrink: 0; /* Prevent divider from shrinking */
-  margin-top: 0.5rem; /* Adjust margin */
-  margin-bottom: 0.5rem; /* Adjust margin */
+  width: 100%;
+  height: 0.125rem; /* 2px */
+  margin-top: 1rem; /* Increased margin */
+  margin-bottom: 1rem; /* Increased margin */
+  background-color: rgba(44, 72, 124, 0.8); /* Themed background color */
+  opacity: 1;
 }
 
 .discord-presence-activity-details {
-  flex-grow: 1; /* Allow activity details to take remaining space */
-  overflow-y: auto; /* Add scroll if content overflows vertically */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically within the activity details */
-  align-items: center; /* Center content horizontally within the activity details */
-  text-align: center; /* Center text within activity details */
+  width: 100%;
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+.discord-presence-carousel {
+  width: 100%;
+  max-width: 38rem; /* 608px */
+  border-radius: 0.75rem; /* 12px */
+  display: flex;
 }
 
 .discord-presence-carousel-item {
-  flex-direction: column; /* Ensure column layout for image and text */
-  gap: 0.5rem; /* Reduce gap if needed */
-  text-align: center; /* Center text within the item */
-  width: 100%; /* Ensure item takes full width for centering */
+  display: flex;
+  flex-direction: column; /* Default to column for mobile */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Increased gap for more space */
+  border-radius: 0.75rem; /* 12px */
+}
+
+@media (min-width: 769px) { /* sm:flex-row */
+  .discord-presence-carousel-item {
+    flex-direction: row; /* Arrange image and text in a row on desktop */
+    gap: 1.5rem; /* Increased gap for more space */
+    align-items: flex-start; /* Align items to the top */
+  }
 }
 
 .discord-presence-large-image {
-  max-height: 100px; /* Adjust image size to fit within the card */
-  max-width: 100px; /* Adjust image size to fit within the card */
-  object-fit: contain; /* Ensure image fits without cropping */
-  margin: 0 auto; /* Center the image */
+  height: 7rem; /* Increased size for desktop */
+  width: 7rem; /* Increased size for desktop */
+  min-width: 7rem;
+  max-width: 7rem;
+  border-color: rgba(44, 72, 124, 0.8); /* Themed border color */
+  border-radius: 1rem; /* 16px */
+  object-fit: cover;
+  display: block; /* Default to block, hide with JS if no image */
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+@media (min-width: 400px) { /* min-[400px]:h-24 min-[400px]:w-24 */
+  .discord-presence-large-image {
+    height: 7rem;
+    width: 7rem;
+    min-width: 7rem;
+    max-width: 7rem;
+  }
 }
 
 .discord-presence-text-details {
-  text-align: center; /* Center text details */
-  width: 100%; /* Ensure text details take full width for centering */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  user-select: none;
+  flex-grow: 1; /* Allow text to take available space */
+  gap: 0.5rem; /* Space between text lines */
 }
 
-.discord-presence-detail-text,
-.discord-presence-elapsed-time {
-  font-size: 0.85rem; /* Reduce font size if needed */
+.discord-presence-detail-text {
+  font-size: 0.95rem; /* text-sm, slightly larger */
+  word-break: break-all;
+  color: #CCE0F0; /* Themed text color */
+  margin: 0; /* Remove default margin */
   white-space: normal; /* Allow text to wrap */
-  word-break: break-word; /* Break long words */
 }
 
-
+.discord-presence-elapsed-time {
+  font-size: 0.95rem; /* text-sm, slightly larger */
+  font-weight: 500; /* medium */
+  color: #CCE0F0; /* Themed text color */
+  white-space: normal;
+  margin: 0; /* Remove default margin */
+}
 
 /* Centered button group for desktop */
 .button-group-centered {
