@@ -499,72 +499,86 @@ function updateElapsedTime(startTime) {
     }
 }
 
+
 function displayActivity(activity) {
-    const presenceActivityName =
-        document.getElementById('presence-activity-name');
-    const presenceDetailsText =
-        document.getElementById('presence-details-text');
-    const presenceStateText =
-        document.getElementById('presence-state-text');
-    const presenceLargeImage =
-        document.getElementById('presence-large-image');
-    const presenceCardContent =
-        document.querySelector('.presence-card-content');
-    
+    const presenceActivityName = document.getElementById('presence-activity-name');
+    const presenceDetailsText = document.getElementById('presence-details-text');
+    const presenceStateText = document.getElementById('presence-state-text');
+    const presenceLargeImage = document.getElementById('presence-large-image');
+    const presenceCard = document.querySelector('.discord-presence-card'); 
+
+    const headerSection = document.querySelector('.discord-presence-header-section');
+    const divider = document.querySelector('.discord-presence-divider');
+    const activityDetails = document.querySelector('.discord-presence-activity-details');
+
+    presenceCard.classList.remove('spotify-card');
+    if (headerSection) headerSection.style.display = 'flex'; 
+    if (divider) divider.style.display = 'block'; 
+    if (activityDetails) activityDetails.style.display = 'flex'; 
+
     if (activity) {
-        if (presenceActivityName)
-            presenceActivityName.textContent = activity.name;
+        // Check if the activity is Spotify (type 2)
+        if (activity.name === 'Spotify' && activity.type === 2) { // Explicitly check type 2 for Spotify
+            presenceCard.classList.add('spotify-card');
+            if (headerSection) headerSection.style.display = 'none';
+            if (divider) divider.style.display = 'none';
 
-        if (presenceDetailsText && activity.details) {
-            presenceDetailsText.textContent = activity.details;
-        } else if (presenceDetailsText) {
-            presenceDetailsText.textContent = '';
-        }
-        if (presenceStateText && activity.state) {
-            presenceStateText.textContent = activity.state;
-        } else if (presenceStateText) {
-            presenceStateText.textContent = '';
-        }
+            // For Spotify, 'details' is song, 'state' is artist, 'assets.large_text' is album
+            if (presenceActivityName) presenceActivityName.textContent = activity.details; // Song name
+            if (presenceDetailsText) presenceDetailsText.textContent = activity.state; // Artist
+            if (presenceStateText) presenceStateText.textContent = activity.assets?.large_text || ''; // Album (if available)
 
-        if (presenceLargeImage && activity.assets &&
-            activity.assets.large_image) {
-            let largeImageUrl = '';
-            if (activity.assets.large_image.startsWith('mp:')) {
-                largeImageUrl =
-                    `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
-            } else if (activity.assets.large_image.startsWith('spotify:')) {
+            if (presenceLargeImage && activity.assets && activity.assets.large_image) {
                 const spotifyId = activity.assets.large_image.split(':')[1];
-                largeImageUrl =
-                    `https://i.scdn.co/image/${spotifyId}`;
-            } else if (activity.application_id) {
-                largeImageUrl =
-                    `https://cdn.discordapp.com/app-assets/${
-                        activity.application_id
-                    }/${
-                        activity.assets.large_image
-                    }.png`;
-            } else {
-                largeImageUrl = activity.assets.large_image;
+                presenceLargeImage.src = `https://i.scdn.co/image/${spotifyId}`;
+                presenceLargeImage.alt = activity.assets.large_text || 'Spotify Album Art';
+                presenceLargeImage.style.display = 'block';
+            } else if (presenceLargeImage) {
+                presenceLargeImage.style.display = 'none';
+                presenceLargeImage.src = '';
             }
-            presenceLargeImage.src = largeImageUrl;
-            presenceLargeImage.alt =
-                activity.assets.large_text || activity.name;
-            presenceLargeImage.style.display = 'block';
-        } else if (presenceLargeImage) {
-            presenceLargeImage.style.display = 'none';
-            presenceLargeImage.src = '';
+            updateElapsedTime(activity.timestamps?.start);
+
+        } else {
+            // Default display for other activities (games, streaming, custom status)
+            if (presenceActivityName) presenceActivityName.textContent = activity.name;
+
+            if (presenceDetailsText && activity.details) {
+                presenceDetailsText.textContent = activity.details;
+            } else if (presenceDetailsText) {
+                presenceDetailsText.textContent = '';
+            }
+            if (presenceStateText && activity.state) {
+                presenceStateText.textContent = activity.state;
+            } else if (presenceStateText) {
+                presenceStateText.textContent = '';
+            }
+
+            if (presenceLargeImage && activity.assets && activity.assets.large_image) {
+                let largeImageUrl = '';
+                if (activity.assets.large_image.startsWith('mp:')) {
+                    largeImageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
+                } else if (activity.application_id) {
+                    largeImageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+                } else {
+                    largeImageUrl = activity.assets.large_image;
+                }
+                presenceLargeImage.src = largeImageUrl;
+                presenceLargeImage.alt = activity.assets.large_text || activity.name;
+                presenceLargeImage.style.display = 'block';
+            } else if (presenceLargeImage) {
+                presenceLargeImage.style.display = 'none';
+                presenceLargeImage.src = '';
+            }
+            updateElapsedTime(activity.timestamps?.start);
         }
-        updateElapsedTime(activity.timestamps?.start);
 
     } else {
+        // No active activity
         if (hasReceivedInitialData) {
-            if (presenceActivityName)
-                presenceActivityName.textContent =
-                    'No active game/stream/listening.';
-            if (presenceDetailsText)
-                presenceDetailsText.textContent = '';
-            if (presenceStateText)
-                presenceStateText.textContent = '';
+            if (presenceActivityName) presenceActivityName.textContent = 'No active game/stream/listening.';
+            if (presenceDetailsText) presenceDetailsText.textContent = '';
+            if (presenceStateText) presenceStateText.textContent = '';
             if (presenceLargeImage) {
                 presenceLargeImage.style.display = 'none';
                 presenceLargeImage.src = '';

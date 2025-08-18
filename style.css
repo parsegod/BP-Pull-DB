@@ -1957,6 +1957,72 @@ th.sorted-desc::after {
   transform: translate(-50%, -50%); /* Added for centering */
 }
 
+ 
+.spotify-card {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text */
+  padding: 1.5rem; /* Keep consistent padding */
+  background: linear-gradient(145deg, rgba(29, 185, 84, 0.98), rgba(25, 150, 68, 0.92)); /* Spotify green gradient */
+  border: 1px solid rgba(29, 185, 84, 0.8); /* Spotify green border */
+  color: #FFFFFF; /* White text for Spotify */
+  height: auto; /* Allow height to adjust to content */
+}
+
+.spotify-card .discord-presence-header-section,
+.spotify-card .discord-presence-divider,
+.spotify-card .discord-presence-user-info,
+.spotify-card .discord-presence-add-button,
+.spotify-card .discord-presence-avatar-wrapper {
+  display: none !important; /* Hide these elements for Spotify card */
+}
+
+.spotify-card .discord-presence-activity-details {
+  flex-grow: 1;
+  overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Adjust gap for Spotify content */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.spotify-card .discord-presence-carousel-item {
+  flex-direction: column;
+  gap: 0.8rem; /* Adjust gap for Spotify content */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.spotify-card .discord-presence-large-image {
+  border-radius: 8px; /* Slightly rounded corners for album art */
+  max-height: 150px; /* Larger image for Spotify album art */
+  max-width: 150px;
+  margin: 0 auto; /* Center the image */
+}
+
+.spotify-card .discord-presence-activity-name {
+  font-size: 1.2rem; /* Larger font for song name */
+  font-weight: bold;
+  color: #FFFFFF;
+  white-space: normal; /* Allow text to wrap */
+  word-break: break-word; /* Break long words */
+}
+
+.spotify-card .discord-presence-detail-text {
+  font-size: 1rem; /* Larger font for artist/album */
+  color: #E0E0E0;
+  white-space: normal; /* Allow text to wrap */
+  word-break: break-word; /* Break long words */
+}
+
+.spotify-card .discord-presence-elapsed-time {
+  font-size: 0.9rem;
+  color: #CCCCCC;
+  white-space: normal; /* Allow text to wrap */
+  word-break: break-word; /* Break long words */
+}
 
 
 /* ================== Discord Embed Styles (Basic Visibility) ================== */
