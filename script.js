@@ -504,6 +504,7 @@ function displayActivity(activity) {
     const presenceStateText = document.getElementById('presence-state-text');
     const presenceLargeImage = document.getElementById('presence-large-image');
     const presenceCard = document.querySelector('.discord-presence-card');
+    const presenceElapsedTime = document.getElementById('presence-elapsed-time'); // Get elapsed time element
 
     const headerSection = document.querySelector('.discord-presence-header-section');
     const divider = document.querySelector('.discord-presence-divider');
@@ -515,81 +516,103 @@ function displayActivity(activity) {
     if (divider) divider.style.display = 'block'; // Show divider by default
     if (activityDetails) activityDetails.style.display = 'flex'; // Show activity details by default
 
+    // Clear previous content
+    if (presenceActivityName) presenceActivityName.textContent = '';
+    if (presenceDetailsText) presenceDetailsText.textContent = '';
+    if (presenceStateText) presenceStateText.textContent = '';
+    if (presenceLargeImage) {
+        presenceLargeImage.style.display = 'none';
+        presenceLargeImage.src = '';
+    }
+    updateElapsedTime(null); // Clear elapsed time
+
     if (activity) {
         // Define applications that should use the "Spotify-like" display
-        // IMPORTANT: These names must exactly match the 'name' property from Lanyard data.
-        // You can add more app names here if needed.
         const spotifyLikeApps = ['Spotify', 'Visual Studio Code', 'Minecraft', 'Call of Duty'];
 
-        // Check if the activity is Spotify (type 2) or one of the specified apps
-        if ((activity.name === 'Spotify' && activity.type === 2) || spotifyLikeApps.includes(activity.name)) {
-            presenceCard.classList.add('spotify-card'); // Apply the Spotify styling class
+        // Determine if it's a Spotify-like app or a default app
+        const isSpotifyLike = (activity.name === 'Spotify' && activity.type === 2) || spotifyLikeApps.includes(activity.name);
 
-            // Hide header and divider for these specific apps (CSS for .spotify-card also does this)
+        if (isSpotifyLike) {
+            presenceCard.classList.add('spotify-card');
             if (headerSection) headerSection.style.display = 'none';
             if (divider) divider.style.display = 'none';
-
-            // Content mapping for Spotify-like display
-            // For Spotify: 'details' is song, 'state' is artist, 'assets.large_text' is album
-            // For other apps, 'details' is usually the sub-status, 'state' is the main status, 'assets.large_text' is hover text for large image
-            if (presenceActivityName) presenceActivityName.textContent = activity.details || activity.name; // Song/App Name/Sub-status
-            if (presenceDetailsText) presenceDetailsText.textContent = activity.state || ''; // Artist/Main Status
-            if (presenceStateText) presenceStateText.textContent = activity.assets?.large_text || ''; // Album/Large Image Hover Text (if available)
-
-            if (presenceLargeImage && activity.assets && activity.assets.large_image) {
-                let imageUrl = '';
-                if (activity.name === 'Spotify') {
-                    const spotifyId = activity.assets.large_image.split(':')[1];
-                    imageUrl = `https://i.scdn.co/image/${spotifyId}`;
-                } else if (activity.assets.large_image.startsWith('mp:')) {
-                    imageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
-                } else if (activity.application_id) {
-                    imageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
-                } else {
-                    imageUrl = activity.assets.large_image;
-                }
-                presenceLargeImage.src = imageUrl;
-                presenceLargeImage.alt = activity.assets.large_text || activity.name;
-                presenceLargeImage.style.display = 'block';
-            } else if (presenceLargeImage) {
-                presenceLargeImage.style.display = 'none';
-                presenceLargeImage.src = '';
-            }
-            updateElapsedTime(activity.timestamps?.start);
-
         } else {
-            // Default display for all other activities (games, streaming, custom status)
-            if (presenceActivityName) presenceActivityName.textContent = activity.name;
-
-            if (presenceDetailsText && activity.details) {
-                presenceDetailsText.textContent = activity.details;
-            } else if (presenceDetailsText) {
-                presenceDetailsText.textContent = '';
-            }
-            if (presenceStateText && activity.state) {
-                presenceStateText.textContent = activity.state;
-            } else if (presenceStateText) {
-                presenceStateText.textContent = '';
-            }
-
-            if (presenceLargeImage && activity.assets && activity.assets.large_image) {
-                let largeImageUrl = '';
-                if (activity.assets.large_image.startsWith('mp:')) {
-                    largeImageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
-                } else if (activity.application_id) {
-                    largeImageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
-                } else {
-                    largeImageUrl = activity.assets.large_image;
-                }
-                presenceLargeImage.src = largeImageUrl;
-                presenceLargeImage.alt = activity.assets.large_text || activity.name;
-                presenceLargeImage.style.display = 'block';
-            } else if (presenceLargeImage) {
-                presenceLargeImage.style.display = 'none';
-                presenceLargeImage.src = '';
-            }
-            updateElapsedTime(activity.timestamps?.start);
+            // Ensure header and divider are visible for non-Spotify-like apps
+            if (headerSection) headerSection.style.display = 'flex';
+            if (divider) divider.style.display = 'block';
         }
+
+        // --- Populate Activity Name (Main Title) ---
+        if (presenceActivityName) {
+            presenceActivityName.textContent = activity.name || 'Unknown Activity';
+        }
+
+        // --- Populate Details and State (Sub-titles/Descriptions) ---
+        let detailLines = [];
+
+        // Prioritize 'details' and 'state'
+        if (activity.details) {
+            detailLines.push(activity.details);
+        }
+        if (activity.state) {
+            detailLines.push(activity.state);
+        }
+
+        // Add small image text if available and not redundant
+        if (activity.assets?.small_text && !detailLines.includes(activity.assets.small_text)) {
+            detailLines.push(activity.assets.small_text);
+        }
+
+        // Add large image text if available and not redundant
+        if (activity.assets?.large_text && !detailLines.includes(activity.assets.large_text)) {
+            detailLines.push(activity.assets.large_text);
+        }
+
+        // For Spotify, 'details' is song, 'state' is artist, 'assets.large_text' is album
+        // We'll try to show all of them.
+        if (activity.name === 'Spotify' && activity.type === 2) {
+            // Re-prioritize for Spotify to ensure song/artist/album are clear
+            if (presenceActivityName) presenceActivityName.textContent = activity.details || 'Spotify'; // Song name
+            if (presenceDetailsText) presenceDetailsText.textContent = activity.state || ''; // Artist
+            if (presenceStateText) presenceStateText.textContent = activity.assets?.large_text || ''; // Album
+        } else {
+            // For other apps, combine details and state into presenceDetailsText
+            // and use presenceStateText for other info or clear it if not enough space
+            if (presenceDetailsText) {
+                // Join the first two lines into presenceDetailsText
+                presenceDetailsText.textContent = detailLines.slice(0, 2).join(' - ');
+            }
+            if (presenceStateText) {
+                // Join remaining lines into presenceStateText
+                presenceStateText.textContent = detailLines.slice(2).join(' - ');
+            }
+        }
+
+
+        // --- Populate Images ---
+        if (presenceLargeImage && activity.assets && activity.assets.large_image) {
+            let largeImageUrl = '';
+            if (activity.name === 'Spotify' && activity.type === 2) {
+                const spotifyId = activity.assets.large_image.split(':')[1];
+                largeImageUrl = `https://i.scdn.co/image/${spotifyId}`;
+            } else if (activity.assets.large_image.startsWith('mp:')) {
+                largeImageUrl = `https://media.discordapp.net/${activity.assets.large_image.substring(3)}`;
+            } else if (activity.application_id) {
+                largeImageUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+            } else {
+                largeImageUrl = activity.assets.large_image; // Fallback for direct URLs
+            }
+            presenceLargeImage.src = largeImageUrl;
+            presenceLargeImage.alt = activity.assets.large_text || activity.name;
+            presenceLargeImage.style.display = 'block';
+        } else if (presenceLargeImage) {
+            presenceLargeImage.style.display = 'none';
+            presenceLargeImage.src = '';
+        }
+
+        // --- Update Elapsed Time ---
+        updateElapsedTime(activity.timestamps?.start);
 
     } else {
         // No active activity
@@ -605,6 +628,7 @@ function displayActivity(activity) {
         }
     }
 }
+
 
 
 function setupCarouselNavigation() {
