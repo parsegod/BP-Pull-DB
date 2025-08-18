@@ -363,7 +363,6 @@ const userId = '1285264427540545588';
 let userActivities = [];
 let currentActivityIndex = 0;
 let elapsedTimeInterval;
-let songProgressBarInterval;
 let hasReceivedInitialData = false;
 let ws;
 let heartbeatInterval;
@@ -512,14 +511,6 @@ function displayActivity(activity) {
     const presenceCardContent =
         document.querySelector('.presence-card-content');
     
-    // Clear previous progress bar interval
-    if (songProgressBarInterval) {
-        clearInterval(songProgressBarInterval);
-        songProgressBarInterval = null;
-    }
-    const oldProgressBar = document.getElementById('song-progress-container');
-    if (oldProgressBar) oldProgressBar.remove();
-
     if (activity) {
         if (presenceActivityName)
             presenceActivityName.textContent = activity.name;
@@ -565,48 +556,6 @@ function displayActivity(activity) {
         }
         updateElapsedTime(activity.timestamps?.start);
 
-        // Add progress bar for Spotify songs
-        if (activity.name === 'Spotify' && activity.timestamps) {
-            const progressBarContainer = document.createElement('div');
-            progressBarContainer.id = 'song-progress-container';
-            progressBarContainer.style.cssText =
-                'width: 100%; height: 5px; background-color: #36393f; margin-bottom: 10px; border-radius: 2.5px; overflow: hidden;';
-
-            const progressBar = document.createElement('div');
-            progressBar.id = 'song-progress-bar';
-            progressBar.style.cssText =
-                'height: 100%; background-color: #1DB954; transition: width 1s linear; border-radius: 2.5px;';
-            
-            progressBarContainer.appendChild(progressBar);
-            
-            // Insert the progress bar ABOVE the presence-large-image
-            const presenceLargeImage = document.getElementById('presence-large-image');
-            if (presenceLargeImage && presenceLargeImage.parentNode) {
-                presenceLargeImage.parentNode.insertBefore(progressBarContainer, presenceLargeImage);
-            } else {
-                // Fallback: append to carousel item if image not found
-                const carouselItem = document.querySelector('.discord-presence-carousel-item');
-                if (carouselItem) {
-                    carouselItem.appendChild(progressBarContainer);
-                }
-            }
-
-            const updateProgressBar = () => {
-                const now = Date.now();
-                const totalDuration = activity.timestamps.end - activity.timestamps.start;
-                const elapsed = now - activity.timestamps.start;
-                const progressPercentage = (elapsed / totalDuration) * 100;
-                progressBar.style.width = `${progressPercentage}%`;
-
-                if (now > activity.timestamps.end) {
-                    clearInterval(songProgressBarInterval);
-                }
-            };
-            
-            songProgressBarInterval = setInterval(updateProgressBar, 1000);
-            updateProgressBar();
-        }
-
     } else {
         if (hasReceivedInitialData) {
             if (presenceActivityName)
@@ -624,7 +573,6 @@ function displayActivity(activity) {
         }
     }
 }
-
 
 function setupCarouselNavigation() {
     const presenceCarousel =
