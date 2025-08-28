@@ -1,0 +1,864 @@
+body {
+      background-color: #0B1738;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+      color: #D0D8E8;
+      line-height: 1.6;
+    }
+
+    body.modal-open {
+        overflow: hidden;
+    }
+
+    #loadingContainerInModal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+        transition: opacity 0.5s ease-out;
+    }
+
+    #loadingBarContainer {
+      width: 80%;
+      max-width: 400px;
+      height: 20px;
+      background-color: #1A2B4D;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #7CA0E0;
+    }
+
+    #loadingBar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7CA0E0, #A0C0E8);
+      border-radius: 10px;
+      transition: width 0.3s ease-out;
+      box-shadow: 0 0 8px rgba(124, 160, 224, 0.7);
+    }
+
+    #loadingText {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #A0C0E8;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .video-background video {
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        filter: brightness(0.6);
+    }
+
+    .verification-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .verification-modal-content {
+      background: rgba(11, 23, 56, 0.95);
+      color: #E0E8F0;
+      font-family: 'Oswald', sans-serif;
+      padding: 40px 25px;
+      border-radius: 0;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      text-align: center;
+      width: calc(95% - 20px);
+      max-width: 855px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(44, 72, 124, 0.6);
+      transform: scale(1);
+      transition: transform 0.3s ease-out;
+      position: relative;
+      margin: auto;
+      min-height: auto;
+
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .verification-modal-content.scale-in {
+        animation: scaleIn 0.5s ease-out forwards;
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .verification-modal-content h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #A0C0E8;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .verification-modal-content p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      color: #CAD8E8;
+    }
+
+    .verification-modal-content button {
+      background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+      color: #0B1738;
+      border: none;
+      padding: 16px 35px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .verification-modal-content button:hover {
+      background: linear-gradient(180deg, #5A99D0, #3B75B0);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .verification-modal-content button:disabled {
+        background: #3A4F70;
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
+        box-shadow: none;
+    }
+
+    #verificationSuccessMessage {
+        color: #4CAF50;
+        font-weight: bold;
+        font-size: 1.8em;
+        margin-bottom: 25px;
+        display: none;
+        line-height: 1.4;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        padding: 15px 0;
+        animation: fadeInScale 0.8s ease-out forwards;
+    }
+
+    #verificationSuccessMessage .success-icon {
+        width: 60px;
+        height: 60px;
+        display: block;
+        margin: 0 auto 15px;
+        fill: #4CAF50;
+        animation: bounceIn 0.6s ease-out forwards;
+    }
+
+    #apiKeyDisplay {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1em;
+        color: #BCC7D8;
+        margin-top: 15px;
+        word-break: break-all;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid rgba(44, 72, 124, 0.6);
+        display: none;
+    }
+
+    @keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bounceIn {
+        0% { transform: scale(0.1); opacity: 0; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+
+    .glowing-red-text {
+      color: red;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.3);
+      animation: pulsate-glow 1.5s infinite alternate;
+    }
+
+    @keyframes pulsate-glow {
+      from { text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5); }
+      to { text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.6); }
+    }
+
+    .hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    #customMessageBox {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1a2b4d;
+        color: #E0E8F0;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 10001;
+        display: none;
+        font-family: 'Oswald', sans-serif;
+        text-align: center;
+        max-width: 80%;
+    }
+
+    #clearMessagePopup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(11, 23, 56, 0.95);
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10002;
+        display: none;
+        font-size: 1.2em;
+        line-height: 1.6;
+    }
+
+    #clearMessagePopup > div {
+        background: linear-gradient(135deg, #1a2b4d, #0b1738);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(124, 160, 224, 0.3);
+        max-width: 400px;
+        width: calc(100% - 40px);
+        box-sizing: border-box;
+    }
+
+    .logo-verf {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: auto;
+      z-index: 10;
+    }
+
+    .motto-verf {
+      position: absolute;
+      top: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, rgb(31, 190, 190), #0B1738);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8em;
+      text-align: center;
+      white-space: nowrap;
+      z-index: 10;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(31, 190, 190), 0 0 15px rgba(11, 23, 56, 0.7);
+    }
+
+    #apiKeyPopupOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10003;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    #apiKeyPopupOverlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #apiKeyPopupContent {
+        background: rgba(11, 23, 56, 0.95);
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif;
+        padding: 40px 25px;
+        border-radius: 0;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        width: calc(95% - 20px);
+        max-width: 855px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(44, 72, 124, 0.6);
+        transform: scale(1);
+        opacity: 0;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        position: relative;
+        margin: auto;
+        min-height: auto;
+
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        zoom: 0.85;
+    }
+
+    #apiKeyPopupOverlay.show #apiKeyPopupContent {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    #apiKeyPopupContent h3 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 1.8em;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #A0C0E8;
+    }
+
+    #apiKeyPopupContent p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+        line-height: 1.6;
+        color: #CAD8E8;
+        word-break: break-all;
+    }
+
+    #apiKeyPopupContent strong {
+        color: #7CA0E0;
+    }
+
+    #apiKeyPopupContent .status-clean {
+        color: #66BB6A;
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-blocked {
+        color: #EF5350;
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-no-permission {
+        color: #EF5350;
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .status-granted {
+        color: #66BB6A;
+        font-weight: bold;
+    }
+
+    #apiKeyPopupContent .generation-log-container {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 10px;
+        max-height: 150px;
+        overflow-y: auto;
+        text-align: left;
+        font-size: 0.8em;
+        border: 1px solid rgba(124, 160, 224, 0.2);
+    }
+
+    #apiKeyPopupContent .generation-log-container::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    #apiKeyPopupContent .generation-log-container::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    #apiKeyPopupContent .generation-log-container {
+        scrollbar-width: none;
+    }
+
+    #apiKeyPopupButton {
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+        color: #0B1738;
+        border: none;
+        padding: 16px 35px;
+        border-radius: 10px;
+        font-size: 1.3em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    #apiKeyPopupButton:hover {
+        background: linear-gradient(180deg, #5A99D0, #3B75B0);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    #apiKeyDurationPopupOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10004; 
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    #apiKeyDurationPopupOverlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #apiKeyDurationPopupContent {
+        background: rgba(11, 23, 56, 0.95); 
+        color: #E0E8F0;
+        font-family: 'Oswald', sans-serif;
+        padding: 40px 25px;
+        border-radius: 0; 
+        border-top-left-radius: 30px; 
+        border-top-right-radius: 30px; 
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        width: calc(95% - 20px);
+        max-width: 500px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+        border: 1px solid rgba(44, 72, 124, 0.6); 
+        transform: scale(0.9); 
+        opacity: 0; 
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out; 
+        position: relative; 
+        margin: auto; 
+        min-height: auto; 
+        box-sizing: border-box; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #apiKeyDurationPopupOverlay.show #apiKeyDurationPopupContent {
+        transform: scale(1); 
+        opacity: 1; 
+    }
+
+    #apiKeyDurationPopupContent h3 {
+        font-size: 2em;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #A0C0E8;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    #apiKeyDurationPopupContent .duration-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    #apiKeyDurationPopupContent .duration-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(26, 43, 77, 0.7);
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        border: 1px solid rgba(124, 160, 224, 0.3);
+    }
+
+    #apiKeyDurationPopupContent .duration-option:hover {
+        background-color: rgba(36, 53, 87, 0.9);
+        transform: translateY(-2px);
+    }
+
+    #apiKeyDurationPopupContent .duration-option input[type="radio"] {
+        margin-right: 10px;
+        accent-color: #7CA0E0; 
+        transform: scale(1.2);
+    }
+
+    #apiKeyDurationPopupContent .duration-option label {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #E0E8F0;
+        cursor: pointer;
+    }
+
+    #apiKeyDurationPopupContent button {
+        background: linear-gradient(180deg, #6CACE4, #4A8CD4);
+        color: #0B1738;
+        border: none;
+        padding: 16px 35px;
+        border-radius: 10px;
+        font-size: 1.3em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    #apiKeyDurationPopupContent button:hover {
+        background: linear-gradient(180deg, #5A99D0, #3B75B0);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .custom-duration-input-container {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        gap: 10px; 
+        margin-top: 15px;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease-out, height 0.3s ease-out;
+    }
+
+    .custom-duration-input-container.show {
+        opacity: 1;
+        height: auto; 
+        padding-bottom: 10px; 
+    }
+
+    .custom-duration-input-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .custom-duration-input-group input[type="number"] {
+        background-color: #1A2B4D;
+        border: 1px solid #7CA0E0;
+        border-radius: 8px;
+        color: #E0E8F0;
+        padding: 10px 15px;
+        font-size: 1em;
+        width: 70px; 
+        text-align: center;
+        -moz-appearance: textfield; 
+        appearance: none; 
+    }
+
+    .custom-duration-input-group input[type="number"]::-webkit-outer-spin-button,
+    .custom-duration-input-group input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none; 
+        margin: 0;
+    }
+
+    .custom-duration-input-group label {
+        font-size: 0.9em; 
+        color: #CAD8E8;
+    }
+
+    @media (max-width: 768px) {
+        .verification-modal-overlay {
+            justify-content: center;
+            padding-top: 0;
+        }
+        .verification-modal-content {
+            width: 96%;
+            max-width: none;
+            padding: 10px;
+            margin: auto;
+            min-height: 40vh;
+
+            border-radius: 0;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-verf {
+            position: static;
+            margin-bottom: 3vh;
+            width: clamp(80px, 25vw, 150px);
+            top: auto;
+            left: auto;
+            transform: none;
+        }
+        .motto-verf {
+            position: static;
+            font-size: clamp(0.9em, 4vw, 1.5em);
+            margin-top: 1vh;
+            margin-bottom: 4vh;
+            white-space: nowrap;
+            top: auto;
+            left: auto;
+            transform: none;
+        }
+
+        .verification-modal-content h2 {
+            font-size: clamp(1.8em, 5vw, 2.2em);
+            margin-bottom: 2vh;
+        }
+
+        .verification-modal-content p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin-bottom: 2vh;
+        }
+
+        .verification-modal-content button {
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+            margin: 1.5vh auto;
+        }
+
+        #verificationSuccessMessage {
+            font-size: clamp(1.4em, 4.5vw, 1.7em);
+            margin-bottom: 2vh;
+        }
+
+        #verificationSuccessMessage .success-icon {
+            width: clamp(40px, 10vw, 50px);
+            height: clamp(40px, 10vw, 50px);
+            margin-bottom: 1vh;
+        }
+
+        #apiKeyDisplay {
+            font-size: 0.9em;
+            padding: 8px;
+        }
+
+        #clearMessagePopup > div {
+            max-width: 90%;
+            padding: 30px;
+            font-size: 1.1em;
+        }
+
+        #apiKeyPopupContent {
+            padding: 10px;
+            width: 96%;
+            max-width: none;
+            min-height: 40vh;
+            border-radius: 0;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            padding-top: 10px;
+            zoom: 1;
+        }
+        #apiKeyPopupContent h3 {
+            font-size: clamp(1.8em, 5vw, 2.2em);
+            margin-bottom: 1.5vh;
+            margin-top: 0;
+        }
+        #apiKeyPopupContent p {
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin-bottom: 0.5vh;
+        }
+        #apiKeyPopupButton {
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+            margin: 1.5vh auto;
+        }
+
+        #apiKeyDurationPopupContent {
+            padding: 10px; 
+            width: 96%;
+            max-width: none;
+            border-radius: 0; 
+            border-top-left-radius: 25px; 
+            border-top-right-radius: 25px; 
+        }
+        #apiKeyDurationPopupContent h3 {
+            font-size: clamp(1.5em, 4.5vw, 1.8em);
+            margin-bottom: 15px;
+        }
+        #apiKeyDurationPopupContent .duration-option {
+            padding: 12px;
+        }
+        #apiKeyDurationPopupContent .duration-option label {
+            font-size: clamp(1em, 3.5vw, 1.1em);
+        }
+        #apiKeyDurationPopupContent button {
+            padding: 1.5vh 3vw;
+            font-size: clamp(1em, 4vw, 1.2em);
+        }
+
+        .custom-duration-input-container.show {
+            height: auto; 
+        }
+        .custom-duration-input-group input[type="number"] {
+            width: 60px; 
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
+        .custom-duration-input-group label {
+            font-size: 0.8em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .verification-modal-content {
+            width: 96%;
+            padding: 10px;
+            margin: auto;
+            min-height: 40vh;
+
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .logo-verf {
+            position: static;
+            margin-bottom: 2vh;
+            width: clamp(70px, 20vw, 120px);
+            top: auto;
+            left: auto;
+            transform: none;
+        }
+        .motto-verf {
+            position: static;
+            font-size: clamp(0.8em, 3.5vw, 1.2em);
+            margin-bottom: 2.5vh;
+            top: auto;
+            left: auto;
+            transform: none;
+        }
+
+        .verification-modal-content h2 {
+            font-size: clamp(1.5em, 4.5vw, 2em);
+            margin-bottom: 1.5vh;
+        }
+
+        .verification-modal-content p {
+            font-size: clamp(0.8em, 3vw, 1em);
+            margin-bottom: 1.5vh;
+        }
+
+        .verification-modal-content button {
+            padding: 1.2vh 2.5vw;
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin: 1vh auto;
+        }
+
+        #verificationSuccessMessage {
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            margin-bottom: 1.5vh;
+        }
+
+        #verificationSuccessMessage .success-icon {
+            width: clamp(30px, 8vw, 40px);
+            height: clamp(30px, 8vw, 40px);
+            margin-bottom: 0.8vh;
+        }
+
+        #apiKeyDisplay {
+            font-size: 0.8em;
+            padding: 6px;
+        }
+
+        #clearMessagePopup > div {
+            max-width: 95%;
+            padding: 20px;
+            font-size: 1em;
+        }
+
+        #apiKeyPopupContent {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding-top: 10px;
+        }
+
+        #apiKeyDurationPopupContent {
+            padding: 15px 10px;
+            border-top-left-radius: 20px; 
+            border-top-right-radius: 20px; 
+        }
+        #apiKeyDurationPopupContent h3 {
+            font-size: clamp(1.3em, 4vw, 1.6em);
+        }
+        #apiKeyDurationPopupContent .duration-option {
+            padding: 10px;
+        }
+        #apiKeyDurationPopupContent .duration-option label {
+            font-size: clamp(0.9em, 3vw, 1em);
+        }
+        #apiKeyDurationPopupContent button {
+            padding: 1.2vh 2.5vw;
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+        }
+        .custom-duration-input-group input[type="number"] {
+            width: 50px; 
+        }
+    }
