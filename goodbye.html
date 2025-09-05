@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Until Next Time</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background: #0d0f1c; /* Deep space blue */
+            color: #ffffff;
+        }
+        .particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            will-change: transform; /* Optimize for smooth animation */
+            transition: transform 0.2s ease-out; /* Smooth transition for parallax */
+        }
+        .content-card {
+            backdrop-filter: blur(10px);
+            background: rgba(25, 29, 43, 0.7); /* Slightly transparent background */
+            transition: all 0.3s ease;
+        }
+        .cursive-text {
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .text-container:hover .cursive-text {
+            text-shadow: 0 0 20px #a855f7, 0 0 30px #a855f7, 0 0 40px #a855f7;
+        }
+        .liquid-button {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            background: linear-gradient(90deg, #a855f7 0%, #d8b4fe 100%);
+            border: 2px solid transparent;
+            font-weight: 600;
+        }
+        .liquid-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
+        }
+        .liquid-button:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+        .liquid-button:hover {
+            color: #1a202c !important;
+        }
+        .social-link {
+            transition: color 0.2s ease-in-out;
+        }
+        .show-more-button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 0.75rem;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 0.5rem;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+        .show-more-button:hover {
+            opacity: 1;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: #fff;
+            margin-left: 0.1em;
+            vertical-align: middle;
+            animation: blink 0.7s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { visibility: hidden; }
+            50% { visibility: visible; }
+        }
+        /* Styles for the Build-Up Animation */
+        .farewell-container-wrapper {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            background: rgba(25, 29, 43, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+        .farewell-container-wrapper.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .farewell-tile-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            z-index: 10;
+        }
+        .farewell-tile {
+            background: #0d0f1c;
+            opacity: 1;
+            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+        }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(1) { transition-delay: 0s; transform: translateY(-100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(2) { transition-delay: 0.1s; transform: translateY(-100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(3) { transition-delay: 0.2s; transform: translateY(-100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(4) { transition-delay: 0.3s; transform: translateY(-100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(5) { transition-delay: 0.4s; transform: translateY(100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(6) { transition-delay: 0.5s; transform: translateY(100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(7) { transition-delay: 0.6s; transform: translateY(100%) scaleY(0); opacity: 0; }
+        .farewell-container-wrapper.show .farewell-tile:nth-child(8) { transition-delay: 0.7s; transform: translateY(100%) scaleY(0); opacity: 0; }
+        
+        .farewell-container-content {
+            opacity: 0;
+            transition: opacity 1s ease-in-out 1.2s;
+        }
+        .farewell-container-wrapper.show .farewell-container-content {
+            opacity: 1;
+        }
+
+        /* Styles for the new GitHub modal */
+        .github-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .github-modal-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+        .github-modal-content {
+            background: #1a202c;
+            border: 2px solid #a855f7;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.5);
+            max-width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .github-modal-overlay.visible .github-modal-content {
+            transform: scale(1);
+        }
+        .github-link-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(90deg, #a855f7 0%, #d8b4fe 100%);
+            color: #1a202c;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: transform 0.2s ease-in-out;
+        }
+        .github-link-button:hover {
+            transform: scale(1.05);
+        }
+        /* New style for the easter egg hint */
+        .easter-egg-hint {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 0.05em;
+            color: #67e8f9;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 text-white">
+
+    <!-- Particles.js container for parallax effect -->
+    <div id="particles-js" class="particles-js"></div>
+
+    <!-- Time-based Greeting (outside of the content card) -->
+    <h1 class="text-5xl md:text-6xl font-normal cursive-text mb-8 md:mb-12">
+        <span id="greeting-text"></span><span class="typing-cursor"></span>
+    </h1>
+
+    <!-- New flex container to hold the two cards side-by-side -->
+    <div class="flex flex-col md:flex-row items-start justify-center gap-6 md:gap-8 w-full max-w-5xl z-10">
+
+        <!-- New Contact Info Container -->
+        <div class="flex flex-col p-8 rounded-xl content-card shadow-2xl text-left md:text-center w-full md:max-w-xs">
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-purple-400">Contact Us</h2>
+            <div class="text-sm md:text-base space-y-2">
+                <!-- Discord info -->
+                <p><span class="font-bold text-white">Discord:</span> <span class="text-blue-300">softlist#0001 | softlist</span></p>
+                <p class="text-red-400 text-xs mt-1">most likely won't respond for a while</p>
+            </div>
+            <div class="mt-6 flex justify-center space-x-4">
+                <!-- Discord link -->
+                <a href="#" class="text-gray-400 hover:text-white transition social-link">Discord</a>
+            </div>
+        </div>
+
+        <!-- The main content container with a blur effect -->
+        <div class="flex-1 text-center group text-container p-8 rounded-xl content-card shadow-2xl w-full">
+            
+            <!-- Live Clock and Date -->
+            <div class="mt-4 text-base md:text-lg text-gray-400 font-light">
+                <span id="date-display"></span> | <span id="time-display"></span>
+            </div>
+
+            <!-- Dynamic User Information List -->
+            <div class="mt-4 text-sm md:text-md text-left inline-block">
+                <p><span class="font-bold text-white">Your browser:</span> <span id="browser-info" class="font-bold text-yellow-400"></span></p>
+                <p>
+                    <span class="font-bold text-white">Useragent:</span> 
+                    <span id="useragent-info-truncated" class="font-bold text-yellow-400"></span>
+                    <span id="useragent-info-full" class="font-bold text-yellow-400 hidden"></span>
+                    <button id="useragent-toggle-button" class="show-more-button hidden">Show More</button>
+                </p>
+                <p><span class="font-bold text-white">Request Number:</span> <span id="request-number-info" class="font-bold text-cyan-400"></span></p>
+                <p><span class="font-bold text-white">Operating System:</span> <span id="os-info" class="font-bold text-purple-400"></span></p>
+                <p><span class="font-bold text-white">Device Type:</span> <span id="device-info" class="font-bold text-purple-400"></span></p>
+            </div>
+            
+            <!-- A professional button with a liquid hover effect -->
+            <button id="backButton" onclick="window.history.back()" class="mt-8 px-8 py-3 border-2 border-white 
+                text-white rounded-full transition-all duration-300 ease-in-out 
+                hover:text-gray-900 hover:bg-white
+                liquid-button">
+                Go Back
+            </button>
+
+            <!-- A section with more links -->
+            <div class="mt-8 pt-4 border-t border-gray-700">
+                <h3 class="text-gray-400 text-sm mb-2 font-light">Keep in touch:</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition social-link">Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New container for farewell message with building animation -->
+    <div id="farewell-container" class="farewell-container-wrapper w-full md:w-3/4 max-w-lg mt-4 p-8 text-center relative">
+        <div class="farewell-tile-overlay">
+            <div class="farewell-tile" style="transition-delay: 0s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.1s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.2s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.3s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.4s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.5s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.6s;"></div>
+            <div class="farewell-tile" style="transition-delay: 0.7s;"></div>
+        </div>
+        <div class="farewell-container-content z-20">
+            <!-- New easter egg hint -->
+            <p id="easter-egg-hint" class="easter-egg-hint">Psst... hover for a while</p>
+            <h3 id="farewell-header" class="text-2xl font-bold text-red-500 mb-2"></h3>
+            <p class="cursive-text text-xl text-gray-400 -mt-2">-parse</p>
+            <p id="farewell-text" class="text-sm md:text-md text-gray-300"></p>
+        </div>
+    </div>
+
+    <!-- The new GitHub Modal Pop-up -->
+    <div id="github-modal" class="github-modal-overlay">
+        <div id="github-modal-content" class="github-modal-content">
+            <h4 class="text-2xl font-bold text-purple-400 mb-2">Want to continue the project?</h4>
+            <p class="text-gray-300">
+                This project is open source. If you have the skills and desire, you can clone the repository from GitHub and continue the project yourself.
+            </p>
+            <a href="https://github.com/your-username/your-project" target="_blank" class="github-link-button">
+                View on GitHub
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Script for Particle.js and Page Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // Particle.js configuration
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#a855f7" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#a855f7", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 4, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": { "distance": 100, "duration": 0.4 },
+                    "push": { "particles_nb": 4 }
+                }
+            }
+        });
+        
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const parallaxBg = document.getElementById('particles-js');
+            const moveX = (window.innerWidth / 2 - e.clientX) / 50;
+            const moveY = (window.innerHeight / 2 - e.clientY) / 50;
+            parallaxBg.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        function getUserBrowser() {
+            const userAgent = navigator.userAgent;
+            if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
+                return "Chrome";
+            } else if (userAgent.includes("Firefox")) {
+                return "Firefox";
+            } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+                return "Safari";
+            } else if (userAgent.includes("Edg")) {
+                return "Edge";
+            } else {
+                return "Browser";
+            }
+        }
+
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+                return "Tablet";
+            }
+            if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk|Opera Mini|webOS|Windows Phone/i.test(ua)) {
+                return "Mobile";
+            }
+            return "Desktop";
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('date-display').innerText = dateStr;
+            document.getElementById('time-display').innerText = timeStr;
+        }
+
+        function handleLongInfo(info, truncatedId, fullId, buttonId) {
+            const truncatedSpan = document.getElementById(truncatedId);
+            const fullSpan = document.getElementById(fullId);
+            const button = document.getElementById(buttonId);
+            const maxLength = 30;
+
+            if (info.length > maxLength) {
+                truncatedSpan.innerText = info.substring(0, maxLength) + '...';
+                fullSpan.innerText = info;
+                button.classList.remove('hidden');
+
+                button.addEventListener('click', () => {
+                    if (fullSpan.classList.contains('hidden')) {
+                        fullSpan.classList.remove('hidden');
+                        truncatedSpan.classList.add('hidden');
+                        button.innerText = 'Show Less';
+                    } else {
+                        fullSpan.classList.add('hidden');
+                        truncatedSpan.classList.remove('hidden');
+                        button.innerText = 'Show More';
+                    }
+                });
+            } else {
+                truncatedSpan.innerText = info;
+            }
+        }
+        
+        function startTypingLoop(text, elementId) {
+            const element = document.getElementById(elementId);
+            const typingSpeed = 75; // Time to type a character
+            const deletingSpeed = 40; // Time to delete a character
+            const pauseAfterType = 2000; // Pause after typing
+            const pauseAfterErase = 500; // Pause after erasing before re-typing starts
+
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, typingSpeed);
+                } else {
+                    setTimeout(erase, pauseAfterType);
+                }
+            }
+
+            function erase() {
+                if (i > 0) {
+                    element.innerHTML = text.substring(0, i - 1);
+                    i--;
+                    setTimeout(erase, deletingSpeed);
+                } else {
+                    setTimeout(type, pauseAfterErase);
+                }
+            }
+            
+            type();
+        }
+
+        function showFarewellMessage(timeOfDay) {
+            const container = document.getElementById('farewell-container');
+            const header = document.getElementById('farewell-header');
+            const body = document.getElementById('farewell-text');
+
+            // Populate the text first
+            header.innerText = "Goodbye.";
+            body.innerText = `
+                I want to thank everyone for the help in making the blu base database possible, and thank you to all the users who utilized it. Unfortunately, it's time to shut her down. I don't have enough time to keep the project healthy and alive, so I'm going to be pulling the plug on it. It's been a great time helping out the community, but I'm just not interested in the project or video games as a whole anymore. I hope you all have a wonderful ${timeOfDay}.
+            `;
+
+            // Trigger the animation by adding the 'show' class
+            container.classList.add('show');
+        }
+
+        // GitHub modal logic
+        let githubHoverTimer;
+        const farewellContainer = document.getElementById('farewell-container');
+        const githubModal = document.getElementById('github-modal');
+        const githubModalContent = document.getElementById('github-modal-content');
+        const easterEggHint = document.getElementById('easter-egg-hint');
+
+        const showGithubModal = () => {
+            githubModal.classList.add('visible');
+        };
+
+        const hideGithubModal = () => {
+            githubModal.classList.remove('visible');
+        };
+
+        farewellContainer.addEventListener('mouseenter', () => {
+            easterEggHint.style.opacity = '1';
+            githubHoverTimer = setTimeout(showGithubModal, 5000); // 5-second delay
+        });
+
+        farewellContainer.addEventListener('mouseleave', () => {
+            easterEggHint.style.opacity = '0';
+            clearTimeout(githubHoverTimer);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (githubModal.classList.contains('visible') && !githubModalContent.contains(event.target)) {
+                hideGithubModal();
+            }
+        });
+    
+        window.onload = function() {
+            // Update user info
+            document.getElementById('browser-info').innerText = getUserBrowser();
+            handleLongInfo(navigator.userAgent, 'useragent-info-truncated', 'useragent-info-full', 'useragent-toggle-button');
+            document.getElementById('request-number-info').innerText = crypto.randomUUID();
+            document.getElementById('os-info').innerText = navigator.platform;
+            document.getElementById('device-info').innerText = getDeviceType();
+            
+            // Set the dynamic greeting with the new typing animation
+            const now = new Date();
+            const hour = now.getHours();
+            let timeOfDay = "day";
+            let greetingText = "Farewell for now.";
+
+            if (hour < 12) {
+                greetingText = "Good Morning!";
+                timeOfDay = "morning";
+            } else if (hour < 18) {
+                greetingText = "Good Afternoon!";
+                timeOfDay = "afternoon";
+            } else {
+                greetingText = "Good Evening!";
+                timeOfDay = "evening";
+            }
+            
+            startTypingLoop(greetingText, 'greeting-text');
+
+            // Show the farewell message after a delay
+            setTimeout(() => {
+                showFarewellMessage(timeOfDay);
+            }, 5000); // 5-second delay before the farewell message appears
+
+            // Update the button text
+            const button = document.getElementById('backButton');
+            button.innerText = `Return to ${getUserBrowser()}`;
+
+            // Start the live clock
+            updateTime();
+            setInterval(updateTime, 1000);
+        };
+    </script>
+</body>
+</html>
